@@ -12,9 +12,10 @@
 | 核心功能 | 一句话说明 | 示例 |
 | --- | --- | --- |
 | **地址合并批量读取** | 几百个点位自动合并成几个请求，采集周期才压得下来 | **[BatchRead](./samples/BatchRead)** ⭐ |
-| **采集最小闭环** | 连上 → 读到值 → 写进去 → 读回一致 | [QuickStart](./samples/QuickStart) |
+| **坏点隔离 / 恢复** | 一个坏点，拖不垮整块采集 | [BadPointIsolation](./samples/BadPointIsolation) |
 | **变化上报** | 值变了才回调你，不用自己轮询比对 | [Events](./samples/Events) |
-| 坏点隔离 / 恢复 | 单个坏点不拖垮整块采集 | （示例待补） |
+| **采集最小闭环** | 连上 → 读到值 → 写进去 → 读回一致 | [QuickStart](./samples/QuickStart) |
+| **多协议接入** | 换 Modbus 只改三样东西 | [Modbus](./samples/Modbus) |
 
 ---
 
