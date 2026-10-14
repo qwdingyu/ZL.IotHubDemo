@@ -15,8 +15,9 @@ using ZL.IotHub;
 using ZL.IotHub.Core;
 using ZL.Tag;
 
-const string Host = "127.0.0.1";
-const int Port = 31002;
+// 连接参数：命令行可覆盖（dotnet run -- --ip 192.168.1.10 --port 102）
+var host = GetArg(args, "--ip", "127.0.0.1");
+var port = int.TryParse(GetArg(args, "--port", "31002"), out var parsedPort) ? parsedPort : 31002;
 const string DeviceId = "MY-DEVICE";
 
 // ── 1. 点表：把这里换成你自己的地址 ──────────────────────────────────────
@@ -31,8 +32,8 @@ var tags = new List<TagItem>
 var cfg = new DeviceConfig();
 cfg.Add("Protocol", "siemens-s7");   // 走自研原生驱动
 cfg.Add("DeviceId", DeviceId);
-cfg.Add("DeviceIp", Host);
-cfg.Add("Port", Port);
+cfg.Add("DeviceIp", host);
+cfg.Add("Port", port);
 cfg.Add("Rack", 0);
 cfg.Add("Slot", 1);
 cfg.Add("Tags", tags);
@@ -41,8 +42,8 @@ cfg.Add("Tags", tags);
 using var driver = DriverFactory.Create(cfg);
 if (!driver.Connect())
 {
-    Console.WriteLine($"连接失败 {Host}:{Port}。忘了起仿真器？");
-    Console.WriteLine($"  plcsim --protocols siemens-s7 --ports s7={Port} --headless --auto-start");
+    Console.WriteLine($"连接失败 {host}:{port}。忘了起仿真器？");
+    Console.WriteLine($"  plcsim --protocols siemens-s7 --ports s7={port} --headless --auto-start");
     return 1;
 }
 Console.WriteLine($"已连接（{driver.GetType().Name}）");
@@ -63,3 +64,16 @@ if (actual != expected)
 }
 Console.WriteLine($"✅ 写入=读回（{actual}），地址与类型正确。");
 return 0;
+
+// 取命令行参数：--name value（找不到就用默认值）
+static string GetArg(string[] args, string name, string fallback)
+{
+    for (var i = 0; i < args.Length - 1; i++)
+    {
+        if (args[i].Equals(name, StringComparison.OrdinalIgnoreCase))
+        {
+            return string.IsNullOrWhiteSpace(args[i + 1]) ? fallback : args[i + 1];
+        }
+    }
+    return fallback;
+}
