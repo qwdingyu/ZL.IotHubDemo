@@ -1,23 +1,19 @@
-# QuickStart —— 最小采集闭环
+# QuickStart · 采集最小闭环
 
-演示最短路径：**点表 → 连接 → 读取 → 写入 → 读回比对**。
+**一句话：连上设备 → 读到值 → 写进去 → 读回一致。**
 
-## 跑起来
+最后那步「写入 = 读回」是**最便宜的自检**：地址、类型、端序任一处写错，
+这里立刻暴露，而不是等到了现场才发现。
 
-**① 起仿真器**（另开一个窗口）：
+## 跑
 
 ```bash
 dotnet tool install -g PlcSimulator.Cli     # 一次性
-plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
+plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start   # 另开一个窗口
+cd samples/QuickStart && dotnet run
 ```
 
-**② 跑示例**：
-
-```bash
-dotnet run
-```
-
-**③ 预期输出**：
+## 你会看到
 
 ```
 已连接（NativeUnifiedDriver）
@@ -27,39 +23,23 @@ RUN=True  COUNT=32767  TEMP=205885
 
 退出码：**0 = 通过；1 = 失败**（可直接用在脚本/CI 里）。
 
-## 改连接参数
+## 换成你自己的设备
 
 ```bash
 dotnet run -- --ip 192.168.1.10 --port 102
 ```
 
-## 换协议（Modbus）
-
-把 `Protocol` 改为 `modbus-tcp`，并补上 `Station` 与 `AddressStartWithZero`：
+改点表：
 
 ```csharp
-cfg.Add("Protocol", "modbus-tcp");
-cfg.Add("Station", (byte)1);
-cfg.Add("AddressStartWithZero", true);
-
-var tags = new List<TagItem>
-{
-    new() { Id = "COIL_RUN", Address = "COIL1", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    new() { Id = "HR_TEMP",  Address = "HR100", DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
-};
+new() { Id = "TEMP", Address = "DB1.DBD4", DataTypeCode = "float", TagType = "M", StationNo = DeviceId },
 ```
 
-对应仿真器：
+- S7 地址：`DB1.DBX0.0`（位）、`DB1.DBW2`（字）、`DB1.DBD4`（双字 · float）
+- `DataTypeCode`：`bool` / `short` / `int` / `float` / `string`
+- Modbus：把 `Protocol` 改成 `modbus-tcp`，并补 `Station` 与 `AddressStartWithZero`
 
-```bash
-plcsim --protocols modbus-tcp --ports modbus=31502 --headless --auto-start
-dotnet run -- --port 31502
-```
+## 连不上？
 
-## 连不上怎么办
-
-程序会直接提示。最常见的原因：**忘了起仿真器**，或**端口不一致**
-（示例的 `Port` 必须与仿真器 `--ports` 的 `s7=` 相同）。
-
-若提示与授权有关：免费版支持 **≤ 10 台设备、协议全开**；
-超过 10 台需要正式设备授权——**授权咨询：微信 `qwdingyu`**。
+程序会直接提示。最常见的是**忘了起仿真器**，或**端口不一致**
+（`--port` 必须与仿真器 `--ports` 的 `s7=` 相同）。

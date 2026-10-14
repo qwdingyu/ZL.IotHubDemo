@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ZL.IotHub.Sample.BatchRead</AssemblyName>
+    <RootNamespace>ZL.IotHub.Sample.BatchRead</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ZL.IotHub" Version="2.2.15" />
+  </ItemGroup>
+
+</Project>
