@@ -19,7 +19,10 @@ jobs:
 
       # 2026-11-07 升级：原 CI **只 build 不跑** ✗
       #   而示例的价值在"能跑通" ✓ ⇒ 加真实运行 + 断言输出 ✓
-      - name: Build all samples
+      # 2026-11-07：示例现为 **多目标** `net8.0;net48` ✓
+      #   · net48 是 WinForm 主力 ⇒ **必须编译验证** ✓（Linux 上可编译，只是不能 run ✓）
+      #   · net8.0 用于**真实运行**（Linux 无 .NET Framework 运行时 ✗）
+      - name: Build all samples (net8.0 + net48)
         run: dotnet build ZL.IotEngine.Samples.sln -c Release --nologo
 
       - name: Install simulator (PlcSimulator.Cli)
@@ -40,21 +43,21 @@ jobs:
       - name: Run QuickStart (must print SMOKE ok)
         run: |
           set -e
-          out=$(dotnet run --project samples/QuickStart/QuickStart.csproj -c Release --no-build -- --ip 127.0.0.1 --port 31002)
+          out=$(dotnet run --project samples/QuickStart/QuickStart.csproj -f net8.0 -c Release --no-build -- --ip 127.0.0.1 --port 31002)
           echo "$out"
           echo "$out" | grep -q "写入=读回" || { echo "::error::QuickStart did not verify write/read"; exit 1; }
 
       - name: Run BatchRead (must merge into blocks)
         run: |
           set -e
-          out=$(dotnet run --project samples/BatchRead/BatchRead.csproj -c Release --no-build)
+          out=$(dotnet run --project samples/BatchRead/BatchRead.csproj -f net8.0 -c Release --no-build)
           echo "$out"
           echo "$out" | grep -q "个读取块" || { echo "::error::BatchRead produced no blocks"; exit 1; }
 
       - name: Run Events (must receive callbacks)
         run: |
           set -e
-          out=$(dotnet run --project samples/Events/Events.csproj -c Release --no-build -- --ip 127.0.0.1 --port 31002)
+          out=$(dotnet run --project samples/Events/Events.csproj -f net8.0 -c Release --no-build -- --ip 127.0.0.1 --port 31002)
           echo "$out"
           echo "$out" | grep -q "值变化回调" || { echo "::error::Events got no callbacks"; exit 1; }
 
@@ -70,7 +73,7 @@ jobs:
       - name: Run Modbus (write must read back)
         run: |
           set -e
-          out=$(dotnet run --project samples/Modbus/Modbus.csproj -c Release --no-build)
+          out=$(dotnet run --project samples/Modbus/Modbus.csproj -f net8.0 -c Release --no-build)
           echo "$out"
           echo "$out" | grep -q "接入正常" || { echo "::error::Modbus sample failed"; exit 1; }
 
@@ -85,14 +88,14 @@ jobs:
             n=$(grep -l HEADLESS_READY /tmp/sim-311*.log 2>/dev/null | wc -l)
             [ "$n" -ge 3 ] && break; sleep 1
           done
-          out=$(dotnet run --project samples/MultiDevice/MultiDevice.csproj -c Release --no-build)
+          out=$(dotnet run --project samples/MultiDevice/MultiDevice.csproj -f net8.0 -c Release --no-build)
           echo "$out"
           echo "$out" | grep -q "启动成功 3 台" || { echo "::error::MultiDevice isolation broken"; exit 1; }
 
       - name: Run BadPointIsolation (good points must survive)
         run: |
           set -e
-          out=$(dotnet run --project samples/BadPointIsolation/BadPointIsolation.csproj -c Release --no-build -- --ip 127.0.0.1 --port 31002)
+          out=$(dotnet run --project samples/BadPointIsolation/BadPointIsolation.csproj -f net8.0 -c Release --no-build -- --ip 127.0.0.1 --port 31002)
           echo "$out"
           echo "$out" | grep -q "RUN" || { echo "::error::BadPointIsolation good points failed"; exit 1; }
 

@@ -56,6 +56,15 @@ dotnet add package ZL.IotDriver    # 64 个协议驱动（独立插件包）
 | .NET 8 / 10 | `net8.0` / `net10.0` | ✅ 推荐；串口走 `System.IO.Ports` NuGet 包 |
 | 老框架 / 库项目 | `netstandard2.0` | ✅ 最低公约数 |
 
+> ✅ **本仓示例已改为多目标 `net8.0;net48`** ✓ —— 6 个示例源码在 net48 下**编译 0 error** ✓
+> ⚠️ `net48` 只能在 **Windows** 上运行（Linux/macOS 无 .NET Framework 运行时 ✗）
+> ```bash
+> # Windows 上跑 net48 版本（WinForm 同款运行时）
+> dotnet run --project samples/QuickStart/QuickStart.csproj -f net48
+> # 其它平台跑 net8.0
+> dotnet run --project samples/QuickStart/QuickStart.csproj -f net8.0
+> ```
+
 ---
 
 ## 写入点位必须显式授权

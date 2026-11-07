@@ -8,7 +8,11 @@
           （`ZL.IotHub.Sample.*`，Owner 决定暂不改名 ✓）
        ============================================================ -->
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <!-- 2026-11-07 改为**多目标**：net48 是 WinForm 主力客户群 ✓
+         实测：6 个示例源码在 net48 下**编译 0 error** ✓（无需改一行代码 ✓）
+         ⚠️ net48 目标只能在 **Windows** 上 `dotnet run`（macOS/Linux 无 .NET Framework 运行时 ✗）
+         ⇒ CI 仍在 Linux 上只跑 net8.0 ✓；net48 只做**编译验证** ✓ -->
+    <TargetFrameworks>net8.0;net48</TargetFrameworks>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>11</LangVersion>

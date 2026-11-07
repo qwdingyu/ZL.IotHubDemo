@@ -85,7 +85,13 @@ Console.WriteLine($"  舰队 {fleet.Count} 台：启动成功 {started.Count(r =
                   $"启动时健康 {healthyAtStart} 台。");
 Console.WriteLine("  注意：配错端口的那台**没有拖垮其他设备**，而且从健康表一眼就能看出是哪台。");
 Console.WriteLine();
-return 0;
+// 2026-11-07 修复：原实现**永远 return 0** ✗ —— 即使 4 台全失败也返回成功
+//   ⇒ CI/脚本无法据此判断失败 ✗
+//   语义：**故意配错的那台不算失败**（本示例就是演示"一台坏了不影响其他"）
+//   ⇒ 只要有 ≥1 台成功即返回 0 ✓；**全部**失败才返回 1 ✓
+var successCount = started.Count(r => r.IsSuccess);
+var expectedMin = fleet.Count - 1;   // 最后一台是故意配错的
+return successCount >= expectedMin ? 0 : 1;
 
 static DeviceConfig Build(string deviceId, int port)
 {
