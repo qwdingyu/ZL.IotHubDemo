@@ -136,7 +136,7 @@ await driver.WriteStringAsync("DB1.DBB10", "中文", StringKind.S7String, 20, en
 
 | 坑 | 说明 |
 | --- | --- |
-| **`Encoding.Default` 跨 TFM 不一致** | .NET 8 上是 **UTF-8**、net48 上是**系统 ANSI** ⇒ 同一句中文写出**不同字节** ✗ |
+| **`Encoding.Default` 随「运行时 + 系统区域」变化** | 它不是常量 ✗：<br>· **.NET 8/10** ⇒ **始终 UTF-8**（65001）✓【本机实测 ✓】<br>· **.NET Framework（真 Windows）** ⇒ **系统 ANSI 代码页**（中文 Windows = **936**；英文 = **1252**）⚠️【本机无真 Framework，**未实测** ✗，按 .NET 文档说明 ✓】<br>· **mono（本机实测）** ⇒ **UTF-8**（65001）✗ —— 与真 Framework **不同** ✓<br>⇒ **同一份源码在不同客户环境写出不同字节** ✗ ⇒ 必须**显式传编码** ✓ |
 | **`Encoding.GetEncoding(936)` 会抛异常** | 必须先触碰一次引擎的编码入口（`ResolveEncoding`）才会注册代码页 ✓ |
 | **`maxLength` 不能传 -1** | S7 会去读 PLC 头字段的真实容量；容量不足会明确报错（**这是正确保护**）✓ |
 | **`ReadString` 返回值含 S7 的 2 字节头** | 回读校验时必须跳过前 2 字节（`Byte0=最大长度, Byte1=实际长度`）✓ |
