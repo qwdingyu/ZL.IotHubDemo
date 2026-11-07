@@ -115,8 +115,12 @@ plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
 
 ```bash
 cd samples/BatchRead
-dotnet run
+dotnet run -f net8.0
 ```
+
+> ⚠️ **必须带 `-f`**：本仓示例是**多目标**（`net8.0;net48`）✓
+> 不写会报 `Your project targets multiple frameworks` ✗
+> （Windows 上想看 WinForm 同款运行时：`dotnet run -f net48`）
 
 **③ 你会看到**：
 
@@ -133,7 +137,7 @@ dotnet run
 ## 换个端口 / 换个设备
 
 ```bash
-dotnet run -- --ip 192.168.1.10 --port 102
+dotnet run -f net8.0 -- --ip 192.168.1.10 --port 102
 ```
 
 ---

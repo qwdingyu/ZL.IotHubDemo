@@ -11,6 +11,7 @@
 //      dotnet run
 // ═══════════════════════════════════════════════════════════════════════
 
+using ZL.IotEngine.Models;
 using ZL.IotEngine.Orchestration;
 using ZL.Tag;
 
@@ -81,9 +82,27 @@ foreach (var id in driver.QuarantineTags.Keys)
 // ── 4. 证明好点不受影响 ────────────────────────────────────────────────
 Console.WriteLine();
 Console.WriteLine("【4】好点照常采集（这就是隔离机制的意义）");
-Console.WriteLine($"      TEMP  = {driver.Read<float>("TEMP")}");
-Console.WriteLine($"      COUNT = {driver.Read<short>("COUNT")}");
-Console.WriteLine($"      RUN   = {driver.Read<bool>("RUN")}");
+// 🔴 重要陷阱（实测 + 源码确认 ✓）：
+//   `DeviceBase.Read<T>(id)` 的契约是「**失败或标签不存在时返回 `default(T)`**」✗
+//   ⇒ 直接打印 `driver.Read<short>("COUNT")` 时，读失败会显示 **0**、
+//     读 bool 失败会显示 **False** ⇒ **看起来像正常值** ✗✓（最误导人的地方 ✗）
+//   ⇒ 示例这里改用**带成功判定的读法** ✓：先看质量码，再读值 ✓
+foreach (var (id, kind) in new[] { ("TEMP", "float"), ("COUNT", "short"), ("RUN", "bool") })
+{
+    // 质量码是"值是否可信"的唯一依据 ✓
+    //   引擎把最新值+质量放在 `localCache`（`public ConcurrentDictionary<string,TagValue>` ✓）
+    var cacheKey = driver.GenerateCacheKey(driver.Tags[id]);
+    var quality = driver.localCache.TryGetValue(cacheKey, out var tv) ? tv.Quality : TagQuality.Bad;
+    var shown = kind switch
+    {
+        "float" => driver.Read<float>(id).ToString("F0"),
+        "short" => driver.Read<short>(id).ToString(),
+        _       => driver.Read<bool>(id).ToString(),
+    };
+    var mark = quality == TagQuality.Good ? "✅" : "⚠️";
+    Console.WriteLine($"      {mark} {id,-6} = {shown,-10} 质量={quality}"
+                    + (quality == TagQuality.Good ? "" : "  ← 值不可信（读失败会显示 default，别当正常值 ✗）"));
+}
 
 var isolated = driver.QuarantineTags.Count > 0;
 var goodOk = true;   // 上面三个读数能打印出来就说明好点没被拖垮
