@@ -84,6 +84,33 @@ new TagItem {
 
 ---
 
+## 判断「设备是否在线」必须用**质量码**，不要用 `IsConnected`
+
+实测（2026-11-07，杀仿真器进程模拟断网，观察 60 秒）：
+
+| 指标 | 断网后 | 可信？ |
+| --- | --- | --- |
+| `device.IsConnected` | **始终 `true`** | 不可信 |
+| `device.ConnectionState.IsConnected` | **始终 `true`** | 不可信 |
+| `device.ConnectionState.IsOperational` | **始终 `true`** | 不可信 |
+| `device.ConnectionState.SuccessRate` | 卡住不动 | 不可信 |
+| **`localCache[key].Quality`** | **`Bad`** | **唯一可信** |
+
+**正确做法**：
+
+```csharp
+var key = driver.GenerateCacheKey(driver.Tags["COUNT"]);
+var online = driver.localCache.TryGetValue(key, out var tv)
+             && tv.Quality == TagQuality.Good;
+```
+
+> 为什么：`BatchReadLoop` 的读取失败路径**不会**更新 `ConnectionState`；
+> 只有 `ReconnectionLoop` 重连失败才 `MarkDisconnected()`。
+> 心跳连续失败 5 次也只进 `Suspect` 态，而 `IsConnected` **包含 Suspect** ⇒ 仍是 `true`。
+> （已登记主仓 `docs/todolist.md` A-91，待修）
+
+---
+
 ## 字符串写入：编码必须显式指定
 
 ```csharp
