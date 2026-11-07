@@ -47,6 +47,20 @@ jobs:
           echo "$out"
           echo "$out" | grep -q "写入=读回" || { echo "::error::QuickStart did not verify write/read"; exit 1; }
 
+      - name: Run StringIO (string write must read back)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/StringIO/StringIO.csproj -f net8.0 -c Release --no-build)
+          echo "$out"
+          echo "$out" | grep -q "字符串写入 = 回读" || { echo "::error::StringIO failed"; exit 1; }
+
+      - name: Run ArrayIO (array write must read back)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/ArrayIO/ArrayIO.csproj -f net8.0 -c Release --no-build)
+          echo "$out"
+          echo "$out" | grep -q "数组写入 = 回读" || { echo "::error::ArrayIO failed"; exit 1; }
+
       - name: Run BatchRead (must merge into blocks)
         run: |
           set -e

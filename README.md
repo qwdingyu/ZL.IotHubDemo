@@ -16,6 +16,9 @@
 | **变化上报** | 值变了才回调你，不用自己轮询比对 | [Events](./samples/Events) |
 | **采集最小闭环** | 连上 → 读到值 → 写进去 → 读回一致 | [QuickStart](./samples/QuickStart) |
 | **多协议接入** | 换 Modbus 只改三样东西 | [Modbus](./samples/Modbus) |
+| **字符串读写** | 中文 PLC 最容易踩的 4 个坑（编码/S7 头/容量/注册）| **[StringIO](./samples/StringIO)** ⭐ |
+| **数组批量** | 一次搬一批；数组读的跨 TFM 差异 | [ArrayIO](./samples/ArrayIO) |
+| **多设备编排** | 一台坏了不拖垮其他 | [MultiDevice](./samples/MultiDevice) |
 
 ---
 

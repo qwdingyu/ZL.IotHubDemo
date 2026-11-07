@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>ZL.IotHub.Sample.ArrayIO</AssemblyName>
+    <RootNamespace>ZL.IotHub.Sample.ArrayIO</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ZL.IotEngine" Version="$(IotEngineVersion)" />
+    <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
+  </ItemGroup>
+</Project>
