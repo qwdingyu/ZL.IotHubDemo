@@ -1,0 +1,18 @@
+<Project>
+  <!-- ============================================================
+       2026-11-07 新增：统一 6 个示例的公共配置
+       动机（实测）：此前 6 个 csproj **各自重复** TargetFramework / Nullable /
+       ImplicitUsings / 两个包版本 ⇒ 升级版本要改 6 处，**必漏** ✗
+       ⇒ 抽到本文件 ⇒ 改一处生效全部 ✓
+       ⚠️ AssemblyName / RootNamespace **保持各示例自己的**
+          （`ZL.IotHub.Sample.*`，Owner 决定暂不改名 ✓）
+       ============================================================ -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>11</LangVersion>
+    <!-- 包版本单一真源：升级只改这里 ✓ -->
+    <IotEngineVersion>2.2.19</IotEngineVersion>
+  </PropertyGroup>
+</Project>

@@ -46,6 +46,50 @@ dotnet add package ZL.IotDriver    # 64 个协议驱动（独立插件包）
 
 ---
 
+## 目标框架（TFM）
+
+`ZL.IotEngine` / `ZL.IotDriver` **同时提供 4 个 TFM**，按你的项目自动选最合适的：
+
+| 你的项目 | 用哪个 TFM | 说明 |
+| --- | --- | --- |
+| **.NET Framework 4.8（WinForm 主力）** | `net48` | ✅ 完整支持；串口协议用框架自带 `System.IO.Ports` |
+| .NET 8 / 10 | `net8.0` / `net10.0` | ✅ 推荐；串口走 `System.IO.Ports` NuGet 包 |
+| 老框架 / 库项目 | `netstandard2.0` | ✅ 最低公约数 |
+
+---
+
+## 写入点位必须显式授权
+
+```csharp
+new TagItem {
+    Id = "COUNT", Address = "DB1.DBW2", DataTypeCode = "short",
+    AccessMode = AccessMode.ReadWrite,   // ← 不写就**只读**，写入会失败
+}
+```
+
+> 🔴 默认 `AccessMode` 是**只读** ✓ —— 这是刻意的安全设计（防止误写 PLC）✓
+> 报错信息会明确提示：`标签为只读模式，无法写入: COUNT`。
+
+---
+
+## 字符串写入：编码必须显式指定
+
+```csharp
+// ⚠️ 中文 PLC 现场必须用 GB2312（=936），不能用 Encoding.Default
+_ = PlcStringWriteHelper.ResolveEncoding(null);   // 先触发引擎注册代码页
+var enc = Encoding.GetEncoding(936);
+await driver.WriteStringAsync("DB1.DBB10", "中文", StringKind.S7String, 20, enc);
+```
+
+| 坑 | 说明 |
+| --- | --- |
+| **`Encoding.Default` 跨 TFM 不一致** | .NET 8 上是 **UTF-8**、net48 上是**系统 ANSI** ⇒ 同一句中文写出**不同字节** ✗ |
+| **`Encoding.GetEncoding(936)` 会抛异常** | 必须先触碰一次引擎的编码入口（`ResolveEncoding`）才会注册代码页 ✓ |
+| **`maxLength` 不能传 -1** | S7 会去读 PLC 头字段的真实容量；容量不足会明确报错（**这是正确保护**）✓ |
+| **`ReadString` 返回值含 S7 的 2 字节头** | 回读校验时必须跳过前 2 字节（`Byte0=最大长度, Byte1=实际长度`）✓ |
+
+---
+
 ## 5 分钟跑通
 
 **① 起一台仿真器**（没有真机也能练）：

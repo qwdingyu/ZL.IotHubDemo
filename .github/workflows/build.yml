@@ -1,4 +1,4 @@
-name: Build samples
+name: Build & Run samples
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,11 +17,85 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      # 2026-11-07 升级：原 CI **只 build 不跑** ✗
+      #   而示例的价值在"能跑通" ✓ ⇒ 加真实运行 + 断言输出 ✓
       - name: Build all samples
+        run: dotnet build ZL.IotEngine.Samples.sln -c Release --nologo
+
+      - name: Install simulator (PlcSimulator.Cli)
+        run: |
+          dotnet tool install -g PlcSimulator.Cli --version 2.2.12
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: Start S7 simulator (31002)
+        run: |
+          nohup plcsim --headless --auto-start --stay-alive \
+            --protocols s7 --ports s7=31002 > /tmp/sim-s7.log 2>&1 &
+          for i in $(seq 1 60); do
+            grep -q HEADLESS_READY /tmp/sim-s7.log && break; sleep 1
+          done
+          grep -q HEADLESS_READY /tmp/sim-s7.log || { echo "::error::simulator not ready"; tail -20 /tmp/sim-s7.log; exit 1; }
+          echo "✅ simulator ready"
+
+      - name: Run QuickStart (must print SMOKE ok)
         run: |
           set -e
-          for proj in samples/*/*.csproj; do
-            echo "::group::build $proj"
-            dotnet build "$proj" -c Release --nologo
-            echo "::endgroup::"
+          out=$(dotnet run --project samples/QuickStart/QuickStart.csproj -c Release --no-build -- --ip 127.0.0.1 --port 31002)
+          echo "$out"
+          echo "$out" | grep -q "写入=读回" || { echo "::error::QuickStart did not verify write/read"; exit 1; }
+
+      - name: Run BatchRead (must merge into blocks)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/BatchRead/BatchRead.csproj -c Release --no-build)
+          echo "$out"
+          echo "$out" | grep -q "个读取块" || { echo "::error::BatchRead produced no blocks"; exit 1; }
+
+      - name: Run Events (must receive callbacks)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/Events/Events.csproj -c Release --no-build -- --ip 127.0.0.1 --port 31002)
+          echo "$out"
+          echo "$out" | grep -q "值变化回调" || { echo "::error::Events got no callbacks"; exit 1; }
+
+      - name: Start Modbus simulator (31502)
+        run: |
+          nohup plcsim --headless --auto-start --stay-alive \
+            --protocols modbus-tcp --ports modbus=31502 > /tmp/sim-mb.log 2>&1 &
+          for i in $(seq 1 60); do
+            grep -q HEADLESS_READY /tmp/sim-mb.log && break; sleep 1
           done
+          grep -q HEADLESS_READY /tmp/sim-mb.log || { echo "::error::modbus simulator not ready"; exit 1; }
+
+      - name: Run Modbus (write must read back)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/Modbus/Modbus.csproj -c Release --no-build)
+          echo "$out"
+          echo "$out" | grep -q "接入正常" || { echo "::error::Modbus sample failed"; exit 1; }
+
+      - name: Run MultiDevice (3 up / 1 down, no cascade)
+        run: |
+          set -e
+          for p in 31101 31102 31103; do
+            nohup plcsim --headless --auto-start --stay-alive \
+              --protocols s7 --ports s7=$p > /tmp/sim-$p.log 2>&1 &
+          done
+          for i in $(seq 1 90); do
+            n=$(grep -l HEADLESS_READY /tmp/sim-311*.log 2>/dev/null | wc -l)
+            [ "$n" -ge 3 ] && break; sleep 1
+          done
+          out=$(dotnet run --project samples/MultiDevice/MultiDevice.csproj -c Release --no-build)
+          echo "$out"
+          echo "$out" | grep -q "启动成功 3 台" || { echo "::error::MultiDevice isolation broken"; exit 1; }
+
+      - name: Run BadPointIsolation (good points must survive)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/BadPointIsolation/BadPointIsolation.csproj -c Release --no-build -- --ip 127.0.0.1 --port 31002)
+          echo "$out"
+          echo "$out" | grep -q "RUN" || { echo "::error::BadPointIsolation good points failed"; exit 1; }
+
+      - name: Dump simulator logs on failure
+        if: failure()
+        run: tail -50 /tmp/sim-*.log 2>/dev/null || true

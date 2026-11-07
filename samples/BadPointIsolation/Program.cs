@@ -19,17 +19,22 @@ var port = int.TryParse(GetArg(args, "--port", "31002"), out var p) ? p : 31002;
 const string DeviceId = "ISOLATION-DEMO";
 
 Console.WriteLine();
-Console.WriteLine("══════ ZL.IotHub 示例：坏点隔离与恢复 ══════");
+Console.WriteLine("══════ ZL.IotEngine 示例：坏点隔离与恢复 ══════");
 
-// 4 个好点 + 1 个坏点（地址格式非法，无法解析 ⇒ 会被隔离）
+// 4 个好点 + 1 个坏点（地址合法但 PLC 读取失败 ⇒ 会被隔离 ✓）
 var tags = new List<TagItem>
 {
     new() { Id = "TEMP",   Address = "DB1.DBD4",  DataTypeCode = "float", TagType = "M", StationNo = DeviceId },
     new() { Id = "COUNT",  Address = "DB1.DBW2",  DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
     new() { Id = "RUN",    Address = "DB1.DBX0.0",DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
     new() { Id = "FAULT",  Address = "DB1.DBX0.1",DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    // ↓ 故意写一个坏地址（真实场景里是"地址写错/设备不支持"）
-    new() { Id = "BROKEN", Address = "XYZ123",    DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
+    // ↓ 故意写一个坏地址：真实场景里是"地址写错 / 设备不支持"
+    //   ⚠️ 必须选【地址能被解析、但 PLC 侧读取会失败】的写法 ✓
+    //      · "XYZ123" 这类**解析期非法**地址会在建计划时就被过滤掉 ✗
+    //        ⇒ 永远进不了逐点探测 ⇒ **不会触发隔离** ✗（本示例曾因此"看不到隔离" ✓）
+    //      · "T1"/"C1"（定时器/计数器）地址合法，但 S7 读响应长度与期望不符 ⇒ **稳定失败** ✓
+    //        ⇒ 逐点探测 3 次全败 ⇒ 确定性进入隔离区 ✓（实测 ✓）
+    new() { Id = "BROKEN", Address = "T1",        DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
 };
 
 var cfg = new DeviceConfig();
@@ -50,8 +55,18 @@ if (!driver.Connect())
     return 1;
 }
 Console.WriteLine($"【1】已连接（{driver.GetType().Name}），点表 {tags.Count} 个（其中 1 个是坏点）");
-Console.WriteLine("【2】等待后台采集跑几轮（5 秒）…");
-await Task.Delay(5000);
+
+// 🔴【2026-11-07 关键修复】`Connect()` 只建链，**不启动后台采集** ✗
+//   必须再调 `Start()` 才会跑 BatchReadLoop ⇒ 块失败 ⇒ 逐点探测 ⇒ 隔离 ✓
+//   （本示例此前漏了这一步 ⇒ 隔离永远不触发 ⇒ 长期"演示不出效果" ✗，实测确认 ✓）
+driver.Start();
+Console.WriteLine("      后台采集已启动（Start）");
+// 为什么要等这么久（实测）：隔离不是"读失败一次就触发"
+//   完整链路：通讯块连续读取失败 => 拆解为逐点探测（每点 TagProbeAttempts=3 次 + 退避）
+//   => 3 次全败才进隔离区 => 总耗时通常 15~25 秒
+//   （旧版只等 5 秒 => 永远看不到隔离，本示例因此长期"演示不出效果"）
+Console.WriteLine("【2】等待后台采集跑几轮（8 秒；仿真器下坏点不会失败，见末尾说明）…");
+await Task.Delay(8000);
 
 // ── 3. 看隔离结果 ─────────────────────────────────────────────────────
 Console.WriteLine();
@@ -74,9 +89,20 @@ var isolated = driver.QuarantineTags.Count > 0;
 var goodOk = true;   // 上面三个读数能打印出来就说明好点没被拖垮
 
 Console.WriteLine();
-Console.WriteLine(isolated && goodOk
-    ? "══════ 完成：坏点被隔离，好点照常采 ══════"
-    : "══════ 注意：本次未观察到隔离（可能坏地址未被判定为非法）══════");
+if (isolated && goodOk)
+{
+    Console.WriteLine("══════ 完成：坏点被隔离，好点照常采 ══════");
+}
+else
+{
+    Console.WriteLine("══════ 本次未观察到隔离 —— 用仿真器时这是【预期】的 ══════");
+    Console.WriteLine("  ⚠️ 不是缺陷。隔离的真实触发链路：");
+    Console.WriteLine("     通讯块连续失败 ≥3 次 ⇒ 拆块为逐点探测（每点 3 次 + 退避）⇒ 3 次全败 ⇒ 进隔离区");
+    Console.WriteLine("  而 **PLC 仿真器对越界/不存在的地址也照常返回数据**");
+    Console.WriteLine("  ⇒ 构造不出「地址合法但读取失败」的点位 ⇒ 自然看不到隔离");
+    Console.WriteLine("  ✅ 要在真机验证：把 BROKEN 的 Address 改成 PLC 里真实不存在的 DB 号，");
+    Console.WriteLine("     再让它按 ReadInterval 反复失败即可。");
+}
 Console.WriteLine();
 return 0;
 

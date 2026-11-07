@@ -2,17 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>ZL.IotHub.Sample.BatchRead</AssemblyName>
     <RootNamespace>ZL.IotHub.Sample.BatchRead</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- 2026-11-07：ZL.IotHub 已冻结停发，迁移到 ZL.IotEngine + ZL.IotDriver -->
-    <PackageReference Include="ZL.IotEngine" Version="2.2.19" />
-    <PackageReference Include="ZL.IotDriver" Version="2.2.19" />
+    <PackageReference Include="ZL.IotEngine" Version="$(IotEngineVersion)" />
+    <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
   </ItemGroup>
 
 </Project>
