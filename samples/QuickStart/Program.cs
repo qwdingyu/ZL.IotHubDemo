@@ -1,18 +1,18 @@
 // ═══════════════════════════════════════════════════════════════════════
-//  ZL.IotHub 最小采集示例（可直接拷进你自己的项目）
+//  ZL.IotEngine 最小采集示例（可直接拷进你自己的项目）
 //
 //  它做的事：读几个点位 → 写一个已知值 → 读回来比对。
 //  最后那步「写入 = 读回」就是采集程序交付前最便宜的自检：
 //  地址/类型/端序任一处写错，这里立刻会暴露，而不是等到了现场。
 //
-//  准备：dotnet add package ZL.IotHub
+//  准备：dotnet add package ZL.IotEngine
+//        dotnet add package ZL.IotDriver   ← 驱动在独立包，必须一起装
 //  运行：另开窗口起一台 S7 仿真器（没有真机也能练）
 //        plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
 //        然后：dotnet run
 // ═══════════════════════════════════════════════════════════════════════
 
-using ZL.IotHub;
-using ZL.IotHub.Core;
+using ZL.IotEngine.Orchestration;
 using ZL.Tag;
 
 // 连接参数：命令行可覆盖（dotnet run -- --ip 192.168.1.10 --port 102）
@@ -25,7 +25,9 @@ const string DeviceId = "MY-DEVICE";
 var tags = new List<TagItem>
 {
     new() { Id = "RUN",   Address = "DB1.DBX0.0", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    new() { Id = "COUNT", Address = "DB1.DBW2",   DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
+    // ⚠️ 要写入的点**必须显式**配 AccessMode（默认只读 ✗，这是刻意的安全设计 ✓）
+    new() { Id = "COUNT", Address = "DB1.DBW2",   DataTypeCode = "short", TagType = "M", StationNo = DeviceId,
+            AccessMode = AccessMode.ReadWrite },
     new() { Id = "TEMP",  Address = "DB1.DBD4",   DataTypeCode = "float", TagType = "M", StationNo = DeviceId },
 };
 

@@ -1,0 +1,7 @@
+{
+  "devices": [
+    { "name": "PLC-01", "protocol": "s7", "port": 31101, "options": { "model": "S7_1200", "station": 0 } },
+    { "name": "PLC-02", "protocol": "s7", "port": 31102, "options": { "model": "S7_1200", "station": 0 } },
+    { "name": "PLC-03", "protocol": "s7", "port": 31103, "options": { "model": "S7_1200", "station": 0 } }
+  ]
+}

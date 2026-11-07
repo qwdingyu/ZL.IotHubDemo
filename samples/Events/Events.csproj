@@ -10,7 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ZL.IotHub" Version="2.2.15" />
+    <!-- 2026-11-07：ZL.IotHub 已冻结停发，迁移到 ZL.IotEngine + ZL.IotDriver -->
+    <PackageReference Include="ZL.IotEngine" Version="2.2.19" />
+    <PackageReference Include="ZL.IotDriver" Version="2.2.19" />
   </ItemGroup>
 
 </Project>

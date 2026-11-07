@@ -12,8 +12,7 @@
 //      dotnet run
 // ═══════════════════════════════════════════════════════════════════════
 
-using ZL.IotHub;
-using ZL.IotHub.Core;
+using ZL.IotEngine.Orchestration;
 using ZL.Tag;
 
 var host = GetArg(args, "--ip", "127.0.0.1");
@@ -33,9 +32,9 @@ Console.WriteLine("══════ ZL.IotHub 示例：Modbus TCP ════
 var tags = new List<TagItem>
 {
     new() { Id = "COIL_0", Address = "0", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    new() { Id = "COIL_1", Address = "1", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
+    new() { Id = "COIL_1", Address = "1", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId, AccessMode = AccessMode.ReadWrite },
     new() { Id = "REG_0",  Address = "0", DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
-    new() { Id = "REG_1",  Address = "1", DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
+    new() { Id = "REG_1",  Address = "1", DataTypeCode = "short", TagType = "M", StationNo = DeviceId, AccessMode = AccessMode.ReadWrite },
 };
 
 var cfg = new DeviceConfig();
