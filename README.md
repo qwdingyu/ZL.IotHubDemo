@@ -107,7 +107,21 @@ var online = driver.localCache.TryGetValue(key, out var tv)
 > 为什么：`BatchReadLoop` 的读取失败路径**不会**更新 `ConnectionState`；
 > 只有 `ReconnectionLoop` 重连失败才 `MarkDisconnected()`。
 > 心跳连续失败 5 次也只进 `Suspect` 态，而 `IsConnected` **包含 Suspect** ⇒ 仍是 `true`。
-> （已登记主仓 `docs/todolist.md` A-91，待修）
+
+### 📌 版本边界（重要）
+
+| 版本 | `IsConnected` 可信吗 | 建议 |
+| --- | --- | --- |
+| **2.2.19 及更早** | ❌ **不可信**（断网后永远 `true`） | **必须用质量码** ✓ |
+| **2.2.20 及以后** | ✅ 已修复（断网 5 秒内变 `false`） | 两者都可用；质量码更精细 ✓ |
+
+> **修复内容**：主仓已在 `DeviceRoot` 的计划重建出口补上判定 ——
+> **计划被隔离清空且存在隔离点 ⇒ 标记断开**。
+> 实测：断网 **5 秒内** `IsConnected=false` / 状态「已断开」；恢复后自动回到「已连接」且隔离清零 ✓
+> （主仓登记：`docs/todolist.md` **A-94**（修复）与 **A-96**（下次发版须带 ✓））
+>
+> ⚠️ 但**质量码仍然是更精细的指标** ✓ —— 它反映**每个点位**的可信度，
+> 而 `IsConnected` 只反映**设备级**通断 ✓。做"单点坏值告警"仍应看质量码 ✓。
 
 ---
 
