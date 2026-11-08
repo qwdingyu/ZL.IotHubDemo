@@ -23,6 +23,9 @@ Console.WriteLine();
 Console.WriteLine("══════ ZL.IotHub 示例：变化上报 / 事件订阅 ══════");
 
 // ── 1. 订阅事件（连接状态 + 值变化）──────────────────────────────────────
+// ⚠️ 订阅者守则：**回调里不要抛异常**——中枢会把它隔离并计入
+//    PlcNotificationHubMetrics.CallbackErrorCount（不影响其它订阅者/采集），
+//    但你的业务逻辑就"静默没执行"了 ✗ ⇒ 在回调内部自行 try/catch 处理业务异常 ✓
 var changeCount = 0;
 using var subscription = PlcNotificationHub.Instance.Subscribe(evt =>
 {
