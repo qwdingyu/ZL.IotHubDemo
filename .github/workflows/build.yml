@@ -131,9 +131,15 @@ jobs:
           done
           curl -sf http://localhost:5080/health >/dev/null 2>&1 || { echo "::error::OpcUaServer not ready"; tail -60 /tmp/opcua-server.log; exit 1; }
           sleep 2
+          write_out=$(curl -sS -X POST 'http://localhost:5080/api/devices/PLC001/batch-write?verify=true' \
+            -H 'Content-Type: application/json' \
+            -d '{"writes":[{"tagId":"Setpoint","value":66.5}]}')
+          echo "$write_out"
+          echo "$write_out" | grep -q '"match":true' || { echo "::error::OpcUaServer REST write failed"; tail -60 /tmp/opcua-server.log; exit 1; }
           out=$(dotnet run --project samples/OpcUaClient/OpcUaClient.csproj -f net8.0 -c Release --no-build -- --config samples/OpcUaClient/opcua-server.xml)
           echo "$out"
           echo "$out" | grep -q "OPC UA 读取链路验证通过" || { echo "::error::OpcUaServer OPC UA read failed"; tail -60 /tmp/opcua-server.log; exit 1; }
+          echo "$out" | grep -q 'Setpoint.*66.5' || { echo "::error::OpcUaServer did not expose REST-written value over OPC UA"; exit 1; }
           kill $(cat /tmp/opcua-server.pid) 2>/dev/null || true
 
       - name: Run MultiDevice (3 up / 1 down, no cascade)
