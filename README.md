@@ -11,6 +11,10 @@
 
 ---
 
+> 📚 **API 参考（在线）**：<https://qwdingyu.github.io/ZL.IotHubDemo/api/>
+> —— 由 docfx 从 `ZL.IotEngine` / `ZL.IotDriver` / `ZL.IotAbstraction` 的 XML 注释生成，
+> 403 个类型/成员页，支持搜索。
+
 ## 推荐阅读顺序（不要从目录名猜）
 
 建议**按这个顺序看**，每一步都建立在前一步的基础上：
