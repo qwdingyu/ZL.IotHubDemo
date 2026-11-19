@@ -16,11 +16,15 @@ ScadaDeviceProvisioner.ProvisionFromConfiguration(app.Configuration, app.Logger)
 // 静态文件 / health / scadahub / REST API
 app.MapZlScada();
 
-app.MapGet("/", () => Results.Text(
-    "ZL.IotHub.Server OPC UA 示例\n" +
-    "  GET  /health\n" +
-    "  POST /api/devices/{id}/batch-read?live=true\n" +
-    "  OPC UA: opc.tcp://127.0.0.1:4840  节点: ns=2;s=tag.<设备>.<点位>\n",
-    "text/plain; charset=utf-8"));
+app.MapGet("/", (IConfiguration configuration) =>
+{
+    var opcUaPort = configuration["OpcUa:Port"] ?? "4840";
+    return Results.Text(
+        "ZL.IotHub.Server OPC UA 示例\n" +
+        "  GET  /health\n" +
+        "  POST /api/devices/{id}/batch-read\n" +
+        $"  OPC UA: opc.tcp://127.0.0.1:{opcUaPort}  节点: ns=2;s=tag.<设备>.<点位>\n",
+        "text/plain; charset=utf-8");
+});
 
 app.Run();

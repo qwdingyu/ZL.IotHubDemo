@@ -122,6 +122,11 @@ dotnet run --project samples/OpcUaClient -f net8.0 -- \
 - OPC UA 为明文 `None`，**不要直接暴露到公网**；
 - 生产部署请启用鉴权、网络隔离与安全策略（见主仓 `docs/704`、`docs/707`）。
 
+## 下一步
+
+- 反向场景（仿真器/PLC 本身就是 OPC UA Server）→ [`../OpcUaClient`](../OpcUaClient)
+- 业务壳/诊断/运行时增删 → [`../Advanced`](../Advanced)
+
 ## 相关
 
 - 反向场景（仿真器/PLC 本身就是 OPC UA Server）→ [`../OpcUaClient`](../OpcUaClient)

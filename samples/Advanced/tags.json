@@ -1,8 +1,15 @@
 [
   {
     "Id": "TEMP",
-    "Description": "温度（float，示例会写入 12.5）",
+    "Description": "温度（只读；示例不覆盖测量值）",
     "Address": "DB1.DBD4",
+    "DataTypeCode": "float",
+    "TagType": "M"
+  },
+  {
+    "Id": "SETPOINT",
+    "Description": "设定值（示例写入 12.5，演示可写点）",
+    "Address": "DB1.DBD8",
     "DataTypeCode": "float",
     "TagType": "M",
     "AccessMode": "ReadWrite"

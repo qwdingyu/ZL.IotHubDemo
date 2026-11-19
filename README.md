@@ -122,6 +122,8 @@ dotnet add package ZL.IotDriver    # 64 个协议驱动（独立插件包）
 | 老框架 / 库项目 | `netstandard2.0` | ✅ 最低公约数 |
 
 > ✅ **本仓示例已改为多目标 `net8.0;net48`** ✓ —— 全部示例源码在 net48 下**编译 0 error** ✓
+> ⚠️ **例外**：`OpcUaServer` 单目标 `net8.0`（`ZL.IotHub.Server` 只提供 net8.0 / net10.0）。
+> 运行它时仍然显式带 `-f net8.0`，与其它示例命令保持一致 ✓
 > ⚠️ `net48` 只能在 **Windows** 上运行（Linux/macOS 无 .NET Framework 运行时 ✗）
 > ```bash
 > # Windows 上跑 net48 版本（WinForm 同款运行时）
@@ -253,13 +255,38 @@ dotnet run -f net8.0
 
 ---
 
+## Linux / 容器：license 指纹报错怎么办
+
+在部分 Linux 容器 / GitHub Actions runner 上运行示例会报：
+
+```
+ZL.License.LicenseException: Linux 机器指纹采集失败，无法继续授权流程。
+ ---> System.UnauthorizedAccessException: Access to the path '/sys/class/dmi/id/product_uuid' is denied.
+```
+
+原因：`ZL.License 2.3.0` 发现 `/sys/class/dmi/id/product_uuid` 存在就去读，但该文件在容器里通常是 root-only。
+这不是授权绕过，只是容器环境的文件权限问题。二选一：
+
+```bash
+# ① 放开读权限（推荐；能读到真实 product_uuid）
+sudo chmod a+r /sys/class/dmi/id/product_uuid
+
+# ② sysfs 不允许 chmod 时：用空文件覆盖，让指纹回退到 /etc/machine-id
+sudo mount --bind /dev/null /sys/class/dmi/id/product_uuid
+```
+
+> 公开仓 CI 就是这么处理的（见 `.github/workflows/build.yml` 的 `Prepare Linux license fingerprint`）。
+> 真实生产环境若使用容器，建议在镜像/宿主机层面保证 `/etc/machine-id` 可读，并评估指纹来源是否符合授权策略。
+
+---
+
 ## 换个端口 / 换个设备
 
 设备 IP / 端口 / 点表都在示例目录的 XML（或 JSON）里，**改文件后重跑即可**：
 
 ```bash
 # 例如 QuickStart
-edit samples/QuickStart/quickstart.xml     # 改 DeviceIp / Port / <TagItem>
+# 用编辑器打开 samples/QuickStart/quickstart.xml，改 DeviceIp / Port / <TagItem>
 cd samples/QuickStart && dotnet run -f net8.0
 ```
 
@@ -285,5 +312,5 @@ dotnet run -f net8.0 -- --config ./我的设备.xml
 | --- | --- |
 | .NET | 8.0 及以上（产品本身支持 `netstandard2.0` / `net48` / `net8.0` / `net10.0`）|
 | 端口 | macOS/Linux 上 < 1024 的端口需要 root，示例统一用 31002 这类大端口 |
-| 产品包 | [`ZL.IotEngine` + `ZL.IotDriver` on NuGet](https://www.nuget.org/packages/ZL.IotEngine) |
+| 产品包 | [`ZL.IotEngine`](https://www.nuget.org/packages/ZL.IotEngine) / [`ZL.IotDriver`](https://www.nuget.org/packages/ZL.IotDriver) / [`ZL.IotHub.Server`](https://www.nuget.org/packages/ZL.IotHub.Server) **2.3.0** |
 | 许可 | 见 [LICENSE](./LICENSE) |

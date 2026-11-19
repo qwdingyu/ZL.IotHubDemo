@@ -37,12 +37,12 @@ dotnet run --project samples/Advanced -f net8.0
 
 ```
 【2】可判别读取（失败有原因，不是静默 default）
-      ReadResult<float>(TEMP) = 12.5  ✅
+      ReadResult<float>(SETPOINT) = 12.5  ✅
       TryRead<float>(NO_SUCH_TAG) = False，value=0，error=标签不存在: 'NO_SUCH_TAG' ...
       对比 Read<float>(NO_SUCH_TAG) = 0  ← 静默 default，不要用它做报警判断
 
 【4】快照 + 诊断报告
-      CaptureSnapshot：2 个点位
+      CaptureSnapshot：3 个点位
       GetDiagnosticsReport：...
         ReadBlock            次数=5      成功率=100%   平均=2ms 最大=13ms
 
@@ -69,10 +69,12 @@ dotnet run --project samples/Advanced -f net8.0
 ## 配置
 
 - [`devices.json`](./devices.json)：初始设备 `ADV-01`，`DeviceType` 指向业务壳 `AdvancedDevice`；
-- [`tags.json`](./tags.json)：点表（`TEMP` / `COUNT`），由 `TagKit` 解析；
+- [`tags.json`](./tags.json)：点表（`TEMP` / `SETPOINT` / `COUNT`），由 `TagKit` 解析；
 - [`runtime-add.xml`](./runtime-add.xml)：运行时新增 `ADV-02` 的配置（IP/端口/点表）；
 - [`bad-device.xml`](./bad-device.xml)：`TryStart` 失败验证（点表缺失 + `RequireTags=true`）；
 - [`fleet.json`](./fleet.json)：**只给仿真器**用，起 2 台 PLC（31002/31003）。
+
+> ⚠️ 示例会写 `SETPOINT=12.5` 与 `COUNT=4321`（不写 `TEMP` 测量值）；接真实 PLC 前请确认这些地址确实是允许写入的设定/计数点。
 
 > 🔴 `ADV-02` 是**运行时新增**的设备：`AddDeviceAsync` 读取 `runtime-add.xml`，
 > 其中 `TagFilePath="tags.json"` 由编排器相对配置文件目录解析。

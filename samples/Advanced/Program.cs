@@ -51,24 +51,25 @@ if (dev == null)
     return 1;
 }
 
-// 等首轮采集，让缓存/回调有值；写入一个已知值让输出可复现（TEMP 在 tags.json 中 ReadWrite）
+// 等首轮采集，让缓存/回调有值；写入一个已知设定值让输出可复现。
+// 注意：写的是 SETPOINT（可写设定值），**不写 TEMP**（温度是测量值，真实设备上不应覆盖）。
 await Task.Delay(1500);
-await DeviceManager.WriteByDeviceIdAsync("ADV-01", "TEMP", 12.5f);
+await DeviceManager.WriteByDeviceIdAsync("ADV-01", "SETPOINT", 12.5f);
 await Task.Delay(300);
 
 // ── 2. 可判别读取：ReadResult<T> / TryRead<T> ───────────────────────────
 Console.WriteLine();
 Console.WriteLine("【2】可判别读取（失败有原因，不是静默 default）");
 
-var live = dev.ReadResult<float>("TEMP");
+var live = dev.ReadResult<float>("SETPOINT");
 Console.WriteLine(live.IsSuccess
-    ? $"      ReadResult<float>(TEMP) = {live.Content}  ✅"
-    : $"      ReadResult<float>(TEMP) 失败：{live.Kind}/{live.Owner} {live.Message}");
+    ? $"      ReadResult<float>(SETPOINT) = {live.Content}  ✅"
+    : $"      ReadResult<float>(SETPOINT) 失败：{live.Kind}/{live.Owner} {live.Message}");
 
-var liveAsync = await dev.ReadResultAsync<float>("TEMP");
+var liveAsync = await dev.ReadResultAsync<float>("SETPOINT");
 Console.WriteLine(liveAsync.IsSuccess
-    ? $"      ReadResultAsync<float>(TEMP) = {liveAsync.Content}  ✅"
-    : $"      ReadResultAsync<float>(TEMP) 失败：{liveAsync.Message}");
+    ? $"      ReadResultAsync<float>(SETPOINT) = {liveAsync.Content}  ✅"
+    : $"      ReadResultAsync<float>(SETPOINT) 失败：{liveAsync.Message}");
 
 var ok = dev.TryRead<float>("NO_SUCH_TAG", out var missingValue, out var missingError);
 Console.WriteLine($"      TryRead<float>(NO_SUCH_TAG) = {ok}，value={missingValue}，error={missingError}");
@@ -80,14 +81,14 @@ Console.WriteLine($"      对比 Read<float>(NO_SUCH_TAG) = {silent}  ← 静默
 // ── 3. 缓存值 + 质量码（HMI/SCADA 的正确读法）──────────────────────────
 Console.WriteLine();
 Console.WriteLine("【3】缓存值 + 质量码（展示/巡检用，不产生 PLC IO）");
-var cached = dev.GetValueResult<float>("TEMP");
-var tagValue = dev.GetTagValue("TEMP");
-Console.WriteLine($"      GetValueResult<float>(TEMP) = {(cached.IsSuccess ? cached.Content.ToString() : cached.Message)}");
-Console.WriteLine($"      GetTagValue(TEMP): 值={tagValue?.Value}，质量={tagValue?.Quality}，时间={tagValue?.Timestamp:HH:mm:ss}");
-var hasCached = dev.TryGetValueResult<float>("TEMP", out var cachedValue, out var cachedError);
+var cached = dev.GetValueResult<float>("SETPOINT");
+var tagValue = dev.GetTagValue("SETPOINT");
+Console.WriteLine($"      GetValueResult<float>(SETPOINT) = {(cached.IsSuccess ? cached.Content.ToString() : cached.Message)}");
+Console.WriteLine($"      GetTagValue(SETPOINT): 值={tagValue?.Value}，质量={tagValue?.Quality}，时间={tagValue?.Timestamp:HH:mm:ss}");
+var hasCached = dev.TryGetValueResult<float>("SETPOINT", out var cachedValue, out var cachedError);
 Console.WriteLine(hasCached
-    ? $"      TryGetValueResult<float>(TEMP) = True，value={cachedValue}"
-    : $"      TryGetValueResult<float>(TEMP) = False，error={cachedError}");
+    ? $"      TryGetValueResult<float>(SETPOINT) = True，value={cachedValue}"
+    : $"      TryGetValueResult<float>(SETPOINT) = False，error={cachedError}");
 Console.WriteLine($"      连接状态：{dev.ConnectionState.StateDescription}，成功率={dev.ConnectionState.SuccessRate:P0}");
 
 // DataCollected：每完成一轮采集触发一次（统计吞吐/判定采集是否真的在跑）

@@ -101,6 +101,10 @@ dotnet run --project samples/OpcUaClient -f net8.0 -- \
    - 对仿真器 OPC UA Server：可写（已验证 42.5 写入并读回）；
    - 对 `OpcUaServer` 示例：OPC UA 节点只读，写请走 REST `batch-write`。
 
+## 下一步
+
+- 反向场景：我们作为 OPC UA Server → [`../OpcUaServer`](../OpcUaServer)
+
 ## 相关
 
 - 我们作为 OPC UA Server → [`../OpcUaServer`](../OpcUaServer)
