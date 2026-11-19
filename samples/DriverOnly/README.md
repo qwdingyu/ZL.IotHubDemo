@@ -257,6 +257,11 @@ plc.Write(address, byte[]);
 > 📌 **读位区请用 `ReadBool` / `ReadBitsAsync`**；`ReadBytes` 是给寄存器/字节块用的。
 > NuGet 2.3.0 的 Modbus TCP 对「位区 + `ReadBytes`」有长度换算缺陷（源码已修复、包未发），
 > 表现为「返回 N 字节，与请求的 M 字节不符」。
+>
+> ⚠️ **位区地址不要用 `WriteBytes` / `Write(short/int/float)`。**
+> 实测：`WriteBytes("00001", ...)` 返回**成功**，但写的是**保持寄存器 0**，不是线圈 0。
+> 位区请用 `Write(address, bool)` 或 `WriteAsync(address, bool[])`。
+> （这是已知行为，属于「调用方用错 API」；是否改为明确拒绝待产品裁定。）
 
 ---
 
