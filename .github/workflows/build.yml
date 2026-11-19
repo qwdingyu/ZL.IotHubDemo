@@ -30,6 +30,22 @@ jobs:
           dotnet tool install -g PlcSimulator.Cli --version 2.2.14
           echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
 
+      - name: Prepare Linux license fingerprint
+        run: |
+          # ZL.License 2.3.0：若 /sys/class/dmi/id/product_uuid 存在但不可读，
+          # MachineFingerprint 会抛 UnauthorizedAccessException（GitHub runner 上该文件是 root-only）。
+          # 先尝试放开读权限；若 sysfs 不允许 chmod，则用空文件 bind 覆盖，
+          # 让指纹回退到可读的 /etc/machine-id（不是绕过授权，只是让 Linux 容器能正常取指纹）。
+          if [ -e /sys/class/dmi/id/product_uuid ] && [ ! -r /sys/class/dmi/id/product_uuid ]; then
+            sudo chmod a+r /sys/class/dmi/id/product_uuid 2>/dev/null || true
+          fi
+          if [ -e /sys/class/dmi/id/product_uuid ] && [ ! -r /sys/class/dmi/id/product_uuid ]; then
+            sudo mount --bind /dev/null /sys/class/dmi/id/product_uuid 2>/dev/null || true
+          fi
+          if [ -e /sys/class/dmi/id/product_uuid ] && [ ! -r /sys/class/dmi/id/product_uuid ]; then
+            echo "::warning::product_uuid still unreadable; license fingerprint may fail"
+          fi
+
       - name: Start S7 simulator (31002)
         run: |
           nohup plcsim --headless --auto-start --stay-alive \
