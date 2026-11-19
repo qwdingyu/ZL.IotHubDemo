@@ -53,8 +53,8 @@ dotnet run --project samples/DriverOnly -f net8.0 -- --protocol s7
   ✅ 已连接（SiemensS7Driver）
 
 [S7 读] RUN=True COUNT=32767 TOTAL=1212747584 TEMP=NaN TEXT=''
-[S7 写] COUNT=True TOTAL=True TEMP=True TEXT=True
-[S7 回读] COUNT=1234 TOTAL=123456 TEMP=42.5 TEXT='HELLO'
+[S7 写] RUN=false:True RUN=true:True COUNT=True TOTAL=True TEMP=True TEXT=True
+[S7 回读] RUN(false→False, true→True) COUNT=1234 TOTAL=123456 TEMP=42.5 TEXT='HELLO'
   ✅ S7 读/写/回读一致
 ```
 
@@ -79,6 +79,10 @@ var temp  = plc.ReadFloat("DB1.DBD8");
 var text  = plc.ReadS7String("DB1.DBB20", Encoding.UTF8);
 
 // 写
+plc.Write("DB1.DBX0.0", false);   // bool 双向验证：先 false 再 true
+var runOff = plc.ReadBool("DB1.DBX0.0");
+plc.Write("DB1.DBX0.0", true);
+var runOn = plc.ReadBool("DB1.DBX0.0");
 plc.Write("DB1.DBW2", (short)1234);
 plc.Write("DB1.DBD4", 123456);
 plc.Write("DB1.DBD8", 42.5f);
@@ -243,11 +247,12 @@ plc.Write(address, byte[]);
 | Omron FINS | `D0.0`（位）/ `D1`（字）/ `D2`（双字） | `D` 区按字；位用 `.0` |
 | Mitsubishi MC | `M0`（位）/ `D0`（字）/ `D1`（双字） | 前缀齐全：`D/M/W/X/Y/L/B/F/V/S/R/ZR`… |
 
-> ⚠️ **Modbus 5 位线圈地址（`00001` / `00002`）在 2.3.0 不要用于 `ReadBool`。**
+> ⚠️ **NuGet 2.3.0 的 Modbus 5 位线圈地址（`00001` / `00002`）不要用于 `ReadBool`。**
 > 实测：`Write("00001", true)` 落到**线圈偏移 0**（写路径做了一基归一），
-> 而 `ReadBool("00001")` 读的是**线圈偏移 1**（位读路径未做一基归一）⇒ 写 A 点、读 B 点。
-> 这是已知的「位读未裁定」项（主仓 `docs/564` §三.B），不是本示例的用法问题。
-> **改用裸数字 `0` / `1`（0 基）**，位读写就一致。
+> 而 `ReadBool("00001")` 读**线圈偏移 1**（位读路径未做一基归一）⇒ 写 A 点、读 B 点。
+> **源码已修复**（`a5f0a3f`），但 **2.3.0 包仍是旧行为**。
+> 在 2.3.0 上请改用**裸数字 `0` / `1`（0 基）**，位读写就一致；
+> 下个版本发布后，`00001` 与 `0` 会指向同一线圈。
 
 ---
 
