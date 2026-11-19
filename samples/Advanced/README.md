@@ -89,8 +89,8 @@ dotnet run --project samples/Advanced -f net8.0
 | **多步操作串行化** | `DeviceRoot.ExecuteWithDeviceLock(Async)` | 读-改-写这类不能被打断的复合操作 |
 | **批量计划明细** | `BuildPlan()` + `readPlan` | 离线检查地址合并效果（见 `BatchRead`） |
 | **坏点隔离/恢复** | `QuarantineTags` | 单点坏不拖垮整块（见 `BadPointIsolation`） |
-| **实时事件通道** | `PlcNotificationHub.SubscribeChannel` / `Acknowledge` / `GetMetricsSnapshot` | 有背压/确认语义的高吞吐推送（见主仓 `docs/`） |
-| **舰队级健康检查** | `PlcFleetManager` / `PlcHealthCheck` | 超大规模设备群的统一巡检（主仓 `docs/601`） |
+| **实时事件通道** | `PlcNotificationHub.SubscribeChannel` / `Acknowledge` / `GetMetricsSnapshot` | 有背压/确认语义的高吞吐推送 |
+| **舰队级健康检查** | `PlcFleetManager` / `PlcHealthCheck` | 超大规模设备群的统一巡检 |
 
 > 原则：**示例只展示"能跑通、能验证"的组合**；没有可复现的硬件/配置时，
 > 宁可写清边界，也不放一段"看起来能跑"的伪示例。

@@ -330,7 +330,7 @@ plc.Write(address, byte[]);
 | `连接失败：Connection refused` | 仿真器没起 / 端口不对 | 先确认 `plcsim` 那一行还在跑 |
 | `地址解析失败: HR0` | 用了 Raw 前缀，但驱动是默认的 Modicon 模式 | 构造时传 `addressing: ModbusAddressingMode.Raw, defaultArea: "HR"`；或改用 `40001` |
 | S7 一直超时 | rack/slot 不对，或 PLC 未允许外部访问 | 试 `slot: 0`；在 TIA 里确认槽位并允许 PUT/GET |
-| `S7 WSTRING 容量…` | `Length` 按**字符数**，不是字节数 | WSTRING 的 `Length` 填字符数（见 docs/728） |
+| `S7 WSTRING 容量…` | `Length` 按**字符数**，不是字节数 | WSTRING 的 `Length` 填字符数（见 [STRING.md](./STRING.md)） |
 | `授权失效：通信被拒绝` | 授权/免费版策略不允许该协议 | 配好授权文件；或先确认协议在免费白名单内 |
 | `XxxDriver 未连接` | 上次操作失败后连接被关闭 | 调 `ConnectServer()` 重连；只装 Driver 时**没有后台持续重连**（S7 驱动只会尝试一次） |
 | 读回的 float 是 `NaN` | 该地址从未写过值（PLC 里是随机/初值） | 先写一次再读，或忽略首帧 |

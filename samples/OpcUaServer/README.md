@@ -103,10 +103,13 @@ dotnet run --project samples/OpcUaClient -f net8.0 -- \
 
 ## 已知限制（2.3.0，务必先读）
 
-1. **OPC UA 地址空间当前是只读的**：
-   - 读：OPC UA Client / UaExpert 正常；
-   - 写：请走 REST `batch-write`（本示例已验证 66.5 写入并读回）；
-   - 直接对 OPC UA 节点写入会返回 `BadNotWritable`（0x803B0000）。
+1. **OPC UA 写入能力按版本区分**：
+   - **NuGet 2.3.0（本示例当前引用）**：OPC UA 节点**只读**；写请走 REST `batch-write`
+     （本示例已验证 66.5 写入并读回）；直接写 OPC UA 节点返回 `BadNotWritable`。
+   - **下一个版本（源码已实现）**：点表显式配置 `AccessMode="ReadWrite"` 的点，
+     OPC UA 客户端可**直接写**；未配置的点仍只读。写入复用同一条 `DeviceManager` 链路
+     （权限/类型/缓存/审计不重复实现），并可用 `OpcUa:EnableWrite=false` 整体关闭。
+     届时**无需改示例代码**，只需显式配置可写点。
 2. **安全策略只支持 `None`（明文）**：仅建议内网/POC；生产需安全策略 + 证书。
    配置非 `None` 会 **fail-loud 取消启动**，不会静默降级成明文。
 3. **启动后动态新增的设备不会自动出现在 OPC UA 地址空间**：
@@ -120,7 +123,7 @@ dotnet run --project samples/OpcUaClient -f net8.0 -- \
 
 - 本示例监听 `http://localhost:5080` 与 `opc.tcp://0.0.0.0:4840`；
 - OPC UA 为明文 `None`，**不要直接暴露到公网**；
-- 生产部署请启用鉴权、网络隔离与安全策略（见主仓 `docs/704`、`docs/707`）。
+- 生产部署请启用鉴权、网络隔离与安全策略。
 
 ## 下一步
 
@@ -131,4 +134,4 @@ dotnet run --project samples/OpcUaClient -f net8.0 -- \
 
 - 反向场景（仿真器/PLC 本身就是 OPC UA Server）→ [`../OpcUaClient`](../OpcUaClient)
 - 普通协议最小闭环 → [`../QuickStart`](../QuickStart)
-- Web/SCADA 网关（SignalR + REST）→ 主仓 `demos/ZL.IotHub.Demo.Scada`
+- Web/SCADA 网关（SignalR + REST）→ 见上方「REST 写入并回读校验」与三出口说明
