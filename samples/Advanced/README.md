@@ -99,3 +99,9 @@ dotnet run --project samples/Advanced -f net8.0
   驱动由编排层创建后注入，壳不要自己 `new` 驱动（否则授权名额/时序会出问题）。
 - `OnManagedTriggerDataChange` 里只做轻量业务；不要阻塞、不要抛异常。
 - 免费版最多 10 台设备；`fleet.json` 只有 2 台，不会触限。
+
+## 下一步
+
+- 回到 [仓库首页](../../README.md) 按推荐顺序重看；
+- 想补基础 → [`QuickStart`](../QuickStart) / [`BatchRead`](../BatchRead)；
+- 想看多设备故障隔离 → [`MultiDevice`](../MultiDevice)。

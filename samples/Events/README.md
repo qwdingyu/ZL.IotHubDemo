@@ -42,3 +42,8 @@ using var subscription = PlcNotificationHub.Instance.Subscribe(evt =>
 ```
 
 配 `cfg.Add("ReadInterval", 500)` 后，后台每 500ms 采一轮，**值变了才回调**。
+
+## 下一步
+
+按推荐顺序，下一步看 **[Modbus](../Modbus)**：
+同一套读写模式，换成 Modbus 地址方言，重点看“区域由数据类型决定”。

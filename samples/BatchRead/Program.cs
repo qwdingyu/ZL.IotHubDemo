@@ -4,10 +4,12 @@
 //  采集 300 个点位，逐个读就是 300 次请求——采集周期根本压不下来。
 //  本示例展示 ZL.IotHub 怎么把它们合并成少量读取块，并打印合并前后的对比。
 //
-//  准备（另开一个窗口）：
-//      plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
-//  运行：
+//  默认 **不需要 PLC / 仿真器**（BuildPlan 是纯内存规划）：
 //      cd samples/BatchRead && dotnet run -f net8.0
+//
+//  想顺便验证“写 → 读回一致”，加 --live 并先起仿真器：
+//      plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
+//      dotnet run -f net8.0 -- --live
 //
 //  🔴 设备 IP/端口在 batchread.xml 里；点表可由该文件的 <TagItem> 提供，
 //     不写则默认生成 300 个连续 float。改配置不用重新编译。
@@ -18,6 +20,7 @@ using ZL.IotEngine.Orchestration;
 using ZL.IotAbstraction.Tag;
 
 var requestedTagCount = int.TryParse(GetArg(args, "--tags", "300"), out var n) ? n : 300;
+var live = args.Any(a => a.Equals("--live", StringComparison.OrdinalIgnoreCase));
 
 // ── 1. 读设备配置（IP / 端口）──────────────────────────────────────────
 var configPath = ResolveConfigPath(args, "batchread.xml");
@@ -93,23 +96,13 @@ Console.WriteLine("══════ ZL.IotHub 示例：地址合并批量读�
 Console.WriteLine($"  设备 {host}:{port}  点位数 {tags.Count}（{(fromConfig ? "来自配置文件" : "内置生成")}）");
 Console.WriteLine();
 
-// ── 3. 创建驱动并连接 ────────────────────────────────────────────────────
+// ── 3. 创建驱动并规划（BuildPlan 是纯内存规划，不需要连接 PLC）──────────
 using var driver = DriverFactory.Create(cfg);
-if (!driver.Connect())
-{
-    Console.WriteLine($"  ❌ 连接失败 {host}:{port}。忘了起仿真器？");
-    Console.WriteLine($"      plcsim --protocols siemens-s7 --ports s7={port} --headless --auto-start");
-    Console.WriteLine($"      （端口要一致：改 batchread.xml 里的 Port，或改仿真器 --ports）");
-    Console.WriteLine();
-    return 1;
-}
-Console.WriteLine($"【2】已连接（{driver.GetType().Name}）");
-
-// ── 4. 看采集计划：点位被合并成了几个读取块 ──────────────────────────────
 driver.BuildPlan();
 var blocks = driver.readPlan?.Count ?? 0;
+
 Console.WriteLine();
-Console.WriteLine("【3】采集计划（核心）");
+Console.WriteLine("【2】采集计划（核心）");
 Console.WriteLine($"      点位总数    : {tags.Count}");
 Console.WriteLine($"      合并后块数  : {blocks}");
 if (blocks > 0)
@@ -118,6 +111,31 @@ if (blocks > 0)
     Console.WriteLine($"      请求数减少  : {reduction:F2}%");
     Console.WriteLine($"      ⇒ 原来要 {tags.Count} 次请求，现在约 {blocks} 次");
 }
+
+Console.WriteLine();
+Console.WriteLine("  ✅ 规划完成：这一步不需要连接 PLC，点表对不对先在这里看。");
+
+if (!live)
+{
+    Console.WriteLine();
+    Console.WriteLine("  想看“写入 → 读回一致”？起仿真器后加 --live：");
+    Console.WriteLine($"      plcsim --protocols siemens-s7 --ports s7={port} --headless --auto-start");
+    Console.WriteLine("      dotnet run -f net8.0 -- --live");
+    return 0;
+}
+
+// ── 4. 连接（只有 --live 才需要仿真器/真实 PLC）─────────────────────────
+Console.WriteLine();
+Console.WriteLine($"【3】连接 {host}:{port}");
+if (!driver.Connect())
+{
+    Console.WriteLine($"  ❌ 连接失败 {host}:{port}。忘了起仿真器？");
+    Console.WriteLine($"      plcsim --protocols siemens-s7 --ports s7={port} --headless --auto-start");
+    Console.WriteLine($"      （端口要一致：改 batchread.xml 里的 Port，或改仿真器 --ports）");
+    Console.WriteLine();
+    return 1;
+}
+Console.WriteLine($"      已连接（{driver.GetType().Name}）");
 
 // ── 5. 写几个已知值再读回（顺便证明"写"也能用同一条链路）──────────────
 var writableFloats = tags

@@ -49,3 +49,8 @@ dotnet run --project samples/MultiDevice/MultiDevice.csproj -f net8.0
 
 > 这个示例的重点不是“连上”，而是 **故障隔离 + 健康可见 + 生命周期统一**。
 > 真实项目里，这三点决定“半夜一台 PLC 掉线，会不会把整个采集进程拖死”。
+
+## 下一步
+
+按推荐顺序，下一步看 **[Advanced](../Advanced)**：
+业务壳、可判别读、诊断快照、运行时增删设备——从“能采集”走到“能交付”。

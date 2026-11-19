@@ -25,3 +25,8 @@ dotnet run --project samples/StringIO/StringIO.csproj -f net8.0
 - 写入点必须显式 `AccessMode = AccessMode.ReadWrite`（默认只读，fail-safe）；
 - 示例会打印 `Encoding.Default` 在当前运行时的真实值，提醒你**不要依赖它**；
 - 回读时按 S7 STRING 头解析，验证"写入中文 → 读回一致"。
+
+## 下一步
+
+按推荐顺序，下一步看 **[BadPointIsolation](../BadPointIsolation)**：
+一个坏点如何被自动隔离，不拖垮整块采集。

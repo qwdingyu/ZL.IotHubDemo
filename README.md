@@ -7,6 +7,24 @@
 
 ---
 
+## 推荐阅读顺序（不要从目录名猜）
+
+建议**按这个顺序看**，每一步都建立在前一步的基础上：
+
+| 顺序 | 示例 | 你会得到什么 |
+|---|---|---|
+| 1 | **[QuickStart](./samples/QuickStart)** | **5 分钟跑通最小闭环**：连上 → 读到值 → 写进去 → 读回一致 |
+| 2 | **[BatchRead](./samples/BatchRead)** | **直接看到核心价值**：300 个点位 → 6 个读取块，请求数减少 98% |
+| 3 | [Events](./samples/Events) / [Modbus](./samples/Modbus) / [ArrayIO](./samples/ArrayIO) / [StringIO](./samples/StringIO) / [BadPointIsolation](./samples/BadPointIsolation) | **按现场问题查**：变化上报、Modbus 地址、数组、字符串编码、坏点隔离 |
+| 4 | **[MultiDevice](./samples/MultiDevice)** | **多设备故障隔离**：统一启动/健康可见/一台坏了不拖垮其他 |
+| 5 | **[Advanced](./samples/Advanced)** | **交付/运维阶段**：业务壳、可判别读、诊断快照、运行时增删设备 |
+
+> 只想先看“它凭什么快”？直接跳到第 2 步 [BatchRead](./samples/BatchRead)——**不需要 PLC** 就能看到 300 → 6 的合并结果。
+>
+> 每一步的 README 末尾都有“下一步”链接，可以一路点下去。
+
+---
+
 ## 改设备 / 点表：只改配置文件，不重新编译
 
 每个示例的 **IP、端口、点表** 都在同目录的配置文件里（XML 或 JSON），

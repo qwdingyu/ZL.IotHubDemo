@@ -36,3 +36,8 @@ dotnet run --project samples/ArrayIO/ArrayIO.csproj -f net8.0
 
 > 这个示例的注释里写清了"为什么不能直接用泛型 `ReadArray<T>`"——
 > **跨 TFM 的 API 事实**，不是实现偷懒。
+
+## 下一步
+
+按推荐顺序，下一步看 **[StringIO](../StringIO)**：
+中文 PLC 最容易踩的编码 / S7 头 / 容量 / 代码页四个坑。

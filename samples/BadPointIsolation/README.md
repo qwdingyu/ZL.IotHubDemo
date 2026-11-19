@@ -39,3 +39,8 @@ cd samples/BadPointIsolation && dotnet run -f net8.0
 - 隔离的点位会进入 `driver.QuarantineTags`，框架会持续重试，**恢复了会自动放回**。
 - 本地仿真器对越界/不存在的地址也照常返回数据 ⇒ 可能看不到隔离，**这是预期行为**，
   不是缺陷；真机验证请把 `BROKEN` 改成 PLC 里真实不存在的 DB 号。
+
+## 下一步
+
+按推荐顺序，下一步看 **[MultiDevice](../MultiDevice)**：
+从“单台坏点隔离”升级到“多台设备故障隔离 + 健康可见”。
