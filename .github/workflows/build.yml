@@ -94,7 +94,7 @@ jobs:
           set -e
           out=$(dotnet run --project samples/BatchRead/BatchRead.csproj -f net8.0 -c Release --no-build)
           echo "$out"
-          echo "$out" | grep -q "个读取块" || { echo "::error::BatchRead produced no blocks"; exit 1; }
+          echo "$out" | grep -q "合并后块数" || { echo "::error::BatchRead produced no blocks"; exit 1; }
 
       - name: Run Events (must receive callbacks)
         run: |
