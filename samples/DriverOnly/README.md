@@ -138,7 +138,7 @@ dotnet run --project samples/DriverOnly -f net8.0 -- \
 | 协议 | 构造写法 | 关键参数 |
 |---|---|---|
 | S7-1200 / S7-1500 | `new SiemensS7Driver(SiemensCpuType.S7_1200, ip, 102, rack: 0, slot: 1)` | CPU 在 TIA 里的机架/槽位；连不上时试 `slot: 0` |
-| S7-300 | `new SiemensS7Driver(SiemensCpuType.S7_300, ip, 102)` | 默认机架 0 / 槽 2；不要传 `slot: 0` |
+| S7-300 | `new SiemensS7Driver(SiemensCpuType.S7_300, ip, 102)` | 驱动按型号自动用机架 0 / 槽 2；不用显式传 |
 | S7-200 SMART | `new SiemensS7Driver(SiemensCpuType.S7_200Smart, ip, 102)` | 字符串布局由驱动自动切换为 SMART 布局 |
 | Modbus TCP | `new ModbusTcpDriver(ip, 502, stationNumber: 1, addressing: ModbusAddressingMode.Raw, defaultArea: "HR")` | 站号；Raw / Modicon 二选一 |
 | Omron FINS/TCP | `new OmronFinsDriver(ip, 9600)` | 节点号默认自动协商 |
@@ -189,7 +189,7 @@ var text = plc.ReadString("D10", 8, Encoding.ASCII);
 | 直接 `new` 驱动、Connect/Read/Write | ✅ | ✅ |
 | 驱动自动选择（`DriverFactory`） | ❌ | ✅ |
 | 设备单例 / 按 ID 寻址（`DeviceManager`） | ❌ | ✅ |
-| 自动重连 / 心跳 / 后台采集 | ❌ 自己写 | ✅ |
+| 自动重连 / 心跳 / 后台采集 | ❌ 自己写（S7 驱动仅在检测到未连接时尝试**重连一次**） | ✅ 后台持续重连 |
 | 地址合并 / 批量读取 | ❌ | ✅ |
 | 缓存 / 质量码 / 隔离区 | ❌ | ✅ |
 | OPC UA / REST / SignalR | ❌ | ✅（Server） |
@@ -198,8 +198,9 @@ var text = plc.ReadString("D10", 8, Encoding.ASCII);
 > 需要编排/缓存/批量/多设备管理时，再加 `ZL.IotEngine`。
 >
 > 驱动包只依赖 `ZL.IotAbstraction`，不会把整个引擎拖进来。
-> 授权链路是 `ZL.IotDriver → ZL.IotAbstraction → ZL.License`：IO 通道有 L2 授权检查，
-> 写操作另有 L3 门禁。直接 `new` 驱动且不调用 `SetProtocolKey` 时，L2 只做连接层状态检查。
+> 授权链路是 `ZL.IotDriver → ZL.IotAbstraction → ZL.License`。IO 通道有 L2 检查、写操作有 L3 门禁；
+> **Trial 态无时长限制、不限协议、可读写**（产品策略），正常试用不会被拦。
+> 正式授权按 `ZL.License` 的 license 文件配置。
 
 ---
 
@@ -258,7 +259,7 @@ plc.Write(address, byte[]);
 | S7 一直超时 | rack/slot 不对，或 PLC 未允许外部访问 | 试 `slot: 0`；在 TIA 里确认槽位并允许 PUT/GET |
 | `S7 WSTRING 容量…` | `Length` 按**字符数**，不是字节数 | WSTRING 的 `Length` 填字符数（见 docs/728） |
 | `授权失效：通信被拒绝` | 授权/免费版策略不允许该协议 | 配好授权文件；或先确认协议在免费白名单内 |
-| `XxxDriver 未连接` | 上次操作失败后连接被关闭 | 调 `ConnectServer()` 重连；只装 Driver 时没有自动重连 |
+| `XxxDriver 未连接` | 上次操作失败后连接被关闭 | 调 `ConnectServer()` 重连；只装 Driver 时**没有后台持续重连**（S7 驱动只会尝试一次） |
 | 读回的 float 是 `NaN` | 该地址从未写过值（PLC 里是随机/初值） | 先写一次再读，或忽略首帧 |
 | 中文写成 `?` | 用了 `Encoding.ASCII` | 改 `Encoding.UTF8`；或用 WSTRING |
 

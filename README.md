@@ -87,7 +87,7 @@ var value = plc.ReadInt16("DB1.DBW2");
 ```
 
 - **不需要** `ZL.IotEngine`；
-- 没有 `DriverFactory` / `DeviceManager` / 自动重连 / 缓存 / 批量合并，这些由你的程序自己管；
+- 没有 `DriverFactory` / `DeviceManager` / 后台持续重连 / 缓存 / 批量合并，这些由你的程序自己管；
 - S7 / Modbus / Omron / 三菱 MC 四种协议、bool/short/int/float/string 示例：
   **[DriverOnly](./samples/DriverOnly)** ⭐
 
