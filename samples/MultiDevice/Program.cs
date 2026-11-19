@@ -13,7 +13,7 @@
 // ═══════════════════════════════════════════════════════════════════════
 
 using ZL.IotEngine.Orchestration;
-using ZL.Tag;
+using ZL.IotAbstraction.Tag;
 
 Console.WriteLine();
 Console.WriteLine("══════ ZL.IotHub 示例：多 PLC 统一管控 ══════");

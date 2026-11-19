@@ -13,7 +13,7 @@
 // ═══════════════════════════════════════════════════════════════════════
 
 using ZL.IotEngine.Orchestration;
-using ZL.Tag;
+using ZL.IotAbstraction.Tag;
 
 // 连接参数：命令行可覆盖（dotnet run -- --ip 192.168.1.10 --port 102）
 var host = GetArg(args, "--ip", "127.0.0.1");

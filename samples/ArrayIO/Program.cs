@@ -8,8 +8,8 @@
 //        dotnet run --project samples/ArrayIO/ArrayIO.csproj
 // ═══════════════════════════════════════════════════════════════════════
 
-using ZL.Tag;
-using ZL.IotEngine.Abstractions;
+using ZL.IotAbstraction.Tag;
+using ZL.IotAbstraction.Abstractions;
 using ZL.IotEngine.Orchestration;
 
 var host = GetArg(args, "--ip", "127.0.0.1");

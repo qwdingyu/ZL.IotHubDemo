@@ -20,6 +20,6 @@
     <!-- 2026-11-08：2.2.19→2.2.20。2.2.20 修复断网后 ConnectionState 冻结
          （IsConnected 恒 true，见 README「质量码」节与主仓 docs/600 A-91~94）；
          升级后 8 个示例全部跑在可信版本上 ✓ -->
-    <IotEngineVersion>2.2.20</IotEngineVersion>
+    <IotEngineVersion>2.3.0</IotEngineVersion>
   </PropertyGroup>
 </Project>

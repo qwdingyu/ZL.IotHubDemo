@@ -12,7 +12,7 @@
 
 using System.Diagnostics;
 using ZL.IotEngine.Orchestration;
-using ZL.Tag;
+using ZL.IotAbstraction.Tag;
 
 var host = GetArg(args, "--ip", "127.0.0.1");
 var port = int.TryParse(GetArg(args, "--port", "31002"), out var p) ? p : 31002;
@@ -36,6 +36,8 @@ for (var i = 0; i < tagCount; i++)
         DataTypeCode = "float",
         TagType = "M",
         StationNo = DeviceId,
+        // 要写必须显式授权：默认 ReadOnly（fail-safe）
+        AccessMode = AccessMode.ReadWrite,
     });
 }
 Console.WriteLine($"【1】已生成 {tags.Count} 个点位（DB1.DBD0 起，连续 float）");
@@ -82,9 +84,11 @@ var probe = new[] { 1.5f, 12.5f, 100.25f };
 for (var i = 0; i < probe.Length; i++)
 {
     var w = driver.Write(tags[i].Id, probe[i]);
-    var back = driver.Read<float>(tags[i].Id);
-    var ok = w.IsSuccess && Math.Abs(back - probe[i]) < 1e-6;
-    Console.WriteLine($"      {tags[i].Id} ({tags[i].Address}) 写 {probe[i]} → 读回 {back}  {(ok ? "✅" : "❌")}");
+    // 读设备实时值：缓存读在写完瞬间可能还没刷新
+    var backResult = driver.Device.ReadFloat(tags[i].Address);
+    var back = backResult.Content;
+    var ok = w.IsSuccess && backResult.IsSuccess && Math.Abs(back - probe[i]) < 1e-6;
+    Console.WriteLine($"      {tags[i].Id} ({tags[i].Address}) 写 {probe[i]} → 实时读回 {back}  {(ok ? "✅" : "❌")}");
 }
 
 Console.WriteLine();

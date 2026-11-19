@@ -9,8 +9,8 @@
 
 ```bash
 dotnet tool install -g PlcSimulator.Cli     # 一次性
-plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start   # 另开一个窗口
-cd samples/BatchRead && dotnet run
+plcsim --protocols siemens-s7 --ports s7=31002 --headless --stay-alive --auto-start   # 另开一个窗口
+cd samples/BatchRead && dotnet run -f net8.0
 ```
 
 ## 你会看到
@@ -21,8 +21,8 @@ cd samples/BatchRead && dotnet run
       合并后块数  : 6
       请求数减少  : 98.00%
 
-【4】写入 3 个已知值 → 读回验证
-      TAG_0000 (DB1.DBD0) 写 1.5 → 读回 1.5  ✅
+【4】写入 3 个已知值 → 实时读回验证
+      TAG_0000 (DB1.DBD0) 写 1.5 → 实时读回 1.5  ✅
 ```
 
 ## 换成你自己的点表
@@ -32,10 +32,11 @@ cd samples/BatchRead && dotnet run
 ```csharp
 Address = $"DB1.DBD{i * 4}",
 DataTypeCode = "float",
+AccessMode = AccessMode.ReadWrite,   // 要写必须显式授权（默认只读）
 ```
 
 点位数也可以调：
 
 ```bash
-dotnet run -- --tags 1000
+dotnet run -f net8.0 -- --tags 1000
 ```
