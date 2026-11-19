@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>ZL.IotHub.Sample.DriverOnly</AssemblyName>
+    <RootNamespace>ZL.IotHub.Sample.DriverOnly</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 只装驱动包：不引用 ZL.IotEngine，不依赖引擎编排 -->
+    <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
+  </ItemGroup>
+
+</Project>

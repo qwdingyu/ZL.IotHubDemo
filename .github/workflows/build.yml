@@ -63,6 +63,13 @@ jobs:
           echo "$out"
           echo "$out" | grep -q "写入=读回" || { echo "::error::QuickStart did not verify write/read"; exit 1; }
 
+      - name: Run DriverOnly (S7, only ZL.IotDriver)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/DriverOnly/DriverOnly.csproj -f net8.0 -c Release --no-build -- --protocol s7)
+          echo "$out"
+          echo "$out" | grep -q "S7 读/写/回读一致" || { echo "::error::DriverOnly S7 failed"; exit 1; }
+
       - name: Start OPC UA simulator (4899) and run OpcUaClient
         run: |
           set -e
@@ -118,6 +125,39 @@ jobs:
           out=$(dotnet run --project samples/Modbus/Modbus.csproj -f net8.0 -c Release --no-build)
           echo "$out"
           echo "$out" | grep -q "接入正常" || { echo "::error::Modbus sample failed"; exit 1; }
+
+      - name: Run DriverOnly (Modbus, only ZL.IotDriver)
+        run: |
+          set -e
+          out=$(dotnet run --project samples/DriverOnly/DriverOnly.csproj -f net8.0 -c Release --no-build -- --protocol modbus)
+          echo "$out"
+          echo "$out" | grep -q "Modbus 读/写/回读一致" || { echo "::error::DriverOnly Modbus failed"; exit 1; }
+
+      - name: Start Omron FINS simulator (9600) and run DriverOnly
+        run: |
+          set -e
+          nohup plcsim --headless --auto-start --stay-alive \
+            --protocols fins-tcp --ports fins-tcp=9600 > /tmp/sim-fins.log 2>&1 &
+          for i in $(seq 1 60); do
+            grep -q HEADLESS_READY /tmp/sim-fins.log && break; sleep 1
+          done
+          grep -q HEADLESS_READY /tmp/sim-fins.log || { echo "::error::fins simulator not ready"; tail -30 /tmp/sim-fins.log; exit 1; }
+          out=$(dotnet run --project samples/DriverOnly/DriverOnly.csproj -f net8.0 -c Release --no-build -- --protocol omron)
+          echo "$out"
+          echo "$out" | grep -q "Omron 读/写/回读一致" || { echo "::error::DriverOnly Omron failed"; exit 1; }
+
+      - name: Start Mitsubishi MC simulator (32000) and run DriverOnly
+        run: |
+          set -e
+          nohup plcsim --headless --auto-start --stay-alive \
+            --protocols melsec-mc --ports melsec-mc=32000 > /tmp/sim-mc.log 2>&1 &
+          for i in $(seq 1 60); do
+            grep -q HEADLESS_READY /tmp/sim-mc.log && break; sleep 1
+          done
+          grep -q HEADLESS_READY /tmp/sim-mc.log || { echo "::error::melsec simulator not ready"; tail -30 /tmp/sim-mc.log; exit 1; }
+          out=$(dotnet run --project samples/DriverOnly/DriverOnly.csproj -f net8.0 -c Release --no-build -- --protocol melsec)
+          echo "$out"
+          echo "$out" | grep -q "Melsec 读/写/回读一致" || { echo "::error::DriverOnly Melsec failed"; exit 1; }
 
       - name: Run OpcUaServer + OpcUaClient (S7 -> OPC UA)
         run: |

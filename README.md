@@ -27,6 +27,8 @@
 > 只想先看“它凭什么快”？直接跳到第 2 步 [BatchRead](./samples/BatchRead)——**不需要 PLC** 就能看到 300 → 6 的合并结果。
 >
 > 每一步的 README 末尾都有“下一步”链接，可以一路点下去。
+>
+> **只装驱动包**（不引入引擎）的独立入口 → [`DriverOnly`](./samples/DriverOnly)。
 
 ### OPC UA 专题（两个方向，都覆盖）
 
@@ -58,11 +60,40 @@
 | Advanced | `devices.json` + `tags.json`（`fleet.json` 只给仿真器） |
 | OpcUaClient | `opcua-sim.xml` / `opcua-server.xml` + `points.json` |
 | OpcUaServer | `appsettings.json`（`Scada:Devices` + `OpcUa`） |
+| DriverOnly | 无配置文件，命令行 `--protocol` / `--ip` / `--port` |
 
 ```bash
 # 换一套配置运行（不用改代码、不用重新编译）
 dotnet run -f net8.0 -- --config 我的设备.xml
 ```
+
+---
+
+## 只装 `ZL.IotDriver`（不引入引擎）
+
+如果你已经有自己的调度器、线程池、数据库、日志和重连逻辑，**只想拿驱动直接读写 PLC**：
+
+```bash
+dotnet add package ZL.IotDriver --version 2.3.0
+```
+
+```csharp
+using var plc = new SiemensS7Driver(
+    SiemensCpuType.S7_1200, "127.0.0.1", 31002, rack: 0, slot: 1);
+
+plc.ConnectServer();
+plc.Write("DB1.DBW2", (short)1234);
+var value = plc.ReadInt16("DB1.DBW2");
+```
+
+- **不需要** `ZL.IotEngine`；
+- 没有 `DriverFactory` / `DeviceManager` / 自动重连 / 缓存 / 批量合并，这些由你的程序自己管；
+- S7 / Modbus / Omron / 三菱 MC 四种协议、bool/short/int/float/string 示例：
+  **[DriverOnly](./samples/DriverOnly)** ⭐
+
+> 只装 Driver 时，`PlcDeviceStringWriteExtensions.WriteString(this IPlcDevice, ...)` 扩展方法
+> 在 `ZL.IotEngine` 里，不在 `ZL.IotDriver` 里；S7/Modbus 请用驱动实例的 `WriteString`，
+> Omron / 三菱请用 `WriteBytes`。详见示例 README。
 
 ---
 
@@ -81,6 +112,7 @@ dotnet run -f net8.0 -- --config 我的设备.xml
 | **高级编排** | 业务壳 / 可判别读 / 诊断 / 运行时增删设备 | **[Advanced](./samples/Advanced)** ⭐ |
 | **OPC UA 客户端** | PLC/仿真器是 OPC UA Server 时，按 NodeId 采集 | **[OpcUaClient](./samples/OpcUaClient)** ⭐ |
 | **OPC UA 网关** | 普通协议采集后，统一以 OPC UA 对外发放（ZL.IotHub.Server） | **[OpcUaServer](./samples/OpcUaServer)** ⭐ |
+| **只装驱动包** | 不引入引擎，直接 `new` 驱动读写 S7/Modbus/Omron/三菱 MC | **[DriverOnly](./samples/DriverOnly)** ⭐ |
 
 ---
 
