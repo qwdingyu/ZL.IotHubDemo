@@ -254,6 +254,19 @@ plc.Write(address, byte[]);
 > 在 2.3.0 上请改用**裸数字 `0` / `1`（0 基）**，位读写就一致；
 > 下个版本发布后，`00001` 与 `0` 会指向同一线圈。
 >
+> ⚠️ 另外，2.3.0 的 `ReadBool` 对 **`1xxxx`（离散输入 DI）**也走 FC1：
+> `ReadBool("10001")` 实际读的是**线圈 10001**，不是 DI 0。
+> 源码已修复（DI 走 FC2），包未发。
+> 2.3.0 上读 DI 请用 `ReadBytesInArea`（**实测可用**）：
+>
+> ```csharp
+> var di = plc.ReadBytesInArea("DI", 0, 1);      // 1 字节 = 8 位
+> bool di0 = di.IsSuccess && (di.Content[0] & 1) != 0;
+> ```
+>
+> 实测（2.3.0）：线圈 0=true 时，`ReadBytesInArea("C",0,1)` = `01`、
+> `ReadBytesInArea("DI",0,1)` = `00` ⇒ 两个区确实分开。
+>
 > 📌 **读位区请用 `ReadBool` / `ReadBitsAsync`**；`ReadBytes` 是给寄存器/字节块用的。
 > NuGet 2.3.0 的 Modbus TCP 对「位区 + `ReadBytes`」有长度换算缺陷（源码已修复、包未发），
 > 表现为「返回 N 字节，与请求的 M 字节不符」。
