@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcStringWriteHelper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcStringWriteHelper | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 字符串写入的共享纯函数。  原先&quot;是否加 S7 前导头/如何构造 payload/如何解析编码&quot;的逻辑散落在消费端， 现集中到驱动层，供 DeviceBase/DevicePro/SiemensS7Driver 统一使用。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper" class="text-break">Class PlcStringWriteHelper</h1>
+  <div class="markdown level0 summary"><p>PLC 字符串写入的共享纯函数。</p>
+<p>
+原先"是否加 S7 前导头/如何构造 payload/如何解析编码"的逻辑散落在消费端，
+现集中到驱动层，供 DeviceBase/DevicePro/SiemensS7Driver 统一使用。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcStringWriteHelper</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PlcStringWriteHelper</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_MaxS7StringLength" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.MaxS7StringLength">MaxS7StringLength</h4>
+  <div class="markdown level1 summary"><p>西门子 S7 STRING 前导头的最大长度字节上限（Byte0 是单字节 ⇒ 254）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MaxS7StringLength = 254</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_MaxS7WStringLength" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.MaxS7WStringLength">MaxS7WStringLength</h4>
+  <div class="markdown level1 summary"><p>西门子 S7 WSTRING 前导头能表达的容量上限（Byte0-1 是 <strong>16 位「字」</strong> ⇒ 65535）。</p>
+<p>
+【为什么必须是硬上限】头字段只写 16 位 ⇒ 超过即**静默回绕** ✗：
+实测 <code>maxChars = 65536</code> ⇒ 头声明容量变成 **0**（PLC 视为 WSTRING[0]）；
+<code>maxChars = 100000</code> ⇒ 变成 34464 ✓，且 <code>payload</code> 会被分配成
+<code>100000*2+4 = 200004</code> 字节 ⇒ **把 128KB+ 写到字段之外** ✗（灾难）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MaxS7WStringLength = 65535</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildRawPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_System_String_System_Text_Encoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildRawPayload(System.String,System.Text.Encoding)">BuildRawPayload(string, Encoding)</h4>
+  <div class="markdown level1 summary"><p>原始字符区负载（无前导头）：同 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html#ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_System_String_System_Text_Encoding_System_Int32_">BuildRawPayload(string, Encoding, int)</a>，
+未提供 maxLength 时直接返回编码字节（不补零）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildRawPayload(string text, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildRawPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_System_String_System_Text_Encoding_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildRawPayload(System.String,System.Text.Encoding,System.Int32)">BuildRawPayload(string, Encoding, int)</h4>
+  <div class="markdown level1 summary"><p>原始字符区负载（无前导头）：把文本按 <code class="paramref">encoding</code> 编码为字节，
+若提供 <code class="paramref">maxLength</code>（&gt;0）且编码后字节不足，则补齐 0x00 到 maxLength；
+超出 maxLength 时按调用方校验规则处理（此函数本身不截断超长，由上层决定 Fail 或截断）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildRawPayload(string text, Encoding encoding, int maxLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxLength</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildS7StringPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildS7StringPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildS7StringPayload_System_String_System_Text_Encoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildS7StringPayload(System.String,System.Text.Encoding)">BuildS7StringPayload(string, Encoding)</h4>
+  <div class="markdown level1 summary"><p>构造西门子 S7 STRING 的完整写入负载（两字节前导头 + 内容）。</p>
+<p>
+默认最大长度取 min(254, max(内容长度, 20))，不足部分补 0x00。
+若点表已配置 TagItem.Length，请使用 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html#ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildS7StringPayload_System_String_System_Text_Encoding_System_Int32_">BuildS7StringPayload(string, Encoding, int)</a> 重载。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildS7StringPayload(string text, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildS7StringPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildS7StringPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildS7StringPayload_System_String_System_Text_Encoding_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildS7StringPayload(System.String,System.Text.Encoding,System.Int32)">BuildS7StringPayload(string, Encoding, int)</h4>
+  <div class="markdown level1 summary"><p>构造西门子 S7 STRING 的完整写入负载（两字节前导头 + 内容）。</p>
+<p>
+S7 STRING 布局：字节 0 = 最大长度，字节 1 = 实际长度，其后为内容。
+传入的 <code class="paramref">maxLength</code> 为点表配置的字符串最大**字节数**
+（西门子 STRING[n] 的 n 就是字节数；本仓读侧 ReadString(addr,size) 走 ReadBytes(addr,size)、
+写侧短则补零到该长度，两侧同口径 —— 原文写“最大字符数”是用词不准， 更正）；
+实际写入长度取 min(内容字节数, maxLength)，不足部分自动补 0x00。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildS7StringPayload(string text, Encoding encoding, int maxLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxLength</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildS7WStringPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildS7WStringPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildS7WStringPayload_System_String_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.BuildS7WStringPayload(System.String,System.Int32)">BuildS7WStringPayload(string, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildS7WStringPayload(string text, int maxChars)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxChars</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_GetRawPayloadOverCapacityMessage_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.GetRawPayloadOverCapacityMessage*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_GetRawPayloadOverCapacityMessage_System_Int32_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.GetRawPayloadOverCapacityMessage(System.Int32,System.Int32)">GetRawPayloadOverCapacityMessage(int, int)</h4>
+  <div class="markdown level1 summary"><p>显式容量（<code class="paramref">maxLength</code> &gt; 0）下 Raw 负载是否超长：超长返回可直接回报的错误消息，
+未超长（含未配置容量）返回 <code>null</code>。</p>
+<p>
+【为什么必须有这一步】<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html#ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_System_String_System_Text_Encoding_System_Int32_">BuildRawPayload(string, Encoding, int)</a> 的契约是
+“<b>不截断</b>超长，由调用方决定 Fail 或截断”（见该方法注释）；而 Raw 写入路径原先四处
+（<code>NativeDriverBase.WriteString/WriteStringAsync</code>、<code>SiemensS7Driver.WriteString/WriteStringAsync</code>
+的 Raw 分支）<b>都没有做这个判定</b>。同时 <code>NormalWriteRequest.StringLength</code>、
+<code>SafetyWriteRequest.StringLength</code> 对外文档写的是“字符串<b>最大</b>长度（字节/字符）”，
+且 <code>tag.Length</code> 就是字段字节宽（读侧 <code>ReadString(addr, size)</code> 走
+<code>ReadBytes(addr, size)</code>；写侧短则补零到该长度）⇒ 超长时会<b>写穿点表 Length 界定的字段</b>，
+静默覆盖其后相邻的 PLC 存储区。
+兄弟路径 S7 STRING / WSTRING 一直是超长即 Fail（<code>SiemensS7Driver.WriteS7String/WriteS7WString</code>）
+⇒ 本方法把同一约定补齐到 Raw 路径，并做到“一处定义、四处复用”，避免阈值与提示语各自漂移。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetRawPayloadOverCapacityMessage(int payloadLength, int maxLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">payloadLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxLength</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_IsSiemensProtocol_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.IsSiemensProtocol*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_IsSiemensProtocol_System_String_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.IsSiemensProtocol(System.String)">IsSiemensProtocol(string)</h4>
+  <div class="markdown level1 summary"><p>协议是否为西门子 S7（决定字符串写入是否加两字节前导头）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsSiemensProtocol(string protocolType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_ResolveEncoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.ResolveEncoding*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_ResolveEncoding_System_String_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.ResolveEncoding(System.String)">ResolveEncoding(string?)</h4>
+  <div class="markdown level1 summary"><p>解析字符编码名称；非法/未知名称回退系统默认编码（与历史行为一致）。</p>
+<p>
+注意：调用方在编码名为空/ASCII/Default 时应走"直接字符串写入"路径，
+无需调用本方法（见 UcTagTable.WriteStringValue 的分支约定）。
+net8.0 目标下 GB2312 等代码页需注册 CodePagesEncodingProvider 才可解析，
+未注册时 GetEncoding 抛异常 → 回退 Default（与历史行为一致）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Encoding ResolveEncoding(string? encodingName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">encodingName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_ResolveS7Capacity_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.ResolveS7Capacity*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_ResolveS7Capacity_System_Int32_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.ResolveS7Capacity(System.Int32,System.Int32)">ResolveS7Capacity(int, int)</h4>
+  <div class="markdown level1 summary"><p>计算西门子 S7 STRING 前导头所用的最大字节数：
+在 [1, 254] 内取真值；当 <code class="paramref">maxLength</code> 未配置（&lt;=0）时，
+回退到 min(254, max(实际字节长, 20)) —— 与调用方依赖严格 max 的场景完全一致，
+避免把 -1/0 误解为“1 字节区”导致缓冲区越界。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int ResolveS7Capacity(int maxLength, int contentBytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">contentBytes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_ResolveWStringCapacity_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.ResolveWStringCapacity*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_ResolveWStringCapacity_System_Int32_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.ResolveWStringCapacity(System.Int32,System.Int32)">ResolveWStringCapacity(int, int)</h4>
+  <div class="markdown level1 summary"><p>WSTRING 前导头要写入的容量（字）。<code class="paramref">maxChars</code> &gt; 0 时原样使用，
+否则回退 <code>min(127, max(实际字数, 20))</code>。</p>
+<p>
+【为什么必须与构造共用】调用方的"超长判定"与本方法必须用**同一个值** ✗，
+否则会出现"判定通过、构造时静默截断/回绕"（D2/D3 两个真缺陷的成因 ✓）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int ResolveWStringCapacity(int maxChars, int actualChars)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxChars</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">actualChars</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_TryBuildS7SmartStringPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.TryBuildS7SmartStringPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_TryBuildS7SmartStringPayload_System_String_System_Text_Encoding_System_Int32_System_Byte____System_String__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.TryBuildS7SmartStringPayload(System.String,System.Text.Encoding,System.Int32,System.Byte[]@,System.String@)">TryBuildS7SmartStringPayload(string, Encoding, int, out byte[], out string)</h4>
+  <div class="markdown level1 summary"><p>构造西门子 S7 WSTRING 的完整写入负载（4 字节前导头 + <strong>大端</strong>字符数据 ✓）。</p>
+<p>
+S7 WSTRING 布局：字节 0-1 = 最大长度（字，大端序），字节 2-3 = 实际长度（字，大端序），
+其后为每字符 2 字节的 **大端**字符数据（逐 16 位字交换 ✓）。每字=1 个 UTF-16 编码单元，因此：
+内容总字符数超出 maxChars 时按 maxChars 截断；不足则补 0x00 到 maxChars*2。
+</p>
+<param name="maxChars">
+点表配置的最大字符数（= PLC DB 中 WString[n] 的 n）。&lt;=0 时按实际字符数回退
+min(127, max(实际字符, 20))。超长截断以避免写越界。
+
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryBuildS7SmartStringPayload(string text, Encoding encoding, int maxLength, out byte[] payload, out string failure)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">payload</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">failure</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_TryBuildS7SmartWStringPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.TryBuildS7SmartWStringPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_TryBuildS7SmartWStringPayload_System_String_System_Int32_System_Byte____System_String__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.TryBuildS7SmartWStringPayload(System.String,System.Int32,System.Byte[]@,System.String@)">TryBuildS7SmartWStringPayload(string, int, out byte[], out string)</h4>
+  <div class="markdown level1 summary"><p>构造 <strong>S7-200 SMART</strong> 的 WSTRING 负载：<strong>1 字节头（实际字数）</strong> + <strong>UTF-16LE 字符（不交换）</strong> ✓。</p>
+<p>
+【与常规 S7 WSTRING 的两点差异】① 头 1 字节而非 4 字节 ✗；
+② 字符区 **UTF-16LE 不交换** ✗（常规 S7 是大端、需逐字交换 ✓）。
+参考实现 HSL `WriteWString` 的 SMART 分支直接 <code>plc.Write(address, value, Encoding.Unicode)</code> ✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryBuildS7SmartWStringPayload(string text, int maxChars, out byte[] payload, out string failure)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxChars</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">payload</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">failure</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_TryResolveEncoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.TryResolveEncoding*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_TryResolveEncoding_System_String_System_Text_Encoding__System_String__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.TryResolveEncoding(System.String,System.Text.Encoding@,System.String@)">TryResolveEncoding(string?, out Encoding, out string)</h4>
+  <div class="markdown level1 summary"><p>尝试解析字符串编码 —— <strong>按运行时能力判定</strong>（不是白名单）。</p>
+<p>
+🔴【2026-11-12 方案 D】**为什么需要这个方法**：`ResolveEncoding` 是遗留入口、保持 NoThrow，
+无法让"显式配了本 TFM 不支持的编码"这一情形**响亮失败** ⇒ 调用方（写路径）用本方法：
+失败即 <code>DeviceResult.Fail(error)</code>，**绝不静默换成另一种编码** ✗→✓
+</p>
+<p>
+**判据（与方案 D 一致）**：
+<ul><li><code>null</code>/空/<code>"Default"</code> ⇒ <span class="xref">System.Text.Encoding.UTF8</span>，<code>true</code> ✓</li><li>本 TFM 能解析（含 net48 原生代码页、宿主已注册的 Provider）⇒ 用它，<code>true</code> ✓</li><li>**显式配置但解析不了** ⇒ <code>false</code> ＋ 可读错误（含本 TFM 可用集合 ＋ WSTRING 建议 ＋ 注册路径）✓</li></ul>
+
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryResolveEncoding(string? encodingName, out Encoding encoding, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">encodingName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_WarnEncodingUnsupportedOnce_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.WarnEncodingUnsupportedOnce*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_WarnEncodingUnsupportedOnce_System_String_System_Text_Encoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.WarnEncodingUnsupportedOnce(System.String,System.Text.Encoding)">WarnEncodingUnsupportedOnce(string?, Encoding)</h4>
+  <div class="markdown level1 summary"><p>【2026-11-12 读侧收口】&quot;显式配置了本 TFM 不支持的编码&quot;的<strong>按名一次性 WARNING</strong>。</p>
+<p>读侧（采集循环/块读解码）无法像写侧那样逐次 Fail ⇒ 降级为"按配置的 UTF-8 解码 + 有痕"；
+同一编码名只警告一次（去重），避免 1000 点 × 每轮采集的刷屏 ✗。</p>
+<p>
+🔴 **为什么是 public**（不是 internal）：调用点在 <code>ZL.IotEngine</code>（块读收口
+<code>PlcValueExtractor</code>），而本程序集**没有** InternalsVisibleTo("ZL.IotEngine")——
+新增它会让 Obfuscar 的"逐项目独立混淆、无共享改名表"模式出现**跨程序集原名耦合**
+（实测先例：<code>TimeoutDefaults</code> 必须 <code>[Obfuscation(Exclude=true)]</code> 才不崩，
+见该文件 2026-11-05 注释）⇒ 避免新增此类耦合，直接公开 ✗→✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WarnEncodingUnsupportedOnce(string? encodingName, Encoding fallback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">encodingName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">fallback</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

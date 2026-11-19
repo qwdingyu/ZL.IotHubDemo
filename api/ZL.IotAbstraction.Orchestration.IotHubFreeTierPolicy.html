@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class IotHubFreeTierPolicy | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class IotHubFreeTierPolicy | ZL IoT SDK API ">
+    
+    <meta name="description" content="ZL.IotHub 免费版策略。  业务意图：在 LicenseManager 通用授权检查之上，增加产品级免费版限制。 免费版规则： 1. 设备数上限 10 台—— 属于准入语义：只在&quot;创建第 N+1 台&quot;时经     判一次    （超限抛&quot;试用态设备数已达上限&quot;并原子回滚）；    绝不放在每报文/每构造的通信门禁通路上 ——    历史缺陷：计数在设备已存在时就 +1，`&amp;gt;=` 判定放在通信通路上的语义变成 「已有设备数 ≥ 上限 ⇒ 连已有设备也不许通信」； 2. 不限协议； 3. 允许读写（ 定型放开写入；原&quot;仅允许读取&quot;由 L3 AllowWrite 收口，未来如需恢复禁写    只需在 LicenseGate.AllowWrite 加回 Trial 守卫）； 4. 必须具有 BasicRead 功能位。   生效前提：本策略仅在试用（Trial）态由  叠加； 正式授权（Authorized）的设备额度与功能位由授权文件承担，不再被免费版策略误伤。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy">
+
+
+
+  <h1 id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy" class="text-break">Class IotHubFreeTierPolicy</h1>
+  <div class="markdown level0 summary"><p>ZL.IotHub 免费版策略。</p>
+<p>
+业务意图：在 LicenseManager 通用授权检查之上，增加产品级免费版限制。
+免费版规则：
+1. 设备数上限 10 台—— 属于<b>准入</b>语义：只在"创建第 N+1 台"时经
+   <span class="xref">ZL.License.LicenseManager.IncrementDeviceCount()</span> 判一次
+   （超限抛"试用态设备数已达上限"并原子回滚）；
+   <b>绝不</b>放在每报文/每构造的通信门禁通路上 ——
+   历史缺陷：计数在设备已存在时就 +1，`&gt;=` 判定放在通信通路上的语义变成
+「已有设备数 ≥ 上限 ⇒ 连已有设备也不许通信」；
+2. 不限协议；
+3. 允许读写（ 定型放开写入；原"仅允许读取"由 L3 AllowWrite 收口，未来如需恢复禁写
+   只需在 LicenseGate.AllowWrite 加回 Trial 守卫）；
+4. 必须具有 BasicRead 功能位。
+</p>
+<p>
+生效前提：本策略<b>仅在试用（Trial）态</b>由 <a class="xref" href="ZL.IotAbstraction.Orchestration.LicenseGate.html">LicenseGate</a> 叠加；
+正式授权（Authorized）的设备额度与功能位由授权文件承担，不再被免费版策略误伤。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">IotHubFreeTierPolicy</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Orchestration.html">Orchestration</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class IotHubFreeTierPolicy</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy_IsAllowed_" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy.IsAllowed*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy_IsAllowed_System_String_" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy.IsAllowed(System.String)">IsAllowed(string?)</h4>
+  <div class="markdown level1 summary"><p>判断当前操作是否允许在免费版下执行（通信放行语义）。</p>
+<p>
+2026-09-19 修复：移除设备数判定 ——
+该判定曾用 <code>ActivatedDevices &gt;= 上限</code> 跑在每报文/每构造通路上，
+而计数在设备已存在时就已 +1，导致「建满后已有设备被自己门禁拒掉」。
+设备数属于<b>准入</b>语义，统一由
+<span class="xref">ZL.License.LicenseManager.IncrementDeviceCount()</span> 在创建驱动时
+原子判定（超限抛 <span class="xref">ZL.License.LicenseException</span> 并回滚），本方法只承担：
+未知协议写入禁止（保守启发式）/ BasicRead 功能位。
+</p>
+<p>
+2026-09-23：免费版<b>不限协议</b> —— 移除 HSL 禁令
+。自研 Native 全部 + HSL（hsl-*）全部放行；
+HSL 商业库自身的授权码机制（XInit/ZL_XAUTH_HSL）不受本策略影响，由驱动连接时另行校验。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsAllowed(string? protocolKey)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolKey</span></td>
+        <td><p>协议键；连接层传 null/空。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>免费版允许返回 true，否则返回 false。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy_RegisterKnownProtocolNames_" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy.RegisterKnownProtocolNames*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy_RegisterKnownProtocolNames_System_Collections_Generic_IEnumerable_System_String__" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy.RegisterKnownProtocolNames(System.Collections.Generic.IEnumerable{System.String})">RegisterKnownProtocolNames(IEnumerable&lt;string&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterKnownProtocolNames(IEnumerable&lt;string&gt; names)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">names</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy_RegisterProtocolKeyProvider_" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy.RegisterProtocolKeyProvider*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_IotHubFreeTierPolicy_RegisterProtocolKeyProvider_System_Func_System_Collections_Generic_IReadOnlyCollection_System_String___" data-uid="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy.RegisterProtocolKeyProvider(System.Func{System.Collections.Generic.IReadOnlyCollection{System.String}})">RegisterProtocolKeyProvider(Func&lt;IReadOnlyCollection&lt;string&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>注入「已知协议名」（键与别名），供免费版策略识别为<b>协议</b>而非「写入操作串」。</p>
+<p>幂等、可重复调用、线程安全；由上层协议注册表在注册时调用。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterProtocolKeyProvider(Func&lt;IReadOnlyCollection&lt;string&gt;&gt; provider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<span class="xref">IReadOnlyCollection</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</td>
+        <td><span class="parametername">provider</span></td>
+        <td><p>返回&quot;键 + 全部别名&quot;扁平集合的提供者（大小写不敏感比对）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

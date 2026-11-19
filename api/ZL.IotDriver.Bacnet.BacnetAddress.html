@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class BacnetAddress | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class BacnetAddress | ZL IoT SDK API ">
+    
+    <meta name="description" content="BACnet 地址：&amp;lt;device&amp;gt;.&amp;lt;对象&amp;gt;:&amp;lt;实例&amp;gt;.&amp;lt;属性&amp;gt;[.&amp;lt;索引/优先级&amp;gt;]。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Bacnet.BacnetAddress">
+
+
+
+  <h1 id="ZL_IotDriver_Bacnet_BacnetAddress" data-uid="ZL.IotDriver.Bacnet.BacnetAddress" class="text-break">Class BacnetAddress</h1>
+  <div class="markdown level0 summary"><p>BACnet 地址：<code>&lt;device&gt;.&lt;对象&gt;:&lt;实例&gt;.&lt;属性&gt;[.&lt;索引/优先级&gt;]</code>。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">BacnetAddress</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Bacnet.html">Bacnet</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Bacnet_BacnetAddress_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BacnetAddress</code></pre>
+  </div>
+  <h5 id="ZL_IotDriver_Bacnet_BacnetAddress_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p><b>一、HSL 有没有 BACnet 规范？—— 没有（已实测，不是推断）</b></p>
+<ul><li><code>grep -rli "bacnet" _vendor/hsl-decompile-13.0.3 | wc -l</code> ⇒ **0**（该目录 100 个子目录全扫）</li><li>复核命令（可直接跑）：<code>grep -rli bacnet /Users/dingyuwang/0-X/ZL.PlcBase/_vendor/hsl-decompile-13.0.3 | head</code></li><li>⇒ HSL **不提供** BACnet 驱动、也就没有"HSL 地址惯例"可对齐 ⇒ 按 ASHRAE 135 的对象/属性模型自定，并本文档化。</li></ul>
+<p><b>二、BACnet 标准本身怎么寻址（ASHRAE 135）</b></p>
+<p>标准**没有"地址字符串"**这个概念，点位恒由四元组定位：</p>
+<pre><code class="lang-csharp">( objectIdentifier = { objectType, instance } , propertyIdentifier , arrayIndex? , priority? )
+例：{ analogValue, 1 } + presentValue          → 读/写该点当前值
+    { analogValue, 1 } + priorityArray + 8     → 读第 8 号命令优先级槽</code></pre>
+<p><code>device</code> 不是"地址的一部分"，它是**另一台对象**（objectType=8）的实例号；
+但 BACnet/IP 上必须先知道"问哪台设备"，故实际工具都把 device 与点位一起表达。</p>
+<p><b>三、行业工具怎么表达（本地可查的三处证据）</b></p>
+<table><thead><tr><th class="term">来源</th><th class="description">表达形式</th></tr></thead><tbody><tr><td class="term">BACpypes3 / BAC0（本次交叉裁判）</td><td class="description"><code>"analogInput,1"</code> + 属性名 <code>"presentValue"</code>；device 另给 <code>"device,1234"</code>
+（实测见 <code>docs/drivers/Bacnet.md</code> §9）</td></tr><tr><td class="term">PLC4X <code>BacNetIpTag</code></td><td class="description">字段就是 <code>deviceIdentifier / objectType / objectInstance</code>（**四元组一致**），
+但其地址字符串正则仍写着 <code>"TODO: finish me..."</code> ⇒ **无可抄的字符串标准**</td></tr><tr><td class="term">YABE / BACnet-stack 工具</td><td class="description"><code>type,instance</code> + 属性名（与 BACpypes 同形）</td></tr></tbody></table>
+<p><b>四、本驱动为什么定成现在这个形式</b></p>
+<pre><code class="lang-csharp">&lt;device&gt;.&lt;AI|AO|AV|BI|BO|BV|MSI|MSO|MSV|DEV&gt;:&lt;实例&gt;.&lt;PV|PA|RD|NAME|DESC|UNITS|TYPE|OID&gt;[.索引/优先级]
+1001.AV:1.PV      → device 1001 / analogValue 1 / presentValue
+1001.AV:1.PV.8    → 同上，写命令优先级 8
+1001.AV:1.PA.8    → priorityArray 第 8 槽（只读）</code></pre>
+<ol><li><b>device 放第一段</b>：采集配置里"一个连接一台设备"，地址带 device 便于
+多设备共库、日志定位、以及**与设备侧校验**（device 不符 ⇒ 对端回
+<code>unknown-object</code>；我方仿真器就是按 <code>inst != _deviceId</code> 判的）。</li><li><b>对象用 <code>TYPE:instance</code></b>：与 ASHRAE 的 <code>objectIdentifier</code> 一一对应，
+也与 BACpypes 的 <code>"analogInput,1"</code> 同构（只是分隔符 <code>:</code> 换成 <code>,</code>，避免与三段点号混淆）。</li><li><b>属性用标准缩写</b>：<code>PV/PA/RD/NAME/DESC/UNITS/TYPE/OID</code> 分别是
+85/87/104/77/28/117/79/75；缩写只是<b>书写便利</b>，落到线上仍是标准属性号。</li><li><b>第四段语义随属性而变</b>（唯一"非对称"设计）：<code>PA</code> 后是**数组索引**、
+<code>PV</code> 后是**写优先级** —— 因为 BACnet 的 <code>priorityArray</code> 是数组、
+而 <code>presentValue</code> 的写入才会带 priority。这条最易错，已用 2 条用例 + 变异自证钉住
+（见 <code>tests/ZL.IotHub.Tests/Drivers/BacnetAddressTests.cs</code>）。</li></ol>
+<p><b>五、与标准写法的对照（便于与现场/第三方文档对齐）</b></p>
+<table><thead><tr><th class="term">本驱动</th><th class="description">等价的 BACpypes3 写法</th></tr></thead><tbody><tr><td class="term"><code>1001.AV:1.PV</code></td><td class="description"><code>read_property(dev1001, "analogValue,1", "presentValue")</code></td></tr><tr><td class="term"><code>1001.AV:1.PA.8</code></td><td class="description"><code>read_property(dev1001, "analogValue,1", "priorityArray", 8)</code></td></tr><tr><td class="term"><code>1001.BV:3.PV</code></td><td class="description"><code>read_property(dev1001, "binaryValue,3", "presentValue")</code>（ENUMERATED 0/1）</td></tr><tr><td class="term"><code>1001.MSV:4.PV</code></td><td class="description"><code>read_property(dev1001, "multiStateValue,4", "presentValue")</code>（UNSIGNED）</td></tr></tbody></table>
+<p><b>六、为什么不照抄 BACpypes 的 <code>"analogInput,1"</code></b></p>
+<p>它的字符串里**不含 device**、且属性是**第二参数**（不是字符串的一部分）⇒
+落到"单字符串地址"的驱动契约里，必须再造一层参数，配置侧也更难表达"哪台设备"。
+故本驱动把 device 与属性都并入单字符串，**语义与标准一一对应、书写更省**。</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_ArrayIndex_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ArrayIndex*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_ArrayIndex" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ArrayIndex">ArrayIndex</h4>
+  <div class="markdown level1 summary"><p>数组索引（读数组属性时用；<code>PA.8</code> 的 8）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint? ArrayIndex { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_Device_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Device*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_Device" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Device">Device</h4>
+  <div class="markdown level1 summary"><p>设备实例号（1..4194303）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint Device { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_Instance_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Instance*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_Instance" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Instance">Instance</h4>
+  <div class="markdown level1 summary"><p>对象实例号。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint Instance { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_IsAnalog_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.IsAnalog*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_IsAnalog" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.IsAnalog">IsAnalog</h4>
+  <div class="markdown level1 summary"><p>模拟量（REAL 语义：AI/AO/AV）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsAnalog { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_IsBinary_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.IsBinary*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_IsBinary" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.IsBinary">IsBinary</h4>
+  <div class="markdown level1 summary"><p>二值量（ENUMERATED 0/1 语义：BI/BO/BV）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBinary { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_ObjectType_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ObjectType*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_ObjectType" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ObjectType">ObjectType</h4>
+  <div class="markdown level1 summary"><p>对象类型号（ASHRAE 135 Clause 12；0=AI、1=AO、2=AV、3=BI、4=BO、5=BV、19=MSV）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte ObjectType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_Priority_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Priority*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_Priority" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Priority">Priority</h4>
+  <div class="markdown level1 summary"><p>写命令优先级（1..16；<code>PV.8</code> 的 8）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint? Priority { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_Property_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Property*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_Property" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.Property">Property</h4>
+  <div class="markdown level1 summary"><p>属性号（85=presentValue、87=priorityArray、104=relinquishDefault…）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint Property { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_ValueWidth_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ValueWidth*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_ValueWidth" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ValueWidth">ValueWidth</h4>
+  <div class="markdown level1 summary"><p>本地址对应的值<strong>固有宽度</strong>（字节）：REAL=4、二值=1、MSV=2、字符串=0（不定长）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ValueWidth { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_ToString_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ToString*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_ToString" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+  <a id="ZL_IotDriver_Bacnet_BacnetAddress_TryParse_" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.TryParse*"></a>
+  <h4 id="ZL_IotDriver_Bacnet_BacnetAddress_TryParse_System_String_ZL_IotDriver_Bacnet_BacnetAddress__System_String__" data-uid="ZL.IotDriver.Bacnet.BacnetAddress.TryParse(System.String,ZL.IotDriver.Bacnet.BacnetAddress@,System.String@)">TryParse(string, out BacnetAddress, out string)</h4>
+  <div class="markdown level1 summary"><p>解析地址。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(string text, out BacnetAddress address, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>地址文本。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.Bacnet.BacnetAddress.html">BacnetAddress</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>解析结果。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>失败原因（中文，含语法示例）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

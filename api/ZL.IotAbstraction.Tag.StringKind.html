@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Enum StringKind | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Enum StringKind | ZL IoT SDK API ">
+    
+    <meta name="description" content="字符串存储格式枚举。  西门子 S7 系列 PLC 的字符串存储有三种格式： - ：无前导符模式，直接存储字符数据（S7-200、Modbus 等） - ：西门子 STRING 格式（S7-1200/1500），前 2 字节为元数据 - ：西门子 WSTRING 格式（S7-1200/1500），前 4 字节为元数据   【设计目的】将字符串格式判断从设备级（DeviceRoot.DefaultStringKind）下沉到标签级， 使同一台 PLC 上可以混合使用不同格式的字符串标签。 例如 S7-1500 上可同时存在 String[20]（2 字节头）、Array of Char（无头）、WString[20]（4 字节头）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Tag.StringKind">
+
+
+
+
+  <h1 id="ZL_IotAbstraction_Tag_StringKind" data-uid="ZL.IotAbstraction.Tag.StringKind" class="text-break">Enum StringKind</h1>
+  <div class="markdown level0 summary"><p>字符串存储格式枚举。</p>
+<p>
+西门子 S7 系列 PLC 的字符串存储有三种格式：
+- <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_Raw">Raw</a>：无前导符模式，直接存储字符数据（S7-200、Modbus 等）
+- <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_S7String">S7String</a>：西门子 STRING 格式（S7-1200/1500），前 2 字节为元数据
+- <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_S7WString">S7WString</a>：西门子 WSTRING 格式（S7-1200/1500），前 4 字节为元数据
+</p>
+<p>
+【设计目的】将字符串格式判断从设备级（DeviceRoot.DefaultStringKind）下沉到标签级，
+使同一台 PLC 上可以混合使用不同格式的字符串标签。
+例如 S7-1500 上可同时存在 String[20]（2 字节头）、Array of Char（无头）、WString[20]（4 字节头）。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Tag.html">Tag</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Tag_StringKind_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum StringKind</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    </thead></thead><tbody>
+      <tr>
+        <td id="ZL_IotAbstraction_Tag_StringKind_AbCipString">AbCipString</td>
+        <td><p>罗克韦尔 AB (Logix) STRING 格式：前 4 字节为 <code>DINT LEN</code>（<strong>小端</strong>），
+其后为 <code>SINT DATA[n]</code> 字符数据（每字符 1 字节，按调用方 encoding 解码）。</p>
+<p>
+【布局依据（真机实测，非推断）】<code>CompactLogix 5069-L330ERM fw38</code> 探针：
+结构实例 88 字节 = LEN 4 + DATA 82 + 2 补齐；用 86 字节写被拒（0x13）、88 字节成功
+⇒ <b>LEN 在结构偏移 0、DATA 在偏移 4</b> ✓（见
+<code>AllenBradleyCipDriver.ReadStringAsync</code> 的注释与）。
+</p>
+<p>
+⚠️ **不得照抄 HSL 的偏移 2/6** ✗：HSL <code>AllenBradleyConnectedCipNet</code> 用的是
+<code>TransInt32(content,2) + GetString(content,6,n)</code>，那是其**自身 218 分支读取上下文**的偏移
+（其读取服务不同，响应前面多 2 字节结构句柄 ✗），**并非 Logix STRING 结构**
+⇒ 照抄会让本来正确（真机验证过 ✓）的实现变错 ✗。本仓曾踩过此坑并已修正 ✓。
+</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Tag_StringKind_None">None</td>
+        <td><p>未配置（默认值）。
+回落到设备级 <code>DefaultStringKind</code> 设置：<a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_S7String">S7String</a>、<a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_S7WString">S7WString</a> 或 <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_Raw">Raw</a>。</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Tag_StringKind_Raw">Raw</td>
+        <td><p>无前导符模式：直接存储字符数据，无长度前缀。
+适用于 S7-200、Modbus、及其他非西门子协议。</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Tag_StringKind_S7SmartString">S7SmartString</td>
+        <td><p><strong>S7-200 SMART</strong> 的 STRING 布局：<strong>1 字节头</strong>（Byte0 = 实际长度 ✓，<strong>没有容量字段</strong> ✗）+ 内容 ✓。</p>
+<p>
+【为什么需要单独一项】S7-200 SMART 的字符串结构与 S7-300/400/1200/1500 **不同** ✗：
+后者的 STRING 是 `[容量][实际]内容` ✓，而 SMART 是 `[实际]内容` ✓（无容量字段 ✗）。
+这与"地址/COTP 握手都按型号区分"是同一类差异 ✓。
+</p>
+<p>
+【依据 = 参考实现 HSL 12.9.2（以代码为准 ✓）】`SiemensS7Helper.ReadString`：
+<code>if (currentPlc != SiemensPLCS.S200Smart) { 读 2 字节头，用 Content[1] 作长度 }
+else { 读 1 字节头，用 Content[0] 作长度，内容从偏移 1 起 }</code> ✓；
+`WriteString` 同理（SMART 分支先写 1 字节长度 ✓）。
+</p>
+<p>
+⚠️ **不需要用户配置** ✓：由 ZL.IotDriver.Siemens.SiemensS7Driver 按
+<code>CpuType == S7_200Smart</code> **自动选用** ✓ —— 它是 CPU 型号的事实、不是点表的选择 ✗
+（与 `AbCipString` 由驱动自述同理 ✓）。
+</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Tag_StringKind_S7SmartWString">S7SmartWString</td>
+        <td><p><strong>S7-200 SMART</strong> 的 WSTRING 布局：<strong>1 字节头</strong>（Byte0 = 实际字数 ✓）+ <strong>UTF-16LE 字符（不交换）</strong> ✓。</p>
+<p>
+【与常规 S7 WSTRING 的两点差异】① 头 1 字节而非 4 字节 ✗；
+② 字符区是 **UTF-16LE（不逐字交换）** ✗ —— 常规 S7 是**大端**（逐字交换 ✓）。
+</p>
+<p>
+【依据 = HSL 12.9.2（以代码为准 ✓）】`ReadWString` 的 SMART 分支：
+<code>读 1 字节头 → 读 (1 + c[0]*2) 字节 → Encoding.Unicode.GetString(content, 1, len-1)</code> ✓
+—— **没有** `BytesReverseByWord` ✗；`WriteWString` 的 SMART 分支直接
+<code>plc.Write(address, value, Encoding.Unicode)</code> ✓（同样不交换 ✓）。
+注意其长度取**实收**（<code>len-1</code>）而非头值 ✓，本仓沿用"裁尾部 NUL"即可等价 ✓。
+</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Tag_StringKind_S7String">S7String</td>
+        <td><p>西门子 STRING 格式：前 2 字节为元数据（Byte0=最大长度, Byte1=实际长度），Byte2+ 为字符数据。
+适用于 S7-1200/1500 的 STRING 类型。</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Tag_StringKind_S7WString">S7WString</td>
+        <td><p>西门子 WSTRING 格式：前 4 字节为元数据（Byte0-1=最大长度, Byte2-3=实际长度），Byte4+ 为 Unicode 字符数据（每字符 2 字节）。
+适用于 S7-1200/1500 的 WSTRING 类型。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

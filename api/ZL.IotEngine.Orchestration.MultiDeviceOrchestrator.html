@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class MultiDeviceOrchestrator | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class MultiDeviceOrchestrator | ZL IoT SDK API ">
+    
+    <meta name="description" content="多设备统一编排器。 读取 device-fleet.json，为每个设备创建设备实例，统一管理生命周期。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator">
+
+
+
+  <h1 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator" class="text-break">Class MultiDeviceOrchestrator</h1>
+  <div class="markdown level0 summary"><p>多设备统一编排器。
+读取 device-fleet.json，为每个设备创建设备实例，统一管理生命周期。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">MultiDeviceOrchestrator</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Orchestration.html">Orchestration</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class MultiDeviceOrchestrator : IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator__ctor_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator__ctor_System_Collections_Generic_IEnumerable_ZL_IotAbstraction_Tag_DeviceConfig__" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.#ctor(System.Collections.Generic.IEnumerable{ZL.IotAbstraction.Tag.DeviceConfig})">MultiDeviceOrchestrator(IEnumerable&lt;DeviceConfig&gt;)</h4>
+  <div class="markdown level1 summary"><p>从代码构造配置创建设备。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MultiDeviceOrchestrator(IEnumerable&lt;DeviceConfig&gt; configs)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a>&gt;</td>
+        <td><span class="parametername">configs</span></td>
+        <td><p>设备配置列表</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator__ctor_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator__ctor_System_String_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.#ctor(System.String)">MultiDeviceOrchestrator(string)</h4>
+  <div class="markdown level1 summary"><p>从 JSON 配置文件创建（支持单设备和多设备）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MultiDeviceOrchestrator(string configPath)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">configPath</span></td>
+        <td><p>device-fleet.json 路径</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_DeviceCount_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.DeviceCount*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_DeviceCount" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.DeviceCount">DeviceCount</h4>
+  <div class="markdown level1 summary"><p>获取设备数量。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DeviceCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_LogCallback_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.LogCallback*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_LogCallback" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.LogCallback">LogCallback</h4>
+  <div class="markdown level1 summary"><p>日志回调（可选）。业务端可设置，用于接收编排器生命周期日志。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Action&lt;string&gt;? LogCallback { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_AddDeviceAsync_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.AddDeviceAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_AddDeviceAsync_ZL_IotAbstraction_Tag_DeviceConfig_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.AddDeviceAsync(ZL.IotAbstraction.Tag.DeviceConfig,System.Threading.CancellationToken)">AddDeviceAsync(DeviceConfig, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p><strong>运行时新增一台设备</strong>（<code>docs/653</code> D13，2026-11-17）：创建 → 启动。</p>
+<p><b>为什么要它</b>：现场调试常需要"临时加一台设备试试"，
+而原 API 只有构造期批量加载（`MultiDeviceOrchestrator` 只从 fleet 配置建）⇒
+加一台必须重启整个宿主 ✗</p>
+<p><b>幂等</b>：复用 <span class="xref">ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.CreateDevice(ZL.IotAbstraction.Tag.DeviceConfig)</span> —— 同 `DeviceId` 已存在时**复用**实例
+（不重复创建、不二次计数、**不**记入 `_ownedDeviceIds`）⇒ 之后 `RemoveDeviceAsync`
+也**不会**释放它（所有权在原持有者）✓</p>
+<p><b>失败语义</b>：连接/建计划失败时**返回** `IsSuccess=false` 的
+<a class="xref" href="ZL.IotEngine.Orchestration.DeviceStartResult.html">DeviceStartResult</a>（**不抛**），且设备**仍在** `_devices` 里
+—— 调用方可重试或显式 `RemoveDeviceAsync` 摘掉 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceStartResult&gt; AddDeviceAsync(DeviceConfig config, CancellationToken ct = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotEngine.Orchestration.DeviceStartResult.html">DeviceStartResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_Dispose_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.Dispose*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_Dispose" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetAllStatus_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetAllStatus*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetAllStatus" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetAllStatus">GetAllStatus()</h4>
+  <div class="markdown level1 summary"><p>获取所有设备状态（兼容旧版本）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;ConnectionStateManager&gt; GetAllStatus()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotEngine.Runtime.ConnectionStateManager.html">ConnectionStateManager</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetDeviceIds_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetDeviceIds*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetDeviceIds" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetDeviceIds">GetDeviceIds()</h4>
+  <div class="markdown level1 summary"><p>获取所有设备 ID。</p>
+<p>
+🔴 **【2026-11-09 补充文档（docs/629 / A-238）】返回顺序**不保证**** ✗ ——
+底层是 <span class="xref">System.Collections.Concurrent.ConcurrentDictionary&lt;TKey, TValue&gt;</span>，
+其**枚举顺序是未定义的**（不保证插入序）⚠️。
+实测（`docs/629`）：传入 `[DEV-A, DEV-B]` ⇒ 本方法返回 **`[DEV-B, DEV-A]`**（相反）✗
+</p>
+<p>
+⇒ **不要**写 `GetDeviceIds()[0]` 并假设它是"配置里的第一台" ✗
+（会让"编号 ↔ 设备"的对应关系不稳定 ⇒ 现场按编号排障时**指错设备**）⚠️
+</p>
+<p>
+✅ **需要稳定顺序**（与配置传入顺序一致）请用 <a class="xref" href="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.html#ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetDeviceIdsInConfigOrder">GetDeviceIdsInConfigOrder()</a> ✓；
+或者调用方自己 `OrderBy`（若只是要一个确定的序）✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;string&gt; GetDeviceIds()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetDeviceIdsInConfigOrder_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetDeviceIdsInConfigOrder*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetDeviceIdsInConfigOrder" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetDeviceIdsInConfigOrder">GetDeviceIdsInConfigOrder()</h4>
+  <div class="markdown level1 summary"><p>【2026-11-09 新增，docs/629 / A-238】按<strong>设备注册的首次出现顺序</strong>返回设备 ID ——
+即&quot;与配置传入顺序一致&quot;，可比 <a class="xref" href="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.html#ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetDeviceIds">GetDeviceIds()</a> 的未定义顺序安全使用 ✓</p>
+<p>
+**与 <a class="xref" href="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.html#ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetDeviceIds">GetDeviceIds()</a> 的差异**：本方法只保证**顺序**；
+两者返回的**集合内容相同**（都来自当前在册设备）✓ —— 已释放的设备两者都不会返回 ✓
+</p>
+<p>
+**实现**：用一条独立的顺序表（`_deviceIdOrder`）记录首次注册顺序，
+再按它过滤当前在册集合 ⇒ 既稳定、又不会返回已摘除的设备 ✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;string&gt; GetDeviceIdsInConfigOrder()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetHealthStatus_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetHealthStatus*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetHealthStatus" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetHealthStatus">GetHealthStatus()</h4>
+  <div class="markdown level1 summary"><p>获取所有设备健康状态。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;DeviceHealthStatus&gt; GetHealthStatus()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotEngine.Orchestration.DeviceHealthStatus.html">DeviceHealthStatus</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetStatus_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetStatus*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_GetStatus_System_String_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.GetStatus(System.String)">GetStatus(string)</h4>
+  <div class="markdown level1 summary"><p>根据 DeviceId 获取设备状态（兼容旧版本）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConnectionStateManager GetStatus(string deviceId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Runtime.ConnectionStateManager.html">ConnectionStateManager</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_RemoveDeviceAsync_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.RemoveDeviceAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_RemoveDeviceAsync_System_String_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.RemoveDeviceAsync(System.String,System.Threading.CancellationToken)">RemoveDeviceAsync(string, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p><strong>运行时移除一台设备</strong>（<code>docs/653</code> D13，2026-11-17）：从本编排器摘除 → 仅<strong>自有</strong>则释放。</p>
+<p><b>与 <a class="xref" href="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.html#ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_StopAsync_System_Threading_CancellationToken_">StopAsync(CancellationToken)</a> 的区别</b>：`StopAsync` 只停**全部**且保留在 `_devices` 里；
+本方法摘掉**单台**并使其不再出现在 `GetHealthStatus`/`GetDeviceIds`/`DeviceCount` 中 ✓</p>
+<p><b>所有权</b>：复用 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">ReleaseOwnedDevice(string, DeviceRoot)</a> ——
+它用**原子占位**保证"恰好释放一次"，且对**复用设备**返回 `false`
+（只从本编排器摘除，**不动**其生命周期与 `DeviceManager` 注册）✓</p>
+<p><b>返回值</b>：不在本编排器里 ⇒ `IsSuccess=false`（**幂等**，不抛）；
+摘除成功 ⇒ `IsSuccess=true`，`Message` 说明是否真正释放了设备 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceStopResult&gt; RemoveDeviceAsync(string deviceId, CancellationToken ct = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotEngine.Orchestration.DeviceStopResult.html">DeviceStopResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_StartAsync_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.StartAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_StartAsync_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.StartAsync(System.Threading.CancellationToken)">StartAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>启动所有设备（通过连接限流器控制并发，返回每个设备的启动结果）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IReadOnlyList&lt;DeviceStartResult&gt;&gt; StartAsync(CancellationToken ct)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotEngine.Orchestration.DeviceStartResult.html">DeviceStartResult</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_StopAsync_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.StopAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_MultiDeviceOrchestrator_StopAsync_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.MultiDeviceOrchestrator.StopAsync(System.Threading.CancellationToken)">StopAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>停止所有设备（优雅停止，释放资源）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IReadOnlyList&lt;DeviceStopResult&gt;&gt; StopAsync(CancellationToken ct)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotEngine.Orchestration.DeviceStopResult.html">DeviceStopResult</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

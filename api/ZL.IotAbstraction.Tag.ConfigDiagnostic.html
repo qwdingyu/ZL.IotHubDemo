@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ConfigDiagnostic | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ConfigDiagnostic | ZL IoT SDK API ">
+    
+    <meta name="description" content="【A-257】配置装载期诊断的统一标识 —— 单一来源，全仓必须引用本常量，不得各自写字符串 ✗  &#128273; **为什么需要它**（这是&quot;不要局部无止境打补丁&quot;的关键）： 本仓已修 4 处&quot;装载期吞错&quot;缺陷（A-253 键名 / A-254 值格式 / A-255 点表条目 / A-256 插件诊断）， 它们的修复**各自打了日志**，但**格式不统一** ⇒ 现场排查时**无法一条命令找全** ✗ ⇒ 统一标识后：**`grep CONFIG-DIAG` 即可列出本次启动的全部配置问题** ✓   ⚠️ **必须是常量，不能各处手写 `&quot;[CONFIG-DIAG]&quot;`** ✗ —— 本仓已因&quot;多处手写同一语义&quot;踩过坑（配置键 `IP`/`Ip` 大小写漂移、`SupportedAreas` 有表无人读）。 手写字符串 ⇒ 迟早出现 `[CONFIG_DIAG]`/`[CONFIGDIAG]` 等变体 ⇒ grep 又找不全 ✗✗   ⚠️ **只用于【配置装载期】**（`DeviceConfig` 读取 / `TagKit` 点表装载 / `DeviceRoot.Initialize` / 插件装载）—— **不用于运行期韧性代码**（如 `Dispose`/`Close` 里的&quot;尽力而为&quot;catch）✗ 后者吞错是**正确设计**，不应被标记为配置问题 ✓   &#128204; **现场排查第一步**：`grep &quot;CONFIG-DIAG&quot; 日志文件` ⇒ 得到本次启动的全部配置问题（含修正建议）✓">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Tag.ConfigDiagnostic">
+
+
+
+  <h1 id="ZL_IotAbstraction_Tag_ConfigDiagnostic" data-uid="ZL.IotAbstraction.Tag.ConfigDiagnostic" class="text-break">Class ConfigDiagnostic</h1>
+  <div class="markdown level0 summary"><p>【A-257】<strong>配置装载期诊断的统一标识</strong> —— 单一来源，全仓<strong>必须</strong>引用本常量，不得各自写字符串 ✗</p>
+<p>
+🔑 **为什么需要它**（这是"不要局部无止境打补丁"的关键）：
+本仓已修 4 处"装载期吞错"缺陷（A-253 键名 / A-254 值格式 / A-255 点表条目 / A-256 插件诊断），
+它们的修复**各自打了日志**，但**格式不统一** ⇒ 现场排查时**无法一条命令找全** ✗
+⇒ 统一标识后：**`grep CONFIG-DIAG` 即可列出本次启动的全部配置问题** ✓
+</p>
+<p>
+⚠️ **必须是常量，不能各处手写 `"[CONFIG-DIAG]"`** ✗ ——
+本仓已因"多处手写同一语义"踩过坑（配置键 `IP`/`Ip` 大小写漂移、`SupportedAreas` 有表无人读）。
+手写字符串 ⇒ 迟早出现 `[CONFIG_DIAG]`/`[CONFIGDIAG]` 等变体 ⇒ grep 又找不全 ✗✗
+</p>
+<p>
+⚠️ **只用于【配置装载期】**（`DeviceConfig` 读取 / `TagKit` 点表装载 / `DeviceRoot.Initialize` /
+插件装载）—— **不用于运行期韧性代码**（如 `Dispose`/`Close` 里的"尽力而为"catch）✗
+后者吞错是**正确设计**，不应被标记为配置问题 ✓
+</p>
+<p>
+📌 **现场排查第一步**：`grep "CONFIG-DIAG" 日志文件` ⇒ 得到本次启动的全部配置问题（含修正建议）✓
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">ConfigDiagnostic</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Tag.html">Tag</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Tag_ConfigDiagnostic_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class ConfigDiagnostic</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Tag_ConfigDiagnostic_Tag" data-uid="ZL.IotAbstraction.Tag.ConfigDiagnostic.Tag">Tag</h4>
+  <div class="markdown level1 summary"><p>统一标识（日志里出现它 = 该条属于<strong>配置装载期</strong>问题）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Tag = &quot;[CONFIG-DIAG]&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Tag_ConfigDiagnostic_Wrap_" data-uid="ZL.IotAbstraction.Tag.ConfigDiagnostic.Wrap*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_ConfigDiagnostic_Wrap_System_String_" data-uid="ZL.IotAbstraction.Tag.ConfigDiagnostic.Wrap(System.String)">Wrap(string)</h4>
+  <div class="markdown level1 summary"><p>给消息加上统一标识（<strong>唯一</strong>的拼接入口，避免各处手写格式）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Wrap(string message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

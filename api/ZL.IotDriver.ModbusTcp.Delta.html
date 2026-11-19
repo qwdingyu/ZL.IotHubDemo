@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.ModbusTcp.Delta | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.ModbusTcp.Delta | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.ModbusTcp.Delta">
+
+  <h1 id="ZL_IotDriver_ModbusTcp_Delta" data-uid="ZL.IotDriver.ModbusTcp.Delta" class="text-break">Namespace ZL.IotDriver.ModbusTcp.Delta</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusTcp.Delta.DeltaAsAddressMapper.html">DeltaAsAddressMapper</a></h4>
+      <section><p>台达 AS 系列 Modbus 地址映射器。</p>
+<p>
+源自 HSL DeltaASHelper。
+</p>
+<p>
+[!!]【2026-11-14 审计结论】**本类各器件分支没有"官方范围守卫"，这不是遗漏**：
+仓内**没有台达 AS 系列官方器件范围表**，HSL 的 AS 路径同样**只给基址、无范围校验**
+⇒ 按项目纪律（无官方原文或 ≥2 个独立来源时不得凭猜加界）**刻意不加** ——
+猜错的守卫会把**合法**地址判为越界，比"少加界"更糟。
+</p>
+<p>
+若将来取得台达 AS 官方表：请按 `DVP` 类的写法逐器件加 `&gt; 上限 ⇒ return null`，
+并补"边界内侧仍可用"的用例（参考 `DeltaDvpAddressMapperOfficialTests`）。
+审计台账见 `docs/drivers/品牌地址映射系统排查_缺陷类别与线索_20261114.md` §四点十六。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusTcp.Delta.DeltaDvpAddressMapper.html">DeltaDvpAddressMapper</a></h4>
+      <section><p>台达 DVP 系列 Modbus 地址映射器。</p>
+<p>
+[!!][!!] **【2026-10-22 订正：原注释有两处不实/过期声明】** [X]
+</p>
+<p>
+**订正 ①：「源自标准 Delta DVP Modbus 映射表 + HSL DeltaDvpHelper 验证」是【假的】** [X]
+实测（2026-10-22，反射调 HSL **10.6.1** 的 `DeltaDvpHelper.ParseDeltaDvpAddress`
+与 **12.9.2** 源码逐值比对 —— **两个版本完全一致** [OK]）：
+<pre><code class="lang-csharp">地址      HSL 10.6.1/12.9.2   我方 DeltaDvpAddressMapper   一致？
+S10   →   10                 6154                        [X] 差 6144
+X10   →   1032               1032                        [OK]
+Y10   →   1288               1288                        [OK]
+T10   →   1546               7178                        [X] 差 5632
+C10   →   3594               7434                        [X] 差 3840
+M100  →   2148               2148                        [OK]
+M2000 →   45520              4048                        [X] 差 41472
+D100  →   4196               4196                        [OK]
+C10(字)→  3594               7434                        [X]
+C300(字)→ 3884               7980                        [X]
+T10(字)→  1546               7178                        [X]</code></pre>
+<p>⇒ <strong>6/11 不符</strong> ⇒ 原注释&quot;HSL 验证&quot;是<strong>不实声明</strong> [X]
+（<strong>2026-11-01 已裁决</strong>：官方手册证实 <strong>HSL 对、我方错</strong>，见下方结论 [OK]）
+（HSL 的取值恰好构成<strong>连贯的标准映射</strong>：S=0x000 / X=0x400 / Y=0x500 /
+T=0x600 / M=0x800 / C=0xE00 / D=0x1000 ⇒ 我方 0x1800/0x1C00/0x1D00 <strong>不在其中</strong> [!]）</p>
+
+<p>
+**订正 ②：下方 `D + number → 0x4000 (16384)` 是【过期】的** [X]
+实际代码（`MapDRegister`）是 **`+4096`**（`0x1000`）[OK] 与 HSL 一致 [OK]
+⇒ 本表已按**代码实际值**修正 [OK]
+</p>
+<p>
+[OK] **【2026-11-01 已裁决并修正】** —— 官方手册到手，**官方 == HSL**，我方错 [OK]
+<p>证据：<code>docs/evidence/DELTA_IA-PLC_DVP-PLC_PM_EN_20220407.pdf</code>
+<strong>§2.12 Communication Addresses of Devices in DVP Series PLC</strong>（手册页 2-135）
+逐字摘录与三方对照：<code>docs/evidence/DeltaDVP地址映射_官方核实_20261101.md</code>
+交叉源：HSL 13.0.3 <code>DeltaDvpHelper.TransDAdressToModbusAddress</code>（与本表<strong>逐项一致</strong> [OK]）</p>
+<pre><code class="lang-csharp">区        官方 §2.12      HSL          我方（改前）  我方（改后）  判定
+S         0x0000          0            0x1800        0x0000        [OK] 已修
+T(位)     0x0600          1536         0x1C00        0x0600        [OK] 已修
+T(字)     0x0600          1536         0x1C00        0x0600        [OK] 已修
+C(位)     0x0E00~0x0EFF  3584         0x1D00        0x0E00        [OK] 已修
+C(字0-199) 0x0E00~0x0EC7 3584         0x1D00        0x0E00        [OK] 已修
+M&gt;=1536   0xB000          45056        0x0E00        0xB000        [OK] 已修
+C(字&gt;=200) 0x0700~0x076F 3784         0x1EC8        **未动**      [!] 见下</code></pre>
+<p><strong><code>C(位)</code> 一个式子覆盖两段</strong>（官方位区 <code>0E00~0EFF</code> 连续 [OK]）：
+C0→0x0E00、C199→0x0EC7、C200→0x0EC8、C255→0x0EFF [OK]</p>
+<p>[!!] <strong>唯一未动项：<code>C(字) &gt;= 200</code></strong> [X] ——
+官方给的是 <code>word 0700~076F</code>（112 个寄存器 / 56 个 32 位计数器 ⇒ <strong>步长 2</strong> [X]），
+<strong>HSL 13.0.3 是 <code>num2-200+3784</code>（<code>0x0EC8</code>、步长 1）</strong>，而我方是 <code>cnum-200+7880</code>（<code>0x1EC8</code>、步长 1）
+⇒ <strong>三方各不相同</strong>（我方比 HSL 高 <code>0x1000</code>）⇒ 这是<strong>结构差异</strong>，不是换个常数 [X]
+且官方只列到 <code>C255</code>，我方却支持到 <code>C511</code> [X] ⇒ <strong>需另行裁决</strong>，本次不动 [OK]</p>
+<p>详见 <code>docs/todolist.md</code> 同名条目（已按&quot;只增不删&quot;补结论 [OK]）
+[!] <strong>仿真器不是独立基准</strong>：其 Delta 映射是<strong>照我方写的</strong>（注释自述&quot;与 DeltaDvpAddressMapper 金标准对齐&quot;）[X]</p>
+
+<p>
+地址映射关系（**[!] 下方 6 项与 HSL 不符，见上方订正 ①**；标 [OK] 的可信）：
+<table><tbody><tr><td class="term">S + number</td><td class="description">[!] coil = number + <b>0x1800 (6144)</b> —— **与 HSL 不符**（HSL 为 +0）[X]</td></tr><tr><td class="term">X + octal</td><td class="description">输入（八进制），coil = octal + 0x0400 (1024) [OK] 与 HSL 一致</td></tr><tr><td class="term">Y + octal</td><td class="description">输出（八进制），coil = octal + 0x0500 (1280) [OK] 与 HSL 一致</td></tr><tr><td class="term">T + number</td><td class="description">[!] coil = number + <b>0x1C00 (7168)</b> —— **与 HSL 不符**（HSL 为 +1536）[X]</td></tr><tr><td class="term">C + number</td><td class="description">[!] coil = number + <b>0x1D00 (7424)</b>；reg &lt;200 → 0x1D00, ≥200 → 0x1EC8 —— **与 HSL 不符**（HSL 为 +3584 / ≥200 → +3784）[X]</td></tr><tr><td class="term">M + number</td><td class="description">coil: &lt;1536 → 0x0800 (2048) [OK]；[!] ≥1536 → <b>0x0E00</b> + (num-1536) —— **与 HSL 不符**（HSL 为 +45056）[X]</td></tr><tr><td class="term">D + number</td><td class="description">数据寄存器，地址 = number + <b>0x1000 (4096)</b> [OK]（原注 16384 **过期**，已订正）</td></tr></tbody></table>
+<p>
+[!] **原「2026-06-09 修正：…现修正为标准 0x4000 (16384)」这句已删** [X] ——
+它与代码实际值（`+4096`）**相反** [X]；且所引「`docs/57_…md §5.2`」**与 Delta 无关** [X]
+（2026-10-22 实测：该文件的 §5.2 是「**PlcNotificationHub 订阅者遍历**」，
+  全文也**不含** `16384`/`0x4000`）⇒ 属**引用错位的过期声明** [X]
+</p>
+
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusTcp.Delta.DeltaTcpDriver.html">DeltaTcpDriver</a></h4>
+      <section><p>台达（Delta）PLC Modbus TCP 协议驱动。</p>
+<p>
+支持 DVP 和 AS 两个系列。地址格式：符号地址如 "D100"、"M0"、"X5"、"Y10"。
+</p>
+<p>
+字节序：<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcDataFormat.html#ZL_IotAbstraction_Abstractions_PlcDataFormat_CDAB">CDAB</a>（字内字节交换）。
+DVP 系列在 HMI 或上位机通信中通常使用 CDAB 字节序。
+</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusTcp.Delta.DeltaSeries.html">DeltaSeries</a></h4>
+      <section><p>台达 PLC 系列枚举。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

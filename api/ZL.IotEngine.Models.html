@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotEngine.Models | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotEngine.Models | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Models">
+
+  <h1 id="ZL_IotEngine_Models" data-uid="ZL.IotEngine.Models" class="text-break">Namespace ZL.IotEngine.Models</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotEngine.Models.IoPerformanceMonitor.html">IoPerformanceMonitor</a></h4>
+      <section><p>IO 性能监控器——集中管理所有 IO 操作的分类指标。</p>
+<p>
+在工控采集系统中，PLC 通讯可能涉及多种操作类型（读取、写入、心跳、批量读等），
+每种操作的性能表现可能差异很大。IoPerformanceMonitor 按操作名称分类统计，
+便于运维人员快速定位瓶颈：
+- 读取平均耗时 50ms 但写入平均耗时 500ms → 可能是写入帧构造过慢；
+- 心跳成功率 100% 但批量读成功率仅 80% → 可能是批量帧过大导致超时。
+</p>
+<p>
+使用 <span class="xref">System.Collections.Concurrent.ConcurrentDictionary&lt;TKey, TValue&gt;</span> 保证线程安全，
+多个采集线程可以同时向不同操作名写入指标而无需加锁。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Models.NormalWriteRequest.html">NormalWriteRequest</a></h4>
+      <section><p>普通写入请求——可被合并去重的低优先级写入操作。</p>
+<p>
+在工控场景中，HMI 界面上的滑块或输入框可能频繁触发写入请求（如用户拖动滑块），
+但 PLC 通讯带宽有限，不能每次都实际发送。NormalWriteRequest 被放入写入队列后，
+如果同一地址有新的请求到来，旧请求可以被合并/丢弃（取最新值），
+从而减轻 PLC 通讯压力，避免"写入风暴"。
+</p>
+<p>
+通过 <span class="xref">System.Threading.Tasks.TaskCompletionSource&lt;TResult&gt;</span> 将异步结果返回给调用方，
+调用方 await 即可获知写入是否成功。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Models.PlcDiagnosticReport.html">PlcDiagnosticReport</a></h4>
+      <section><p>PLC 综合诊断报告 (对标 Kepware/OPC 诊断)</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Models.SafetyWriteRequest.html">SafetyWriteRequest</a></h4>
+      <section><p>安全写入请求——不可合并、必须保证执行的高优先级写入操作。</p>
+<p>
+与 <a class="xref" href="ZL.IotEngine.Models.NormalWriteRequest.html">NormalWriteRequest</a> 的核心区别：
+- NormalWriteRequest 可被合并去重（同一地址只保留最新值），适用于 HMI 手动操作；
+- SafetyWriteRequest 走**高优先级安全写队列**（可插队普通写），适用于安全联锁、急停复位等关键操作。
+</p>
+<p>
+⚠️ **但"不可丢弃"目前不成立（2026-10-31 实测）**：安全写 Channel 容量 200、
+`FullMode = DropOldest` ⇒ **队列满时会静默丢弃最旧的一条**，
+且**没有告警**（`DevicePro` 注释声称有告警，代码中不存在）。
+调用方不会挂死（有 `SafetyWriteTimeout`，默认 2000ms 兜底），但会收到
+「写入超时或被取消」——**真实原因可能是"队列满被丢弃"** ✗
+</p>
+<p>
+支持"操作序列"（Sequence）：在工控场景中，某些操作需要按严格顺序执行
+（如先关闭阀门 → 再停止泵 → 最后打开排放阀），
+⚠️ **排序尚未实现（2026-10-31 实测，勿再误传）**：`SequenceId` / `SequenceOrder`
+目前**只被赋值、从未被读取**；安全写 Channel 是 FIFO，
+执行顺序**只取决于入队先后**，与 `SequenceOrder` 无关 ✗
+</p>
+<p>
+⇒ 需要"先关阀 → 再停泵 → 最后开排放阀"这类**严格顺序**时，
+**调用方必须串行入队并逐条等待结果**，不能靠并发入队 + `SequenceOrder` 排序。
+</p>
+<p>
+复核命令（阳性对照：赋值应有 2 处；读取应为 0）：
+<code>grep -rn "SequenceOrder =\|SequenceId =" ZL.IotEngine/ tests/</code>
+<code>grep -rnE "\.SequenceOrder|\.SequenceId" ZL.IotEngine/ tests/ | grep -v "SequenceOrder =\|SequenceId ="</code>
+</p>
+<p>
+内置重试机制：通过 <a class="xref" href="ZL.IotEngine.Models.SafetyWriteRequest.html#ZL_IotEngine_Models_SafetyWriteRequest_executionAttempts">executionAttempts</a> 原子计数器跟踪执行次数，
+最多重试 3 次（工控通讯偶发超时时需要自动重试以保证可靠性）。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a></h4>
+      <section><p>工业级数据载体——每个 PLC 点位的&quot;值 + 质量 + 时间戳&quot;三元组。</p>
+<p>
+这是整个采集系统中最基础的数据单元，类似于 OPC 中的 DataItem：
+- Value：从 PLC 读到的原始值（可能是 bool/int/float/string 等）；
+- Quality：数据质量码，标识该值的可信程度；
+- Timestamp：采集时刻的时间戳，用于趋势图、数据回溯等场景。
+</p>
+<p>
+【不可变性保证】
+此类为不可变（immutable）——所有属性通过构造函数一次性设置，之后不可修改。
+多线程环境下可安全共享，无需额外同步。更新值时创建新实例（copy-with-update），
+配合 ConcurrentDictionary.TryUpdate 的 CAS 语义实现无锁数据流。
+</p>
+<p>
+对标方案：
+- OPC UA .NET Stack: DataValue (Value, StatusCode, SourceTimestamp, ServerTimestamp) — 全 readonly
+- Beckhoff TwinCAT: PlcTag — immutable snapshot 模式
+- Eclipse Milo: DataValue — 不可变 + 工厂方法
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a></h4>
+      <section><p>点位值变化事件载体——当某个 Tag 的值发生变化时，通过事件总线分发给订阅者。</p>
+<p>
+在工控场景中，"变化推送"（Change-of-State / CoV）是减少数据流量的核心策略：
+只有当值真正发生变化时才通知上层（MES/SCADA/HMI），避免每个采集周期都推送大量未变化的数据。
+</p>
+<p>
+与 <a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a> 的区别：TagValue 是"当前值快照"，
+TagValueChange 是"变化事件"，携带 TagId 和 TagItem 元数据，
+便于订阅者直接定位到具体点位定义。
+</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotEngine.Models.SafetyLevel.html">SafetyLevel</a></h4>
+      <section><p>PLC 写入操作的安全等级分级——数值越小优先级越高。</p>
+<p>
+在工控场景中，向 PLC 写入数据必须按安全等级分级管控：
+- 紧急停止类操作（如复位安全标志）必须立即执行，不可排队或合并；
+- 过程控制类操作（如写入配方参数）需要保证顺序和完整性；
+- 普通操作（如 HMI 手动设值）可以合并去重以减轻 PLC 通讯压力。
+</p>
+<p>
+数值设计采用"越小越优先"的方式，便于在优先级队列中用最小堆排序。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Models.TagQuality.html">TagQuality</a></h4>
+      <section><p>数据质量代码，对标 OPC DA/UA 标准中的 Quality 字段。</p>
+<p>
+在工控采集中，每个从 PLC 读取的点位都需要附带质量码，
+上位系统（MES/SCADA/HMI）根据质量码判断数据是否可信：
+- Good(0xC0)：数据来自 PLC 实时读取，可放心使用；
+- Uncertain(0x40)：通讯短暂中断，保留最后一次有效值（"陈旧值"），上位可酌情使用或报警；
+- Bad(0x00)：通讯完全失败或地址配置错误，数据不可信；
+- Initializing(0x01)：设备尚未完成首次采集，值为默认值。
+</p>
+<p>
+质量码数值设计参考 OPC 规范的高/低两位编码方式，
+便于通过位运算快速判断大类（Good≥0xC0, Uncertain≥0x40, Bad=0x00）。
+</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

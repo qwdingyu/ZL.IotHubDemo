@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotAbstraction.Utils | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotAbstraction.Utils | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Utils">
+
+  <h1 id="ZL_IotAbstraction_Utils" data-uid="ZL.IotAbstraction.Utils" class="text-break">Namespace ZL.IotAbstraction.Utils</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.AsyncAutoResetEvent.html">AsyncAutoResetEvent</a></h4>
+      <section><p>异步自动重置事件（Async AutoResetEvent）。</p>
+<p>
+在工控采集场景中，常用于"有新数据到达，唤醒等待的消费者线程"这类生产者-消费者模式。
+与 <span class="xref">System.Threading.AutoResetEvent</span> 类似，但完全基于 async/await，
+不会阻塞线程池线程，适合高并发采集场景下作为信号通知机制。
+</p>
+<p>
+核心语义：调用 <a class="xref" href="ZL.IotAbstraction.Utils.AsyncAutoResetEvent.html#ZL_IotAbstraction_Utils_AsyncAutoResetEvent_Set">Set()</a> 后，下一个（且仅一个）<a class="xref" href="ZL.IotAbstraction.Utils.AsyncAutoResetEvent.html#ZL_IotAbstraction_Utils_AsyncAutoResetEvent_WaitAsync_System_Threading_CancellationToken_">WaitAsync(CancellationToken)</a> 调用会立即返回，
+之后事件自动重置为未触发状态。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.AsyncTimer.html">AsyncTimer</a></h4>
+      <section><p>基于 async/await 的周期定时器。</p>
+<p>
+在工控场景中常用于：心跳发送、连接保活、周期性巡检等定时任务。
+相比 <span class="xref">System.Timers.Timer</span>，它不会在线程池上触发回调，
+而是在 async 上下文中顺序执行，天然避免了回调重入问题。
+</p>
+<p>
+注意：此定时器会在上一次回调完成后才开始下一次等待，
+因此实际间隔 = interval + 回调耗时，适合"固定间隔"而非"固定频率"场景。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.CancellationTokenExtensions.html">CancellationTokenExtensions</a></h4>
+      <section><p><span class="xref">System.Threading.CancellationToken</span> 的扩展方法集合。
+在工控采集循环中，经常需要&quot;等待一段时间或者被取消&quot;这类模式，
+此扩展将其封装为一行调用，简化退避/重连/心跳等循环的编写。</p>
+<p>
+【2026-11-05 收为 <code>internal</code>】与 `ZL.PFLite.TaskKit.CancellationTokenExtensions` **同名但成员完全不同**
+（本处仅 <code>WaitCancellationOrDelay</code>；PFLite 是 <code>AsTask</code>/<code>WithTimeout</code>）⇒ 作为 public 会让
+"同时引用 Engine + PFLite"的消费者裸写该类名时 **CS0104 歧义** ✗；本类型仅引擎内部使用 ⇒ 收为 internal ✓
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.CustomPeriodicTimer.html">CustomPeriodicTimer</a></h4>
+      <section><p>跨框架版本的周期性计时器（Polyfill）。</p>
+<p>
+在工控采集主循环中，通常以 <code>while(await timer.WaitForNextTickAsync())</code> 的方式
+驱动采集周期。此计时器统一了不同 .NET 版本下的 API 差异：
+</p>
+<p>• .NET 6+：直接委托给微软原生的 System.Threading.PeriodicTimer（高性能、零分配）</p>
+<p>• .NET Standard 2.0 / .NET Framework 4.8：基于 <span class="xref">System.Threading.Timer</span> + TCS 自行实现</p>
+<p>
+这样上层业务代码可以用同一套写法，而无需关心运行时的框架版本。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.LogThrottle.html">LogThrottle</a></h4>
+      <section><p>日志<strong>时间节流</strong>：同一 key 在 <a class="xref" href="ZL.IotAbstraction.Utils.LogThrottle.html#ZL_IotAbstraction_Utils_LogThrottle_DefaultInterval">DefaultInterval</a> 内最多放行一次。</p>
+<p>
+【为什么要有这个类 —— 2026-10-17 全局复盘】
+本仓此前"日志刷屏"的治理是**各写各的**：<code>DeviceRoot</code> 用内联的
+<code>_lastHealthLogTicks</code>（周期健康日志 60s）、<code>DriverFactory</code> 用 volatile 的
+"只发一次"标志、而失败路径（Ping 告警/块读超时/块读异常）**什么都没用** ⇒ 按周期刷屏。
+第一次修复时我把同一段节流逻辑**复制到了两个类**里 —— 那正是本仓反复出问题的形态
+⇒ 复盘后收敛为**本类唯一实现**。
+</p>
+<p>
+【设计取舍】
+· **无锁**：极端并发下最多多打一条（日志重复无害），换取采集热路径零锁竞争 ——
+  与 <code>DriverFactory</code> 的"重复警告无害"取舍一致；
+· **键的基数有限**（块地址 / 固定名）⇒ 内存有界，无需淘汰；
+· 间隔是**类级默认值**（不是每个实例各一个旋钮）⇒ 全仓只有一个口径，避免"两处阈值不一致"。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.PointTableEncoding.html">PointTableEncoding</a></h4>
+      <section><p>点表文件（XML / CSV / JSON）的<strong>编码兼容读取</strong>（三级策略）。</p>
+<p>详见本文件头的完整论证（Owner 要求支持"不同客户不同编码规则"的点表）✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.ProtocolMath.html">ProtocolMath</a></h4>
+      <section><p>协议无关的纯数学辅助。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.ValueScale.html">ValueScale</a></h4>
+      <section><p>工程量换算纯函数工具：<code>工程值 = 原始值 × factor + offset</code>。</p>
+<p><b>典型用法</b>（应用层/展示层，不在 IotHub 内核）：</p>
+<pre><code class="lang-csharp">// 传感器：原始量 2500 表示 25.00 ℃ ⇒ factor = 0.01, offset = 0
+double eng = ValueScale.Apply(2500, 0.01);
+
+// 4~20mA 变送器：原始 0..4095 对应 -40..+80 ℃
+//   factor = 120.0 / 4095, offset = -40
+double t = ValueScale.Apply(raw, 120.0 / 4095.0, -40.0);
+
+// 写回时反解（保证与读方向对称）
+double rawToWrite = ValueScale.Reverse(t, 120.0 / 4095.0, -40.0);</code></pre>
+<p><b>🔴 设计约束（勿改）</b>：</p>
+<ol><li>**只做线性变换**。非线性（查表、开方、分段）请在应用层自己做 ——
+    一旦这里接受任意函数，就等于在 IotHub 里重新引入了"表达式引擎"，
+而这正是明确拒绝的东西。</li><li><b>不做类型转换</b>。输入输出都是 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>，
+    要 <code>float</code>/<code>short</code> 请调用方自行转换 —— 避免在这里引入"取整策略"这种隐含语义。</li><li><b>Reverse 不做除零保护以外的任何裁剪</b>。返回值可能超出 PLC 数据类型范围，
+    是否截断由调用方决定（静默截断 = 制造假数据）。</li></ol>
+<p><b>为什么是静态类而不是实例</b>：无状态、无配置、可并发；
+需要"带配置的换算器"时，调用方持有 <code>(factor, offset)</code> 即可。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.XLog.html">XLog</a></h4>
+      <section><p>进程内日志门面：按级别/前缀分文件，按大小与日期切换，线程安全，零第三方依赖。</p>
+<p>全部成员都是静态的；本类**从不被实例化**。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.XLogOptions.html">XLogOptions</a></h4>
+      <section><p><a class="xref" href="ZL.IotAbstraction.Utils.XLog.html">XLog</a> 的日志参数（默认值等价于去掉 NLog 之前的默认行为）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.XPing.html">XPing</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.XStrKit.html">XStrKit</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.XTrace.html">XTrace</a></h4>
+      <section></section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Utils.LogLevel.html">LogLevel</a></h4>
+      <section><p>日志级别。数值越大越严重；<a class="xref" href="ZL.IotAbstraction.Utils.LogLevel.html#ZL_IotAbstraction_Utils_LogLevel_Off">Off</a> 表示关闭。</p>
+<p>
+⚠️ 成员**名称**与 NLog 保持一致（下游从 NLog 迁移时 `LogLevel.Info` 等写法不用改），
+但类型是本仓自有的 ⇒ 不再需要 NLog 包 ✓。
+</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,3203 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DriverBase | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DriverBase | ZL IoT SDK API ">
+    
+    <meta name="description" content="驱动基类的公共父类：只承载与传输方式无关的能力。 【分层】DriverBase → NativeDriverBase（TCP 套接字）/ SerialDriverBase（串口） ⇒ 传输是**变化点**，放在子类；协议无关逻辑只写一份 [OK] 【为什么本类**不**实现 IPlcDevice】若在这里实现接口，就必须一次搬完所有接口成员 （含传输相关的 `ReadBytesCore` 等）⇒ 变成&quot;大爆炸重写&quot; [X] 故本类只声明它自己用到的抽象成员，由两个子类各自履行接口 [OK]">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Core.DriverBase">
+
+
+
+  <h1 id="ZL_IotDriver_Core_DriverBase" data-uid="ZL.IotDriver.Core.DriverBase" class="text-break">Class DriverBase</h1>
+  <div class="markdown level0 summary"><p>驱动基类的公共父类：<strong>只承载与传输方式无关</strong>的能力。</p>
+<p>【分层】<code>DriverBase</code> → <code>NativeDriverBase</code>（TCP 套接字）/ <code>SerialDriverBase</code>（串口）
+⇒ 传输是**变化点**，放在子类；协议无关逻辑只写一份 [OK]</p>
+<p>【为什么本类**不**实现 <code>IPlcDevice</code>】若在这里实现接口，就必须一次搬完所有接口成员
+（含传输相关的 `ReadBytesCore` 等）⇒ 变成"大爆炸重写" [X]
+故本类只声明它自己用到的抽象成员，由两个子类各自履行接口 [OK]</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">DriverBase</span></div>
+      <div class="level2"><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html">NativeDriverBase</a></div>
+      <div class="level2"><a class="xref" href="ZL.IotDriver.SerialDriverBase.html">SerialDriverBase</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Core.html">Core</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Core_DriverBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class DriverBase</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_Core_DriverBase_TypedAccess_" data-uid="ZL.IotDriver.Core.DriverBase.TypedAccess*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_TypedAccess" data-uid="ZL.IotDriver.Core.DriverBase.TypedAccess">TypedAccess</h4>
+  <div class="markdown level1 summary"><p>本协议是否支持<strong>类型化读</strong>（<code>ReadInt16</code> / <code>ReadFloat</code> / <code>ReadString</code> 等）。</p>
+<p><b>覆写判据（不是看协议名字，是看行为）</b>：若本驱动的值区**不能**直接按
+`short`/`int`/`float`/`string` 解释 —— 即需要 BCD 解码、字节反序、或按点位小数位
+缩放才能得到协议定义的数值 —— 就**必须**覆写为 `false`。
+典型：DLT645、CJT188（两者都是"值区 = BCD + 低字节在前 + 每 DI 小数位不同"）。
+反之，在驱动内部已解析成 `double`/`float` 并按 `EndianConverter` 编成字节的驱动
+（如 MBus / DLMS / HART-IP）保持默认 `true` 即可。</p>
+<p>[!!] 为什么必须拦：以 DLT645 的 A 相电压（DI `02010100`）为例，
+线上值字节 `11 23`（`-0x33` 后）⇒ `ReadUInt16` 按大端得 **4387**，
+真值 **231.1 V**（差约 19 倍），而**量纲看起来仍像电压** ⇒ 现场极难发现。
+**静默错值比报错危险得多** ⇒ 这类协议必须**响亮失败**。</p>
+<p>正确读法：`ReadBytes` 取原始字节 ⇒ 按本协议规定解码
+（DLT645/CJT188 为：**反序 → BCD→整数 → ÷10^digit**）。
+通用 BCD 原语见 `ZL.IotAbstraction.Abstractions.MeterBcd`；
+CJT188 另有专用值层 `ZL.IotDriver.CJT188.Cjt188Value`（含单位表/特殊值/时间）。</p>
+<p>[!] 与 `ReadBytes` 的边界：本标志**只拦类型化读**（`ReadInt16`/`ReadFloat`/
+`ReadString` 等）；`ReadBytes` **不受**本标志影响 —— 它是取原始字节的正当出口。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual TypedAccessSupport TypedAccess { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.Core.TypedAccessSupport.html">TypedAccessSupport</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_TypedBitReadUnsupportedHint_" data-uid="ZL.IotDriver.Core.DriverBase.TypedBitReadUnsupportedHint*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_TypedBitReadUnsupportedHint" data-uid="ZL.IotDriver.Core.DriverBase.TypedBitReadUnsupportedHint">TypedBitReadUnsupportedHint</h4>
+  <div class="markdown level1 summary"><p>本协议<strong>不支持位读</strong>时给出的提示（<code>TypedAccess = ByteTransparent</code> 时由位读入口使用）。</p>
+<p>默认不声称具体语义 —— 各协议"为什么不能位读"不同（BCD 数值 / 状态位图 / 对象载荷），
+需要更精确说明的驱动应覆写。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string TypedBitReadUnsupportedHint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_TypedReadUnsupportedHint_" data-uid="ZL.IotDriver.Core.DriverBase.TypedReadUnsupportedHint*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_TypedReadUnsupportedHint" data-uid="ZL.IotDriver.Core.DriverBase.TypedReadUnsupportedHint">TypedReadUnsupportedHint</h4>
+  <div class="markdown level1 summary"><p>本协议<strong>不支持类型化读</strong>时给出的提示（消息必须<strong>自足</strong>：讲清怎么改用）。</p>
+<p>[!] 刻意做成**可覆写**：默认文案只说"交付原始字节、按协议规定解码"，
+<b>不</b>声称具体编码（如 BCD）—— 因为"哪个协议用什么编码"是协议特有的，
+通用基类替所有协议断言编码会**说谎**。设了 `TypedAccess = ByteTransparent` 的驱动
+应覆写本属性，写清**本协议**的实际编码与解码方法。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string TypedReadUnsupportedHint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_TypedWriteUnsupportedHint_" data-uid="ZL.IotDriver.Core.DriverBase.TypedWriteUnsupportedHint*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_TypedWriteUnsupportedHint" data-uid="ZL.IotDriver.Core.DriverBase.TypedWriteUnsupportedHint">TypedWriteUnsupportedHint</h4>
+  <div class="markdown level1 summary"><p>本协议<strong>不支持类型化写</strong>时给出的提示（可覆写；默认不声称具体编码 —— 理由同
+<a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedReadUnsupportedHint">TypedReadUnsupportedHint</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string TypedWriteUnsupportedHint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Core_DriverBase_GetEndianConverter_" data-uid="ZL.IotDriver.Core.DriverBase.GetEndianConverter*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_GetEndianConverter" data-uid="ZL.IotDriver.Core.DriverBase.GetEndianConverter">GetEndianConverter()</h4>
+  <div class="markdown level1 summary"><p><strong>取本驱动的字节序转换器</strong>（抽象，由两个基类各自返回自己的 <code>EndianConverter</code>）。</p>
+<p>[!] 为什么用方法而不是抽象属性：两个基类对该成员的声明**不同** ——
+<code>NativeDriverBase</code> 是 <code>public virtual IEndianConverter EndianConverter { get; protected set; }</code>，
+<code>SerialDriverBase</code> 是 <code>public abstract IEndianConverter EndianConverter { get; }</code>。
+若在 <code>DriverBase</code> 声明 <code>abstract ... { get; }</code>，Native 带 setter 的实现**无法 override**（CS0546）[X]
+⇒ 改用方法取用，两边各自 `=&gt; EndianConverter`，语义完全等价 [OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IEndianConverter GetEndianConverter()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IEndianConverter.html">IEndianConverter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadByte_" data-uid="ZL.IotDriver.Core.DriverBase.ReadByte*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadByte_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadByte(System.String)">ReadByte(string)</h4>
+  <div class="markdown level1 summary"><p>读取单个字节（8 位无符号）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;byte&gt; ReadByte(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadByteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.ReadByteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadByteAsync_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadByteAsync(System.String)">ReadByteAsync(string)</h4>
+  <div class="markdown level1 summary"><p>异步读单字节（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;byte&gt;&gt; ReadByteAsync(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadBytesGate_" data-uid="ZL.IotDriver.Core.DriverBase.ReadBytesGate*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadBytesGate_System_String_System_UInt16_" data-uid="ZL.IotDriver.Core.DriverBase.ReadBytesGate(System.String,System.UInt16)">ReadBytesGate(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>读原始字节的门禁钩子（docs/431）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract DeviceResult&lt;byte[]&gt; ReadBytesGate(string address, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_" data-uid="ZL.IotDriver.Core.DriverBase.ReadBytesGateAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_" data-uid="ZL.IotDriver.Core.DriverBase.ReadBytesGateAsync(System.String,System.UInt16)">ReadBytesGateAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>异步读原始字节（子类实现；传输层差异在此）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Task&lt;DeviceResult&lt;byte[]&gt;&gt; ReadBytesGateAsync(string address, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadDouble_" data-uid="ZL.IotDriver.Core.DriverBase.ReadDouble*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadDouble_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadDouble(System.String)">ReadDouble(string)</h4>
+  <div class="markdown level1 summary"><p>读取 64 位浮点。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;double&gt; ReadDouble(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadDoubleAsync_" data-uid="ZL.IotDriver.Core.DriverBase.ReadDoubleAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadDoubleAsync_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadDoubleAsync(System.String)">ReadDoubleAsync(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 double（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;double&gt;&gt; ReadDoubleAsync(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadFloat_" data-uid="ZL.IotDriver.Core.DriverBase.ReadFloat*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadFloat_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadFloat(System.String)">ReadFloat(string)</h4>
+  <div class="markdown level1 summary"><p>读取 32 位浮点。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;float&gt; ReadFloat(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadFloatAsync_" data-uid="ZL.IotDriver.Core.DriverBase.ReadFloatAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadFloatAsync_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadFloatAsync(System.String)">ReadFloatAsync(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 float（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;float&gt;&gt; ReadFloatAsync(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadInt16_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt16*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadInt16_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt16(System.String)">ReadInt16(string)</h4>
+  <div class="markdown level1 summary"><p>读取 16 位有符号整数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;short&gt; ReadInt16(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadInt16Async_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt16Async*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadInt16Async_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt16Async(System.String)">ReadInt16Async(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 Int16（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;short&gt;&gt; ReadInt16Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadInt32_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt32*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadInt32_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt32(System.String)">ReadInt32(string)</h4>
+  <div class="markdown level1 summary"><p>读取 32 位有符号整数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;int&gt; ReadInt32(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadInt32Async_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt32Async*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadInt32Async_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt32Async(System.String)">ReadInt32Async(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 Int32（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;int&gt;&gt; ReadInt32Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadInt64_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt64*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadInt64_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt64(System.String)">ReadInt64(string)</h4>
+  <div class="markdown level1 summary"><p>读取 64 位有符号整数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;long&gt; ReadInt64(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadInt64Async_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt64Async*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadInt64Async_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadInt64Async(System.String)">ReadInt64Async(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 Int64（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;long&gt;&gt; ReadInt64Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadString_" data-uid="ZL.IotDriver.Core.DriverBase.ReadString*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadString_System_String_System_UInt16_System_Text_Encoding_" data-uid="ZL.IotDriver.Core.DriverBase.ReadString(System.String,System.UInt16,System.Text.Encoding)">ReadString(string, ushort, Encoding)</h4>
+  <div class="markdown level1 summary"><p>读取单个字节（同步版）—— 委托至异步，与同区其它标量一致。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;string&gt; ReadString(string address, ushort size, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">size</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadStringAsync_" data-uid="ZL.IotDriver.Core.DriverBase.ReadStringAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadStringAsync_System_String_System_UInt16_System_Text_Encoding_" data-uid="ZL.IotDriver.Core.DriverBase.ReadStringAsync(System.String,System.UInt16,System.Text.Encoding)">ReadStringAsync(string, ushort, Encoding)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;string&gt;&gt; ReadStringAsync(string address, ushort size, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">size</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadTypedBytes_" data-uid="ZL.IotDriver.Core.DriverBase.ReadTypedBytes*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadTypedBytes_System_String_System_UInt16_" data-uid="ZL.IotDriver.Core.DriverBase.ReadTypedBytes(System.String,System.UInt16)">ReadTypedBytes(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>类型化读的<strong>统一同步入口</strong>（守卫同上）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected DeviceResult&lt;byte[]&gt; ReadTypedBytes(string address, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadTypedBytesAsync_" data-uid="ZL.IotDriver.Core.DriverBase.ReadTypedBytesAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadTypedBytesAsync_System_String_System_UInt16_" data-uid="ZL.IotDriver.Core.DriverBase.ReadTypedBytesAsync(System.String,System.UInt16)">ReadTypedBytesAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>类型化读的<strong>统一异步入口</strong>（守卫 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedAccess">TypedAccess</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task&lt;DeviceResult&lt;byte[]&gt;&gt; ReadTypedBytesAsync(string address, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadUInt16_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt16*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadUInt16_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt16(System.String)">ReadUInt16(string)</h4>
+  <div class="markdown level1 summary"><p>读取 16 位无符号整数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;ushort&gt; ReadUInt16(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadUInt16Async_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt16Async*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadUInt16Async_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt16Async(System.String)">ReadUInt16Async(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 UInt16（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;ushort&gt;&gt; ReadUInt16Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadUInt32_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt32*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadUInt32_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt32(System.String)">ReadUInt32(string)</h4>
+  <div class="markdown level1 summary"><p>读取 32 位无符号整数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;uint&gt; ReadUInt32(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadUInt32Async_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt32Async*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadUInt32Async_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt32Async(System.String)">ReadUInt32Async(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 UInt32（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;uint&gt;&gt; ReadUInt32Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadUInt64_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt64*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadUInt64_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt64(System.String)">ReadUInt64(string)</h4>
+  <div class="markdown level1 summary"><p>读取 64 位无符号整数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult&lt;ulong&gt; ReadUInt64(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ReadUInt64Async_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt64Async*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ReadUInt64Async_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.ReadUInt64Async(System.String)">ReadUInt64Async(string)</h4>
+  <div class="markdown level1 summary"><p>异步读 UInt64（本类实现，调用 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadBytesGateAsync_System_String_System_UInt16_">ReadBytesGateAsync(string, ushort)</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&lt;ulong&gt;&gt; ReadUInt64Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_ValidateWriteArray_" data-uid="ZL.IotDriver.Core.DriverBase.ValidateWriteArray*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_ValidateWriteArray__1___0___" data-uid="ZL.IotDriver.Core.DriverBase.ValidateWriteArray``1(``0[])">ValidateWriteArray&lt;T&gt;(T[])</h4>
+  <div class="markdown level1 summary"><p>【2026-10-20 新增 [OK]：<strong>读长度单位</strong>的显式契约 [X]→[OK]】。</p>
+<p>
+【为什么需要它 [X]】基类长度守卫要求「驱动返回的字节数必须等于请求的 `length`」[OK]，
+但 **`length` 的单位是「协议单位」而不是「字节」** [X] ——
+**Modbus 系**里 `ReadBytes(addr, n)` 的 `n` 是**寄存器数** [OK]（每寄存器 2 字节 [OK]）
+⇒ 驱动**合法地**返回 `n × 2` 字节 [X]。
+</p>
+<p>
+【曾经的错误 [X]→[OK]（我引入的回归 [OK]）】`9acac3d` 把守卫从「不少于」改成「**恰好等于**」[X]，
+本意是堵住"给多了也静默错值"[X]（单值驱动 `ReadInt16` 取 float 高字节 [X]）——
+但**没有区分单位** [X] ⇒ `ModbusRtuOverTcp` 的 `ReadInt16` 直接被判失败 [X][OK]。
+[!] **门禁一直是绿的** [X] —— 因为**没有门禁测试覆盖 Modbus 读** [X]；
+是**交叉测试**（`SelfConsistency` [OK]，不在 CI [X]）把它抓出来的 [OK][OK]
+（`docs/drivers/ISSUES.md` 之外的**我自己的问题** [OK]）。
+</p>
+<p>
+【本方法怎么根治 [OK]】把「单位」变成**显式声明的契约** [OK]：
+基类默认「`length` 就是字节数」[OK]；**若某协议单位不是字节，子类覆写本方法** [OK]。
+⇒ 守卫仍严格 [OK]，但**比的是正确的期望值** [OK] ⇒ 既不再误伤 Modbus [X]，
+[!] 【2026-10-21 更正 [X]→[OK]】原文写「Modbus 系覆写为 `length × 2`」[X] —— **实测全仓零覆写** [OK][OK]。
+原因：Modbus 系**已在 `ReadBytesInternal` 内截断到 `length`**（`ModbusTcpDriver.ReadBytesInternal` 内的 `new byte[length]` 截断；[!!] 行号易漂移 ⇒ **以符号为准**）
+⇒ 交给基类时**就是 `length` 字节** ⇒ **无需覆写** [OK]。本方法目前无任何子类覆写 [OK]，
+留着是为了「新增协议若单位不同」时**有唯一收口点** [OK]。
+也保留"给多/给少都算违约"的检查 [OK][OK]。
+</p>
+<p>[!] 新增协议若单位不是字节 [OK]，**必须**覆写本方法 [OK] —— 否则会被守卫误判 [X]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static string ValidateWriteArray&lt;T&gt;(T[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">value</span></td>
+        <td><p>调用方传入的写入值。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p><code>null</code> = 合法 [OK]；否则为<strong>可读的失败消息</strong> [OK]（调用方应直接 <code>return Fail(msg)</code>）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>数组元素类型（<code>byte</code>/<code>bool</code>/<code>short</code>/<code>ushort</code>/<code>int</code>/<code>uint</code>/<code>long</code>/<code>ulong</code>/<code>float</code>/<code>double</code>）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Boolean_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Boolean)">Write(string, bool)</h4>
+  <div class="markdown level1 summary"><p>写 bool（<strong>1 字节</strong>：0/1）。</p>
+<p>[!] 陷阱：位区驱动若走这里会写**整字节/整字**（`InovanceEasyNetDriver` 曾因此把 `M100` 的 8 个点全清 [X]）
+⇒ 该类与 `ModbusTcpDriver` 都**覆写**本方法（保持 virtual 就是为它们）[OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Byte_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Byte)">Write(string, byte)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, byte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Double_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Double)">Write(string, double)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, double value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Int16_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Int16)">Write(string, short)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Int32_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Int32)">Write(string, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, int value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Int64_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Int64)">Write(string, long)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, long value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Object_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Object)">Write(string, object)</h4>
+  <div class="markdown level1 summary"><p>写任意对象（按类型分派）。<strong>不迁移</strong>：两基类实现不同且依赖 IPlcDevice ⇒ 保持抽象。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract DeviceResult Write(string address, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_SByte_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.SByte)">Write(string, sbyte)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, sbyte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_Single_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.Single)">Write(string, float)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, float value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_String_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.String)">Write(string, string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_UInt16_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.UInt16)">Write(string, ushort)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_UInt32_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.UInt32)">Write(string, uint)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, uint value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_Write_" data-uid="ZL.IotDriver.Core.DriverBase.Write*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_Write_System_String_System_UInt64_" data-uid="ZL.IotDriver.Core.DriverBase.Write(System.String,System.UInt64)">Write(string, ulong)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string address, ulong value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Boolean_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Boolean)">WriteAsync(string, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Boolean___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Boolean[])">WriteAsync(string, bool[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, bool[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Byte_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Byte)">WriteAsync(string, byte)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, byte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Double_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Double)">WriteAsync(string, double)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, double value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Double___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Double[])">WriteAsync(string, double[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, double[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int16_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Int16)">WriteAsync(string, short)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int16___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Int16[])">WriteAsync(string, short[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, short[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int32_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Int32)">WriteAsync(string, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, int value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int32___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Int32[])">WriteAsync(string, int[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, int[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int64_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Int64)">WriteAsync(string, long)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, long value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int64___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Int64[])">WriteAsync(string, long[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, long[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Object_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Object)">WriteAsync(string, object)</h4>
+  <div class="markdown level1 summary"><p>异步写任意对象。<strong>不迁移</strong>（同上）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Task&lt;DeviceResult&gt; WriteAsync(string address, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_SByte_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.SByte)">WriteAsync(string, sbyte)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, sbyte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Single_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Single)">WriteAsync(string, float)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, float value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Single___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.Single[])">WriteAsync(string, float[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, float[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_String_System_Text_Encoding_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.String,System.Text.Encoding)">WriteAsync(string, string, Encoding)</h4>
+  <div class="markdown level1 summary"><p>写字符串（异步；按 <code class="paramref">encoding</code> 编码后写字节）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, string value, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt16_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.UInt16)">WriteAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt16___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.UInt16[])">WriteAsync(string, ushort[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, ushort[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt32_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.UInt32)">WriteAsync(string, uint)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, uint value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt32___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.UInt32[])">WriteAsync(string, uint[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, uint[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt64_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.UInt64)">WriteAsync(string, ulong)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, ulong value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt64___" data-uid="ZL.IotDriver.Core.DriverBase.WriteAsync(System.String,System.UInt64[])">WriteAsync(string, ulong[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string address, ulong[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteBytesGate_" data-uid="ZL.IotDriver.Core.DriverBase.WriteBytesGate*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteBytesGate_System_String_System_Byte___" data-uid="ZL.IotDriver.Core.DriverBase.WriteBytesGate(System.String,System.Byte[])">WriteBytesGate(string, byte[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract DeviceResult WriteBytesGate(string address, byte[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteBytesGateAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteBytesGateAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteBytesGateAsync_System_String_System_Byte___" data-uid="ZL.IotDriver.Core.DriverBase.WriteBytesGateAsync(System.String,System.Byte[])">WriteBytesGateAsync(string, byte[])</h4>
+  <div class="markdown level1 summary"><p>异步写原始字节（子类实现）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Task&lt;DeviceResult&gt; WriteBytesGateAsync(string address, byte[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteTypedBytes_" data-uid="ZL.IotDriver.Core.DriverBase.WriteTypedBytes*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteTypedBytes_System_String_System_Byte___" data-uid="ZL.IotDriver.Core.DriverBase.WriteTypedBytes(System.String,System.Byte[])">WriteTypedBytes(string, byte[])</h4>
+  <div class="markdown level1 summary"><p>类型化写的<strong>统一同步入口</strong>（守卫同上）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected DeviceResult WriteTypedBytes(string address, byte[] bytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_DriverBase_WriteTypedBytesAsync_" data-uid="ZL.IotDriver.Core.DriverBase.WriteTypedBytesAsync*"></a>
+  <h4 id="ZL_IotDriver_Core_DriverBase_WriteTypedBytesAsync_System_String_System_Byte___" data-uid="ZL.IotDriver.Core.DriverBase.WriteTypedBytesAsync(System.String,System.Byte[])">WriteTypedBytesAsync(string, byte[])</h4>
+  <div class="markdown level1 summary"><p>类型化<strong>写</strong>的边界（易混，必须写清）—— 是否被拦由 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedAccess">TypedAccess</a> 统一决定：</p>
+<ul><li><b>被拦</b>：`Write(address, 数值/bool/string)` 与
+    `WriteAsync(address, 数值/bool/string/数值[]/bool[])` ——
+    这些是"由 SDK 按 `EndianConverter` 或**固定 ASCII** 编码"的便利重载。</li><li><b>不拦</b>：`Write(address, byte[])` / `WriteAsync(address, byte[])` ——
+    调用方自己编好字节的正当出口。</li><li><b>不拦</b>：`WriteString(address, value, kind, maxLength, encoding)` ——
+    它要求调用方**显式**给出 `StringKind` + `maxLength` + `encoding`，
+    且最终走 `Write(address, byte[])`；属"调用方自己编码"。
+    （与 `Write(address, string)` 不同：后者是**固定 ASCII** 的便利重载，被拦。）</li><li><b>被拦（间接）</b>：`Write(address, object)` —— 经 `DeviceWriteDispatch`
+    按运行时类型分派到上面的 typed 重载，因此同样受 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedAccess">TypedAccess</a> 约束。</li></ul>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task&lt;DeviceResult&gt; WriteTypedBytesAsync(string address, byte[] bytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotDriver_Core_DriverBase_WriteTypedBytesAsync_System_String_System_Byte____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>[!!] 为什么写侧比读侧危险：读错只是显示错；<strong>写错会改变表内状态</strong>
+（如把 <code>2311</code> 按大端写成 <code>09 07</code>，而表要 BCD 低字节在前的 <code>11 23</code>）⇒
+表可能把该值当成另一个数、或直接拒绝，且<strong>现场很难回溯是哪一次写坏的</strong>。</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

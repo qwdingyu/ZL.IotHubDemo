@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class TagValueChange | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class TagValueChange | ZL IoT SDK API ">
+    
+    <meta name="description" content="点位值变化事件载体——当某个 Tag 的值发生变化时，通过事件总线分发给订阅者。  在工控场景中，&quot;变化推送&quot;（Change-of-State / CoV）是减少数据流量的核心策略： 只有当值真正发生变化时才通知上层（MES/SCADA/HMI），避免每个采集周期都推送大量未变化的数据。   与  的区别：TagValue 是&quot;当前值快照&quot;， TagValueChange 是&quot;变化事件&quot;，携带 TagId 和 TagItem 元数据， 便于订阅者直接定位到具体点位定义。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Models.TagValueChange">
+
+
+
+  <h1 id="ZL_IotEngine_Models_TagValueChange" data-uid="ZL.IotEngine.Models.TagValueChange" class="text-break">Class TagValueChange</h1>
+  <div class="markdown level0 summary"><p>点位值变化事件载体——当某个 Tag 的值发生变化时，通过事件总线分发给订阅者。</p>
+<p>
+在工控场景中，"变化推送"（Change-of-State / CoV）是减少数据流量的核心策略：
+只有当值真正发生变化时才通知上层（MES/SCADA/HMI），避免每个采集周期都推送大量未变化的数据。
+</p>
+<p>
+与 <a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a> 的区别：TagValue 是"当前值快照"，
+TagValueChange 是"变化事件"，携带 TagId 和 TagItem 元数据，
+便于订阅者直接定位到具体点位定义。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">TagValueChange</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Models_TagValueChange_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TagValueChange</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Models_TagValueChange_DeviceId_" data-uid="ZL.IotEngine.Models.TagValueChange.DeviceId*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValueChange_DeviceId" data-uid="ZL.IotEngine.Models.TagValueChange.DeviceId">DeviceId</h4>
+  <div class="markdown level1 summary"><p><strong>该变更所属的设备 Id</strong>（2026-11-11 按 <code>docs/653</code> D1 根治方案新增）。</p>
+<p>
+🔴 **为什么必须加**：中枢的最新值表 `_latestByTag` 原本**只按 `TagId` 键控**，
+而它是**进程级单例**。多设备部署下若两台设备有**同名标签**（现场极常见，
+如都用 `D100` / `T1`）⇒ **后发布者覆盖先发布者**，快照里只剩一条 ✗✗
+</p>
+<p>
+**后果（已在 `ScadaHub` 留有记录）**：跨设备同名标签会导致
+① 快照**少下发**（合法设备也拿不到）；② 更严重的**跨设备数据泄漏**风险
+—— 现行处置是 `ScadaHub` 的 **fail closed**（同名即整体排除 ＋ 警告），
+属**规避**而非根治 ✗
+</p>
+<p>
+**根治**：本字段 ＋ 中枢按 <code>(DeviceId, TagId)</code> 键控 ⇒ 同名标签可共存 ✓
+</p>
+<p>
+⚠️ **默认 `null` 表示"未赋值"**：既有 104 处对象初始化器**无需改动**（后向兼容）✓
+凡进入中枢快照的实例，由发布方填本字段 ✓
+</p>
+<p>复核：<code>grep -c "DeviceId" ZL.IotEngine/Models/TagValueChange.cs</code> ⇒ 应 &gt; 0 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DeviceId { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValueChange_Quality_" data-uid="ZL.IotEngine.Models.TagValueChange.Quality*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValueChange_Quality" data-uid="ZL.IotEngine.Models.TagValueChange.Quality">Quality</h4>
+  <div class="markdown level1 summary"><p>数据质量码，标识本次变化事件的值是否可信</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TagQuality Quality { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagQuality.html">TagQuality</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValueChange_Sequence_" data-uid="ZL.IotEngine.Models.TagValueChange.Sequence*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValueChange_Sequence" data-uid="ZL.IotEngine.Models.TagValueChange.Sequence">Sequence</h4>
+  <div class="markdown level1 summary"><p><strong>进程内单调递增序号</strong>（2026-11-11 按 <code>docs/652</code> 契约新增）。</p>
+<p>
+🔴 **为什么必须有**：`docs/652` 已定调「`TagChanges` 是**设备控制信号**、**必须不丢**」。
+而"不丢"在**批次层**（进程内）的唯一可执行实现是「有界内存 ＋ **溢出落盘** ＋ 按 seq 截断」——
+截断必须知道"确认到哪一条"，**没有序号就无法截断** ✗
+（这正是 `TriggerSpool` 此前"只进不出"的根因：`TagValueChange` 无序号 ⇒ `Compact` 结构上驱动不了）
+</p>
+<p>
+⚠️ **默认值 `0` 表示"未赋值"**：既有 98 处 `new TagValueChange { … }` 的对象初始化器
+**无需改动即可编译**（本属性为**追加**，非破坏性变更）✓
+但**凡进入事件通道/落盘的实例，必须由发布方赋单调值** ✓
+</p>
+<p>复核：<code>grep -c "Sequence" ZL.IotEngine/Models/TagValueChange.cs</code> ⇒ 应 &gt; 0 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long Sequence { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValueChange_Tag_" data-uid="ZL.IotEngine.Models.TagValueChange.Tag*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValueChange_Tag" data-uid="ZL.IotEngine.Models.TagValueChange.Tag">Tag</h4>
+  <div class="markdown level1 summary"><p>关联的 <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a> 元数据（地址、数据类型、单位、死区、采样周期等），
+供订阅者直接使用而无需再次查找。</p>
+<p>🔴 <b>2026-11-03 订正（docs/558 §四）</b>：原文案写「地址、数据类型、<b>缩放比例</b>等」——
+但 <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a> <b>从来没有</b>任何缩放字段（无 Scale/Offset/Factor/Expression），
+属**文档声称有、实际没有**。换算能力<u>刻意不做</u>（理由见 docs/558），
+故此处删去"缩放比例"，避免后来人按它去找字段。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TagItem Tag { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValueChange_TagId_" data-uid="ZL.IotEngine.Models.TagValueChange.TagId*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValueChange_TagId" data-uid="ZL.IotEngine.Models.TagValueChange.TagId">TagId</h4>
+  <div class="markdown level1 summary"><p>变化的点位标识（如 &quot;DB1.DBW0&quot;、&quot;M100.0&quot;），用于订阅者过滤和路由</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TagId { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValueChange_Timestamp_" data-uid="ZL.IotEngine.Models.TagValueChange.Timestamp*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValueChange_Timestamp" data-uid="ZL.IotEngine.Models.TagValueChange.Timestamp">Timestamp</h4>
+  <div class="markdown level1 summary"><p>变化发生的时间戳。</p>
+<p>
+🔴🔴【2026-11-10 **A-287**】**基准：UTC**（`DateTimeKind.Utc`，默认 `DateTime.UtcNow`）✓
+</p>
+<p>
+**为什么是 UTC**：本字段在**真实采集路径**上恒被赋成 `TagValue.Timestamp`
+（`DeviceRoot` 的 `changes.Add(new TagValueChange { … Timestamp = newTv.Timestamp })`），
+而 `TagValue.Create*/CreateGood` 用的是 **`DateTime.UtcNow`** ⇒ **实际值一直是 UTC** ✓
+</p>
+<p>
+🔴 **改前缺陷（A-287）**：默认值写的是 `DateTime.Now`（**本地**）✗
+⇒ **同一字段两种基准**：真实路径是 UTC、默认值是本地 ✗✗
+⇒ 实测 `tools/OpcUaCrossCheck` 与大量测试**不显式赋值** ⇒ 拿到**本地时间**
+⇒ 一旦与 UTC 比较（如 OPC UA `SourceTimestamp`）就**差一个时区** ✗
+</p>
+<p>
+**正确用法**：
+· 展示 ⇒ `Timestamp.ToLocalTime()`，不要直接格式化（否则 UTC 服务器显示成 UTC 时间）✓
+· 算耗时/比新鲜度 ⇒ 直接相减（同基准）✓
+· 对接 MES/Historian ⇒ 传 `DateTimeOffset` 或 ISO-8601 带 `Z` ✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime Timestamp { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValueChange_Value_" data-uid="ZL.IotEngine.Models.TagValueChange.Value*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValueChange_Value" data-uid="ZL.IotEngine.Models.TagValueChange.Value">Value</h4>
+  <div class="markdown level1 summary"><p>变化后的新值 —— <strong>协议原始值</strong>（未经任何用户配置换算）。</p>
+<p>🔴 契约同 <a class="xref" href="ZL.IotEngine.Models.TagValue.html#ZL_IotEngine_Models_TagValue_Value">Value</a>（详见 docs/558）：IotHub 不做工程量换算。
+需要缩放/偏置请在订阅方自行处理，可用
+<code>ZL.IotAbstraction.Utils.ValueScale.Apply/Reverse</code>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Value { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

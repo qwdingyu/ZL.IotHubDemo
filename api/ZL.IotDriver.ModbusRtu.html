@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.ModbusRtu | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.ModbusRtu | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.ModbusRtu">
+
+  <h1 id="ZL_IotDriver_ModbusRtu" data-uid="ZL.IotDriver.ModbusRtu" class="text-break">Namespace ZL.IotDriver.ModbusRtu</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusRtu.DeltaSerialDriver.html">DeltaSerialDriver</a></h4>
+      <section><p>台达（Delta）<strong>Modbus RTU 串口</strong>驱动。</p>
+<p>帧格式 = 标准 Modbus RTU（继承 <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html">ModbusRtuDriver</a>，零帧逻辑复制）✓</p>
+<p>地址格式 = 台达符号地址（`D100`/`M0`/`X5`/`S10` 等），由台达映射器转换，
+**与 `delta-tcp` 使用同一系列映射器** ✓</p>
+<p>字节序 = **CDAB**（与 `delta-tcp` 一致；HSL `DeltaSerial` 同口径）✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusRtu.InovanceSerialDriver.html">InovanceSerialDriver</a></h4>
+      <section><p>汇川（Inovance）<strong>Modbus RTU 串口</strong>驱动。</p>
+<p>帧格式 = 标准 Modbus RTU（继承 <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html">ModbusRtuDriver</a>，零帧逻辑复制）[OK]</p>
+<p>地址格式 = 汇川符号地址（`D100`/`M0`/`SD0`/`MD0` 等），由 <a class="xref" href="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.html">InovanceAddressMapper</a>
+转换，**与 `inovance-tcp` 使用同一个映射器类型** [OK]</p>
+<p>字节序 = **CDAB**（与 `inovance-tcp` 一致；HSL `InovanceSerial` 同口径）[OK]</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html">ModbusRtuDriver</a></h4>
+      <section><p>Modbus RTU 串口驱动（基于 System.IO.Ports.SerialPort）。</p>
+<p>
+通过串口（RS-232/RS-485）与 Modbus RTU 从站通信，实现 IPlcDevice 接口。
+</p>
+<p>
+地址格式说明（五位数地址码）：
+<ul><li><code>00001～09999</code> — 线圈（功能码 01/05/15）</li><li><code>10001～19999</code> — 离散输入（功能码 02）</li><li><code>30001～39999</code> — 输入寄存器（功能码 04）</li><li><code>40001～49999</code> — 保持寄存器（功能码 03/06/16）</li><li><code>0～65535</code> — 直接使用原始地址，默认保持寄存器</li></ul>
+
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusRtu.XinJeSerialDriver.html">XinJeSerialDriver</a></h4>
+      <section><p>信捷（XinJE）<strong>Modbus RTU 串口</strong>驱动。</p>
+<p>帧格式 = 标准 Modbus RTU（继承 <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html">ModbusRtuDriver</a>，零帧逻辑复制）✓</p>
+<p>地址格式 = 信捷符号地址（`D100`/`M0`/`X5`/`SD100` 等），
+由 <a class="xref" href="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.html">XinJeAddressMapper</a> 转换，**与 `xinje-tcp` 使用同一个映射器** ✓</p>
+</section>
+    <h3 id="structs">
+Structs
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.AddressInfo.html">ModbusRtuDriver.AddressInfo</a></h4>
+      <section><p>地址解析结果。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

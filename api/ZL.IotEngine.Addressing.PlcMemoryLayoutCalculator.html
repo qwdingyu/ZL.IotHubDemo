@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcMemoryLayoutCalculator | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcMemoryLayoutCalculator | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 点位物理内存布局计算器（单一事实源，docs/405 阶段二）。  核心职责：统一计算一个  在 PLC 底层物理内存中占用的**真实物理字节跨度**， 供块构建器（）、块定义（） 与值提取器（）共同遵循，杜绝多处各写一套导致的尺寸失真。   【四大物理不变量】 1. 定长类型：字节数由规范类型固定（如 short=2, int=4, double=8）； 2. 位地址（bool）：占用该位所在的 1 个字节； 3. 西门子 S7 STRING[M]：物理占用 = 业务容量 M + 2 字节前导头； 4. 西门子 S7 WSTRING[M]：物理占用 = 业务字数 M * 2 + 4 字节前导头； 5. Raw / byte[]：物理占用 = 声明字节数 M。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Addressing.PlcMemoryLayoutCalculator">
+
+
+
+  <h1 id="ZL_IotEngine_Addressing_PlcMemoryLayoutCalculator" data-uid="ZL.IotEngine.Addressing.PlcMemoryLayoutCalculator" class="text-break">Class PlcMemoryLayoutCalculator</h1>
+  <div class="markdown level0 summary"><p>PLC 点位物理内存布局计算器（单一事实源，docs/405 阶段二）。</p>
+<p>
+核心职责：统一计算一个 <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a> 在 PLC 底层物理内存中占用的**真实物理字节跨度**，
+供块构建器（<a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlockBuilder.html">PlcReadBlockBuilder</a>）、块定义（<a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlock.html">PlcReadBlock</a>）
+与值提取器（<a class="xref" href="ZL.IotEngine.Addressing.PlcValueExtractor.html">PlcValueExtractor</a>）共同遵循，杜绝多处各写一套导致的尺寸失真。
+</p>
+<p>
+【四大物理不变量】
+1. 定长类型：字节数由规范类型固定（如 short=2, int=4, double=8）；
+2. 位地址（bool）：占用该位所在的 1 个字节；
+3. 西门子 S7 STRING[M]：物理占用 = 业务容量 M + 2 字节前导头；
+4. 西门子 S7 WSTRING[M]：物理占用 = 业务字数 M * 2 + 4 字节前导头；
+5. Raw / byte[]：物理占用 = 声明字节数 M。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcMemoryLayoutCalculator</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Addressing.html">Addressing</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Addressing_PlcMemoryLayoutCalculator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PlcMemoryLayoutCalculator</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcMemoryLayoutCalculator_GetPhysicalByteSize_" data-uid="ZL.IotEngine.Addressing.PlcMemoryLayoutCalculator.GetPhysicalByteSize*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcMemoryLayoutCalculator_GetPhysicalByteSize_ZL_IotAbstraction_Tag_TagItem_System_Char_ZL_IotAbstraction_Tag_StringKind_" data-uid="ZL.IotEngine.Addressing.PlcMemoryLayoutCalculator.GetPhysicalByteSize(ZL.IotAbstraction.Tag.TagItem,System.Char,ZL.IotAbstraction.Tag.StringKind)">GetPhysicalByteSize(TagItem, char, StringKind)</h4>
+  <div class="markdown level1 summary"><p>获取标签在 PLC 内存中所占用的真实物理字节数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetPhysicalByteSize(TagItem tag, char typeCode = &#39;B&#39;, StringKind defaultStringKind = StringKind.None)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td><p>标签项</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></td>
+        <td><span class="parametername">typeCode</span></td>
+        <td><p>地址类型码：'X' 表示位寻址，其它表示字/字节寻址</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">defaultStringKind</span></td>
+        <td><p>设备级默认字符串格式（标签未配置时回落）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>在 PLC 内存中占用的物理字节数（&gt;= 1）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

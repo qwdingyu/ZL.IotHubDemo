@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class OmronCpuUnitData | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class OmronCpuUnitData | ZL IoT SDK API ">
+    
+    <meta name="description" content="欧姆龙 FINS 05 01「CPU UNIT DATA READ」的解析结果。  【官方布局】OMRON W342-E1-15《Communications Commands Reference Manual》 &#167;5-3-15「CPU UNIT DATA READ: 05 01」（PDF 第 190-191 页，仓内文本 docs/evidence/omron-w342_cs_cj_cp_nsj_communications_commands_reference_manual_en.pdftotext-layout.txt:12115）： 参数 00 时响应数据 = 20 字节型号 + 20 字节 CPU 内部系统版本 + 40 字节系统保留 + 12 字节区域数据，共 92 字节。   【与 HSL 的差异】HSL 13.0.3 OmronCpuUnitData 把版本只取 10 字节 （data[20..29]），而官方明确型号/版本各 20 字节；本类按官方取 20 字节。 其余区大小字段与 HSL 一致（HSL 只暴露到 data[86]）。   【证据等级】布局为 A 级（官方手册逐字段给出）；LargestEMNumber 的具体字节 位置为 B 级（官方仅给系统保留区图示，HSL 取 data[41]，未在真机核对）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData">
+
+
+
+  <h1 id="ZL_IotDriver_Omron_OmronCpuUnitData" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData" class="text-break">Class OmronCpuUnitData</h1>
+  <div class="markdown level0 summary"><p>欧姆龙 FINS <code>05 01</code>「CPU UNIT DATA READ」的解析结果。</p>
+<p>
+【官方布局】OMRON W342-E1-15《Communications Commands Reference Manual》
+§5-3-15「CPU UNIT DATA READ: 05 01」（PDF 第 190-191 页，仓内文本
+<code>docs/evidence/omron-w342_cs_cj_cp_nsj_communications_commands_reference_manual_en.pdftotext-layout.txt:12115</code>）：
+参数 <code>00</code> 时响应数据 = <b>20 字节型号 + 20 字节 CPU 内部系统版本 + 40 字节系统保留 +
+12 字节区域数据</b>，共 <b>92 字节</b>。
+</p>
+<p>
+【与 HSL 的差异】HSL 13.0.3 <code>OmronCpuUnitData</code> 把版本只取 <b>10</b> 字节
+（<code>data[20..29]</code>），而官方明确型号/版本<b>各 20 字节</b>；本类按官方取 20 字节。
+其余区大小字段与 HSL 一致（HSL 只暴露到 <code>data[86]</code>）。
+</p>
+<p>
+【证据等级】布局为 A 级（官方手册逐字段给出）；<code>LargestEMNumber</code> 的具体字节
+位置为 B 级（官方仅给系统保留区图示，HSL 取 <code>data[41]</code>，未在真机核对）。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">OmronCpuUnitData</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Omron.html">Omron</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Omron_OmronCpuUnitData_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class OmronCpuUnitData</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_DMSize_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.DMSize*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_DMSize" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.DMSize">DMSize</h4>
+  <div class="markdown level1 summary"><p>DM 区总字数（官方称恒为 32768）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DMSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_EMSize_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.EMSize*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_EMSize" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.EMSize">EMSize</h4>
+  <div class="markdown level1 summary"><p>EM 非文件内存 bank 数（单位：bank；1 bank = 32768 words）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int EMSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_IOMSize_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.IOMSize*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_IOMSize" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.IOMSize">IOMSize</h4>
+  <div class="markdown level1 summary"><p>IOM 区大小（<strong>字节数</strong> = 原始值 ×1024；原始值单位 K bytes、官方恒为 23 ⇒ 存 23552）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IOMSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_LargestEMNumber_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.LargestEMNumber*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_LargestEMNumber" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.LargestEMNumber">LargestEMNumber</h4>
+  <div class="markdown level1 summary"><p>最大 EM bank 号（0-19；官方系统保留区，B 级偏移）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LargestEMNumber { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_MemoryCardSize_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.MemoryCardSize*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_MemoryCardSize" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.MemoryCardSize">MemoryCardSize</h4>
+  <div class="markdown level1 summary"><p>存储卡容量（单位：K bytes；无卡时为 0）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MemoryCardSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_MemoryCardType_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.MemoryCardType*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_MemoryCardType" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.MemoryCardType">MemoryCardType</h4>
+  <div class="markdown level1 summary"><p>存储卡类型：0=无卡，4=Flash 存储卡；其它值原样返回。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MemoryCardType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_Model_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.Model*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_Model" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.Model">Model</h4>
+  <div class="markdown level1 summary"><p>CPU 型号（ASCII，20 字节，尾部空格/NUL 已去除）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Model { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_ProgramAreaSize_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.ProgramAreaSize*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_ProgramAreaSize" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.ProgramAreaSize">ProgramAreaSize</h4>
+  <div class="markdown level1 summary"><p>程序区大小（单位：K words；1K words = 1024 words）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ProgramAreaSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_TCSize_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.TCSize*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_TCSize" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.TCSize">TCSize</h4>
+  <div class="markdown level1 summary"><p>定时器/计数器最大数量（<strong>个数</strong> = 原始值 ×1024；原始值官方恒为 8 ⇒ 存 8192）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int TCSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_Version_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.Version*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_Version" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.Version">Version</h4>
+  <div class="markdown level1 summary"><p>CPU 内部系统版本（ASCII，20 字节，尾部空格/NUL 已去除）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Version { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitData_ToString_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.ToString*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitData_ToString" data-uid="ZL.IotDriver.Omron.OmronCpuUnitData.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>便于日志输出的简短描述。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

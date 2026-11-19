@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class InovanceAddressMapper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class InovanceAddressMapper | ZL IoT SDK API ">
+    
+    <meta name="description" content="汇川 Inovance 地址映射器。  支持 AM / H3U / H5U 系列，地址格式： D100 — 数据寄存器（FC3/FC6/FC16）M0 — 内部辅助继电器（FC1/FC5/FC15）X5 — 输入点（八进制，FC2）Y10 — 输出点（八进制，FC1/FC5/FC15）S100 — 状态继电器（FC1/FC5/FC15，仅 H3U/H5U）T0 — 定时器线圈/当前值C0 — 计数器线圈/当前值SM0 — 特殊辅助（AM 专用）SD0 — 特殊数据（AM 专用）MB0 — 字中的字节（偶数地址）MW0 — 字MD0 — 双字">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper">
+
+
+
+  <h1 id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper" class="text-break">Class InovanceAddressMapper</h1>
+  <div class="markdown level0 summary"><p>汇川 Inovance 地址映射器。</p>
+<p>
+支持 AM / H3U / H5U 系列，地址格式：
+<ul><li><code>D100</code> — 数据寄存器（FC3/FC6/FC16）</li><li><code>M0</code> — 内部辅助继电器（FC1/FC5/FC15）</li><li><code>X5</code> — 输入点（八进制，FC2）</li><li><code>Y10</code> — 输出点（八进制，FC1/FC5/FC15）</li><li><code>S100</code> — 状态继电器（FC1/FC5/FC15，仅 H3U/H5U）</li><li><code>T0</code> — 定时器线圈/当前值</li><li><code>C0</code> — 计数器线圈/当前值</li><li><code>SM0</code> — 特殊辅助（AM 专用）</li><li><code>SD0</code> — 特殊数据（AM 专用）</li><li><code>MB0</code> — 字中的字节（偶数地址）</li><li><code>MW0</code> — 字</li><li><code>MD0</code> — 双字</li></ul>
+
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">InovanceAddressMapper</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotDriver.ModbusTcp.IModbusAddressMapper.html">IModbusAddressMapper</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.ModbusTcp.html">ModbusTcp</a>.<a class="xref" href="ZL.IotDriver.ModbusTcp.Inovance.html">Inovance</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class InovanceAddressMapper : IModbusAddressMapper</code></pre>
+  </div>
+  <h5 id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>[!!]【2026-11-14 审计结论】<strong>AM / H3U 两个系列的器件分支没有&quot;官方范围守卫&quot;，这不是遗漏</strong>：
+仓内<strong>没有</strong>这两个系列的 <strong>Modbus 软元件地址表</strong>（<code>19011157</code> 编程手册只给&quot;范围&quot;、不给 Modbus 基址；
+HSL <code>InovanceHelper</code> 的 AM/H3U 路径同样<strong>只给基址、无范围校验</strong>）
+⇒ 按项目纪律<strong>刻意不加</strong> —— 凭猜加界会把<strong>合法</strong>地址判为越界，比&quot;少加界&quot;更糟。</p>
+<p>
+**已加守卫的**：`H5U/Easy` 系列（官方 `19011156` 手册有完整软元件范围表）。
+</p>
+<p>
+若将来取得 AM/H3U 的 Modbus 地址表：按 `MapH5UAddress` 的写法补 `&gt; 上限 ⇒ return null`，
+并补边界用例（参考 `InovanceH5URangeGuardTests`）。
+审计台账见 `docs/drivers/品牌地址映射系统排查_缺陷类别与线索_20261114.md` §四点十六。
+</p>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper__ctor_" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.#ctor*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper__ctor_ZL_IotDriver_ModbusTcp_Inovance_InovanceSeries_" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.#ctor(ZL.IotDriver.ModbusTcp.Inovance.InovanceSeries)">InovanceAddressMapper(InovanceSeries)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InovanceAddressMapper(InovanceSeries series = InovanceSeries.AM)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.Inovance.InovanceSeries.html">InovanceSeries</a></td>
+        <td><span class="parametername">series</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_BrandName_" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.BrandName*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_BrandName" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.BrandName">BrandName</h4>
+  <div class="markdown level1 summary"><p>品牌名称（用于日志和错误消息）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string BrandName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_HmiWriteFoldSupported_" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.HmiWriteFoldSupported*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_HmiWriteFoldSupported" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.HmiWriteFoldSupported">HmiWriteFoldSupported</h4>
+  <div class="markdown level1 summary"><p>该通道是否会把写 FC 改写为官方 HMI 码（默认 <code>false</code> = 拒绝 <code>SM</code>/<code>SD</code> 写）。</p>
+<p>[!] **只有具备 FC 改写钩子的通道才能设为 <code>true</code>**，否则跨区写（依据见上）。</p>
+<p>[!!]【为何是属性而非构造参数（AGENTS §21.5-1，实测打红 12 条）】第一版做成
+<code>InovanceAddressMapper(series, hmiWriteFoldSupported = false)</code> ⇒ `AddressMapperHelperRadixTests`
+用 <code>Activator.CreateInstance</code> **反射**构造（传 1 个参数）⇒ 抛 <code>TargetParameterCountException</code>
+（**反射不认可选参数默认值**）⇒ 构造签名**一字不动**，改用可设置属性 [OK]。</p>
+<p>[!!]【setter 收紧为 <code>internal</code>】误设 <code>true</code> 会让无钩子的通道放行 `SM`/`SD` 写 ⇒ 跨区写。
+可写范围 = 本程序集 + `ZL.IotHub.Tests`（`AssemblyInfo.cs` 有 `InternalsVisibleTo`），其它程序集只读；
+目前只有 `InovanceTcpDriver` 设为 `true`，`InovanceSerialDriver` 不设（保持 `false`）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HmiWriteFoldSupported { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_MapAddress_" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.MapAddress*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_Inovance_InovanceAddressMapper_MapAddress_System_String_System_Byte_" data-uid="ZL.IotDriver.ModbusTcp.Inovance.InovanceAddressMapper.MapAddress(System.String,System.Byte)">MapAddress(string, byte)</h4>
+  <div class="markdown level1 summary"><p>将品牌符号地址转换为 Modbus 寄存器地址。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ushort? MapAddress(string address, byte functionCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>品牌符号地址，如 &quot;D100&quot;、&quot;MB0&quot;、&quot;X5&quot;、&quot;M0&quot;</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">functionCode</span></td>
+        <td><p>期望的功能码（由调用者根据操作类型决定，如 03=读寄存器, 01=读线圈）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>?</td>
+        <td><p>Modbus 寄存器地址（0-based），null 表示解析失败</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotDriver.ModbusTcp.IModbusAddressMapper.html">IModbusAddressMapper</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

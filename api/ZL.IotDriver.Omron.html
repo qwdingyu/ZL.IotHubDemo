@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.Omron | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.Omron | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Omron">
+
+  <h1 id="ZL_IotDriver_Omron" data-uid="ZL.IotDriver.Omron" class="text-break">Namespace ZL.IotDriver.Omron</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronAddressParser.html">OmronAddressParser</a></h4>
+      <section><p>欧姆龙地址唯一解析器（FINS 与 HostLink 共用）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitData.html">OmronCpuUnitData</a></h4>
+      <section><p>欧姆龙 FINS <code>05 01</code>「CPU UNIT DATA READ」的解析结果。</p>
+<p>
+【官方布局】OMRON W342-E1-15《Communications Commands Reference Manual》
+§5-3-15「CPU UNIT DATA READ: 05 01」（PDF 第 190-191 页，仓内文本
+<code>docs/evidence/omron-w342_cs_cj_cp_nsj_communications_commands_reference_manual_en.pdftotext-layout.txt:12115</code>）：
+参数 <code>00</code> 时响应数据 = <b>20 字节型号 + 20 字节 CPU 内部系统版本 + 40 字节系统保留 +
+12 字节区域数据</b>，共 <b>92 字节</b>。
+</p>
+<p>
+【与 HSL 的差异】HSL 13.0.3 <code>OmronCpuUnitData</code> 把版本只取 <b>10</b> 字节
+（<code>data[20..29]</code>），而官方明确型号/版本<b>各 20 字节</b>；本类按官方取 20 字节。
+其余区大小字段与 HSL 一致（HSL 只暴露到 <code>data[86]</code>）。
+</p>
+<p>
+【证据等级】布局为 A 级（官方手册逐字段给出）；<code>LargestEMNumber</code> 的具体字节
+位置为 B 级（官方仅给系统保留区图示，HSL 取 <code>data[41]</code>，未在真机核对）。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitDataFull.html">OmronCpuUnitDataFull</a></h4>
+      <section><p>欧姆龙 FINS <code>05 01</code> 无参数（读全部数据）的解析结果。</p>
+<p>
+【官方布局】OMRON W342-E1-15 §5-3-15（PDF 第 190-191 页）：
+无参数时响应数据 = 参数 <code>00</code> 的 <b>92 字节</b> + 参数 <code>01</code> 的
+<b>64 字节 CPU Bus Unit configuration</b>，共 <b>156 字节</b>。
+</p>
+<p>
+【未解析部分】64 字节 CPU Bus Unit configuration 原样返回：
+官方只说明“每个单元 2 字节（bit15 存在、bit0..14 型号 ID）+ 32 字节系统保留”，
+**未给出 16 位 ID 的字节序**；为避免猜错，本类不把 2 字节拆成 Present/ModelId，
+由调用方按现场手册解释。<a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitDataFull.html#ZL_IotDriver_Omron_OmronCpuUnitDataFull_CpuBusUnitConfiguration">CpuBusUnitConfiguration</a> 长度恒为 64。
+</p>
+<p>【未验证】未在真实 NJ/NX/CJ 硬件核对。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitStatus.html">OmronCpuUnitStatus</a></h4>
+      <section><p>欧姆龙 FINS <code>06 01</code>「读 CPU 单元状态」的解析结果。</p>
+<p>
+字段语义对齐 HSL 13.0.3
+<code>_vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.Omron/OmronCpuUnitStatus.cs</code>：
+<code>Status</code>（Run/Stop）、<code>BatteryStatus</code>（Present/No）、
+<code>CpuStatus</code>（Normal/Standby）、<code>Mode</code>（PROGRAM/MONITOR/RUN）、
+<code>ErrorCode</code>、<code>ErrorMessage</code>。
+</p>
+<p>
+【证据等级】字段偏移与 HSL 同源（B 级：单一实现），但本类只解析**有明确依据**的字段；
+对响应长度不足的字段返回空/0，不猜测、不越界。仿真器的状态帧布局见
+<code>ZL.PlcSimulator/src/PlcSimulator.Lite/Protocols/Omron/OmronFinsUdpServer.cs</code>
+的 <code>HandleCpuUnitStatus</code>。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronCycleTime.html">OmronCycleTime</a></h4>
+      <section><p>Omron CPU 循环时间（FINS <code>06 20</code>，参数 <code>01</code>）。</p>
+<p>
+官方单位是 <b>0.1 ms</b>：原始值 <code>650</code> = <code>65.0 ms</code>。
+本 DTO 同时保留原始值（<a class="xref" href="ZL.IotDriver.Omron.OmronCycleTime.html#ZL_IotDriver_Omron_OmronCycleTime_AverageRaw">AverageRaw</a> 等）与换算值（<a class="xref" href="ZL.IotDriver.Omron.OmronCycleTime.html#ZL_IotDriver_Omron_OmronCycleTime_AverageMs">AverageMs</a> 等），
+避免浮点四舍五入影响诊断比对。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html">OmronFinsDriver</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronFinsUdpDriver.html">OmronFinsUdpDriver</a></h4>
+      <section><p>欧姆龙 FINS <strong>over UDP</strong> 驱动。</p>
+<p>FINS 帧构造/地址解析/数据类型转换**全部继承**自
+<a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html">OmronFinsDriver</a>（与 TCP 版同帧 ✓），
+本类只把传输层从 TCP 流换成 UDP 数据报，并**去掉 FINS/TCP 头与握手** ✓</p>
+<p>⚠️ UDP 无连接语义：<a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ConnectServer">ConnectServer()</a> 仅记下默认对端，
+不会因"对端未监听"而失败（UDP 特性，非缺陷）✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronHostLinkOverTcp.html">OmronHostLinkOverTcp</a></h4>
+      <section><p>欧姆龙 HostLink over TCP 协议驱动。</p>
+<p>参考: HSL OmronHostLinkOverTcp + OmronHostLinkHelper + OmronFinsNetHelper</p>
+<p>端口默认 9600。**16 个地址前缀**（全部经实测可解析 ✓，与 FINS 驱动**完全一致** ✓，
+因为 HSL 里两者共用 `OmronFinsAddress.ParseFrom` —— 见 `docs/drivers/OmronHostLinkOverTcp.md`）。</p>
+<p>【前缀清单】`D`(数据寄存器) `DM` `C`(计数/裸短写) `CIO` `W` `H` `A`(短写) `AR`
+`T`(短写) `TIM` `CNT` `CF` `DR` `IR` `E`(EM) `EM`(≡ `E` ✓)</p>
+<p>【示例】`D100` `DM100` `CIO100.3`（位）`TIM10.3`（带位号 ✓）`CNT300` `CF5`
+`DR100` `IR100` `E0.100`（bank0 字100）`E1.100.3` `E10`（**十进制**字10）`EM10`（≡`E10`）</p>
+<p>⚠️ 与 FINS 的差异：本驱动**只走 HostLink 帧**（`BuildFinsReadCommand` 内部复用 FINS 帧格式），
+地址语义与 FINS **一致** ✓；差异只在传输层封装 ✓。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronHostLinkSerialDriver.html">OmronHostLinkSerialDriver</a></h4>
+      <section><p>欧姆龙 HostLink <strong>真串口</strong>驱动（<code>omron-host-link-serial</code>）。</p>
+<p>协议逻辑**全部委托**给 <a class="xref" href="ZL.IotDriver.Omron.OmronHostLinkOverTcp.html">OmronHostLinkOverTcp</a> 的 `internal` 纯函数 ⇒ 零复制 ✓</p>
+<p>地址语义与 `omron-host-link`（TCP）**完全一致**（同一 `ResolveAddress`）✓</p>
+<p>⚠️ **未真机验证**（A=5 台但本机无设备）；与 TCP 版的一致性由共用编解码器保证 ⚠️</p>
+</section>
+    <h3 id="structs">
+Structs
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Omron.OmronAddressParts.html">OmronAddressParts</a></h4>
+      <section><p>欧姆龙地址解析结果（协议层：直接用于组帧）。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

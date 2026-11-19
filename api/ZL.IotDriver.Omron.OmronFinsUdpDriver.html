@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class OmronFinsUdpDriver | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class OmronFinsUdpDriver | ZL IoT SDK API ">
+    
+    <meta name="description" content="欧姆龙 FINS over UDP 驱动。 FINS 帧构造/地址解析/数据类型转换**全部继承**自 （与 TCP 版同帧 ✓）， 本类只把传输层从 TCP 流换成 UDP 数据报，并**去掉 FINS/TCP 头与握手** ✓ ⚠️ UDP 无连接语义： 仅记下默认对端， 不会因&quot;对端未监听&quot;而失败（UDP 特性，非缺陷）✓">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver">
+
+
+
+  <h1 id="ZL_IotDriver_Omron_OmronFinsUdpDriver" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver" class="text-break">Class OmronFinsUdpDriver</h1>
+  <div class="markdown level0 summary"><p>欧姆龙 FINS <strong>over UDP</strong> 驱动。</p>
+<p>FINS 帧构造/地址解析/数据类型转换**全部继承**自
+<a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html">OmronFinsDriver</a>（与 TCP 版同帧 ✓），
+本类只把传输层从 TCP 流换成 UDP 数据报，并**去掉 FINS/TCP 头与握手** ✓</p>
+<p>⚠️ UDP 无连接语义：<a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ConnectServer">ConnectServer()</a> 仅记下默认对端，
+不会因"对端未监听"而失败（UDP 特性，非缺陷）✓</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html">OmronFinsDriver</a></div>
+    <div class="level2"><span class="xref">OmronFinsUdpDriver</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver__socket">OmronFinsDriver._socket</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver__ioLock">OmronFinsDriver._ioLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_IsConnected">OmronFinsDriver.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_IpAddress">OmronFinsDriver.IpAddress</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Port">OmronFinsDriver.Port</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_EndianConverter">OmronFinsDriver.EndianConverter</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_UnitAddress">OmronFinsDriver.UnitAddress</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_SA1">OmronFinsDriver.SA1</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadSplits">OmronFinsDriver.ReadSplits</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ConnectServer">OmronFinsDriver.ConnectServer()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ConnectClose">OmronFinsDriver.ConnectClose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_SetProtocolKey_System_String_">OmronFinsDriver.SetProtocolKey(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_EnsureLicensed">OmronFinsDriver.EnsureLicensed()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadBytes_System_String_System_UInt16_">OmronFinsDriver.ReadBytes(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteBytes_System_String_System_Byte___">OmronFinsDriver.WriteBytes(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Byte___">OmronFinsDriver.Write(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadBool_System_String_">OmronFinsDriver.ReadBool(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadInt16_System_String_">OmronFinsDriver.ReadInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadByte_System_String_">OmronFinsDriver.ReadByte(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt16_System_String_">OmronFinsDriver.ReadUInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadInt32_System_String_">OmronFinsDriver.ReadInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt32_System_String_">OmronFinsDriver.ReadUInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadInt64_System_String_">OmronFinsDriver.ReadInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt64_System_String_">OmronFinsDriver.ReadUInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadFloat_System_String_">OmronFinsDriver.ReadFloat(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadDouble_System_String_">OmronFinsDriver.ReadDouble(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadString_System_String_System_UInt16_System_Text_Encoding_">OmronFinsDriver.ReadString(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadBytesAsync_System_String_System_UInt16_">OmronFinsDriver.ReadBytesAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadBoolAsync_System_String_">OmronFinsDriver.ReadBoolAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadByteAsync_System_String_">OmronFinsDriver.ReadByteAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadInt16Async_System_String_">OmronFinsDriver.ReadInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt16Async_System_String_">OmronFinsDriver.ReadUInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadInt32Async_System_String_">OmronFinsDriver.ReadInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt32Async_System_String_">OmronFinsDriver.ReadUInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadInt64Async_System_String_">OmronFinsDriver.ReadInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt64Async_System_String_">OmronFinsDriver.ReadUInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadFloatAsync_System_String_">OmronFinsDriver.ReadFloatAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadDoubleAsync_System_String_">OmronFinsDriver.ReadDoubleAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadStringAsync_System_String_System_UInt16_System_Text_Encoding_">OmronFinsDriver.ReadStringAsync(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Boolean_">OmronFinsDriver.Write(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Int16_">OmronFinsDriver.Write(string, short)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_UInt16_">OmronFinsDriver.Write(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Int32_">OmronFinsDriver.Write(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_UInt32_">OmronFinsDriver.Write(string, uint)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Int64_">OmronFinsDriver.Write(string, long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_UInt64_">OmronFinsDriver.Write(string, ulong)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Single_">OmronFinsDriver.Write(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Double_">OmronFinsDriver.Write(string, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_String_System_Text_Encoding_">OmronFinsDriver.Write(string, string, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Object_">OmronFinsDriver.Write(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_String_">OmronFinsDriver.Write(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Boolean_">OmronFinsDriver.WriteAsync(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int16_">OmronFinsDriver.WriteAsync(string, short)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt16_">OmronFinsDriver.WriteAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int32_">OmronFinsDriver.WriteAsync(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt32_">OmronFinsDriver.WriteAsync(string, uint)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int64_">OmronFinsDriver.WriteAsync(string, long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt64_">OmronFinsDriver.WriteAsync(string, ulong)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Single_">OmronFinsDriver.WriteAsync(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Double_">OmronFinsDriver.WriteAsync(string, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_String_System_Text_Encoding_">OmronFinsDriver.WriteAsync(string, string, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Object_">OmronFinsDriver.WriteAsync(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Boolean___">OmronFinsDriver.WriteAsync(string, bool[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int16___">OmronFinsDriver.WriteAsync(string, short[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt16___">OmronFinsDriver.WriteAsync(string, ushort[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int32___">OmronFinsDriver.WriteAsync(string, int[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt32___">OmronFinsDriver.WriteAsync(string, uint[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int64___">OmronFinsDriver.WriteAsync(string, long[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt64___">OmronFinsDriver.WriteAsync(string, ulong[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Single___">OmronFinsDriver.WriteAsync(string, float[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Double___">OmronFinsDriver.WriteAsync(string, double[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Run">OmronFinsDriver.Run()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_RunAsync">OmronFinsDriver.RunAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Stop">OmronFinsDriver.Stop()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_StopAsync">OmronFinsDriver.StopAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitStatus">OmronFinsDriver.ReadCpuUnitStatus()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitStatusAsync">OmronFinsDriver.ReadCpuUnitStatusAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitData">OmronFinsDriver.ReadCpuUnitData()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataAsync">OmronFinsDriver.ReadCpuUnitDataAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataFull">OmronFinsDriver.ReadCpuUnitDataFull()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataFullAsync">OmronFinsDriver.ReadCpuUnitDataFullAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuBusUnitConfiguration">OmronFinsDriver.ReadCpuBusUnitConfiguration()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuBusUnitConfigurationAsync">OmronFinsDriver.ReadCpuBusUnitConfigurationAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCycleTime">OmronFinsDriver.ReadCycleTime()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCycleTimeAsync">OmronFinsDriver.ReadCycleTimeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ResetCycleTimeHistory">OmronFinsDriver.ResetCycleTimeHistory()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ResetCycleTimeHistoryAsync">OmronFinsDriver.ResetCycleTimeHistoryAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteCpuTime_System_DateTime_">OmronFinsDriver.WriteCpuTime(DateTime)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteCpuTimeAsync_System_DateTime_">OmronFinsDriver.WriteCpuTimeAsync(DateTime)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_FillWords_System_String_System_UInt16_System_UInt16_">OmronFinsDriver.FillWords(string, ushort, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_FillWordsAsync_System_String_System_UInt16_System_UInt16_">OmronFinsDriver.FillWordsAsync(string, ushort, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuTime">OmronFinsDriver.ReadCpuTime()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuTimeAsync">OmronFinsDriver.ReadCpuTimeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Byte_">OmronFinsDriver.WriteAsync(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Byte_">OmronFinsDriver.Write(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_SByte_">OmronFinsDriver.WriteAsync(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_SByte_">OmronFinsDriver.Write(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_WriteBytesAsync_System_String_System_Byte___">OmronFinsDriver.WriteBytesAsync(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_Dispose">OmronFinsDriver.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Omron.html">Omron</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class OmronFinsUdpDriver : OmronFinsDriver, IPlcDevice, IDisposable, IProtocolKey</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver__ctor_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.#ctor*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver__ctor_System_String_System_Int32_System_Int32_System_Int32_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.#ctor(System.String,System.Int32,System.Int32,System.Int32)">OmronFinsUdpDriver(string, int, int, int)</h4>
+  <div class="markdown level1 summary"><p>构造 UDP 驱动。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OmronFinsUdpDriver(string ip, int port = 9600, int timeoutMs = 3000, int resendTimes = 1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">ip</span></td>
+        <td><p>PLC 地址。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>UDP 端口，默认 9600。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">timeoutMs</span></td>
+        <td><p>收发超时，默认 3000ms。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">resendTimes</span></td>
+        <td><p>重发次数（UDP 用&quot;超时重发&quot;代替 TCP 的重连），默认 1。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_DefaultUdpPort" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.DefaultUdpPort">DefaultUdpPort</h4>
+  <div class="markdown level1 summary"><p>FINS/UDP 默认端口（与 FINS/TCP 同为 9600，欧姆龙惯例）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultUdpPort = 9600</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ResendTimes_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ResendTimes*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ResendTimes" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ResendTimes">ResendTimes</h4>
+  <div class="markdown level1 summary"><p>UDP 重发次数（0 = 不重发）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ResendTimes { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ConnectSocket_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ConnectSocket*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ConnectSocket_System_Net_IPAddress_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ConnectSocket(System.Net.IPAddress)">ConnectSocket(IPAddress)</h4>
+  <div class="markdown level1 summary"><p>&quot;连接&quot; = <strong>记下默认对端</strong>。UDP 无握手，<strong>不能</strong>走 <code>TcpConnectHelper</code>（它做三次握手）✗</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult ConnectSocket(IPAddress address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ConnectSocket_System_Net_IPAddress_">OmronFinsDriver.ConnectSocket(IPAddress)</a></div>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver_CreateSocket_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.CreateSocket*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_CreateSocket" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.CreateSocket">CreateSocket()</h4>
+  <div class="markdown level1 summary"><p>创建 <strong>UDP（Dgram）</strong> 套接字（父类默认 TCP Stream）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Socket CreateSocket()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Socket</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_CreateSocket">OmronFinsDriver.CreateSocket()</a></div>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver_DoTcpHandshake_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.DoTcpHandshake*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_DoTcpHandshake" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.DoTcpHandshake">DoTcpHandshake()</h4>
+  <div class="markdown level1 summary"><p><strong>FINS/UDP 无握手</strong> ⇒ 覆写为空实现。</p>
+<p>⚠️ 这是与 TCP 版最本质的差异：TCP 版必须发 `[FINS][12][0*8]` 并校验状态码，
+而 UDP 直接发 FINS 命令帧即可 ✗</p>
+<p>⚠️ 副作用：TCP 握手会**从响应里取 SA1/DA1**；UDP 取不到 ⇒
+保持父类默认值，需由配置显式指定本机/PLC 节点号（见注册表 `Sa1`/`Da1` 参数）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult DoTcpHandshake()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_DoTcpHandshake">OmronFinsDriver.DoTcpHandshake()</a></div>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver_SendAndReceive_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.SendAndReceive*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_SendAndReceive_System_Byte___" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.SendAndReceive(System.Byte[])">SendAndReceive(byte[])</h4>
+  <div class="markdown level1 summary"><p>发送裸 FINS 帧并接收裸 FINS 响应。</p>
+<p>与父类的差异：**不加 16 字节 FINS/TCP 头**、**不读 8 字节响应头** ✓</p>
+<p>重发：UDP 可能丢包 ⇒ 超时后按 <a class="xref" href="ZL.IotDriver.Omron.OmronFinsUdpDriver.html#ZL_IotDriver_Omron_OmronFinsUdpDriver_ResendTimes">ResendTimes</a> 重发 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult&lt;byte[]&gt; SendAndReceive(byte[] command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_SendAndReceive_System_Byte___">OmronFinsDriver.SendAndReceive(byte[])</a></div>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ToString_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ToString*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ToString" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+  <a id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ValidateFinsResponse_" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ValidateFinsResponse*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsUdpDriver_ValidateFinsResponse_System_Byte___" data-uid="ZL.IotDriver.Omron.OmronFinsUdpDriver.ValidateFinsResponse(System.Byte[])">ValidateFinsResponse(byte[])</h4>
+  <div class="markdown level1 summary"><p>日志/诊断用描述。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult ValidateFinsResponse(byte[] response)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">response</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ValidateFinsResponse_System_Byte___">OmronFinsDriver.ValidateFinsResponse(byte[])</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

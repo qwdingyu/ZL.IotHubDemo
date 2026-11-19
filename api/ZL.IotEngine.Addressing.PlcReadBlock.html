@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcReadBlock | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcReadBlock | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 批量读取块。 在工业现场，逐标签读取 PLC 数据会导致大量网络往返，严重影响采集效率。 PlcReadBlockBuilder 会将地址相邻的标签合并为一个读取块， 一次网络请求读取连续字节区域，再由 PlcValueExtractor 从 buffer 中提取各标签值。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Addressing.PlcReadBlock">
+
+
+
+  <h1 id="ZL_IotEngine_Addressing_PlcReadBlock" data-uid="ZL.IotEngine.Addressing.PlcReadBlock" class="text-break">Class PlcReadBlock</h1>
+  <div class="markdown level0 summary"><p>PLC 批量读取块。
+在工业现场，逐标签读取 PLC 数据会导致大量网络往返，严重影响采集效率。
+PlcReadBlockBuilder 会将地址相邻的标签合并为一个读取块，
+一次网络请求读取连续字节区域，再由 PlcValueExtractor 从 buffer 中提取各标签值。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcReadBlock</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Addressing.html">Addressing</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Addressing_PlcReadBlock_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PlcReadBlock</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_AddressProfile_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.AddressProfile*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_AddressProfile" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.AddressProfile">AddressProfile</h4>
+  <div class="markdown level1 summary"><p>【2026-10-22 新增｜根治 ✗→✓】<strong>本块是用哪个地址画像构建的</strong> ✓。</p>
+<p>
+【为什么必须随块走】地址解析的**画像**决定同一字符串的含义 ✗：
+实测 `M100` 在 **Siemens** 画像下是「`M` 区**字** 100」✓，
+在默认 `Any` 下却是「`M` 区**位** ⇒ 字节 12 + bit4」✗✓ —— **两套坐标** ✗。
+只要"建块用画像 A、取值/预填充用画像 B"✗，`rel` 就会算错 ⇒ **取值错位** ✗✓
+（本轮实测该缺陷真实存在，见 `docs/450`）。
+</p>
+<p>
+【本字段的作用】把画像**记录在块上** ✓ ⇒ 任何**解释该块**的代码
+（取值器、预填充 ✓）都从**同一个字段**读 ✓ ⇒ **结构上不可能分歧** ✓✓。
+这比"每个调用点各自记得传画像"可靠 ✗（后者漏一处就出事 ✗）。
+</p>
+<p>默认 <a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html#ZL_IotAbstraction_Addressing_PlcAddressProfile_Any">Any</a> ✓ ⇒ 未显式指定的场景行为不变 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcAddressProfile AddressProfile { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html">PlcAddressProfile</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_AddressUnitBytes_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.AddressUnitBytes*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_AddressUnitBytes" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.AddressUnitBytes">AddressUnitBytes</h4>
+  <div class="markdown level1 summary"><p>本块的<strong>地址单位字节数</strong>：1 = 字节寻址（西门子 S7 / Beckhoff ADS）；
+2 = 字寻址（Modbus / 三菱 / 欧姆龙 / Fatek / LSis / Panasonic / Delta / Inovance / Xinje / Keyence）。</p>
+<p>
+【2026-10-20 新增，docs/436 §九】用于统一"地址以原生单位存储、长度以字节计算"的口径：
+`Length`（字节）= 跨度（单位）× 本值。缺了这个换算，
+相邻字点位合并后第 2 个起点位会**取值错位**（实测 T2=0x1122，应为 0x2222）✗
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AddressUnitBytes { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_BufferByteStart_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.BufferByteStart*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_BufferByteStart" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.BufferByteStart">BufferByteStart</h4>
+  <div class="markdown level1 summary"><p>块<strong>缓冲区</strong>的起始字节偏移（取值器算 <code>rel</code> 的基准）。<b>-1 表示未设置</b>
+⇒ 取值器退回 <code>StartByte * AddressUnitBytes</code>（即改动前的行为）。</p>
+<p><b>为什么需要（2026-11-17 实测缺陷）</b>：`ResolveBlockAddress` 对
+<code>preserveSource</code> 的**单标签块 / 全位块**返回**首标签的原始地址串**
+（如 MC 的 `B1F`）⇒ 驱动被要求 <code>ReadBytes("B1F", 1)</code> ⇒ 返回的那 1 字节
+**就是 `B1F` 自己的字节**。而取值器此前一律用 <code>StartByte * unit</code> 作基准，
+对位地址该值被 <code>ByteOffset / unit</code> **截断**过 ⇒ 基准偏小 ⇒ <code>rel</code> 偏大 ⇒
+<code>rel &gt;= Length</code> ⇒ **该点位永远无值**。
+实测 `B1F`：`ByteOffset=3`、`unit=2` ⇒ `StartByte=1`、基准=2、`rel=1`，而 `Length=1`。</p>
+<p><b>为什么不在建块器里定</b>：缓冲区起点取决于**是否用了源地址**，
+那是**设备级**属性（<code>DeviceRoot.PreserveSourceAddressOnSingleTagBlock</code>），
+建块器看不到 ⇒ 只能在 `DeviceRoot.BuildPlan` 解析完地址后填。</p>
+<p><b>默认 -1 的安全性</b>：未设置 ⇒ 完全走原逻辑 ⇒ 对**所有**不经过本字段的
+调用点（含既有测试）**零行为变化**。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BufferByteStart { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_CachedReadAddress_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.CachedReadAddress*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_CachedReadAddress" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.CachedReadAddress">CachedReadAddress</h4>
+  <div class="markdown level1 summary"><p>v7 预计算：批量读取的协议地址字符串，在 BuildPlan 时一次性生成。
+消除 ExecutePlanByRate 热路径中每轮 $&quot;{dataBlock}{startByte}&quot; 的字符串插值分配。
+100ms×100PLC×7×24h = 600万次/天 → 降至 0。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CachedReadAddress { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_CachedReadLength_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.CachedReadLength*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_CachedReadLength" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.CachedReadLength">CachedReadLength</h4>
+  <div class="markdown level1 summary"><p>v7 预计算：批量读取长度（ushort），在 BuildPlan 时一次性转换。
+消除热路径中 GetReadAddressLength 的函数调用开销。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ushort CachedReadLength { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_DataBlock_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.DataBlock*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_DataBlock" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.DataBlock">DataBlock</h4>
+  <div class="markdown level1 summary"><p>数据区标识（如 &quot;DB100&quot;、&quot;HR&quot;、&quot;D&quot;），对应 PlcAddress.DataBlock</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DataBlock { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_Db_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.Db*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_Db" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.Db">Db</h4>
+  <div class="markdown level1 summary"><p>DB 块号（西门子场景），非西门子场景通常为 0</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Db { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_FailureCount_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.FailureCount*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_FailureCount" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.FailureCount">FailureCount</h4>
+  <div class="markdown level1 summary"><p>连续读取失败计数器。
+当某个块连续多次读取失败时，采集引擎可据此降低优先级或跳过，
+避免&quot;坏块&quot;拖慢整台设备的采集节奏。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FailureCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_Length_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.Length*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_Length" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.Length">Length</h4>
+  <div class="markdown level1 summary"><p>本块需要读取的字节长度（受 PDU 大小限制，通常不超过 220 字节）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Length { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_NativeArea_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.NativeArea*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_NativeArea" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.NativeArea">NativeArea</h4>
+  <div class="markdown level1 summary"><p><strong>本块的数据区语义</strong>（2026-11-03 新增，docs/560 方案 C）。</p>
+<p>🔴 <b>为什么需要它</b>：<a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlock.html#ZL_IotEngine_Addressing_PlcReadBlock_DataBlock">DataBlock</a> 在不同协议下含义不同 ——
+· 17 个协议把它当**地址文本前缀**（`D100` 的 `D`）⇒ 拼进字符串即可 ✓
+· 4 个 Modbus 族把它当**数据区**（`IR`/`HR`/`C`/`DI`），
+  而该区在协议里由**功能码**表达 ⇒ **字符串丢失后无法恢复** ✗
+实测：`30073` ⇒ `DataBlock="IR"` ⇒ formatter 只输出 `"72"` ⇒ 驱动恒用 FC3
+⇒ **静默读到保持寄存器而不是输入寄存器** ✗✗</p>
+<p>⇒ 本字段把"区"**独立保留在块上**，由采集引擎经
+Core.IAreaAwareReader 直达驱动，**不经过字符串** ✓</p>
+<p>⚠️ <b>默认 <code>null</code> ⇒ 所有既有协议行为逐字节不变</b>（结构性保证）✓<br>
+仅当协议描述符显式 opt-in（见 <code>NativeProtocolDescriptor.UseAreaAwareRead</code>）
+且解析出**已知区名**时才被填充。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string NativeArea { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_StartByte_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.StartByte*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_StartByte" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.StartByte">StartByte</h4>
+  <div class="markdown level1 summary"><p>本块起始位置（<strong>以&quot;地址单位&quot;计</strong>，相对于数据区）。</p>
+<p>
+⚠️ **不要假设它是字节** ✗：对字节寻址协议（西门子/ADS）单位=1 字节；
+对字寻址协议（Modbus/三菱/欧姆龙/Fatek/LSis…）单位=1 个字（2 字节）。
+该值**直接用于拼驱动的地址串**（`FormatBatchAddress`），故必须保持协议原生单位。
+</p>
+<p>字节位置 = <a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlock.html#ZL_IotEngine_Addressing_PlcReadBlock_StartByte">StartByte</a> × <a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlock.html#ZL_IotEngine_Addressing_PlcReadBlock_AddressUnitBytes">AddressUnitBytes</a>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int StartByte { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_Tags_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.Tags*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_Tags" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.Tags">Tags</h4>
+  <div class="markdown level1 summary"><p>本块包含的所有标签列表</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;TagItem&gt; Tags { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_UsefulBytes_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.UsefulBytes*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_UsefulBytes" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.UsefulBytes">UsefulBytes</h4>
+  <div class="markdown level1 summary"><p>块内有效数据字节数（用于合并效率计算，增量累加避免O(n²)）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int UsefulBytes { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlock_ToString_" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.ToString*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlock_ToString" data-uid="ZL.IotEngine.Addressing.PlcReadBlock.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

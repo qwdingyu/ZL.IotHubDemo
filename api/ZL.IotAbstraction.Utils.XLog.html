@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class XLog | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class XLog | ZL IoT SDK API ">
+    
+    <meta name="description" content="进程内日志门面：按级别/前缀分文件，按大小与日期切换，线程安全，零第三方依赖。 全部成员都是静态的；本类**从不被实例化**。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Utils.XLog">
+
+
+
+  <h1 id="ZL_IotAbstraction_Utils_XLog" data-uid="ZL.IotAbstraction.Utils.XLog" class="text-break">Class XLog</h1>
+  <div class="markdown level0 summary"><p>进程内日志门面：按级别/前缀分文件，按大小与日期切换，线程安全，零第三方依赖。</p>
+<p>全部成员都是静态的；本类**从不被实例化**。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">XLog</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Utils.html">Utils</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Utils_XLog_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class XLog</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Utils_XLog_Options_" data-uid="ZL.IotAbstraction.Utils.XLog.Options*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Options" data-uid="ZL.IotAbstraction.Utils.XLog.Options">Options</h4>
+  <div class="markdown level1 summary"><p>运行参数（默认值 = 旧 NLog 默认行为）。直接改属性只影响<strong>之后新建</strong>的 writer；
+想立刻生效请用 <a class="xref" href="ZL.IotAbstraction.Utils.XLog.html#ZL_IotAbstraction_Utils_XLog_Configure_System_Action_ZL_IotAbstraction_Utils_XLogOptions__">Configure(Action&lt;XLogOptions&gt;)</a>（它会关闭已有 writer）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static XLogOptions Options { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Utils.XLogOptions.html">XLogOptions</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Utils_XLog_Configure_" data-uid="ZL.IotAbstraction.Utils.XLog.Configure*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Configure_System_Action_ZL_IotAbstraction_Utils_XLogOptions__" data-uid="ZL.IotAbstraction.Utils.XLog.Configure(System.Action{ZL.IotAbstraction.Utils.XLogOptions})">Configure(Action&lt;XLogOptions&gt;)</h4>
+  <div class="markdown level1 summary"><p>调整日志参数并<strong>立即生效</strong>（关闭已打开的 writer，下一条日志按新参数重建）。</p>
+<p>建议在进程启动时调用一次；运行期调用是线程安全的，但会短暂关闭文件句柄。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Configure(Action&lt;XLogOptions&gt; configure)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="ZL.IotAbstraction.Utils.XLogOptions.html">XLogOptions</a>&gt;</td>
+        <td><span class="parametername">configure</span></td>
+        <td><p>对 <a class="xref" href="ZL.IotAbstraction.Utils.XLog.html#ZL_IotAbstraction_Utils_XLog_Options">Options</a> 的修改委托。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_Debug_" data-uid="ZL.IotAbstraction.Utils.XLog.Debug*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Debug_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.Debug(System.String,System.String)">Debug(string, string)</h4>
+  <div class="markdown level1 summary"><p>调试级别。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Debug(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_Error_" data-uid="ZL.IotAbstraction.Utils.XLog.Error*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Error_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.Error(System.String,System.String)">Error(string, string)</h4>
+  <div class="markdown level1 summary"><p>错误级别。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Error(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_Fatal_" data-uid="ZL.IotAbstraction.Utils.XLog.Fatal*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Fatal_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.Fatal(System.String,System.String)">Fatal(string, string)</h4>
+  <div class="markdown level1 summary"><p>致命错误级别。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_Flush_" data-uid="ZL.IotAbstraction.Utils.XLog.Flush*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Flush" data-uid="ZL.IotAbstraction.Utils.XLog.Flush">Flush()</h4>
+  <div class="markdown level1 summary"><p>把已打开文件的缓冲刷到操作系统（本项目 AutoFlush=true，通常无需调用）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Flush()</code></pre>
+  </div>
+  <a id="ZL_IotAbstraction_Utils_XLog_Info_" data-uid="ZL.IotAbstraction.Utils.XLog.Info*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Info_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.Info(System.String,System.String)">Info(string, string)</h4>
+  <div class="markdown level1 summary"><p>信息级别。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Info(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_Shutdown_" data-uid="ZL.IotAbstraction.Utils.XLog.Shutdown*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Shutdown" data-uid="ZL.IotAbstraction.Utils.XLog.Shutdown">Shutdown()</h4>
+  <div class="markdown level1 summary"><p>关闭并移除全部 writer（进程退出时自动调用；单元测试用它隔离目录）。
+之后的日志会按当前 <a class="xref" href="ZL.IotAbstraction.Utils.XLog.html#ZL_IotAbstraction_Utils_XLog_Options">Options</a> 重新建文件。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Shutdown()</code></pre>
+  </div>
+  <a id="ZL_IotAbstraction_Utils_XLog_Trace_" data-uid="ZL.IotAbstraction.Utils.XLog.Trace*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Trace_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.Trace(System.String,System.String)">Trace(string, string)</h4>
+  <div class="markdown level1 summary"><p>跟踪级别。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Trace(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_Warn_" data-uid="ZL.IotAbstraction.Utils.XLog.Warn*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_Warn_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.Warn(System.String,System.String)">Warn(string, string)</h4>
+  <div class="markdown level1 summary"><p>警告级别。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Warn(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_WriteAndTrace_" data-uid="ZL.IotAbstraction.Utils.XLog.WriteAndTrace*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_WriteAndTrace_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.WriteAndTrace(System.String,System.String)">WriteAndTrace(string, string)</h4>
+  <div class="markdown level1 summary"><p>写日志并额外通过 UDP 追踪（<code>XTrace</code>）发一份；追踪失败不影响写文件。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteAndTrace(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_WriteLogs_" data-uid="ZL.IotAbstraction.Utils.XLog.WriteLogs*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_WriteLogs_System_String_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.WriteLogs(System.String,System.String)">WriteLogs(string, string)</h4>
+  <div class="markdown level1 summary"><p>写一条 <a class="xref" href="ZL.IotAbstraction.Utils.LogLevel.html#ZL_IotAbstraction_Utils_LogLevel_Info">Info</a> 日志（等价于旧的 <code>WriteLogs(message, prefix)</code>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteLogs(string message, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>日志内容。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td><p>可选前缀：同时进<strong>文件名</strong>（旧行为，保持兼容）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Utils_XLog_WriteLogs_" data-uid="ZL.IotAbstraction.Utils.XLog.WriteLogs*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_XLog_WriteLogs_System_String_ZL_IotAbstraction_Utils_LogLevel_System_String_" data-uid="ZL.IotAbstraction.Utils.XLog.WriteLogs(System.String,ZL.IotAbstraction.Utils.LogLevel,System.String)">WriteLogs(string, LogLevel, string)</h4>
+  <div class="markdown level1 summary"><p>按指定级别写日志（级别进文件名，旧行为保持兼容）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WriteLogs(string message, LogLevel logLevel, string customPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>日志内容；<code>null</code>/空串<strong>不写</strong>（避免产生空行）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Utils.LogLevel.html">LogLevel</a></td>
+        <td><span class="parametername">logLevel</span></td>
+        <td><p>级别；<a class="xref" href="ZL.IotAbstraction.Utils.LogLevel.html#ZL_IotAbstraction_Utils_LogLevel_Off">Off</a> 直接丢弃。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">customPrefix</span></td>
+        <td><p>可选前缀：同时进文件名。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

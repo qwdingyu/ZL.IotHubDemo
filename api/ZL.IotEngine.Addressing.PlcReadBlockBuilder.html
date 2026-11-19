@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcReadBlockBuilder | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcReadBlockBuilder | ZL IoT SDK API ">
+    
+    <meta name="description" content="智能读取块合并构建器。 核心职责：将大量散落的标签地址，按&amp;quot;地址相邻、同数据区&amp;quot;的原则合并为少量 PlcReadBlock。 工业现场的 PLC 通常有 PDU 大小限制（如西门子 S7-1200 为 240 字节）， 合并策略需要在&amp;quot;减少网络往返次数&amp;quot;和&amp;quot;不超出 PDU 限制&amp;quot;之间取得平衡。 三个关键参数控制合并行为：  maxGap：两个标签间允许的最大字节空隙（空隙内无有效数据但仍需读取） maxBlockSize：单个读取块的最大字节长度（不能超过 PLC 的 PDU 限制） minEfficiencyPercent：最小有效数据占比（避免&amp;quot;读 200 字节只要 2 字节有用&amp;quot;的低效合并）">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder">
+
+
+
+  <h1 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder" class="text-break">Class PlcReadBlockBuilder</h1>
+  <div class="markdown level0 summary"><p>智能读取块合并构建器。</p>
+<p>核心职责：将大量散落的标签地址，按&quot;地址相邻、同数据区&quot;的原则合并为少量 PlcReadBlock。
+工业现场的 PLC 通常有 PDU 大小限制（如西门子 S7-1200 为 240 字节），
+合并策略需要在&quot;减少网络往返次数&quot;和&quot;不超出 PDU 限制&quot;之间取得平衡。</p>
+<p>三个关键参数控制合并行为：</p>
+<ul>
+<li>maxGap：两个标签间允许的最大字节空隙（空隙内无有效数据但仍需读取）</li>
+<li>maxBlockSize：单个读取块的最大字节长度（不能超过 PLC 的 PDU 限制）</li>
+<li>minEfficiencyPercent：最小有效数据占比（避免&quot;读 200 字节只要 2 字节有用&quot;的低效合并）</li>
+</ul>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcReadBlockBuilder</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Addressing.html">Addressing</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PlcReadBlockBuilder</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlockBuilder__ctor_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder__ctor_System_Int32_System_Int32_System_Int32_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.#ctor(System.Int32,System.Int32,System.Int32)">PlcReadBlockBuilder(int, int, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcReadBlockBuilder(int maxGap = 200, int maxBlockSize = 220, int minEfficiencyPercent = 40)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxGap</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxBlockSize</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">minEfficiencyPercent</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_DefaultStringKind_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.DefaultStringKind*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_DefaultStringKind" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.DefaultStringKind">DefaultStringKind</h4>
+  <div class="markdown level1 summary"><p>设备级字符串存储格式（标签级 <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html#ZL_IotAbstraction_Tag_TagItem_StringKind">StringKind</a> 为 <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_None">None</a> 时回落）。</p>
+<p>
+【为什么构建器必须知道它，docs/404 缺陷一】带前导符字符串在 PLC 内存里的
+**物理占用 ≠ 点表容量**：
+<code>S7String = 容量 + 2</code>（2 字节头）、<code>S7WString = 容量 × 2 + 4</code>（4 字节头 + 每字符 2 字节）[OK]。
+若按容量建块，块长度就**装不下**最后一个字符 ⇒ 驱动只读到一部分字节 ⇒
+<code>PlcValueExtractor</code> 判定"缓冲区不足" ⇒ **该点位被静默丢弃** [X]。
+</p>
+<p>
+默认 <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_None">None</a> ⇒ 按 Raw 处理（容量即占用）⇒
+**对未显式设置本属性的调用方行为完全不变** [OK]（向后兼容）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StringKind DefaultStringKind { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_DefaultStringKindProvider_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.DefaultStringKindProvider*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_DefaultStringKindProvider" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.DefaultStringKindProvider">DefaultStringKindProvider</h4>
+  <div class="markdown level1 summary"><p><strong>惰性</strong>的设备级布局来源（优先于 <a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlockBuilder.html#ZL_IotEngine_Addressing_PlcReadBlockBuilder_DefaultStringKind">DefaultStringKind</a> [OK]）。</p>
+<p>
+【为什么必须惰性，docs/406 §十一】驱动的 `Device` 引用是在 **Connect 时**才装配的
+（`S7NativeDriver` / `ManagedDeviceBase` / `NativeUnifiedDriver` [OK]），
+而本类是在 `DeviceRoot` **构造时**创建的 [X] ⇒ 构造那一刻 `Device` 还是 null [X] ⇒
+"驱动自述布局"（如 AB ⇒ <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_AbCipString">AbCipString</a>）**取不到** [X]，
+会被回落成配置值 [X] ⇒ 该点位仍按错误的物理跨度建块 [X]。
+⇒ 改为**每次取值时**回调 [OK]（`DeviceRoot` 把它接到 `EffectiveDefaultStringKind` [OK]）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;StringKind&gt; DefaultStringKindProvider { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_MaxBlockSize_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.MaxBlockSize*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_MaxBlockSize" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.MaxBlockSize">MaxBlockSize</h4>
+  <div class="markdown level1 summary"><p>单块最大字节数。<strong>可事后更新</strong>（2026-11-16 新增，供引擎按驱动声明的协议上限收紧）。</p>
+<p>【为什么可写】驱动在 **Connect 时才装配** ⇒ 构造期拿不到
+<code>IBlockSizeHintProvider.MaxBlockSizeHint</code>（AGENTS 已记该"过期快照"陷阱）
+⇒ 只能在**建块前**动态收紧。</p>
+<p>[!] 钳位语义与原构造器**逐字一致**（只钳上界到
+<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard.html#ZL_IotAbstraction_Abstractions_PlcReadLengthGuard_MaxReadLength">MaxReadLength</a>，≤ 该值的一切取值语义不变）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MaxBlockSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_ValidationCallback_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.ValidationCallback*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_ValidationCallback" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.ValidationCallback">ValidationCallback</h4>
+  <div class="markdown level1 summary"><p>配置校验告警回调。</p>
+<p>
+用于把「点表配置错误」上报给调用方（Runner / UI / 日志），而不是静默吞掉。
+与 <code>PlcFleetManager.LogCallback</code>、<code>PlcEventDispatcher.LogCallback</code>
+同一约定：类库不绑定具体日志实现，只暴露回调。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action&lt;string&gt; ValidationCallback { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_Build_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.Build*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcReadBlockBuilder_Build_System_Collections_Generic_IEnumerable_ZL_IotAbstraction_Tag_TagItem__System_Int32_System_Boolean_ZL_IotAbstraction_Addressing_PlcAddressProfile_ZL_IotAbstraction_Abstractions_IAddressSemantics_" data-uid="ZL.IotEngine.Addressing.PlcReadBlockBuilder.Build(System.Collections.Generic.IEnumerable{ZL.IotAbstraction.Tag.TagItem},System.Int32,System.Boolean,ZL.IotAbstraction.Addressing.PlcAddressProfile,ZL.IotAbstraction.Abstractions.IAddressSemantics)">Build(IEnumerable&lt;TagItem&gt;, int, bool, PlcAddressProfile, IAddressSemantics)</h4>
+  <div class="markdown level1 summary"><p>将标签集合构建为优化后的批量读取块列表。
+算法流程：配置校验 → 解析地址 → 按数据区+字节偏移排序 → 贪心合并（满足间隙/长度/效率约束）。</p>
+<p>
+变长类型（string / byte[]）未配置 <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html#ZL_IotAbstraction_Tag_TagItem_Length">Length</a> 的标签会被
+<b>排除</b>并通过 <a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlockBuilder.html#ZL_IotEngine_Addressing_PlcReadBlockBuilder_ValidationCallback">ValidationCallback</a> 报警 —— 宁可让该点位明确缺值，
+也不能按 1 字节读回去，把空字符串当成真实采集结果交给业务。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;PlcReadBlock&gt; Build(IEnumerable&lt;TagItem&gt; tags, int addressUnitBytes = 1, bool allowMerge = true, PlcAddressProfile profile = PlcAddressProfile.Any, IAddressSemantics semantics = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td><span class="parametername">tags</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">addressUnitBytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">allowMerge</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html">PlcAddressProfile</a></td>
+        <td><span class="parametername">profile</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a></td>
+        <td><span class="parametername">semantics</span></td>
+        <td><p>【2026-10-23 新增，docs/468 §七 阶段 3】<strong>驱动权威地址语义</strong> [OK]。</p>
+<p>
+为 <code>null</code> 时**完全走原路径**（`PlcAddressHelper`）[OK] ⇒ 所有未改造的调用点、
+全部既有测试行为**零变化** [OK]（这是"零影响其它协议"的结构保证）。
+</p>
+<p>
+非 null 时：对 <code>TryGetAddressSemantics</code> 返回 <code>true</code> 的地址，
+**用驱动语义算块布局** [OK]；返回 <code>false</code> 的地址**回退** `PlcAddressHelper` [OK]。
+</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlock.html">PlcReadBlock</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

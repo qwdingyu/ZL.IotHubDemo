@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcFleetManager | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcFleetManager | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 集群管理器 —— 多 PLC 场景下的启动编排与运行时协调中枢。 【设计意图】 当系统需要同时管理 30-40 台 PLC 时，简单的&amp;quot;逐个 new 出来&amp;quot;会导致：  ThreadPool 饥饿：40&#215;8=320 个 Task 同时竞争默认 16 线程 SYN 风暴：40 个 TCP 连接同时发起 无启动状态可见性：不知道哪些 PLC 启动成功、哪些失败  PlcFleetManager 解决这三个问题：  启动前预热 ThreadPool（消除饥饿） 分批启动 PLC（消除 SYN 风暴，通过 PlcConnectionThrottle） 提供启动状态报告（可观测性）  【使用方式】 在应用启动入口（Program.cs / Service 入口）调用： PlcFleetManager.Initialize(estimatedPlcCount: 40); 然后在创建 PLC 实例时通过 RegisterDevice 注册。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Runtime.PlcFleetManager">
+
+
+
+  <h1 id="ZL_IotEngine_Runtime_PlcFleetManager" data-uid="ZL.IotEngine.Runtime.PlcFleetManager" class="text-break">Class PlcFleetManager</h1>
+  <div class="markdown level0 summary"><p>PLC 集群管理器 —— 多 PLC 场景下的启动编排与运行时协调中枢。</p>
+<p>【设计意图】
+当系统需要同时管理 30-40 台 PLC 时，简单的&quot;逐个 new 出来&quot;会导致：</p>
+<ol>
+<li>ThreadPool 饥饿：40×8=320 个 Task 同时竞争默认 16 线程</li>
+<li>SYN 风暴：40 个 TCP 连接同时发起</li>
+<li>无启动状态可见性：不知道哪些 PLC 启动成功、哪些失败</li>
+</ol>
+<p>PlcFleetManager 解决这三个问题：</p>
+<ul>
+<li>启动前预热 ThreadPool（消除饥饿）</li>
+<li>分批启动 PLC（消除 SYN 风暴，通过 PlcConnectionThrottle）</li>
+<li>提供启动状态报告（可观测性）</li>
+</ul>
+<p>【使用方式】
+在应用启动入口（Program.cs / Service 入口）调用：
+PlcFleetManager.Initialize(estimatedPlcCount: 40);
+然后在创建 PLC 实例时通过 RegisterDevice 注册。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcFleetManager</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Runtime.html">Runtime</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Runtime_PlcFleetManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class PlcFleetManager</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcFleetManager_LogCallback_" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.LogCallback*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcFleetManager_LogCallback" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.LogCallback">LogCallback</h4>
+  <div class="markdown level1 summary"><p>日志回调委托。替代 Console.WriteLine，避免热路径全局锁竞争。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Action&lt;string&gt;? LogCallback { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcFleetManager_GetStatus_" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.GetStatus*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcFleetManager_GetStatus" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.GetStatus">GetStatus()</h4>
+  <div class="markdown level1 summary"><p>获取当前集群状态摘要。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PlcFleetManager.FleetStatus GetStatus()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Runtime.PlcFleetManager.html">PlcFleetManager</a>.<a class="xref" href="ZL.IotEngine.Runtime.PlcFleetManager.FleetStatus.html">FleetStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcFleetManager_Initialize_" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.Initialize*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcFleetManager_Initialize_System_Int32_System_Int32_System_Int32_System_Nullable_System_Int32__" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.Initialize(System.Int32,System.Int32,System.Int32,System.Nullable{System.Int32})">Initialize(int, int, int, int?)</h4>
+  <div class="markdown level1 summary"><p>初始化 PlcBase 运行时环境。必须在任何 PLC 实例创建之前调用。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Initialize(int estimatedPlcCount, int connectionConcurrency = 5, int connectionIntervalMs = 200, int? notificationChannelCapacity = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">estimatedPlcCount</span></td>
+        <td><p>预估的 PLC 数量，用于计算线程池预热参数。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">connectionConcurrency</span></td>
+        <td><p>并发连接数上限，默认 5。控制 TCP SYN 发射速率。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">connectionIntervalMs</span></td>
+        <td><p>连接间间隔（毫秒），默认 200ms。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">notificationChannelCapacity</span></td>
+        <td><p>通知管道容量，默认根据 PLC 数量自动计算。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcFleetManager_RegisterDevice_" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.RegisterDevice*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcFleetManager_RegisterDevice_System_String_" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.RegisterDevice(System.String)">RegisterDevice(string)</h4>
+  <div class="markdown level1 summary"><p>注册一个 PLC 设备到集群管理器。
+在创建 PLC 实例后调用，用于统计和监控。
+重复注册同一 ID 会被忽略（ConcurrentDictionary 保证唯一性）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterDevice(string deviceId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>设备唯一标识</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcFleetManager_Shutdown_" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.Shutdown*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcFleetManager_Shutdown" data-uid="ZL.IotEngine.Runtime.PlcFleetManager.Shutdown">Shutdown()</h4>
+  <div class="markdown level1 summary"><p>优雅关闭集群管理器：停止背压监控器，并<strong>完整还原单例状态</strong>以便再次 <a class="xref" href="ZL.IotEngine.Runtime.PlcFleetManager.html#ZL_IotEngine_Runtime_PlcFleetManager_Initialize_System_Int32_System_Int32_System_Int32_System_Nullable_System_Int32__">Initialize(int, int, int, int?)</a>。</p>
+<p>
+【为什么要还原状态 —— 2026-10-11 审查发现并修复】
+原实现只 <code>Dispose</code> 监控器，**不置空 <code>_instance</code>、不清 <code>_isInitialized</code>**，
+实测（探针三步）：
+  ① 首次 <code>Initialize(1)</code> → 有"初始化完成"日志、<code>IsInitialized=True</code>；
+  ② <code>Shutdown()</code> 之后 → <code>IsInitialized</code> **仍为 True**（状态不诚实）；
+  ③ 再次 <code>Initialize(1)</code> → 日志 **0 条**，被 <code>if (_isInitialized) return;</code>
+     **静默跳过，完全没有重新初始化**。
+</p>
+<p>
+【因此造成的实际危害】
+· "先 Shutdown 再 Initialize"（宿主重启集群 / 重配 PLC 数量）会**静默失败**：
+  背压监控不会重建、连接限流仍是旧参数，而调用方**收不到任何提示**；
+· <code>DriverFactory</code> 用 <code>GetStatus().IsInitialized</code> 判断是否提醒调用方
+  "尚未 Initialize，多 PLC 场景请先初始化"（见 DriverFactory 的告警分支）——
+  Shutdown 后该值仍为 True ⇒ **该警告不会再出现**，运维失去唯一的提示信号；
+· <code>PlcHealthCheck</code> 上报的集群状态同样失真。
+</p>
+<p>
+【刻意不还原的部分】<code>ThreadPool.SetMinThreads</code> 属**进程级**调优，
+还原可能破坏其它组件的线程供给；且它只是"下限"，调大本身无副作用。
+连接限流器由下一次 <a class="xref" href="ZL.IotEngine.Runtime.PlcFleetManager.html#ZL_IotEngine_Runtime_PlcFleetManager_Initialize_System_Int32_System_Int32_System_Int32_System_Nullable_System_Int32__">Initialize(int, int, int, int?)</a> 重新配置（<code>PlcConnectionThrottle.Initialize</code>）。
+</p>
+<p>
+【并发】整个还原过程在 <span class="xref">ZL.IotEngine.Runtime.PlcFleetManager._initLock</span> 内完成，避免与 <a class="xref" href="ZL.IotEngine.Runtime.PlcFleetManager.html#ZL_IotEngine_Runtime_PlcFleetManager_Initialize_System_Int32_System_Int32_System_Int32_System_Nullable_System_Int32__">Initialize(int, int, int, int?)</a> 竞争。
+重复调用本方法是安全的（第二次直接返回）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Shutdown()</code></pre>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

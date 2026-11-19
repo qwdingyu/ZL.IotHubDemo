@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotAbstraction.Tag | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotAbstraction.Tag | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Tag">
+
+  <h1 id="ZL_IotAbstraction_Tag" data-uid="ZL.IotAbstraction.Tag" class="text-break">Namespace ZL.IotAbstraction.Tag</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.ConfigDiagnostic.html">ConfigDiagnostic</a></h4>
+      <section><p>【A-257】<strong>配置装载期诊断的统一标识</strong> —— 单一来源，全仓<strong>必须</strong>引用本常量，不得各自写字符串 ✗</p>
+<p>
+🔑 **为什么需要它**（这是"不要局部无止境打补丁"的关键）：
+本仓已修 4 处"装载期吞错"缺陷（A-253 键名 / A-254 值格式 / A-255 点表条目 / A-256 插件诊断），
+它们的修复**各自打了日志**，但**格式不统一** ⇒ 现场排查时**无法一条命令找全** ✗
+⇒ 统一标识后：**`grep CONFIG-DIAG` 即可列出本次启动的全部配置问题** ✓
+</p>
+<p>
+⚠️ **必须是常量，不能各处手写 `"[CONFIG-DIAG]"`** ✗ ——
+本仓已因"多处手写同一语义"踩过坑（配置键 `IP`/`Ip` 大小写漂移、`SupportedAreas` 有表无人读）。
+手写字符串 ⇒ 迟早出现 `[CONFIG_DIAG]`/`[CONFIGDIAG]` 等变体 ⇒ grep 又找不全 ✗✗
+</p>
+<p>
+⚠️ **只用于【配置装载期】**（`DeviceConfig` 读取 / `TagKit` 点表装载 / `DeviceRoot.Initialize` /
+插件装载）—— **不用于运行期韧性代码**（如 `Dispose`/`Close` 里的"尽力而为"catch）✗
+后者吞错是**正确设计**，不应被标记为配置问题 ✓
+</p>
+<p>
+📌 **现场排查第一步**：`grep "CONFIG-DIAG" 日志文件` ⇒ 得到本次启动的全部配置问题（含修正建议）✓
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a></h4>
+      <section><p>通用设备配置容器。</p>
+<p>
+使用 Dictionary 灵活存储任意键值对配置参数（IP、端口、标签路径、扫描间隔等），
+支持从 JSON 文件、数据库或上层应用动态构造后注入到 DeviceRoot/DevicePro。
+</p>
+<p>
+线程安全说明：本类本身不是线程安全的，应在设备构造阶段（单线程）完成所有配置写入，
+运行时仅做只读访问。如需热更新配置，由调用方负责加锁。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfigParams.html">DeviceConfigParams</a></h4>
+      <section><p><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a> 的<strong>无状态参数读取辅助</strong>（单一实现）。</p>
+<p>
+2026-11-09 从 <code>ZL.IotEngine.Native.NativeProtocolRegistry</code> 提取：
+这些方法同时被 Engine 的注册表和 Driver 的 <code>NativeDriversPlugin</code> 使用
+⇒ 放在契约层，避免 Driver 为了读参数而反向依赖 Engine。
+</p>
+<p>行为与原实现逐字一致：null ⇒ 默认值；已是目标类型 ⇒ 直接返回；否则 TryParse，失败回退默认值。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.PlcKit.html">PlcKit</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.TagKit.html">TagKit</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadDiagnostic.html">TagLoadDiagnostic</a></h4>
+      <section><p>点表加载诊断（不可变值对象）。由
+<a class="xref" href="ZL.IotAbstraction.Tag.TagKit.html#ZL_IotAbstraction_Tag_TagKit_LoadTags_System_String_ZL_IotAbstraction_Tag_TagLoadDiagnostic__">LoadTags(string, out TagLoadDiagnostic)</a> 产出。</p>
+<p>⚠️ **永不返回 null** —— 调用方无需判空 ✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.TagTypeHelper.html">TagTypeHelper</a></h4>
+      <section><p><code>TagType</code> 的<strong>唯一真源</strong>（禁止再在业务代码里散落 &quot;M&quot;/&quot;HB&quot;/&quot;RO&quot; 魔法字符串）。</p>
+<p>🔴 **为什么必须收敛（2026-10-30 实测）**：改动前"是否监控标签"这一语义在
+本仓被**重复实现了 12 处**，且用了**三种互相冲突的策略**：</p>
+<ul><li><b>区分大小写</b> <code>tag.TagType == "M"</code> —— 4 处：
+    <code>DevicePro.cs</code>、<code>DeviceRoot.cs</code>（采集热路径）、<code>BatchEngine.cs</code> ×2</li><li><b>不区分大小写</b> <code>string.Equals(..., OrdinalIgnoreCase)</code> —— 7 处：
+    <code>TagItem.cs</code>、<code>TagKit.cs</code> ×3、<code>PlcValidationTool.cs</code> ×3</li><li><code>switch (TagType?.ToUpperInvariant())</code> —— 1 处：<code>DeviceRoot.cs</code> 分桶</li></ul>
+<p>⇒ 实测后果：点表写 <code>TagType="m"</code> 时，标签**能进 <code>TriggerTags</code>、
+还会被置 <code>IsTrigger=true</code>**，但**不进入 <code>triggerChanges</code>**
+⇒ 触发回调**静默失效**、日志无任何提示，现场极难排查。</p>
+<p>✅ **根治方式（双保险）**：</p>
+<ol><li><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html#ZL_IotAbstraction_Tag_TagItem_TagType">TagType</a> 的 setter **写入即归一化**（去空白 + 转大写）
+    ⇒ 无论 XML/CSV/JSON/代码赋值，下游看到的**永远是规范大写**；</li><li>判定**一律走本类**（<a class="xref" href="ZL.IotAbstraction.Tag.TagTypeHelper.html#ZL_IotAbstraction_Tag_TagTypeHelper_IsMonitor_System_String_">IsMonitor(string)</a> 等）⇒ 即使将来有人绕过 setter，
+    语义也不会漂移。</li></ol>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.TriggerModeHelper.html">TriggerModeHelper</a></h4>
+      <section><p>TriggerMode 的规范值、解析与规范化辅助。所有项目（UI、生成器、Runner）都应引用本类，
+禁止在业务代码中散落 &quot;Rising&quot;/&quot;Falling&quot;/&quot;Both&quot; 魔法字符串。</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.AccessMode.html">AccessMode</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></h4>
+      <section><p>字符串存储格式枚举。</p>
+<p>
+西门子 S7 系列 PLC 的字符串存储有三种格式：
+- <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_Raw">Raw</a>：无前导符模式，直接存储字符数据（S7-200、Modbus 等）
+- <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_S7String">S7String</a>：西门子 STRING 格式（S7-1200/1500），前 2 字节为元数据
+- <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_S7WString">S7WString</a>：西门子 WSTRING 格式（S7-1200/1500），前 4 字节为元数据
+</p>
+<p>
+【设计目的】将字符串格式判断从设备级（DeviceRoot.DefaultStringKind）下沉到标签级，
+使同一台 PLC 上可以混合使用不同格式的字符串标签。
+例如 S7-1500 上可同时存在 String[20]（2 字节头）、Array of Char（无头）、WString[20]（4 字节头）。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadOutcome.html">TagLoadOutcome</a></h4>
+      <section><p>点表加载的<strong>结果分类</strong>。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Tag.TriggerModeKind.html">TriggerModeKind</a></h4>
+      <section><p>触发边沿模式（TagItem.TriggerMode 的规范语义）。
+Rising=上升沿（false→true / 0→1），Falling=下降沿（true→false / 1→0），Both=双边沿（任意变化）。
+注意：本枚举表达“边沿检测方向”，不代表“是否启用触发”；是否启用由 TagType=M 表达。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

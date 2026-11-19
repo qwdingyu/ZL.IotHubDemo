@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class S7NativeDriver | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class S7NativeDriver | ZL IoT SDK API ">
+    
+    <meta name="description" content="西门子 S7 的 DeviceBase 包装（薄壳）。  真正的连接 / 批量读取 / 心跳 / 重连全部由  完成； 本类只负责： ① 缺省协议键设为 siemens-s7（保持原 new S7NativeDriver(config) 的用法）； ② 覆盖 S7 的批量地址格式（DB1.0 vs M0）； ③ 覆盖 S7 的读长度换算（字节 1:1）。   ⚠️ 依赖前提：宿主必须引用 ZL.IotDriver（提供 siemens-s7 描述符）， 否则 Connect() 会报“不支持的协议类型”。这与所有 NativeUnifiedDriver 路径一致。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Siemens.S7NativeDriver">
+
+
+
+  <h1 id="ZL_IotDriver_Siemens_S7NativeDriver" data-uid="ZL.IotDriver.Siemens.S7NativeDriver" class="text-break">Class S7NativeDriver</h1>
+  <div class="markdown level0 summary"><p>西门子 S7 的 DeviceBase 包装（薄壳）。</p>
+<p>
+真正的连接 / 批量读取 / 心跳 / 重连全部由 <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html">NativeUnifiedDriver</a> 完成；
+本类只负责：
+① 缺省协议键设为 <code>siemens-s7</code>（保持原 <code>new S7NativeDriver(config)</code> 的用法）；
+② 覆盖 S7 的批量地址格式（<code>DB1.0</code> vs <code>M0</code>）；
+③ 覆盖 S7 的读长度换算（字节 1:1）。
+</p>
+<p>
+⚠️ 依赖前提：宿主必须引用 <code>ZL.IotDriver</code>（提供 <code>siemens-s7</code> 描述符），
+否则 <code>Connect()</code> 会报“不支持的协议类型”。这与所有 NativeUnifiedDriver 路径一致。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html">DeviceRoot</a></div>
+    <div class="level2"><a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html">DeviceBase</a></div>
+    <div class="level3"><a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html">NativeUnifiedDriver</a></div>
+    <div class="level4"><span class="xref">S7NativeDriver</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IDeviceDriver.html">IDeviceDriver</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDriver.html">IPlcDriver</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.ITriggerableDriver.html">ITriggerableDriver</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_TriggerDataChanged">NativeUnifiedDriver.TriggerDataChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_ProtocolKey">NativeUnifiedDriver.ProtocolKey</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_PreserveSourceAddress">NativeUnifiedDriver.PreserveSourceAddress</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_ProtocolDisplayName">NativeUnifiedDriver.ProtocolDisplayName</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_Connect">NativeUnifiedDriver.Connect()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_AddressProfile">NativeUnifiedDriver.AddressProfile</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_OnTriggerDataChange_System_String_System_Object_ZL_IotAbstraction_Tag_TagItem_">NativeUnifiedDriver.OnTriggerDataChange(string, object, TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase__firstConnectTask">DeviceBase._firstConnectTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_StartFirstConnect">DeviceBase.StartFirstConnect()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_LoadSelfConfig">DeviceBase.LoadSelfConfig()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ConnectAsync_System_Threading_CancellationToken_">DeviceBase.ConnectAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_GetCachedValue_System_String_">DeviceBase.GetCachedValue(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_WriteTagAsync_System_String_System_Object_System_Threading_CancellationToken_">DeviceBase.WriteTagAsync(string, object, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReconnectionLoop_System_Threading_CancellationToken_">DeviceBase.ReconnectionLoop(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_HalfOpenProbeAsync_System_Threading_CancellationToken_">DeviceBase.HalfOpenProbeAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_HeartBeatLoop_System_Threading_CancellationToken_">DeviceBase.HeartBeatLoop(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_BatchReadLoop_System_Threading_CancellationToken_">DeviceBase.BatchReadLoop(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_Overrun">DeviceBase.Overrun</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_SimpleScanEngineLoop_System_Int32_System_Int32_System_Threading_CancellationToken_">DeviceBase.SimpleScanEngineLoop(int, int, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_Read__1_System_String_">DeviceBase.Read&lt;T&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadResult__1_System_String_">DeviceBase.ReadResult&lt;T&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_TryRead__1_System_String___0__System_String__">DeviceBase.TryRead&lt;T&gt;(string, out T, out string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadResultAsync__1_System_String_System_Threading_CancellationToken_">DeviceBase.ReadResultAsync&lt;T&gt;(string, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadValue_System_String_System_String_System_String_System_Int32_">DeviceBase.ReadValue(string, string, string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadString__1_System_String_System_UInt16_System_Text_Encoding_">DeviceBase.ReadString&lt;T&gt;(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadString__1_ZL_IotAbstraction_Tag_TagItem_System_Text_Encoding_">DeviceBase.ReadString&lt;T&gt;(TagItem, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_Write_System_String_System_Object_">DeviceBase.Write(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_WriteAsync_System_String_System_Object_">DeviceBase.WriteAsync(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_OnTagWritten_System_String_System_Object_">DeviceBase.OnTagWritten(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_WriteString_ZL_IotAbstraction_Tag_TagItem_System_String_">DeviceBase.WriteString(TagItem, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase__isDisposingFlag">DeviceBase._isDisposingFlag</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_IsDisposed">DeviceBase.IsDisposed</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_LicenseCountEligible">DeviceBase.LicenseCountEligible</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_DisposeAsync">DeviceBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ClearSnapshotOnDispose">DeviceBase.ClearSnapshotOnDispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_Dispose">DeviceBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ResolveProtocolKey">DeviceBase.ResolveProtocolKey()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Device">DeviceRoot.Device</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Transformer">DeviceRoot.Transformer</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_deviceConfig">DeviceRoot.deviceConfig</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Tags">DeviceRoot.Tags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TagTable">DeviceRoot.TagTable</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TriggerTags">DeviceRoot.TriggerTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_HeartbeatTags">DeviceRoot.HeartbeatTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ReadyOkTags">DeviceRoot.ReadyOkTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_QuarantineTags">DeviceRoot.QuarantineTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DeviceIp">DeviceRoot.DeviceIp</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_CompanyId">DeviceRoot.CompanyId</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PlantId">DeviceRoot.PlantId</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Line">DeviceRoot.Line</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StationNo">DeviceRoot.StationNo</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TagFilePath">DeviceRoot.TagFilePath</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DeviceId">DeviceRoot.DeviceId</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DebugMode">DeviceRoot.DebugMode</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DefaultStringKind">DeviceRoot.DefaultStringKind</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_EffectiveDefaultStringKind">DeviceRoot.EffectiveDefaultStringKind</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_maxRetryAttempts">DeviceRoot.maxRetryAttempts</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_heartBeatTimerInterval">DeviceRoot.heartBeatTimerInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_pingTimerInterval">DeviceRoot.pingTimerInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ping">DeviceRoot.ping</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsClosed">DeviceRoot.IsClosed</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsConnected">DeviceRoot.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PingHealthy">DeviceRoot.PingHealthy</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ConnectionState">DeviceRoot.ConnectionState</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot__isInitialized">DeviceRoot._isInitialized</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LastTagLoadDiagnostic">DeviceRoot.LastTagLoadDiagnostic</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TagsFailedToLoad">DeviceRoot.TagsFailedToLoad</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsEmptyDevice">DeviceRoot.IsEmptyDevice</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_plcTriggerInterval">DeviceRoot.plcTriggerInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_consecutiveFailures">DeviceRoot.consecutiveFailures</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_samplingLock">DeviceRoot.samplingLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_deviceLock">DeviceRoot.deviceLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_blockBuilder">DeviceRoot.blockBuilder</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_readPlan">DeviceRoot.readPlan</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_planLock">DeviceRoot.planLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_scannablePlans">DeviceRoot.scannablePlans</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_plcValueExtractor">DeviceRoot.plcValueExtractor</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_isFrist">DeviceRoot.isFrist</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_reconnectionTask">DeviceRoot.reconnectionTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_readLoopTask">DeviceRoot.readLoopTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_heartbeatTask">DeviceRoot.heartbeatTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_pingTask">DeviceRoot.pingTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_quarantineRetryTask">DeviceRoot.quarantineRetryTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_globalCts">DeviceRoot.globalCts</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PerformanceMonitor">DeviceRoot.PerformanceMonitor</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DataCollectedSkippedNoSubscriber">DeviceRoot.DataCollectedSkippedNoSubscriber</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_localCache">DeviceRoot.localCache</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ConnectionChanged">DeviceRoot.ConnectionChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LogOccurred">DeviceRoot.LogOccurred</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DataCollected">DeviceRoot.DataCollected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StationCode">DeviceRoot.StationCode</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ResolveSingleTagAddress_ZL_IotAbstraction_Tag_TagItem_System_Int32_ZL_IotAbstraction_Addressing_PlcAddressProfile_System_Boolean_System_Func_System_String_System_Int32_System_String__ZL_IotAbstraction_Abstractions_IAddressSemantics_">DeviceRoot.ResolveSingleTagAddress(TagItem, int, PlcAddressProfile, bool, Func&lt;string, int, string&gt;, IAddressSemantics)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ResolveDriverAddress_ZL_IotAbstraction_Tag_TagItem_">DeviceRoot.ResolveDriverAddress(TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ResolveBlockAddress_ZL_IotEngine_Addressing_PlcReadBlock_System_Boolean_System_Func_System_String_System_Int32_System_String__">DeviceRoot.ResolveBlockAddress(PlcReadBlock, bool, Func&lt;string, int, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetAddressUnitBytes">DeviceRoot.GetAddressUnitBytes()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Initialize">DeviceRoot.Initialize()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_InitializeTagDictionaries">DeviceRoot.InitializeTagDictionaries()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StartBackgroundTasks">DeviceRoot.StartBackgroundTasks()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Stop">DeviceRoot.Stop()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StartSelfBackgroundTasks">DeviceRoot.StartSelfBackgroundTasks()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Start">DeviceRoot.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TryStart_System_String__">DeviceRoot.TryStart(out string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PausableToken">DeviceRoot.PausableToken</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ReleasePauseTokens">DeviceRoot.ReleasePauseTokens()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PingLoop_System_Threading_CancellationToken_">DeviceRoot.PingLoop(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ProcessTagValueChange_ZL_IotAbstraction_Tag_TagItem_System_Object_">DeviceRoot.ProcessTagValueChange(TagItem, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_BuildPlan">DeviceRoot.BuildPlan()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecutePlanByRate_System_Int32_System_Threading_CancellationToken_">DeviceRoot.ExecutePlanByRate(int, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ProcessValueChanges_System_Collections_Generic_Dictionary_System_String_System_Object__">DeviceRoot.ProcessValueChanges(Dictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_QuarantineRetryLoop_System_Threading_CancellationToken_">DeviceRoot.QuarantineRetryLoop(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ProbeTagAsync_ZL_IotAbstraction_Tag_TagItem_System_UInt16_System_Threading_CancellationToken_">DeviceRoot.ProbeTagAsync(TagItem, ushort, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecuteWithDeviceLockAsync__1_System_Func_System_Threading_Tasks_Task___0___System_Threading_CancellationToken_System_Int32_">DeviceRoot.ExecuteWithDeviceLockAsync&lt;T&gt;(Func&lt;Task&lt;T&gt;&gt;, CancellationToken, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecuteWithDeviceLockAsync_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_System_Int32_">DeviceRoot.ExecuteWithDeviceLockAsync(Func&lt;Task&gt;, CancellationToken, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecuteWithDeviceLock__1_System_Func___0__System_Int32_">DeviceRoot.ExecuteWithDeviceLock&lt;T&gt;(Func&lt;T&gt;, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_EmitDataCollected_System_String_">DeviceRoot.EmitDataCollected(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_OnDataCollected_ZL_IotAbstraction_Models_PlcCollectRecord_">DeviceRoot.OnDataCollected(PlcCollectRecord)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GenerateCacheKey_ZL_IotAbstraction_Tag_TagItem_">DeviceRoot.GenerateCacheKey(TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsValidTag_ZL_IotAbstraction_Tag_TagItem_">DeviceRoot.IsValidTag(TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetTagById_System_String_">DeviceRoot.GetTagById(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetTagValue_System_String_">DeviceRoot.GetTagValue(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetValue__1_System_String_">DeviceRoot.GetValue&lt;T&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetValueResult__1_System_String_">DeviceRoot.GetValueResult&lt;T&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TryGetValueResult__1_System_String___0__System_String__">DeviceRoot.TryGetValueResult&lt;T&gt;(string, out T, out string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DroppedEventBatches">DeviceRoot.DroppedEventBatches</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DroppedTriggerBatches">DeviceRoot.DroppedTriggerBatches</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DroppedTriggerChanges">DeviceRoot.DroppedTriggerChanges</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_SetAllTagsQuality_ZL_IotEngine_Models_TagQuality_">DeviceRoot.SetAllTagsQuality(TagQuality)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_CaptureSnapshot">DeviceRoot.CaptureSnapshot()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Log_System_String_System_String_">DeviceRoot.Log(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LogError_System_String_">DeviceRoot.LogError(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LogWarn_System_String_">DeviceRoot.LogWarn(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_OnConnectionChanged_System_String_System_Boolean_">DeviceRoot.OnConnectionChanged(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_OnLogOccurred_System_String_System_String_">DeviceRoot.OnLogOccurred(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_FormatValueForLog_System_Object_">DeviceRoot.FormatValueForLog(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetDiagnosticsReport">DeviceRoot.GetDiagnosticsReport()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_AdjustReadInterval_System_Int64_System_Boolean_">DeviceRoot.AdjustReadInterval(long, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Siemens.html">Siemens</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotDriver_Siemens_S7NativeDriver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class S7NativeDriver : NativeUnifiedDriver, IDeviceDriver, IPlcDriver, IDisposable, ITriggerableDriver</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_Siemens_S7NativeDriver__ctor_" data-uid="ZL.IotDriver.Siemens.S7NativeDriver.#ctor*"></a>
+  <h4 id="ZL_IotDriver_Siemens_S7NativeDriver__ctor_ZL_IotAbstraction_Tag_DeviceConfig_" data-uid="ZL.IotDriver.Siemens.S7NativeDriver.#ctor(ZL.IotAbstraction.Tag.DeviceConfig)">S7NativeDriver(DeviceConfig)</h4>
+  <div class="markdown level1 summary"><p>用同一份 <a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a> 构造：若调用方没有显式指定协议键，
+则在进入基类构造<strong>之前</strong>补 <code>siemens-s7</code>。</p>
+<p>
+🔴 **为什么必须在 <code>base(...)</code> 参数里补，不能写在构造体里**：
+<a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html">DeviceBase</a> 的构造函数会 `Task.Run(ConnectInternalAsync)` 发起首连；
+C# 保证派生构造体晚于基类构造执行 ⇒ 若在构造体里补键，首连可能已经
+在协议键为空时解析描述符（线程池调度竞态）。
+因此这里把补键动作放进 `base(...)` 的实参求值阶段（先于基类构造）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public S7NativeDriver(DeviceConfig config)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Siemens_S7NativeDriver_FormatBatchAddress_" data-uid="ZL.IotDriver.Siemens.S7NativeDriver.FormatBatchAddress*"></a>
+  <h4 id="ZL_IotDriver_Siemens_S7NativeDriver_FormatBatchAddress_System_String_System_Int32_" data-uid="ZL.IotDriver.Siemens.S7NativeDriver.FormatBatchAddress(System.String,System.Int32)">FormatBatchAddress(string, int)</h4>
+  <div class="markdown level1 summary"><p>格式化批量读取地址。
+西门子 S7 协议：DB 块使用 &quot;DB1.0&quot; 格式，M/Q/I 区域使用 &quot;M0&quot; 格式。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string FormatBatchAddress(string dataBlock, int startByte)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataBlock</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">startByte</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_FormatBatchAddress_System_String_System_Int32_">NativeUnifiedDriver.FormatBatchAddress(string, int)</a></div>
+  <a id="ZL_IotDriver_Siemens_S7NativeDriver_GetReadAddressLength_" data-uid="ZL.IotDriver.Siemens.S7NativeDriver.GetReadAddressLength*"></a>
+  <h4 id="ZL_IotDriver_Siemens_S7NativeDriver_GetReadAddressLength_System_Int32_" data-uid="ZL.IotDriver.Siemens.S7NativeDriver.GetReadAddressLength(System.Int32)">GetReadAddressLength(int)</h4>
+  <div class="markdown level1 summary"><p>读取长度换算：西门子按字节寻址，1:1 映射。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ushort GetReadAddressLength(int byteLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">byteLength</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html#ZL_IotEngine_Native_NativeUnifiedDriver_GetReadAddressLength_System_Int32_">NativeUnifiedDriver.GetReadAddressLength(int)</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IDeviceDriver.html">IDeviceDriver</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDriver.html">IPlcDriver</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.ITriggerableDriver.html">ITriggerableDriver</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

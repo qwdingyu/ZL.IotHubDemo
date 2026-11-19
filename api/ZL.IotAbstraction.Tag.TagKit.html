@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class TagKit | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class TagKit | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Tag.TagKit">
+
+
+
+  <h1 id="ZL_IotAbstraction_Tag_TagKit" data-uid="ZL.IotAbstraction.Tag.TagKit" class="text-break">Class TagKit</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">TagKit</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Tag.html">Tag</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Tag_TagKit_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class TagKit</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_DataTypeMappings" data-uid="ZL.IotAbstraction.Tag.TagKit.DataTypeMappings">DataTypeMappings</h4>
+  <div class="markdown level1 summary"><p>数据类型 → PLC 类型名 的<strong>全局</strong>映射表（由 NormalizeDataType 在运行时读取）。</p>
+<p>【2026-10-17 审查记录】**公开可变集合面** ✗：本字段是 <code>public static readonly</code>，
+<code>readonly</code> 只保证**引用**不被替换 ✓，**内容仍可被任意外部代码改写** ✗ ⇒
+① **语义**风险：一处改写会**影响所有设备**的类型映射 ✓（全局共享 ✓）；
+② **并发**风险：<code>Dictionary&lt;,&gt;</code> **不是**线程安全容器 ✗ ⇒ 若在**运行时**写入而同时有读取
+（本类型在每标签的类型归一化路径上读取 ✓）⇒ 可能**损坏内部结构或挂死** ✓（.NET 的经典形态 ✓）。
+</p>
+<p>**当前事实** ✓：全仓**仅**本文件 `:123` 读取、**没有任何**写入点 ✗（grep 复核 ✓）；
+但本字段属**已发布 NuGet 包的公开面** ✓ ⇒ 按 <code>AGENTS.md §20.1</code>「**搜不到引用 ≠ 没有引用**」✗
+**不能**据此推断"外部不会写"✗。
+</p>
+<p>**处置** ✓：本字段**保留**（收窄可见性或改类型会**破坏 API** ✗）⇒ 仅在此**明示契约** ✓：
+**调用方不得在运行时改写本表** ✓；如需扩展映射，请在**启动阶段**一次性完成 ✓。
+待**大版本**时再按 API 治理（`IReadOnlyDictionary` + 显式扩展方法）收敛 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;string, string&gt; DataTypeMappings</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Tag_TagKit_OnLoadError_" data-uid="ZL.IotAbstraction.Tag.TagKit.OnLoadError*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_OnLoadError" data-uid="ZL.IotAbstraction.Tag.TagKit.OnLoadError">OnLoadError</h4>
+  <div class="markdown level1 summary"><p>点表加载异常的日志出口。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Action&lt;string&gt; OnLoadError { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Tag_TagKit_BuildTagDictionary_" data-uid="ZL.IotAbstraction.Tag.TagKit.BuildTagDictionary*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_BuildTagDictionary_System_Collections_Generic_IEnumerable_ZL_IotAbstraction_Tag_TagItem__" data-uid="ZL.IotAbstraction.Tag.TagKit.BuildTagDictionary(System.Collections.Generic.IEnumerable{ZL.IotAbstraction.Tag.TagItem})">BuildTagDictionary(IEnumerable&lt;TagItem&gt;)</h4>
+  <div class="markdown level1 summary"><p>由标签集合构建点表字典（统一比较器 + Id 归一化 + 保留首个）。</p>
+<p>
+【为什么需要】内存注入路径（<code>DeviceConfig["Tags"]</code> 传
+<code>IEnumerable&lt;TagItem&gt;</code>）此前直接 <code>list.ToDictionary(t =&gt; t.Id)</code>：
+<ul><li>Id 带首尾空白时不 Trim，与文件加载路径语义不一致；</li><li>存在重复 Id（含仅大小写不同）时 <b>直接抛 ArgumentException</b>，
+    设备初始化整体失败 —— 而文件加载路径是"保留首个 + 跳过"。</li></ul>
+<p>统一走本方法后，内存注入与文件加载两条路径语义一致。</p>
+
+<p>
+【刻意不过滤 <code>Enable</code>】文件加载路径会跳过 <code>Enable=false</code> 的行，
+而注入路径历史上不跳过。本次只统一"比较器 / 空白 / 重复键"三项语义，
+<b>不改变"哪些标签进入字典"的既有行为</b> —— 静默丢弃调用方注入的标签，
+正是本项目反复出现的"点位采不到值"类事故。该差异另行评估，不在本次范围。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConcurrentDictionary&lt;string, TagItem&gt; BuildTagDictionary(IEnumerable&lt;TagItem&gt; tags)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td><span class="parametername">tags</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConcurrentDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_GetHMIDataType_" data-uid="ZL.IotAbstraction.Tag.TagKit.GetHMIDataType*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_GetHMIDataType_System_String_" data-uid="ZL.IotAbstraction.Tag.TagKit.GetHMIDataType(System.String)">GetHMIDataType(string)</h4>
+  <div class="markdown level1 summary"><p>iot对应的datatype转换为PCHMI需要的类型</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetHMIDataType(string DataTypeCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">DataTypeCode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_GetWarnedDroppedTags_" data-uid="ZL.IotAbstraction.Tag.TagKit.GetWarnedDroppedTags*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_GetWarnedDroppedTags" data-uid="ZL.IotAbstraction.Tag.TagKit.GetWarnedDroppedTags">GetWarnedDroppedTags()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyDictionary&lt;string, string&gt; GetWarnedDroppedTags()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_LoadTags_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTags*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_LoadTags_System_String_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTags(System.String)">LoadTags(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConcurrentDictionary&lt;string, TagItem&gt; LoadTags(string tagFilePath)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagFilePath</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConcurrentDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_LoadTags_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTags*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_LoadTags_System_String_ZL_IotAbstraction_Tag_TagLoadDiagnostic__" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTags(System.String,ZL.IotAbstraction.Tag.TagLoadDiagnostic@)">LoadTags(string, out TagLoadDiagnostic)</h4>
+  <div class="markdown level1 summary"><p>【2026-11-09 新增， / A-234】<strong>带诊断的</strong>点表加载 —— 把&quot;为什么 0 条&quot;讲清楚 ✓</p>
+<p>
+🔴 **为什么需要（本仓真实缺陷，务必保留说明）**：
+<a class="xref" href="ZL.IotAbstraction.Tag.TagKit.html#ZL_IotAbstraction_Tag_TagKit_LoadTags_System_String_">LoadTags(string)</a> 在**任何**失败情形下都**静默返回空字典** ✗ ——
+于是 `DeviceRoot` 打一句"警告"后**照常** `_isInitialized = true` 并打印
+「**初始化成功，加载了 0 个标签**」✗✗。
+⇒ 现场表现：程序正常启动、`Connect()` 返回 `true`、**所有点位读 `false`/`0`** ⇒ **报警不触发** ✗✗✗
+</p>
+<p>
+✅ **本重载不改 <a class="xref" href="ZL.IotAbstraction.Tag.TagKit.html#ZL_IotAbstraction_Tag_TagKit_LoadTags_System_String_">LoadTags(string)</a> 的任何行为**（纯增量 ✓），
+只是**额外**区分五种情形，让调用方能"按情形处理"而不是"一律当成功"：
+<ul><li><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadOutcome.html#ZL_IotAbstraction_Tag_TagLoadOutcome_Loaded">Loaded</a> —— 正常，`LoadedCount &gt; 0` ✓</li><li><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadOutcome.html#ZL_IotAbstraction_Tag_TagLoadOutcome_FileNotFound">FileNotFound</a> —— **路径给了却找不到文件** ⇒ 🔴 **配置错** ✗</li><li><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadOutcome.html#ZL_IotAbstraction_Tag_TagLoadOutcome_FileEmpty">FileEmpty</a> —— 文件存在但**零字节** ⇒ 多半是部署漏了 ⚠️</li><li><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadOutcome.html#ZL_IotAbstraction_Tag_TagLoadOutcome_NoValidRows">NoValidRows</a> —— 🔴 **文件有内容却解析出 0 条** ⇒
+      **最危险的一类**：XML 元素名写成 `&lt;Tag&gt;`（须 `&lt;TagItem&gt;`）、
+      或全部 `Enable="false"`、或只有表头没有数据行
+⇒ / A-237 ✗✗
+      <br>⚠️ **2026-11-10 更正**：原文把"漏写 `Enable`"也列为成因（当时 XML 缺省为 false）✗
+      三格式已统一为 `true`（`TagItem.DefaultEnable`）⇒ 漏写**不再**导致 0 条 ✗</li><li><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadOutcome.html#ZL_IotAbstraction_Tag_TagLoadOutcome_Malformed">Malformed</a> —— 解析抛异常（XML/JSON 语法错）✗</li></ul>
+
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConcurrentDictionary&lt;string, TagItem&gt; LoadTags(string tagFilePath, out TagLoadDiagnostic diagnostic)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagFilePath</span></td>
+        <td><p>点表文件路径</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagLoadDiagnostic.html">TagLoadDiagnostic</a></td>
+        <td><span class="parametername">diagnostic</span></td>
+        <td><p>诊断结果（<strong>永不为 null</strong>）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConcurrentDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td><p>与 <a class="xref" href="ZL.IotAbstraction.Tag.TagKit.html#ZL_IotAbstraction_Tag_TagKit_LoadTags_System_String_">LoadTags(string)</a> 完全相同的字典（失败时为空字典）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_LoadTags_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTags*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_LoadTags_System_Xml_Linq_XElement_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTags(System.Xml.Linq.XElement)">LoadTags(XElement)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConcurrentDictionary&lt;string, TagItem&gt; LoadTags(XElement element)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">XElement</span></td>
+        <td><span class="parametername">element</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConcurrentDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_LoadTagsFromCsv_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTagsFromCsv*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_LoadTagsFromCsv_System_String_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTagsFromCsv(System.String)">LoadTagsFromCsv(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConcurrentDictionary&lt;string, TagItem&gt; LoadTagsFromCsv(string csv)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">csv</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConcurrentDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_LoadTagsFromJson_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTagsFromJson*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_LoadTagsFromJson_System_String_" data-uid="ZL.IotAbstraction.Tag.TagKit.LoadTagsFromJson(System.String)">LoadTagsFromJson(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConcurrentDictionary&lt;string, TagItem&gt; LoadTagsFromJson(string json)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">json</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConcurrentDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagKit_getIoTxt_" data-uid="ZL.IotAbstraction.Tag.TagKit.getIoTxt*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagKit_getIoTxt_System_Collections_Concurrent_ConcurrentDictionary_System_String_ZL_IotAbstraction_Tag_TagItem__System_Boolean_" data-uid="ZL.IotAbstraction.Tag.TagKit.getIoTxt(System.Collections.Concurrent.ConcurrentDictionary{System.String,ZL.IotAbstraction.Tag.TagItem},System.Boolean)">getIoTxt(ConcurrentDictionary&lt;string, TagItem&gt;, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string getIoTxt(ConcurrentDictionary&lt;string, TagItem&gt; tagsDic, bool withTagId = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConcurrentDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td><span class="parametername">tagsDic</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">withTagId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

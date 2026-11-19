@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcEventDispatcher | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcEventDispatcher | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 事件分发器 —— 将事件分发从 deviceLock 保护范围内解耦出来。 【解决的问题】 当前架构中，ProcessValueChanges 在 deviceLock 保护范围内同步 Invoke 事件。 这意味着：锁持有时间 = IO读取 + 变更检测 + 事件分发。 如果下游订阅者（如写入数据库）慢，整个 PLC 的采集周期被拖慢。 【设计 — v6 有界 DropOldest + 背压可观测（2026-10-31 头注释订正）】 &#128308; 现行语义以构造器为准：事件通道是有界（10000 批）DropOldest —— 极端背压（下游持续慢于采集）时会丢弃最旧批次并计数，不是零丢失 ✗→✓ （原头注释停留在 v5「无界 + 零丢失」，与 v6 实现不符；零丢失需要持久化队列兜底， 见 TryEnqueueTrigger 的说明）。头注释承诺后人会依赖，故必须与实现一致 ✓ 演进（每轮都有实测依据）： v1 (Task.Run fire-and-forget): 4MB/s 内存泄漏 → ❌ v2 (同步内联): 消除泄漏但慢订阅者阻塞 Channel 消费 → ❌ v3 (Semaphore 有界并发 + DropOldest): 内存安全但 66.7% 事件被丢弃 → ❌ 不适合汽车制造 v4 (无界 Channel + 同步分发): 零丢失，但慢订阅者可导致 OOM → ❌ 缺少内存保护 v5 (无界 Channel + 高水位告警 + LogCallback): 零丢失 + OOM 预警 → ⚠️ 仍会 OOM v6 (有界 Channel + DropOldest + 限流告警 + LogCallback): 内存有界 + 丢弃可观测 → ✅ 现行 数据流： BatchReadLoop (持有 deviceLock) → 读取 PLC → 变更检测 → _eventChannel.Writer.TryWrite(changes) [有界 10000 批，满则丢最旧] EventDispatchLoop (独立线程，不持有 deviceLock) → _eventChannel.Reader → PlcNotificationHub.PublishTagChanges(changes) [同步分发]">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher">
+
+
+
+  <h1 id="ZL_IotEngine_Runtime_PlcEventDispatcher" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher" class="text-break">Class PlcEventDispatcher</h1>
+  <div class="markdown level0 summary"><p>PLC 事件分发器 —— 将事件分发从 deviceLock 保护范围内解耦出来。</p>
+<p>【解决的问题】
+当前架构中，ProcessValueChanges 在 deviceLock 保护范围内同步 Invoke 事件。
+这意味着：锁持有时间 = IO读取 + 变更检测 + 事件分发。
+如果下游订阅者（如写入数据库）慢，整个 PLC 的采集周期被拖慢。</p>
+<p>【设计 — v6 有界 DropOldest + 背压可观测（2026-10-31 头注释订正）】</p>
+<p>🔴 <strong>现行语义以构造器为准</strong>：事件通道是<strong>有界（10000 批）DropOldest</strong> ——
+极端背压（下游持续慢于采集）时会<strong>丢弃最旧批次</strong>并计数，<strong>不是零丢失</strong> ✗→✓
+（原头注释停留在 v5「无界 + 零丢失」，与 v6 实现不符；零丢失需要持久化队列兜底，
+见 TryEnqueueTrigger 的说明）。头注释承诺后人会依赖，故必须与实现一致 ✓</p>
+<p>演进（每轮都有实测依据）：
+v1 (Task.Run fire-and-forget): 4MB/s 内存泄漏 → ❌
+v2 (同步内联): 消除泄漏但慢订阅者阻塞 Channel 消费 → ❌
+v3 (Semaphore 有界并发 + DropOldest): 内存安全但 66.7% 事件被丢弃 → ❌ 不适合汽车制造
+v4 (无界 Channel + 同步分发): 零丢失，但慢订阅者可导致 OOM → ❌ 缺少内存保护
+v5 (无界 Channel + 高水位告警 + LogCallback): 零丢失 + OOM 预警 → ⚠️ 仍会 OOM
+v6 (有界 Channel + DropOldest + 限流告警 + LogCallback): 内存有界 + 丢弃可观测 → ✅ 现行</p>
+<p>数据流：
+BatchReadLoop (持有 deviceLock)
+→ 读取 PLC → 变更检测 → _eventChannel.Writer.TryWrite(changes) [有界 10000 批，满则丢最旧]
+EventDispatchLoop (独立线程，不持有 deviceLock)
+→ _eventChannel.Reader → PlcNotificationHub.PublishTagChanges(changes) [同步分发]</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcEventDispatcher</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Runtime.html">Runtime</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Runtime_PlcEventDispatcher_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class PlcEventDispatcher : IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher__ctor_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher__ctor_System_String_System_Action_System_String_System_Object_ZL_IotAbstraction_Tag_TagItem__System_Int32_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.#ctor(System.String,System.Action{System.String,System.Object,ZL.IotAbstraction.Tag.TagItem},System.Int32)">PlcEventDispatcher(string, Action&lt;string, object, TagItem&gt;?, int)</h4>
+  <div class="markdown level1 summary"><p>创建事件分发器并启动后台分发循环。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcEventDispatcher(string deviceId, Action&lt;string, object, TagItem&gt;? onTriggerCallback = null, int bufferCapacity = 128)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>设备标识，用于日志</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-3">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td><span class="parametername">onTriggerCallback</span></td>
+        <td><p>业务触发回调，在独立线程中异步调用</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">bufferCapacity</span></td>
+        <td><p>事件批次数缓冲区容量（仅用于 Trigger Channel），默认 128 批</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_CurrentEventSeq_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.CurrentEventSeq*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_CurrentEventSeq" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.CurrentEventSeq">CurrentEventSeq</h4>
+  <div class="markdown level1 summary"><p>当前<strong>事件入队序号</strong>（单调递增；由 <code>StampSequence</code> 在入队时盖章）。</p>
+<p>
+── 用途（台账 CD 修复 v2）────────────────────────────────────
+<a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html#ZL_IotEngine_Notifications_PlcNotificationHub_SyncActiveTags_System_Collections_Generic_IEnumerable_System_String__">SyncActiveTags(IEnumerable&lt;string&gt;)</a> 清理某设备的点时，
+把**此刻的入队序号**记为该点的「墓碑水位线」⇒ 之后到达的、**序号更早**的排队事件
+会被判定为**陈旧**并丢弃 ⇒ 结构上不可能"复活"已清掉的幽灵快照。
+</p>
+<p>
+⚠️ **为什么必须是"入队序号"而不是"派发序号"**：竞争发生在
+「事件已入队但尚未派发」的窗口内 ⇒ 只有**入队时刻**才能判定"这个事件是不是清空之前产生的"。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long CurrentEventSeq { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_DispatchTask_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DispatchTask*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_DispatchTask" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DispatchTask">DispatchTask</h4>
+  <div class="markdown level1 summary"><p>等待分发循环完成。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task DispatchTask { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_DispatchedBatches_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DispatchedBatches*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_DispatchedBatches" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DispatchedBatches">DispatchedBatches</h4>
+  <div class="markdown level1 summary"><p>已分发批次数（监控指标）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DispatchedBatches { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedEventBatches_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedEventBatches*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedEventBatches" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedEventBatches">DroppedEventBatches</h4>
+  <div class="markdown level1 summary"><p>事件通道<strong>累计丢弃的批次</strong>（<code>docs/653</code> D7 补齐；<code>docs/652</code> 要求可编程指标）✓</p>
+<p>
+⚠️ **判据**：本通道为 `DropOldest` ⇒ `TryWrite` **恒返回 true**，
+丢弃**只能**靠"写前容量判定"统计 ⇒ 本计数在**入队时刻已满**时 +1 ✓
+</p>
+<p>
+**运维含义**：本值持续增长 ⇒ 下游消费慢于采集 ⇒ 展示会**跳变**
+（**不影响控制正确性** —— 控制须读当前值，见 `docs/649`）✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DroppedEventBatches { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedEventChanges_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedEventChanges*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedEventChanges" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedEventChanges">DroppedEventChanges</h4>
+  <div class="markdown level1 summary"><p>事件通道<strong>累计丢弃的变更条数</strong>（按批次内条数累加）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DroppedEventChanges { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedTriggerBatches_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedTriggerBatches*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedTriggerBatches" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedTriggerBatches">DroppedTriggerBatches</h4>
+  <div class="markdown level1 summary"><p><strong>Trigger 通道累计被丢弃的批次数（下界）</strong>（<code>docs/653</code> D7 口径的 trigger 版）。</p>
+<p>为什么是"下界"：`DropOldest` 下 `TryWrite` 恒返回 true，只能靠
+`入队 − 出队 − 容量` 推断；该差值**必然 ≤ 真实丢弃数** ✓</p>
+<p>⚠️ 这个数字**大于 0 就意味着业务 Trigger 真的丢了** —— 现场应立即告警，
+并考虑启用 `TriggerSpool` 落盘 + 缩短业务回调耗时 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DroppedTriggerBatches { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedTriggerChanges_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedTriggerChanges*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_DroppedTriggerChanges" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.DroppedTriggerChanges">DroppedTriggerChanges</h4>
+  <div class="markdown level1 summary"><p><strong>Trigger 通道累计被丢弃的条目数（估计值）</strong>。口径同 <code>DroppedEventChanges</code>：
+每次检出溢出时加上当批条数 ⇒ 是<strong>估计</strong>不是精确值 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DroppedTriggerChanges { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_LogCallback_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.LogCallback*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_LogCallback" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.LogCallback">LogCallback</h4>
+  <div class="markdown level1 summary"><p>日志回调。设置后，所有分发器日志（异常、告警）通过此回调输出，而非 Console.WriteLine。
+默认使用线程安全的 WriteOnly 降级策略（Interlocked + 限流），避免 Console 全局锁竞争。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action&lt;string&gt;? LogCallback { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_PendingBatchCount_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.PendingBatchCount*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_PendingBatchCount" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.PendingBatchCount">PendingBatchCount</h4>
+  <div class="markdown level1 summary"><p>获取当前缓冲区中的待分发批次数（用于诊断）。
+v6 使用 Bounded Channel，直接支持 Reader.Count。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int PendingBatchCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_PendingTriggerCount_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.PendingTriggerCount*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_PendingTriggerCount" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.PendingTriggerCount">PendingTriggerCount</h4>
+  <div class="markdown level1 summary"><p>获取 Trigger 通道中的待分发批次数（用于诊断）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int PendingTriggerCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_TriggerSpool_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.TriggerSpool*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_TriggerSpool" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.TriggerSpool">TriggerSpool</h4>
+  <div class="markdown level1 summary"><p>🔴🔴【2026-11-10 <strong>P1：Trigger 持久化</strong>（<code>docs/649</code> / <code>docs/604 §3.3</code>）】</p>
+<p>
+**为什么需要**：Trigger 是**唯一**需要 at-least-once 的通道 ——
+丢一条 = 漏一次业务动作（报警/联锁/扫码触发）✗
+而"阻塞生产者"不可接受（`Dispatch` 同步在采集线程）✗
+</p>
+<p>
+**机制**：**只在队列满时**把溢出批次落盘 ⇒ 正常路径**不碰磁盘**（热路径零影响）✓
+</p>
+<p>
+🔴🔴【2026-11-10 按 `docs/651` §4.3 **订正口径**】此前这里写「设 `TriggerSpool` ⇒ at-least-once ✓」，
+**该说法不成立** ✗ —— 实测调用面：
+<ul><li>写（`Append`）：**已接线**（本类队列满分支）✓</li><li>读（`ReadAll` / `ReadAllWithSeq`）：**生产侧 0 处** ⇒ 无人回放 ✗</li><li>截断（`Compact`）：**生产侧 0 处** ⇒ 永不截断 ✗</li></ul>
+<b>⇒ 现状</b>：打开它只会得到一个**单调增长**的 `.spool` 文件，
+直到 `MaxBytesPerDevice`（默认 64 MB）触发「停写 ＋ Critical 告警」，此后**退回 `DropOldest`**
+⇒ **并不产生 at-least-once** ✗
+
+<p>
+<b>⇒ 要真的 at-least-once，宿主必须显式做两件事</b>（**刻意不自动回灌** ——
+自动回灌会把「关阀/急停」这类 Trigger **重复投递**，比丢更危险 ✗✗）：
+<ol><li>回放：`ReadAllWithSeq(deviceId)` ⇒ 按 `Seq` 升序回灌业务回调；</li><li>确认：**每条处理成功后**调 `Compact(deviceId, 该条 Seq)` ⇒ 逐条确认、逐条截断 ✓</li></ol>
+<p>⚠️ 回灌<strong>必须幂等</strong>（业务侧按 <code>CommandId</code>/业务键去重）：崩溃窗口内最后几条可能重复 ✓</p>
+
+<p>
+⚠️ **默认 `null`（不启用）** ⇒ 对现有部署**零影响** ✓
+启用方式：`dispatcher.TriggerSpool = new TriggerSpool(dir) { Enabled = true };`
+</p>
+<p>
+⚠️ 即使启用，也仍是**至少一次**（非恰好一次）⇒ 崩溃窗口内可能**重复**，
+消费方须靠 `CommandId`/业务幂等去重 ✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerSpool TriggerSpool { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Runtime.TriggerSpool.html">TriggerSpool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_Dispose_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.Dispose*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_Dispose" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>停止分发器并释放资源。
+先关闭 Channel 写入端 → 等待分发循环自然退出 → 再释放 CTS。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_EnqueueAsync_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.EnqueueAsync*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_EnqueueAsync_System_Collections_Generic_List_ZL_IotEngine_Models_TagValueChange__System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.EnqueueAsync(System.Collections.Generic.List{ZL.IotEngine.Models.TagValueChange},System.Threading.CancellationToken)">EnqueueAsync(List&lt;TagValueChange&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>将一批标签变更推入分发队列（异步非阻塞）。
+调用方在 deviceLock 范围内调用此方法，仅写入 Channel 后立即返回，
+不等待事件实际分发完成。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task EnqueueAsync(List&lt;TagValueChange&gt; changes, CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;</td>
+        <td><span class="parametername">changes</span></td>
+        <td><p>变更列表</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">token</span></td>
+        <td><p>取消令牌</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_TryEnqueue_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.TryEnqueue*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_TryEnqueue_System_Collections_Generic_List_ZL_IotEngine_Models_TagValueChange__" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.TryEnqueue(System.Collections.Generic.List{ZL.IotEngine.Models.TagValueChange})">TryEnqueue(List&lt;TagValueChange&gt;)</h4>
+  <div class="markdown level1 summary"><p>将一批标签变更推入分发队列（非阻塞）。
+v6 使用有界 Channel（DropOldest），满时自动丢弃最旧批次，防止 OOM。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TryEnqueue(List&lt;TagValueChange&gt; changes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;</td>
+        <td><span class="parametername">changes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcEventDispatcher_TryEnqueueTrigger_" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.TryEnqueueTrigger*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcEventDispatcher_TryEnqueueTrigger_System_Collections_Generic_List_ZL_IotEngine_Models_TagValueChange__" data-uid="ZL.IotEngine.Runtime.PlcEventDispatcher.TryEnqueueTrigger(System.Collections.Generic.List{ZL.IotEngine.Models.TagValueChange})">TryEnqueueTrigger(List&lt;TagValueChange&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TryEnqueueTrigger(List&lt;TagValueChange&gt; changes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;</td>
+        <td><span class="parametername">changes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

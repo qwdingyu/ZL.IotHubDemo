@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class LicenseGate | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class LicenseGate | ZL IoT SDK API ">
+    
+    <meta name="description" content="IotHub 侧授权门禁（唯一推荐入口）。  布尔逻辑在 ；本类补充 DeviceResult / 异常文案， 避免各驱动复制 !CommercialCheck() 判断与失败消息。   分层约定： - 连接 L1：Allow(null) 仅状态通行； - 通信 L2：Allow(protocolKey) 带功能掩码；免费版策略仅在试用（Trial）态叠加； - 写入 L3：AllowWrite(protocolKey) 在 L2 之上收口（ 后免费版写入放行，   保留统一收口便于未来恢复禁写或按协议差异化授权）。   2026-09-19 修复： ① 设备数判定已从免费版策略的每报文通路移除（准入统一在     创建时原子判定）； ② 免费版策略增加 Trial 状态前提 —— 正式授权（Authorized）不再被    「设备数 ≥ 1 即拒」误伤。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate">
+
+
+
+  <h1 id="ZL_IotAbstraction_Orchestration_LicenseGate" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate" class="text-break">Class LicenseGate</h1>
+  <div class="markdown level0 summary"><p>IotHub 侧授权门禁（唯一推荐入口）。</p>
+<p>
+布尔逻辑在 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">AllowOperation(string)</a>；本类补充 DeviceResult / 异常文案，
+避免各驱动复制 <code>!CommercialCheck()</code> 判断与失败消息。
+</p>
+<p>
+分层约定：
+- 连接 L1：<code>Allow(null)</code> 仅状态通行；
+- 通信 L2：<code>Allow(protocolKey)</code> 带功能掩码；免费版策略<b>仅在试用（Trial）态</b>叠加；
+- 写入 L3：<code>AllowWrite(protocolKey)</code> 在 L2 之上收口（ 后免费版写入放行，
+  保留统一收口便于未来恢复禁写或按协议差异化授权）。
+</p>
+<p>
+2026-09-19 修复：
+① 设备数判定已从免费版策略的每报文通路移除（准入统一在
+   <span class="xref">ZL.License.LicenseManager.IncrementDeviceCount()</span> 创建时原子判定）；
+② 免费版策略增加 Trial 状态前提 —— 正式授权（Authorized）不再被
+   「设备数 ≥ 1 即拒」误伤。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">LicenseGate</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Orchestration.html">Orchestration</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Orchestration_LicenseGate_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class LicenseGate</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Orchestration_LicenseGate_CommDeniedMessage" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.CommDeniedMessage">CommDeniedMessage</h4>
+  <div class="markdown level1 summary"><p>通信被拒时的标准文案（L2 收发）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string CommDeniedMessage = &quot;授权失效：通信被拒绝&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotAbstraction_Orchestration_LicenseGate_WriteDeniedMessage" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.WriteDeniedMessage">WriteDeniedMessage</h4>
+  <div class="markdown level1 summary"><p>写入被拒时的标准文案（全库统一，便于回归断言）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string WriteDeniedMessage = &quot;授权失效：写入被拒绝&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Orchestration_LicenseGate_Allow_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.Allow*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_LicenseGate_Allow_System_String_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.Allow(System.String)">Allow(string?)</h4>
+  <div class="markdown level1 summary"><p>是否允许操作；protocolKey 为空时仅做连接层状态检查。</p>
+<p>
+免费版策略：仅在 <span class="xref">ZL.License.LicenseManager.State</span> 为 Trial（免费版）时叠加
+协议类型 / 操作类型 / 功能位检查；设备数不在本通路判定（见类注释）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Allow(string? protocolKey = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolKey</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Orchestration_LicenseGate_AllowWrite_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.AllowWrite*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_LicenseGate_AllowWrite_System_String_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.AllowWrite(System.String)">AllowWrite(string?)</h4>
+  <div class="markdown level1 summary"><p>L3 写入门禁：在 <a class="xref" href="ZL.IotAbstraction.Orchestration.LicenseGate.html#ZL_IotAbstraction_Orchestration_LicenseGate_Allow_System_String_">Allow(string?)</a> 之上收口写入。</p>
+<p>
+2026-09-19 修复：免费版「仅允许读取」曾是死规则 ——
+写入口与读入口传同一个 protocolKey，<code>IsWriteOperation</code> 对白名单协议恒为
+false，写禁令从未生效。所有 L3 写入口必须走本方法（收口仍保留，
+即便已放开免费版写入，也便于未来恢复禁写/按协议授权）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AllowWrite(string? protocolKey)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolKey</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Orchestration_LicenseGate_CommDenied_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.CommDenied*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_LicenseGate_CommDenied" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.CommDenied">CommDenied()</h4>
+  <div class="markdown level1 summary"><p>通信拒绝结果。</p>
+<p>同 <a class="xref" href="ZL.IotAbstraction.Orchestration.LicenseGate.html#ZL_IotAbstraction_Orchestration_LicenseGate_WriteDenied">WriteDenied()</a>：`Owner=Capability`（授权问题，非设备问题）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult CommDenied()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Orchestration_LicenseGate_ThrowIfDenied_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.ThrowIfDenied*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_LicenseGate_ThrowIfDenied_System_String_System_String_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.ThrowIfDenied(System.String,System.String)">ThrowIfDenied(string?, string)</h4>
+  <div class="markdown level1 summary"><p>L2：不允许则抛 <span class="xref">ZL.License.LicenseException</span>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ThrowIfDenied(string? protocolKey, string typeName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolKey</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">typeName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Orchestration_LicenseGate_WriteDenied_" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.WriteDenied*"></a>
+  <h4 id="ZL_IotAbstraction_Orchestration_LicenseGate_WriteDenied" data-uid="ZL.IotAbstraction.Orchestration.LicenseGate.WriteDenied">WriteDenied()</h4>
+  <div class="markdown level1 summary"><p>写入拒绝结果。</p>
+<p>🔴 <b>2026-11-04 修真实缺陷</b>：原实现只 `Fail(文案)` ⇒ 由文本推断得
+<code>Kind=DeviceRejected</code> + <b><code>Owner=Device</code></b> ✗ ——
+下游据此会去**查设备/网络**，而真相是**授权**问题 ✗✗
+（实测：`"授权失效：写入被拒绝"` 含「被拒绝」⇒ 命中 `RejectedPattern`）</p>
+<p>⇒ 显式指定：`Kind=DeviceRejected`（语义确实是"被拒绝"）+
+<b>`Owner=Capability`</b>（责任方是**授权/能力**，不是设备）+
+`FailureTag="License.WriteDenied"` ✓
+—— 这正是把 `Owner` 设计成**独立维度**（而非由 `Kind` 唯一决定）的价值所在 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult WriteDenied()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

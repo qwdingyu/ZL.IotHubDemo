@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class AllenBradleyPcccFrame | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class AllenBradleyPcccFrame | ZL IoT SDK API ">
+    
+    <meta name="description" content="AB PCCC 帧编解码（纯函数）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame">
+
+
+
+  <h1 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame" class="text-break">Class AllenBradleyPcccFrame</h1>
+  <div class="markdown level0 summary"><p>AB PCCC 帧编解码（纯函数）。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">AllenBradleyPcccFrame</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.AllenBradley.html">AllenBradley</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class AllenBradleyPcccFrame</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_ConnectedItemSig" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.ConnectedItemSig">ConnectedItemSig</h4>
+  <div class="markdown level1 summary"><p>Connected Data Item 签名（低字节）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte ConnectedItemSig = 177</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_EipHeaderLength" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.EipHeaderLength">EipHeaderLength</h4>
+  <div class="markdown level1 summary"><p>EIP 封装头长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int EipHeaderLength = 24</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_EipRegisterSession" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.EipRegisterSession">EipRegisterSession</h4>
+  <div class="markdown level1 summary"><p>EIP 命令码：Register Session。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte EipRegisterSession = 101</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_EipSendUnitData" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.EipSendUnitData">EipSendUnitData</h4>
+  <div class="markdown level1 summary"><p>EIP 命令码：SendUnitData（HSL 客户端实测使用）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte EipSendUnitData = 112</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_PcccRead" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.PcccRead">PcccRead</h4>
+  <div class="markdown level1 summary"><p>PCCC 命令码：读。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte PcccRead = 162</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_PcccRespCmd" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.PcccRespCmd">PcccRespCmd</h4>
+  <div class="markdown level1 summary"><p>PCCC 响应命令标记（请求 CMD 0x0F | 0x40）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte PcccRespCmd = 79</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_PcccWrite" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.PcccWrite">PcccWrite</h4>
+  <div class="markdown level1 summary"><p>PCCC 命令码：写。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte PcccWrite = 170</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildReadPccc_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildReadPccc*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildReadPccc_System_Byte_ZL_IotDriver_AllenBradley_AllenBradleySlcAddress_System_Byte_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildReadPccc(System.Byte,ZL.IotDriver.AllenBradley.AllenBradleySlcAddress,System.Byte)">BuildReadPccc(byte, AllenBradleySlcAddress, byte)</h4>
+  <div class="markdown level1 summary"><p>构造 PCCC <strong>读</strong>命令（三地址字段）。</p>
+<p>布局取证：HSL `AllenBradleyDF1Serial` 的 `BuildProtectedTypedLogicalReadWithThreeAddressFields` 方法体</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildReadPccc(byte tns, AllenBradleySlcAddress addr, byte wordCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">tns</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.AllenBradley.AllenBradleySlcAddress.html">AllenBradleySlcAddress</a></td>
+        <td><span class="parametername">addr</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">wordCount</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildRegisterSession_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildRegisterSession*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildRegisterSession" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildRegisterSession">BuildRegisterSession()</h4>
+  <div class="markdown level1 summary"><p>构造 <strong>Register Session</strong> 请求帧（<code>0x65</code>）。</p>
+<p>载荷 = `01 00 00 00`（协议版本 1、选项 0）—— 对照仿真器 `:223-231`</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildRegisterSession()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildRequest_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildRequest*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildRequest_System_Byte___System_UInt32_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildRequest(System.Byte[],System.UInt32)">BuildRequest(byte[], uint)</h4>
+  <div class="markdown level1 summary"><p>组装 EIP + CPF + CIP + PCCC 的完整请求帧。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildRequest(byte[] pccc, uint sessionId = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">pccc</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sessionId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildWritePccc_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildWritePccc*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_BuildWritePccc_System_Byte_ZL_IotDriver_AllenBradley_AllenBradleySlcAddress_System_Byte___" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.BuildWritePccc(System.Byte,ZL.IotDriver.AllenBradley.AllenBradleySlcAddress,System.Byte[])">BuildWritePccc(byte, AllenBradleySlcAddress, byte[])</h4>
+  <div class="markdown level1 summary"><p>构造 PCCC <strong>写</strong>命令（三地址字段 + 数据）。</p>
+<p>数据紧跟在地址字段之后（对照仿真器 `:375` `writeDataOffset = offset`）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildWritePccc(byte tns, AllenBradleySlcAddress addr, byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">tns</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.AllenBradley.AllenBradleySlcAddress.html">AllenBradleySlcAddress</a></td>
+        <td><span class="parametername">addr</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_DescribePcccExtSts_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.DescribePcccExtSts*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_DescribePcccExtSts_System_Byte_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.DescribePcccExtSts(System.Byte)">DescribePcccExtSts(byte)</h4>
+  <div class="markdown level1 summary"><p>PCCC <strong>EXT STS</strong>（扩展状态）→ 官方语义。<strong>仅当 <code>STS == 0xF0</code> 时存在</strong>。</p>
+<p>【出处（AGENTS §22.5 四要素）】
+① 值：官方十六进制码（`0`~`19`、`1A`~`1E`、`22`~`24`，**共 34 码**）；
+② 含义：见下各分支（官方英文原文保留，自行意译有失真风险）；
+③ 证据：`docs/evidence/Rockwell 1770-rm516.pdftotext-layout.txt`
+   **Chapter 8 §EXT STS Codes for CMD 0F**（p.8-4，见 `EXT STS Codes for CMD 0F` 一节）；
+④ 判定：**对齐官方 34 码全集** [OK]。</p>
+<p>【适用范围】官方原文：「Definitions for this byte vary, depending on the
+**command code**」——
+· CMD `00`~`08` ⇒ **无** EXT STS 字节；
+· CMD **`0F`** ⇒ 本表（DH/DH+），**本驱动使用 CMD `0x0F`** ⇒ 适用 [OK]；
+· CMD `0B`/`1A`/`1B` ⇒ DH485 码表（p.8-5，**本驱动不用** ⇒ 未收录）。</p>
+<p>【复核命令】
+<code>grep -n "EXT STS Codes for CMD 0F" "docs/evidence/Rockwell 1770-rm516.pdftotext-layout.txt"</code></p>
+<p>【证据等级：B】官方 PCCC EXT STS 段（**原文不在仓内**）＋ 自述 ⇒ **可参考，不宜直接当真机依据**；取得官方原文后须复核。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DescribePcccExtSts(byte extSts)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">extSts</span></td>
+        <td><p>EXT STS 字节值（0x00~0xFF）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_DescribePcccStatus_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.DescribePcccStatus*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_DescribePcccStatus_System_Byte_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.DescribePcccStatus(System.Byte)">DescribePcccStatus(byte)</h4>
+  <div class="markdown level1 summary"><p>PCCC 状态码（STS byte）→ 官方语义（Rockwell 1770-rm516 Chapter 8）。</p>
+<p>
+【2026-11-02 新增，§22.6 铁律】映射 **Local STS**（0x00~0x08）＋ **Remote STS**（0x10~0xF0），
+引用官方手册 PDF p.8-1 ~ 8-5（提取文本 L6303~6500）。
+<p>[!!]【2026-11-16 订正】原注释写「完整映射 Local / Remote / **EXT STS**」——
+**不准确** [X]：本方法只处理 **STS**（单字节），**EXT STS 是另一个字节**（见 `DescribePcccExtSts`）。
+官方 `EXT STS Codes for CMD 0F` 共 **34 码**（p.8-4），本方法不含。</p>
+
+<p>【证据等级：B】HSL ＋ NewLife 交叉（**无官方 PCCC 手册原文**） ⇒ **可参考，不宜直接当真机依据**；取得官方原文后须复核。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DescribePcccStatus(byte sts)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">sts</span></td>
+        <td><p>STS byte（<code>resp[8]</code> 或 PCCC 响应中的状态码）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>「码值（hex）+ 官方含义 + 建议处理」。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_Parse_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.Parse*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_Parse_System_Byte___" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.Parse(System.Byte[])">Parse(byte[]?)</h4>
+  <div class="markdown level1 summary"><p>解析响应帧。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static (bool Ok, byte[] Data, string? Error) Parse(byte[]? resp)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">resp</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.byte[],system.string-.ok">Ok</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[] <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.byte[],system.string-.data">Data</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.byte[],system.string-.error">Error</a>)</td>
+        <td><p><code>(成功?, 数据, 错误原因)</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_ParseSessionId_" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.ParseSessionId*"></a>
+  <h4 id="ZL_IotDriver_AllenBradley_AllenBradleyPcccFrame_ParseSessionId_System_Byte___" data-uid="ZL.IotDriver.AllenBradley.AllenBradleyPcccFrame.ParseSessionId(System.Byte[])">ParseSessionId(byte[]?)</h4>
+  <div class="markdown level1 summary"><p>从 Register Session 响应中取 <strong>session id</strong>（<code>[4..7]</code>，LE）。</p>
+<p>对照仿真器 `BuildResponse`：`resp[4..7] = SessionId`（LE）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint ParseSessionId(byte[]? resp)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">resp</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

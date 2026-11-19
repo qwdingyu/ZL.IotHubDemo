@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Interface IAreaAwareReader | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Interface IAreaAwareReader | ZL IoT SDK API ">
+    
+    <meta name="description" content="带数据区语义的批量读（可选能力，2026-11-03）。 实现本接口的驱动会被采集引擎**优先**用于&quot;块上带区名&quot;的读取； 未实现的驱动**完全不受影响**（继续走 ）。 ⚠️ 契约：length 与  **完全一致 —— 恒为字节数**（AGENTS &#167;21.1），返回前必须**截断到该长度** ✓">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.IAreaAwareReader">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_IAreaAwareReader" data-uid="ZL.IotAbstraction.Abstractions.IAreaAwareReader" class="text-break">Interface IAreaAwareReader</h1>
+  <div class="markdown level0 summary"><p><strong>带数据区语义的批量读</strong>（可选能力，2026-11-03）。</p>
+<p>实现本接口的驱动会被采集引擎**优先**用于"块上带区名"的读取；
+未实现的驱动**完全不受影响**（继续走 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytes_System_String_System_UInt16_">ReadBytes(string, ushort)</a>）。</p>
+<p>⚠️ <b>契约</b>：<code class="paramref">length</code> 与 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytes_System_String_System_UInt16_">ReadBytes(string, ushort)</a>
+**完全一致 —— 恒为字节数**（AGENTS §21.1），返回前必须**截断到该长度** ✓</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_IAreaAwareReader_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAreaAwareReader</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_IAreaAwareReader_ReadBytesInArea_" data-uid="ZL.IotAbstraction.Abstractions.IAreaAwareReader.ReadBytesInArea*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_IAreaAwareReader_ReadBytesInArea_System_String_System_UInt16_System_UInt16_" data-uid="ZL.IotAbstraction.Abstractions.IAreaAwareReader.ReadBytesInArea(System.String,System.UInt16,System.UInt16)">ReadBytesInArea(string, ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>在<strong>指定数据区</strong>内批量读。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DeviceResult&lt;byte[]&gt; ReadBytesInArea(string area, ushort start, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">area</span></td>
+        <td><p>数据区标识（协议原生写法，如 Modbus 的 <code>&quot;IR&quot;</code>/<code>&quot;HR&quot;</code>/<code>&quot;C&quot;</code>/<code>&quot;DI&quot;</code>）。</p>
+<p>⚠️ 大小写由驱动自定，本接口不约定（由实现方归一）✓</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>区内的<strong>起始偏移</strong>（协议原生单位，如 Modbus 为寄存器号 0-based）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td><p>要读的<strong>字节数</strong>（与 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytes_System_String_System_UInt16_">ReadBytes(string, ushort)</a> 同义）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td><p>读到的字节；失败时返回 <code>Fail</code>（<strong>不得抛异常</strong>，与 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a> 契约一致）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class BatchMonitor | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class BatchMonitor | ZL IoT SDK API ">
+    
+    <meta name="description" content="调试监控批量采集引擎。 职责：将标签列表批量合并读取，支持协议自适应地址格式和块健康管理。 设计原则：纯逻辑层，不依赖任何 UI 框架（WinForms/WPF/Avalonia）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Monitoring.BatchMonitor">
+
+
+
+  <h1 id="ZL_IotEngine_Monitoring_BatchMonitor" data-uid="ZL.IotEngine.Monitoring.BatchMonitor" class="text-break">Class BatchMonitor</h1>
+  <div class="markdown level0 summary"><p>调试监控批量采集引擎。</p>
+<p>职责：将标签列表批量合并读取，支持协议自适应地址格式和块健康管理。</p>
+<p>设计原则：纯逻辑层，不依赖任何 UI 框架（WinForms/WPF/Avalonia）。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">BatchMonitor</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Monitoring.html">Monitoring</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Monitoring_BatchMonitor_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BatchMonitor : IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_ZL_IotAbstraction_Abstractions_IPlcDevice_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor(ZL.IotAbstraction.Abstractions.IPlcDevice)">BatchMonitor(IPlcDevice)</h4>
+  <div class="markdown level1 summary"><p>创建批量采集引擎。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BatchMonitor(IPlcDevice device)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></td>
+        <td><span class="parametername">device</span></td>
+        <td><p>PLC 设备驱动（IPlcDevice 统一接口）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_ZL_IotAbstraction_Abstractions_IPlcDevice_System_Int32_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor(ZL.IotAbstraction.Abstractions.IPlcDevice,System.Int32)">BatchMonitor(IPlcDevice, int)</h4>
+  <div class="markdown level1 summary"><p>【2026-10-20 新增，docs/436 §九】带<strong>地址单位</strong>的构造：
+<code class="paramref">addressUnitBytes</code> = 1 表示字节寻址（西门子/ADS），
+2 表示字寻址（Modbus/三菱/欧姆龙…）。</p>
+<p>
+⚠️ 本类持有的是 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a>，无法像 <code>DeviceRoot</code> 那样反推单位 ✗，
+因此**由调用方显式告知**。传错会导致"相邻字点位第 2 个起取值错位"（同 docs/436 §九）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BatchMonitor(IPlcDevice device, int addressUnitBytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></td>
+        <td><span class="parametername">device</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">addressUnitBytes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_ZL_IotAbstraction_Abstractions_IPlcDevice_System_Int32_System_Boolean_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor(ZL.IotAbstraction.Abstractions.IPlcDevice,System.Int32,System.Boolean)">BatchMonitor(IPlcDevice, int, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BatchMonitor(IPlcDevice device, int addressUnitBytes, bool isSingleValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></td>
+        <td><span class="parametername">device</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">addressUnitBytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isSingleValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor__ctor_ZL_IotAbstraction_Abstractions_IPlcDevice_System_Int32_System_Boolean_ZL_IotAbstraction_Addressing_PlcAddressProfile_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.#ctor(ZL.IotAbstraction.Abstractions.IPlcDevice,System.Int32,System.Boolean,ZL.IotAbstraction.Addressing.PlcAddressProfile)">BatchMonitor(IPlcDevice, int, bool, PlcAddressProfile)</h4>
+  <div class="markdown level1 summary"><p>【2026-10-22 新增】<strong>带地址画像</strong>的构造 ✓（推荐用于<strong>非 <code>DeviceRoot</code> 派生</strong>的外部驱动 ✓）。</p>
+<p>
+⚠️ 不传（用上面三个重载）时本类会自动从 <code>DeviceRoot.AddressProfile</code> 取 ✓；
+只有**外部** `IPlcDevice` 实现（非 `DeviceRoot` 派生）才需要显式传 ✗，否则退化为 `Any` ✗。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BatchMonitor(IPlcDevice device, int addressUnitBytes, bool isSingleValue, PlcAddressProfile addressProfile)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></td>
+        <td><span class="parametername">device</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">addressUnitBytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isSingleValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html">PlcAddressProfile</a></td>
+        <td><span class="parametername">addressProfile</span></td>
+        <td><p>该协议的地址画像（如 Siemens ⇒ <a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html#ZL_IotAbstraction_Addressing_PlcAddressProfile_Siemens">Siemens</a>）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_BlockCount_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.BlockCount*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_BlockCount" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.BlockCount">BlockCount</h4>
+  <div class="markdown level1 summary"><p>当前采集块数量（调试用）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BlockCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_DebugMode_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.DebugMode*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_DebugMode" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.DebugMode">DebugMode</h4>
+  <div class="markdown level1 summary"><p>调试模式：为 true 时在值提取异常时输出 Debug 日志（默认 false）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DebugMode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_DefaultStringKind_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.DefaultStringKind*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_DefaultStringKind" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.DefaultStringKind">DefaultStringKind</h4>
+  <div class="markdown level1 summary"><p>设备级字符串存储格式</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StringKind DefaultStringKind { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_EffectiveDefaultStringKind_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.EffectiveDefaultStringKind*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_EffectiveDefaultStringKind" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.EffectiveDefaultStringKind">EffectiveDefaultStringKind</h4>
+  <div class="markdown level1 summary"><p><strong>生效</strong>的字符串布局 = <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringKindResolver.html">PlcStringKindResolver</a> 唯一出口（docs/404/405）✓。
+驱动自述的协议事实（如 AB ⇒ <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_AbCipString">AbCipString</a>）优先于设备配置 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StringKind EffectiveDefaultStringKind { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_EnablePlanLogs_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.EnablePlanLogs*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_EnablePlanLogs" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.EnablePlanLogs">EnablePlanLogs</h4>
+  <div class="markdown level1 summary"><p>是否启用采集计划日志（默认 true）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnablePlanLogs { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_FallbackCount_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.FallbackCount*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_FallbackCount" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.FallbackCount">FallbackCount</h4>
+  <div class="markdown level1 summary"><p>回退标签数量（调试用）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FallbackCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_OnLog_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.OnLog*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_OnLog" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.OnLog">OnLog</h4>
+  <div class="markdown level1 summary"><p>日志输出（可选）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action&lt;string&gt; OnLog { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_BuildPlan_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.BuildPlan*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_BuildPlan_System_Collections_Generic_IEnumerable_ZL_IotAbstraction_Tag_TagItem__" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.BuildPlan(System.Collections.Generic.IEnumerable{ZL.IotAbstraction.Tag.TagItem})">BuildPlan(IEnumerable&lt;TagItem&gt;)</h4>
+  <div class="markdown level1 summary"><p>构建采集计划——将标签列表按地址合并为读取块。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BuildPlan(IEnumerable&lt;TagItem&gt; tags)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>&gt;</td>
+        <td><span class="parametername">tags</span></td>
+        <td><p>活跃标签列表（已过滤未启用的）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_BuildTagKey_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.BuildTagKey*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_BuildTagKey_ZL_IotAbstraction_Tag_TagItem_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.BuildTagKey(ZL.IotAbstraction.Tag.TagItem)">BuildTagKey(TagItem)</h4>
+  <div class="markdown level1 summary"><p>构建标签唯一键（用于去重和结果索引）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string BuildTagKey(TagItem tag)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_ConfigureBatchRead_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.ConfigureBatchRead*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_ConfigureBatchRead_System_Int32_System_Int32_System_Int32_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.ConfigureBatchRead(System.Int32,System.Int32,System.Int32)">ConfigureBatchRead(int, int, int)</h4>
+  <div class="markdown level1 summary"><p>配置批量读取参数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ConfigureBatchRead(int maxGap = 200, int maxBlockSize = 220, int minEfficiencyPercent = 40)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxGap</span></td>
+        <td><p>两个 Tag 之间允许的最大字节空隙（默认 200）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxBlockSize</span></td>
+        <td><p>单个读取块最大字节长度（默认 220）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">minEfficiencyPercent</span></td>
+        <td><p>最小效率百分比（默认 40）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_Dispose_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.Dispose*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_Dispose" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_ExecuteReadCycleAsync_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.ExecuteReadCycleAsync*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_ExecuteReadCycleAsync_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.ExecuteReadCycleAsync(System.Threading.CancellationToken)">ExecuteReadCycleAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>执行一次批量读取周期。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;ReadResult&gt;&gt; ExecuteReadCycleAsync(CancellationToken cancellationToken)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>取消令牌</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<span class="xref">List</span>&lt;<a class="xref" href="ZL.IotEngine.Monitoring.ReadResult.html">ReadResult</a>&gt;&gt;</td>
+        <td><p>读取结果列表（含标签和值）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_FormatValueForDisplay_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.FormatValueForDisplay*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_FormatValueForDisplay_ZL_IotAbstraction_Tag_TagItem_System_Object_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.FormatValueForDisplay(ZL.IotAbstraction.Tag.TagItem,System.Object)">FormatValueForDisplay(TagItem, object)</h4>
+  <div class="markdown level1 summary"><p>格式化值为显示字符串。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string FormatValueForDisplay(TagItem tag, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Monitoring_BatchMonitor_ReadSingleValueAsync_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.ReadSingleValueAsync*"></a>
+  <h4 id="ZL_IotEngine_Monitoring_BatchMonitor_ReadSingleValueAsync_ZL_IotAbstraction_Tag_TagItem_" data-uid="ZL.IotEngine.Monitoring.BatchMonitor.ReadSingleValueAsync(ZL.IotAbstraction.Tag.TagItem)">ReadSingleValueAsync(TagItem)</h4>
+  <div class="markdown level1 summary"><p>读取单个标签的值（字符串格式，供 UI 显示）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadSingleValueAsync(TagItem tag)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

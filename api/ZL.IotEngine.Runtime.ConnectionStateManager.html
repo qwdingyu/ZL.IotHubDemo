@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ConnectionStateManager | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ConnectionStateManager | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager">
+
+
+
+  <h1 id="ZL_IotEngine_Runtime_ConnectionStateManager" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager" class="text-break">Class ConnectionStateManager</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">ConnectionStateManager</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Runtime.html">Runtime</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Runtime_ConnectionStateManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ConnectionStateManager</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_IsConnected_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.IsConnected*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_IsConnected" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.IsConnected">IsConnected</h4>
+  <div class="markdown level1 summary"><p>连接是否处于&quot;可用&quot;状态（包括 Connected、Degraded、Recovering、Suspect 四种）。
+即使降级、恢复验证中或可疑，TCP socket 仍然存活，可以尝试读写。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_IsOperational_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.IsOperational*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_IsOperational" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.IsOperational">IsOperational</h4>
+  <div class="markdown level1 summary"><p>连接是否处于&quot;可正常操作&quot;状态（排除 Suspect 可疑态）。
+在 Suspect 态下，上层应暂停非关键写入，仅保留心跳探测。
+Recovering 与 Degraded 同等待遇：恢复验证中仍可操作，否则采集循环
+会因 !IsOperational 跳过读取，永远无法完成二次成功确认。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOperational { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_StateDescription_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.StateDescription*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_StateDescription" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.StateDescription">StateDescription</h4>
+  <div class="markdown level1 summary"><p>当前状态的中文字符串描述，用于日志和 UI 展示。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StateDescription { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_SuccessRate_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.SuccessRate*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_SuccessRate" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.SuccessRate">SuccessRate</h4>
+  <div class="markdown level1 summary"><p>通讯成功率（0.0 ~ 1.0），基于全部历史操作统计。
+初始值为 1.0（未操作前视为完全健康）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double SuccessRate { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_GetHealthReport_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.GetHealthReport*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_GetHealthReport" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.GetHealthReport">GetHealthReport()</h4>
+  <div class="markdown level1 summary"><p>获取当前连接的健康快照报告。
+所有指标在同一把锁内一次性读取，确保指标组合的一致性（不会出现&quot;状态为 Connected 但失败次数很高&quot;的矛盾快照）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConnectionHealthReport GetHealthReport()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.ConnectionHealthReport.html">ConnectionHealthReport</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_MarkConnected_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.MarkConnected*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_MarkConnected" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.MarkConnected">MarkConnected()</h4>
+  <div class="markdown level1 summary"><p>强制标记为已连接状态（如 TCP 连接建立成功后调用）。
+重置所有失败计数器，刷新最后成功时间。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MarkConnected()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_MarkDisconnected_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.MarkDisconnected*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_MarkDisconnected" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.MarkDisconnected">MarkDisconnected()</h4>
+  <div class="markdown level1 summary"><p>强制标记为断开状态（如主动断开连接、TCP 异常关闭时调用）。
+同时重置所有失败计数器，为下次重连做准备。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MarkDisconnected()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordHeartbeatFailure_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordHeartbeatFailure*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordHeartbeatFailure" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordHeartbeatFailure">RecordHeartbeatFailure()</h4>
+  <div class="markdown level1 summary"><p>记录心跳探测失败。
+心跳是轻量级的&quot;连接存活&quot;检测（如读取一个固定地址），
+连续失败说明网络可能中断，但业务操作不一定受影响。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RecordHeartbeatFailure()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordHeartbeatSuccess_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordHeartbeatSuccess*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordHeartbeatSuccess" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordHeartbeatSuccess">RecordHeartbeatSuccess()</h4>
+  <div class="markdown level1 summary"><p>记录心跳探测成功，重置心跳失败计数。
+若当前为可疑态且业务操作无异常，恢复到正常连接态。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RecordHeartbeatSuccess()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordOperationFailure_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordOperationFailure*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordOperationFailure_System_Boolean_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordOperationFailure(System.Boolean)">RecordOperationFailure(bool)</h4>
+  <div class="markdown level1 summary"><p>记录一次业务操作（读或写）失败。
+累加连续失败计数，达到阈值时触发状态降级或断开判定。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RecordOperationFailure(bool isRead)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isRead</span></td>
+        <td><p>true 表示读取失败，false 表示写入失败</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordOperationSuccess_" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordOperationSuccess*"></a>
+  <h4 id="ZL_IotEngine_Runtime_ConnectionStateManager_RecordOperationSuccess" data-uid="ZL.IotEngine.Runtime.ConnectionStateManager.RecordOperationSuccess">RecordOperationSuccess()</h4>
+  <div class="markdown level1 summary"><p>记录一次业务操作（读或写）成功。
+重置连续失败计数器，并根据当前状态判断是否需要恢复到 Connected。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RecordOperationSuccess()</code></pre>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

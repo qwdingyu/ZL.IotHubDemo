@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class KnxAddress | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class KnxAddress | ZL IoT SDK API ">
+    
+    <meta name="description" content="KNX 点位地址：&amp;lt;主/中/子&amp;gt;[:&amp;lt;DPT&amp;gt;]，例 1/2/3（默认 DPT 1.001）、1/2/4:9.001。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Knx.KnxAddress">
+
+
+
+  <h1 id="ZL_IotDriver_Knx_KnxAddress" data-uid="ZL.IotDriver.Knx.KnxAddress" class="text-break">Class KnxAddress</h1>
+  <div class="markdown level0 summary"><p>KNX 点位地址：<code>&lt;主/中/子&gt;[:&lt;DPT&gt;]</code>，例 <code>1/2/3</code>（默认 DPT 1.001）、<code>1/2/4:9.001</code>。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">KnxAddress</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Knx.html">Knx</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Knx_KnxAddress_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class KnxAddress</code></pre>
+  </div>
+  <h5 id="ZL_IotDriver_Knx_KnxAddress_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p><b>为什么需要 DPT</b>：KNX 的组地址只给"哪个组"，**值怎么解释靠 DPT**（数据点类型）——
+同一个 2 字节 `0C 33`，按 9.001 是 21.5 °C、按别的 DPT 就是另一个值。没有 DPT 就无法把
+字节翻译成业务值 ⇒ 地址里**必须能表达**它。</p>
+<p><b>组地址编码</b>（KNX 03/03/07 三级结构，实测对照见 `docs/588` §9）：
+<code>raw = (主 &lt;&lt; 11) | (中 &lt;&lt; 8) | 子</code>，
+例 <code>1/2/3</code> ⇒ <code>0x0A03</code>、<code>1/2/4</code> ⇒ <code>0x0A04</code>（抓包已逐字节验证 ✓）</p>
+<p><b>支持的 DPT</b>（本期）：<code>1.001</code> 布尔(1 位)、<code>5.001</code> 百分比(1 字节 0..100)、
+<code>9.001</code> 温度(2 字节浮点)。其余 DPT 请扩展 <a class="xref" href="ZL.IotDriver.Knx.KnxDpt.html">KnxDpt</a>，**不做"什么都能解"的假承诺**。</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_Knx_KnxAddress_Dpt_" data-uid="ZL.IotDriver.Knx.KnxAddress.Dpt*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxAddress_Dpt" data-uid="ZL.IotDriver.Knx.KnxAddress.Dpt">Dpt</h4>
+  <div class="markdown level1 summary"><p>数据点类型字符串（如 <code>&quot;9.001&quot;</code>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Dpt { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxAddress_Main_" data-uid="ZL.IotDriver.Knx.KnxAddress.Main*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxAddress_Main" data-uid="ZL.IotDriver.Knx.KnxAddress.Main">Main</h4>
+  <div class="markdown level1 summary"><p>主组（0..31）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Main { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxAddress_Middle_" data-uid="ZL.IotDriver.Knx.KnxAddress.Middle*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxAddress_Middle" data-uid="ZL.IotDriver.Knx.KnxAddress.Middle">Middle</h4>
+  <div class="markdown level1 summary"><p>中间组（0..7）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Middle { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxAddress_Raw_" data-uid="ZL.IotDriver.Knx.KnxAddress.Raw*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxAddress_Raw" data-uid="ZL.IotDriver.Knx.KnxAddress.Raw">Raw</h4>
+  <div class="markdown level1 summary"><p>组地址原始 16 位值（如 0x0A03）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ushort Raw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxAddress_Sub_" data-uid="ZL.IotDriver.Knx.KnxAddress.Sub*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxAddress_Sub" data-uid="ZL.IotDriver.Knx.KnxAddress.Sub">Sub</h4>
+  <div class="markdown level1 summary"><p>子组（0..255）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Sub { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Knx_KnxAddress_ToString_" data-uid="ZL.IotDriver.Knx.KnxAddress.ToString*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxAddress_ToString" data-uid="ZL.IotDriver.Knx.KnxAddress.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+  <a id="ZL_IotDriver_Knx_KnxAddress_TryParse_" data-uid="ZL.IotDriver.Knx.KnxAddress.TryParse*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxAddress_TryParse_System_String_ZL_IotDriver_Knx_KnxAddress__System_String__" data-uid="ZL.IotDriver.Knx.KnxAddress.TryParse(System.String,ZL.IotDriver.Knx.KnxAddress@,System.String@)">TryParse(string, out KnxAddress, out string)</h4>
+  <div class="markdown level1 summary"><p>解析地址；失败给出中文提示。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(string text, out KnxAddress address, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>地址文本，例 <code>1/2/4:9.001</code>。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.Knx.KnxAddress.html">KnxAddress</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>解析结果。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>失败原因。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

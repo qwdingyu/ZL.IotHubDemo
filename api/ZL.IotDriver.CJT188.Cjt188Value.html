@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class Cjt188Value | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class Cjt188Value | ZL IoT SDK API ">
+    
+    <meta name="description" content="CJ/T 188-2018 数值层：BCD 编解码、单位代号、特殊值、时间。 与 （帧层）配合使用： 帧层负责&quot;字节进/字节出&quot;，本层负责&quot;字节↔工程值&quot;。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.CJT188.Cjt188Value">
+
+
+
+  <h1 id="ZL_IotDriver_CJT188_Cjt188Value" data-uid="ZL.IotDriver.CJT188.Cjt188Value" class="text-break">Class Cjt188Value</h1>
+  <div class="markdown level0 summary"><p>CJ/T 188-2018 <strong>数值层</strong>：BCD 编解码、单位代号、特殊值、时间。</p>
+<p>与 <a class="xref" href="ZL.IotDriver.CJT188.Cjt188Frame.html">Cjt188Frame</a>（帧层）配合使用：
+帧层负责"字节进/字节出"，本层负责"字节↔工程值"。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">Cjt188Value</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.CJT188.html">CJT188</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_CJT188_Cjt188Value_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Cjt188Value</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_ItemSpecs" data-uid="ZL.IotDriver.CJT188.Cjt188Value.ItemSpecs">ItemSpecs</h4>
+  <div class="markdown level1 summary"><p><strong>表 19 数据表达格式全表</strong>（PDF p.18，300 DPI OCR 逐行读取）。</p>
+<p>用于：① 拆读计量数据的字段；② 写命令的载荷长度校验。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly IReadOnlyDictionary&lt;string, Cjt188Value.ItemSpec&gt; ItemSpecs</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.html">Cjt188Value</a>.<a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.ItemSpec.html">ItemSpec</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_SpecialError" data-uid="ZL.IotDriver.CJT188.Cjt188Value.SpecialError">SpecialError</h4>
+  <div class="markdown level1 summary"><p><strong>错误</strong>的数据项 → 整项全 <code>EEH</code>（§8.3.2）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte SpecialError = 238</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_SpecialNegativeHighDigit" data-uid="ZL.IotDriver.CJT188.Cjt188Value.SpecialNegativeHighDigit">SpecialNegativeHighDigit</h4>
+  <div class="markdown level1 summary"><p>负数标志：<strong>最高一个 BCD 码</strong>是 <code>FH</code>（§8.3.2，不是 bit7！）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte SpecialNegativeHighDigit = 15</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_SpecialUnsupported" data-uid="ZL.IotDriver.CJT188.Cjt188Value.SpecialUnsupported">SpecialUnsupported</h4>
+  <div class="markdown level1 summary"><p><strong>不支持</strong>的数据项（含单位）→ 整项全 <code>FFH</code>（§8.3.2）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte SpecialUnsupported = 255</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_UnitNames" data-uid="ZL.IotDriver.CJT188.Cjt188Value.UnitNames">UnitNames</h4>
+  <div class="markdown level1 summary"><p><strong>表 20 单位代号 → 单位名</strong>（PDF p.19）。</p>
+<p>50 项全部照录；其中 4 项已与仿真器 `Cjt188ServerV2` 常量交叉核对一致
+（`m³`=0x2C / `m³/h`=0x35 / `kWh`=0x05 / `kW`=0x17 ✓）。</p>
+<p>⚠️ OCR 里 `kJ×10`/`MJ×10` 等位置出现过 `OFH`（字母 O 混入），
+已按数值递增关系判定为 `0FH` —— 这是**唯一**一处依赖递增推导的项，已在
+`docs/drivers/Cjt188.md` 标注；其余项均为直读。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly IReadOnlyDictionary&lt;byte, string&gt; UnitNames</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_DecodeBcd_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.DecodeBcd*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_DecodeBcd_System_Byte___System_Int32_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.DecodeBcd(System.Byte[],System.Int32)">DecodeBcd(byte[], int)</h4>
+  <div class="markdown level1 summary"><p><strong>解一个 BCD 数据项</strong>（字节按 §6.4.2 低位在前；支持 §8.3.2 三种特殊值）。</p>
+<p>例：`56 34 12 00`（4 字节，2 位小数）⇒ `123456` ⇒ **`1234.56`**</p>
+<p>负号：**最高一个 BCD 码是 `FH`**（§8.3.2 逐字），不是 bit7。
+例：`00 05 F0`（3 字节，2 位小数）⇒ 最高字节 `F0` 的高半字节 = `F` ⇒ 负 ⇒ **`-5.00`**</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Cjt188Value.DecodedValue DecodeBcd(byte[] bytes, int decimals)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">bytes</span></td>
+        <td><p>数据项字节（低位在前，含可选单位代号由调用方先剥离）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">decimals</span></td>
+        <td><p>小数位数（表 19 规定；如累积流量 2 位、瞬时流量 4 位）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.html">Cjt188Value</a>.<a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.DecodedValue.html">DecodedValue</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_DecodeDateTime_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.DecodeDateTime*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_DecodeDateTime_System_Byte___" data-uid="ZL.IotDriver.CJT188.Cjt188Value.DecodeDateTime(System.Byte[])">DecodeDateTime(byte[])</h4>
+  <div class="markdown level1 summary"><p>解 7 字节 BCD 实时时间（表 19：<code>YYYYMMDDhhmmss</code>，4 位年份）。</p>
+<p>⚠️ <b>字节序</b>：时间是"按字段顺序排列的 BCD 数字串"，
+每个字节两位十进制（年→月→日→时→分→秒），**不是**按 §6.4.2 的"低位在前"。</p>
+<p>依据：仿真器 `Cjt188ServerV2` 与 HSL `CJT188Helper.GetDateTime` 均按此顺序，
+且我方 E2E 写 `20 26 11 03 09 00 00` 读回一致（2026-11-03 实测）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Cjt188Value.DecodedValue DecodeDateTime(byte[] bytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.html">Cjt188Value</a>.<a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.DecodedValue.html">DecodedValue</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_EncodeBcd_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.EncodeBcd*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_EncodeBcd_System_Decimal_System_Int32_System_Int32_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.EncodeBcd(System.Decimal,System.Int32,System.Int32)">EncodeBcd(decimal, int, int)</h4>
+  <div class="markdown level1 summary"><p><strong>编一个 BCD 数据项</strong>（字节按 §6.4.2 低位在前；负数按 §8.3.2 置最高 BCD 码 <code>FH</code>）。</p>
+<p>全程用 `decimal`：`double` 无法精确表示 `1.005` 这类值
+（`1.005 * 100` 会算成 `100.49999…` ⇒ 舍入到 `100` 而非 `101`，抄表场景不可接受）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] EncodeBcd(decimal value, int byteCount, int decimals)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>工程值（含正负）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">byteCount</span></td>
+        <td><p>字节数（表 19 规定）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">decimals</span></td>
+        <td><p>小数位数。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_EncodeDateTime_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.EncodeDateTime*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_EncodeDateTime_System_DateTime_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.EncodeDateTime(System.DateTime)">EncodeDateTime(DateTime)</h4>
+  <div class="markdown level1 summary"><p>编 7 字节 BCD 实时时间（表 19：<code>YYYYMMDDhhmmss</code>）。</p>
+<p>与 <a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.html#ZL_IotDriver_CJT188_Cjt188Value_DecodeDateTime_System_Byte___">DecodeDateTime(byte[])</a> 严格互逆。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] EncodeDateTime(DateTime value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_GetUnitName_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.GetUnitName*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_GetUnitName_System_Byte_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.GetUnitName(System.Byte)">GetUnitName(byte)</h4>
+  <div class="markdown level1 summary"><p>单位代号 → 单位名；未知代号返回 <code>null</code>（不猜）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string? GetUnitName(byte code)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">code</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_ParseMetering1_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.ParseMetering1*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_ParseMetering1_System_Byte___System_Boolean_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.ParseMetering1(System.Byte[],System.Boolean)">ParseMetering1(byte[], bool)</h4>
+  <div class="markdown level1 summary"><p><strong>拆 <code>901FH</code> 载荷为字段列表</strong>（水/气 19B 或热量表 43B）。</p>
+<p>布局（`Cjt188.md` §10 已按标准逐项推导，与仿真器 V2 一致）：</p>
+<p>水/气 19B：累积流量5 + 结算日累积流量5 + 实时时间7 + ST2</p>
+<p>热量表 43B：结算日热量5 + 当前热量5 + 热功率5 + 瞬时流量5 + 累积流量5
++ 供水温度3 + 回水温度3 + 累积工作时间3 + 实时时间7 + ST2</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyList&lt;Cjt188Value.Field&gt; ParseMetering1(byte[] payload, bool isHeatMeter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">payload</span></td>
+        <td><p><code>DI+SER</code> 之后的载荷。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isHeatMeter</span></td>
+        <td><p>是否热量表（T=20H~29H）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.html">Cjt188Value</a>.<a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.Field.html">Field</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_ParseMetering2_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.ParseMetering2*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_ParseMetering2_System_Byte___System_Boolean_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.ParseMetering2(System.Byte[],System.Boolean)">ParseMetering2(byte[], bool)</h4>
+  <div class="markdown level1 summary"><p><strong>拆 <code>911FH</code> 载荷为字段列表</strong>（水/气 33B 或热量表 59B）。</p>
+<p>水/气 33B：累积流量5 + 结算日累积流量5 + 瞬时流量5 + 温度3 + 压力3
++ 累积工作时间3 + 实时时间7 + ST2</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyList&lt;Cjt188Value.Field&gt; ParseMetering2(byte[] payload, bool isHeatMeter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">payload</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isHeatMeter</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.html">Cjt188Value</a>.<a class="xref" href="ZL.IotDriver.CJT188.Cjt188Value.Field.html">Field</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CJT188_Cjt188Value_WritePayloadLength_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.WritePayloadLength*"></a>
+  <h4 id="ZL_IotDriver_CJT188_Cjt188Value_WritePayloadLength_System_UInt16_" data-uid="ZL.IotDriver.CJT188.Cjt188Value.WritePayloadLength(System.UInt16)">WritePayloadLength(ushort)</h4>
+  <div class="markdown level1 summary"><p><strong>写类 DI → 载荷字节数</strong>（表 16/17/18）。非写类 DI 返回 <code>-1</code>。</p>
+<p>与仿真器 `Cjt188ServerV2.WritePayloadLength` 逐项一致（已交叉核对）。</p>
+<p>⚠️ `A107H`（修改密钥）= **32** 字节（新 16 + 旧 16），
+官方 `L=23H`(35) = DI(2)+SER(1)+32 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int WritePayloadLength(ushort di)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">di</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

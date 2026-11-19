@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcValidationTool | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcValidationTool | ZL IoT SDK API ">
+    
+    <meta name="description" content="PlcBase 事件链路验证工具。 在不依赖真实 PLC 的情况下，依次注入两轮标签值快照，校验：  标签加载是否正常 值变化检测 → PlcNotificationHub.Instance.TagChanges（UI 监控事件）是否触发 （注意：本工具的 PureSimDriver 自持缓存与变化检测，【不】调用 DeviceRoot.ProcessTagValueChange——那是 BatchEngine 的通路） TagType=M 的标签值变化后，OnTriggerDataChange（业务事件）是否触发 PlcNotificationHub 是否收到变化事件，且携带正确 DeviceId">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Utils.PlcValidationTool">
+
+
+
+  <h1 id="ZL_IotEngine_Utils_PlcValidationTool" data-uid="ZL.IotEngine.Utils.PlcValidationTool" class="text-break">Class PlcValidationTool</h1>
+  <div class="markdown level0 summary"><p>PlcBase 事件链路验证工具。
+在不依赖真实 PLC 的情况下，依次注入两轮标签值快照，校验：</p>
+<ol>
+<li>标签加载是否正常</li>
+<li>值变化检测 → PlcNotificationHub.Instance.TagChanges（UI 监控事件）是否触发
+（注意：本工具的 PureSimDriver 自持缓存与变化检测，【不】调用
+DeviceRoot.ProcessTagValueChange——那是 BatchEngine 的通路）</li>
+<li>TagType=M 的标签值变化后，OnTriggerDataChange（业务事件）是否触发</li>
+<li>PlcNotificationHub 是否收到变化事件，且携带正确 DeviceId</li>
+</ol>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcValidationTool</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Utils.html">Utils</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Utils_PlcValidationTool_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PlcValidationTool</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotEngine_Utils_PlcValidationTool_DefaultProtocolKey" data-uid="ZL.IotEngine.Utils.PlcValidationTool.DefaultProtocolKey">DefaultProtocolKey</h4>
+  <div class="markdown level1 summary"><p><a class="xref" href="ZL.IotEngine.Utils.PlcValidationTool.html#ZL_IotEngine_Utils_PlcValidationTool_RunFromTagFile_System_String_System_String_System_String_System_Int32_">RunFromTagFile(string, string, string, int)</a> 未指定协议时的兜底协议名。</p>
+<p>选它的理由：Modbus 是最通用的族，且本工具**不真连**（用 <code>PureSimDriver</code>），
+故"能否连通"不影响结果；但它**会决定地址解析语义**，因此用兜底时报告里会加警告 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string DefaultProtocolKey = &quot;modbus-tcp&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Utils_PlcValidationTool_Run_" data-uid="ZL.IotEngine.Utils.PlcValidationTool.Run*"></a>
+  <h4 id="ZL_IotEngine_Utils_PlcValidationTool_Run_ZL_IotAbstraction_Tag_DeviceConfig_" data-uid="ZL.IotEngine.Utils.PlcValidationTool.Run(ZL.IotAbstraction.Tag.DeviceConfig)">Run(DeviceConfig)</h4>
+  <div class="markdown level1 summary"><p>通用入口：通过 DeviceConfig 运行验证（Tags 可预加载或由 TagFilePath 加载）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PlcValidationReport Run(DeviceConfig config)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Utils.PlcValidationReport.html">PlcValidationReport</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Utils_PlcValidationTool_RunFromTagFile_" data-uid="ZL.IotEngine.Utils.PlcValidationTool.RunFromTagFile*"></a>
+  <h4 id="ZL_IotEngine_Utils_PlcValidationTool_RunFromTagFile_System_String_System_String_System_String_System_Int32_" data-uid="ZL.IotEngine.Utils.PlcValidationTool.RunFromTagFile(System.String,System.String,System.String,System.Int32)">RunFromTagFile(string, string, string, int)</h4>
+  <div class="markdown level1 summary"><p>便捷入口：从 XML/JSON/CSV 标签文件直接运行验证（<strong>纯模拟，不连真实 PLC</strong> ✓）。</p>
+<p>
+🔴【2026-11-09 修复 docs/633 / A-241 缺陷二】**本方法此前必然返回 `Success=False`** ✗ ——
+它自己构造配置时**漏填了 `Protocol` 与 `Port`**，而 <a class="xref" href="ZL.IotEngine.Utils.PlcValidationTool.html#ZL_IotEngine_Utils_PlcValidationTool_Run_ZL_IotAbstraction_Tag_DeviceConfig_">Run(DeviceConfig)</a> 把这两项判为**必填**
+⇒ 实测对一份**完全正常**的点表也报：
+<code>"缺少必填项 Protocol（协议名）"</code> ＋ <code>"缺少必填项 Port"</code> ✗✗
+⇒ 而本方法的**唯一用途**正是"给下游做上线前点表自检"
+⇒ 结果就是**下游每天看到"失败"**，工具形同虚设 ✗
+</p>
+<p>
+✅ **修法**：补上这两个参数（**可选**，保持向后兼容 ✓）。
+</p>
+<p>
+⚠️ **`protocolKey` 不只是"填个字段"** —— 它还参与**地址解析**
+（<code>AddressInterpretation.Interpret(t.Address, protocolKey)</code>）✗
+⇒ 若你的点表是 S7 地址（<code>DB1.DBW0</code>）而用默认的 <code>modbus-tcp</code> 解析，
+  会被误判为"地址不可解析" ⚠️
+⇒ **请按点表实际协议传入**；用默认值时报告里会加一条**警告**提醒你 ✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PlcValidationReport RunFromTagFile(string tagFilePath, string deviceId = &quot;VALIDATION-PLC&quot;, string protocolKey = null, int port = 502)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagFilePath</span></td>
+        <td><p>点表文件路径（XML / JSON / CSV）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>设备 Id（仅用于报告与日志）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolKey</span></td>
+        <td><p>协议名（<strong>影响地址解析语义</strong>，务必与点表匹配）✗。
+传 <code>null</code>/空 ⇒ 用 <code>&quot;modbus-tcp&quot;</code> 兜底，<strong>并在报告里加警告</strong> ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>端口（仅做范围校验；本工具不真连，故不影响结果）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Utils.PlcValidationReport.html">PlcValidationReport</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class NativeProtocolDescriptor | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class NativeProtocolDescriptor | ZL IoT SDK API ">
+    
+    <meta name="description" content="原生协议画像：把&amp;quot;设备类型差异&amp;quot;从驱动主逻辑中剥离的策略对象。 不同 PLC 协议（西门子、三菱、欧姆龙等）在客户端创建方式、地址格式、字节序等方面存在差异。 本类将这些差异封装为可插拔策略，使 NativeUnifiedDriver 能以统一逻辑驱动所有协议。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor" class="text-break">Class NativeProtocolDescriptor</h1>
+  <div class="markdown level0 summary"><p>原生协议画像：把&quot;设备类型差异&quot;从驱动主逻辑中剥离的策略对象。
+不同 PLC 协议（西门子、三菱、欧姆龙等）在客户端创建方式、地址格式、字节序等方面存在差异。
+本类将这些差异封装为可插拔策略，使 NativeUnifiedDriver 能以统一逻辑驱动所有协议。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">NativeProtocolDescriptor</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class NativeProtocolDescriptor</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor__ctor_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.#ctor*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor__ctor_System_String_System_String_System_Collections_Generic_IEnumerable_System_String__System_Func_ZL_IotAbstraction_Tag_DeviceConfig_System_Object__System_Func_System_String_System_Int32_System_String__System_Func_System_Int32_System_UInt16__System_Boolean_System_Collections_Generic_IEnumerable_System_String__ZL_IotAbstraction_Addressing_PlcAddressProfile_System_Boolean_System_Boolean_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Func{ZL.IotAbstraction.Tag.DeviceConfig,System.Object},System.Func{System.String,System.Int32,System.String},System.Func{System.Int32,System.UInt16},System.Boolean,System.Collections.Generic.IEnumerable{System.String},ZL.IotAbstraction.Addressing.PlcAddressProfile,System.Boolean,System.Boolean)">NativeProtocolDescriptor(string, string, IEnumerable&lt;string&gt;, Func&lt;DeviceConfig, object&gt;, Func&lt;string, int, string&gt;, Func&lt;int, ushort&gt;, bool, IEnumerable&lt;string&gt;, PlcAddressProfile, bool, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeProtocolDescriptor(string key, string displayName, IEnumerable&lt;string&gt; aliases, Func&lt;DeviceConfig, object&gt; clientFactory, Func&lt;string, int, string&gt; batchAddressFormatter = null, Func&lt;int, ushort&gt; readLengthConverter = null, bool isSingleValue = false, IEnumerable&lt;string&gt; supportedAreas = null, PlcAddressProfile addressProfile = PlcAddressProfile.Any, bool preserveSourceAddress = false, bool useAreaAwareRead = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">displayName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">aliases</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</td>
+        <td><span class="parametername">clientFactory</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">batchAddressFormatter</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>&gt;</td>
+        <td><span class="parametername">readLengthConverter</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isSingleValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">supportedAreas</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html">PlcAddressProfile</a></td>
+        <td><span class="parametername">addressProfile</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">preserveSourceAddress</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">useAreaAwareRead</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_AddressProfile_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.AddressProfile*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_AddressProfile" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.AddressProfile">AddressProfile</h4>
+  <div class="markdown level1 summary"><p>地址解析的<strong>协议画像</strong>（默认 <a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html#ZL_IotAbstraction_Addressing_PlcAddressProfile_Any">Any</a>）。</p>
+<p>
+【2026-10-21，docs/drivers/README.md §九】`Any` 会让同名前缀跨协议抢占
+（`IR`/`HR`/`DI` 被 Modbus 抢先）⇒ 必须为协议标注自己的画像。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcAddressProfile AddressProfile { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressProfile.html">PlcAddressProfile</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_Aliases_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.Aliases*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_Aliases" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.Aliases">Aliases</h4>
+  <div class="markdown level1 summary"><p>别名列表</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;string&gt; Aliases { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyCollection</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_BatchAddressFormatter_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.BatchAddressFormatter*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_BatchAddressFormatter" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.BatchAddressFormatter">BatchAddressFormatter</h4>
+  <div class="markdown level1 summary"><p>批量地址格式化策略：(dataBlock, startByte) -&gt; 地址字符串</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;string, int, string&gt; BatchAddressFormatter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_ClientFactory_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.ClientFactory*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_ClientFactory" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.ClientFactory">ClientFactory</h4>
+  <div class="markdown level1 summary"><p>客户端工厂：根据 DeviceConfig 创建 IPlcDevice</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;DeviceConfig, object&gt; ClientFactory { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_DisplayName_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.DisplayName*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_DisplayName" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.DisplayName">DisplayName</h4>
+  <div class="markdown level1 summary"><p>显示名称</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DisplayName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_IsSingleValue_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.IsSingleValue*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_IsSingleValue" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.IsSingleValue">IsSingleValue</h4>
+  <div class="markdown level1 summary"><p>是否「<strong>单值仪表类</strong>」：<code>ReadBytes</code> 每次只返回<strong>一个值</strong>的固定宽度
+（DALI / DLMS / M-Bus / HART-IP / Panasonic Mewtocol / Mitsubishi FX）。</p>
+<p>
+【2026-10-21， §二十七】为 true 时：
+</p>
+<ul><li>块构建**禁止合并** —— 否则 `DeviceRoot` 只调一次 `ReadBytes`、
+        驱动只回一个值 ⇒ **块内第 2 个及以后的标签永远拿不到值**（静默缺值）✗；</li><li>地址单位按"字"处理（这类协议地址都是设备号）。</li></ul>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSingleValue { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_Key_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.Key*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_Key" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.Key">Key</h4>
+  <div class="markdown level1 summary"><p>协议唯一键（如 &quot;siemens-s7-native&quot;）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Key { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_PreserveSourceAddress_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.PreserveSourceAddress*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_PreserveSourceAddress" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.PreserveSourceAddress">PreserveSourceAddress</h4>
+  <div class="markdown level1 summary"><p>【2026-10-21 新增】本协议的<strong>驱动地址必须取自【原始地址串】</strong>（而非
+<code>BatchAddressFormatter(DataBlock, StartByte)</code> 拼出来的）✓。</p>
+<p>
+【为什么需要】**名称型寻址**协议的地址就是「标签名 / JSON 路径 / 数据项 id」✓，
+驱动**原样**使用它 ✓（实测：`HttpRestDriver`/`MTConnectDriver` 把 `address`
+直接交给 `ExtractJsonPath(address)` ✓）。而 `PlcAddressHelper` 解析时会把
+**区域字母归一为大写** ✗ ⇒ `Pump1` 经「解析 ⇒ 拼接」变成 **`PUMP1`** ✗✓
+⇒ 会去请求**另一个（多半不存在的）点** ✗。
+</p>
+<p>
+【为什么不能对所有协议都这样】✗ 实测：Modbus 的 `40001` 解析后
+`ByteOffset=0` ✓（**一基归一发生在解析阶段** ✓）；若改用原串 `"40001"`，
+驱动会去读**寄存器 40001** ✗✓（`ResolveAddress("40001")`=40001 ✗、`("0")`=0 ✓）
+⇒ **寄存器型协议必须用拼接结果** ✓。故本开关**按协议**开启 ✓，默认 `false` ✓。
+</p>
+<p>生效条件：**块内恰有 1 个标签** ✓（多标签块无法用单一原串表达 ✗）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PreserveSourceAddress { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_ReadLengthConverter_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.ReadLengthConverter*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_ReadLengthConverter" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.ReadLengthConverter">ReadLengthConverter</h4>
+  <div class="markdown level1 summary"><p>读取长度换算：字节数 -&gt; 驱动所需的长度单位</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;int, ushort&gt; ReadLengthConverter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_SupportedAreas_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.SupportedAreas*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_SupportedAreas" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.SupportedAreas">SupportedAreas</h4>
+  <div class="markdown level1 summary"><p>本协议支持的<strong>地址区域前缀</strong>（如 FINS：<code>D/DM/C/CIO/W/H/A/AR/T/TIM/CNT/CF/DR/IR/E</code>）。</p>
+<p>
+【2026-10-21，docs/drivers/README.md §九】**null = 不校验**（默认，向后兼容 ✓）。
+非 null 时，建块前会用它对所有标签地址做白名单校验，
+不匹配即显式报错，而不是等运行期由驱动抛异常 ✗
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;string&gt; SupportedAreas { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyCollection</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_UseAreaAwareRead_" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.UseAreaAwareRead*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_NativeProtocolDescriptor_UseAreaAwareRead" data-uid="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.UseAreaAwareRead">UseAreaAwareRead</h4>
+  <div class="markdown level1 summary"><p><strong>启用「带区语义读取」</strong>。默认 <code>false</code>。</p>
+<p>🔴 <b>为什么需要这个开关</b>：某些协议的数据区**不体现在地址文本里**
+（Modbus 用功能码表达区），而 `BatchAddressFormatter` 只输出裸寄存器号
+⇒ 区信息丢失 ⇒ 驱动恒用 FC3 ⇒ **静默读到错误的区** ✗✗</p>
+<p>开启后：建块时把 Addressing.PlcReadBlock.NativeArea 填上，
+采集引擎若发现驱动实现了 Core.IAreaAwareReader
+就走 <code>ReadBytesInArea</code>（**区与偏移分开传，不经过字符串**）✓</p>
+<p>⚠️ <b>默认 false ⇒ 其余协议行为逐字节不变</b>（结构性保证）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseAreaAwareRead { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

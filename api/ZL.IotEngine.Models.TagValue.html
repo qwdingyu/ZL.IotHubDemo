@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class TagValue | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class TagValue | ZL IoT SDK API ">
+    
+    <meta name="description" content="工业级数据载体——每个 PLC 点位的&amp;quot;值 + 质量 + 时间戳&amp;quot;三元组。  这是整个采集系统中最基础的数据单元，类似于 OPC 中的 DataItem： - Value：从 PLC 读到的原始值（可能是 bool/int/float/string 等）； - Quality：数据质量码，标识该值的可信程度； - Timestamp：采集时刻的时间戳，用于趋势图、数据回溯等场景。   【不可变性保证】 此类为不可变（immutable）——所有属性通过构造函数一次性设置，之后不可修改。 多线程环境下可安全共享，无需额外同步。更新值时创建新实例（copy-with-update）， 配合 ConcurrentDictionary.TryUpdate 的 CAS 语义实现无锁数据流。   对标方案： - OPC UA .NET Stack: DataValue (Value, StatusCode, SourceTimestamp, ServerTimestamp) — 全 readonly - Beckhoff TwinCAT: PlcTag — immutable snapshot 模式 - Eclipse Milo: DataValue — 不可变 + 工厂方法">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Models.TagValue">
+
+
+
+  <h1 id="ZL_IotEngine_Models_TagValue" data-uid="ZL.IotEngine.Models.TagValue" class="text-break">Class TagValue</h1>
+  <div class="markdown level0 summary"><p>工业级数据载体——每个 PLC 点位的&quot;值 + 质量 + 时间戳&quot;三元组。</p>
+<p>
+这是整个采集系统中最基础的数据单元，类似于 OPC 中的 DataItem：
+- Value：从 PLC 读到的原始值（可能是 bool/int/float/string 等）；
+- Quality：数据质量码，标识该值的可信程度；
+- Timestamp：采集时刻的时间戳，用于趋势图、数据回溯等场景。
+</p>
+<p>
+【不可变性保证】
+此类为不可变（immutable）——所有属性通过构造函数一次性设置，之后不可修改。
+多线程环境下可安全共享，无需额外同步。更新值时创建新实例（copy-with-update），
+配合 ConcurrentDictionary.TryUpdate 的 CAS 语义实现无锁数据流。
+</p>
+<p>
+对标方案：
+- OPC UA .NET Stack: DataValue (Value, StatusCode, SourceTimestamp, ServerTimestamp) — 全 readonly
+- Beckhoff TwinCAT: PlcTag — immutable snapshot 模式
+- Eclipse Milo: DataValue — 不可变 + 工厂方法
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">TagValue</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Models_TagValue_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TagValue</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Models_TagValue__ctor_" data-uid="ZL.IotEngine.Models.TagValue.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue__ctor_System_Object_ZL_IotEngine_Models_TagQuality_System_DateTime_System_String_" data-uid="ZL.IotEngine.Models.TagValue.#ctor(System.Object,ZL.IotEngine.Models.TagQuality,System.DateTime,System.String)">TagValue(object, TagQuality, DateTime, string)</h4>
+  <div class="markdown level1 summary"><p>构造函数 —— 一次性设置所有字段，之后不可变。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TagValue(object value, TagQuality quality, DateTime timestamp, string lastError = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagQuality.html">TagQuality</a></td>
+        <td><span class="parametername">quality</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">timestamp</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">lastError</span></td>
+        <td><p>最后一次失败的原因（可选）。<strong>默认 <code>null</code> ⇒ 既有调用行为逐字不变</strong> ✓</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Models_TagValue_LastError_" data-uid="ZL.IotEngine.Models.TagValue.LastError*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_LastError" data-uid="ZL.IotEngine.Models.TagValue.LastError">LastError</h4>
+  <div class="markdown level1 summary"><p><strong>最后一次失败的原因</strong>（<code>docs/653</code> D11）。<code>null</code>/空 = 无错误（<code>Good</code>/<code>Uncertain</code> 通常为 null）。</p>
+<p><b>为什么用字符串而不是新枚举</b>：新增质量枚举会**破坏兼容**
+（下游 `switch (Quality)` 会漏分支 ⇒ 编译告警或运行期落空）。
+字符串不改变任何既有契约，且能承载**驱动错误码原文**
+（如 S7 `0x81/0x04 ⇒ PUT/GET disabled`、Modbus 异常码、超时秒数）✓</p>
+<p><b>与 <a class="xref" href="ZL.IotEngine.Models.TagValue.html#ZL_IotEngine_Models_TagValue_Quality">Quality</a> 的关系</b>：`Quality` 说"多可信"，
+`LastError` 说"**为什么不可信**"。二者独立：`Uncertain`（陈旧值）也可带原因
+（如"本次超时，保留上次有效值"）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LastError { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValue_Quality_" data-uid="ZL.IotEngine.Models.TagValue.Quality*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_Quality" data-uid="ZL.IotEngine.Models.TagValue.Quality">Quality</h4>
+  <div class="markdown level1 summary"><p>数据质量码</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TagQuality Quality { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagQuality.html">TagQuality</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValue_Timestamp_" data-uid="ZL.IotEngine.Models.TagValue.Timestamp*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_Timestamp" data-uid="ZL.IotEngine.Models.TagValue.Timestamp">Timestamp</h4>
+  <div class="markdown level1 summary"><p>采集时间戳，记录该值被读取/写入的精确时刻。</p>
+<p>
+🔴【2026-11-10 实测确认】**基准：未定**（`DateTimeKind.Utc`）✓
+</p>
+<p>
+**依据**：本值只由构造函数传入，而唯一构造入口是
+`TagValue.CreateGood/Create/CreateBad/CreateStale` ⇒ 全部传 **`DateTime.UtcNow`** ✓
+（`check_time_basis.py` 实测 `Timestamp = timestamp;` 是唯一赋值点）
+</p>
+<p>
+⚠️ 展示前需 `ToLocalTime()`；与 `TagValueChange.Timestamp` **同基准**（后者由本字段复制）✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime Timestamp { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValue_Value_" data-uid="ZL.IotEngine.Models.TagValue.Value*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_Value" data-uid="ZL.IotEngine.Models.TagValue.Value">Value</h4>
+  <div class="markdown level1 summary"><p>点位<strong>原始值</strong>（协议解码后、未经任何用户配置换算的值）。
+类型取决于 PLC 地址的数据类型（bool/short/int/float/string 等）。</p>
+<p>🔴 <b>契约（docs/558）：IotHub 只提供原始值，不做工程量换算（缩放/偏置/查表）。</b>
+需要 `raw * 0.1 - 40` 这类换算时，请在**应用层/展示层**用
+<code>ZL.IotAbstraction.Utils.ValueScale.Apply/Reverse</code> 自行处理，不要期待本值已换算。</p>
+<p><b>为什么这条契约必须守住</b>（docs/558 §二）：</p>
+<ol><li>本 SDK 同时服务 <b>SCADA 展示</b> 与 <b>自动化控制</b> 两条下游，
+    两者对"要不要换算"的需求<b>相反</b>（展示要方便、控制要安全）⇒ 中间层做任何选择都会得罪一边；</li><li>原始值是<b>唯一能自证</b>的层：排障时变量只有"驱动解码"一个，
+    而不是"驱动解码 + 换算配置 + 死区"三个；</li><li>换算后<b>写方向无法对称</b>（写回要反算，反算错 = 控制动作错）。</li></ol>
+<p>⚠️ 例外（**协议内在语义**，不是用户配置）：S7 的 `StringKind` 等
+<b>协议规定</b>的编码转换在驱动层完成 ——
+那是"把线上字节变回协议定义的数值"，与"用户想让读数乘 0.1"是两件事，不受本契约限制。</p>
+<p>[!!]【2026-11-19 订正】本仓存在**两种**驱动模型，原文只描述了第一种：</p>
+<p><b>驱动层解码模型（多数协议）——返回 IEEE754 字节</b>：
+MBus / DLMS / HART-IP 及 PLC 系驱动都先解析出 `double`/`float`，
+再经 `EncodeWireBytes` 按本类 `EndianConverter` 编成字节返回
+（见 `MbusDriver.cs:197-208`（`ParseResponse` → `EncodeWireBytes`））⇒ 调用方按 `DataTypeCode` 配 `float`/`double`
+即得**工程值**，属协议内在语义，不受本契约限制 ✓</p>
+<p><b>字节透明模型（仅 DLT645 / CJT188）</b>：这两个驱动**不解码**
+（`Cjt188Driver` 文件头明确「不编解 BCD、不理解数据语义」；
+`Dlt645Driver` 只做 −0x33 与剥 DI）⇒ 本属性给的是<b>原始字节</b>
+（低字节在前、BCD 编码）⇒ 调用方须按协议表解码：
+<b>反序 → BCD→整数 → ÷10^digit</b>，通用原语见
+<code>ZL.IotAbstraction.Abstractions.MeterBcd</code>。</p>
+<p>[!] 原文此处笼统写「CJT188 的 BCD 解码、DLT645 的 BCD…在<b>驱动层完成</b>」，
+对驱动层解码模型成立、对字节透明模型 <b>不成立</b>（2026-11-19 跨仓实测发现，`ZL.IotDetector/docs/110`）。
+为避免误读，两个字节透明驱动的类型化读/位读已改为**响亮失败**
+（`SupportsTypedScalarReads = false` + `ShouldDenyBitRead`），而不是静默返错值。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Value { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Models_TagValue_Create_" data-uid="ZL.IotEngine.Models.TagValue.Create*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_Create_System_Object_ZL_IotEngine_Models_TagQuality_" data-uid="ZL.IotEngine.Models.TagValue.Create(System.Object,ZL.IotEngine.Models.TagQuality)">Create(object, TagQuality)</h4>
+  <div class="markdown level1 summary"><p>创建指定质量码的 TagValue——用于质量码更新等场景</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TagValue Create(object val, TagQuality quality)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">val</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagQuality.html">TagQuality</a></td>
+        <td><span class="parametername">quality</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValue_CreateBad_" data-uid="ZL.IotEngine.Models.TagValue.CreateBad*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_CreateBad_System_Object_System_String_" data-uid="ZL.IotEngine.Models.TagValue.CreateBad(System.Object,System.String)">CreateBad(object, string)</h4>
+  <div class="markdown level1 summary"><p>创建&quot;通讯失败&quot;的 TagValue——PLC 读取超时/异常时调用，可选保留最后已知值</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TagValue CreateBad(object lastVal = null, string reason = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">lastVal</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">reason</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValue_CreateGood_" data-uid="ZL.IotEngine.Models.TagValue.CreateGood*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_CreateGood_System_Object_" data-uid="ZL.IotEngine.Models.TagValue.CreateGood(System.Object)">CreateGood(object)</h4>
+  <div class="markdown level1 summary"><p>创建&quot;数据正常&quot;的 TagValue——PLC 读取成功时调用</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TagValue CreateGood(object val)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">val</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValue_CreateStale_" data-uid="ZL.IotEngine.Models.TagValue.CreateStale*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_CreateStale_System_Object_System_String_" data-uid="ZL.IotEngine.Models.TagValue.CreateStale(System.Object,System.String)">CreateStale(object, string)</h4>
+  <div class="markdown level1 summary"><p>创建&quot;数据陈旧&quot;的 TagValue——通讯短暂中断但保留最后一次有效值，上位可酌情使用</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TagValue CreateStale(object lastVal, string reason = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">lastVal</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">reason</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_TagValue_ToString_" data-uid="ZL.IotEngine.Models.TagValue.ToString*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_ToString" data-uid="ZL.IotEngine.Models.TagValue.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>格式化输出，便于日志和调试窗口快速查看</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+  <a id="ZL_IotEngine_Models_TagValue_WithQuality_" data-uid="ZL.IotEngine.Models.TagValue.WithQuality*"></a>
+  <h4 id="ZL_IotEngine_Models_TagValue_WithQuality_ZL_IotEngine_Models_TagQuality_" data-uid="ZL.IotEngine.Models.TagValue.WithQuality(ZL.IotEngine.Models.TagQuality)">WithQuality(TagQuality)</h4>
+  <div class="markdown level1 summary"><p>基于当前实例创建更新版本（copy-with-update 模式）。
+线程安全：返回新实例，不影响原实例。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TagValue WithQuality(TagQuality quality)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagQuality.html">TagQuality</a></td>
+        <td><span class="parametername">quality</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.TagValue.html">TagValue</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

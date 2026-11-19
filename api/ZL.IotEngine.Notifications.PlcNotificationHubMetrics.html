@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcNotificationHubMetrics | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcNotificationHubMetrics | ZL IoT SDK API ">
+    
+    <meta name="description" content="通知中枢运行指标快照。  用于工业现场的可观测性与诊断： - 运维人员可通过指标判断中枢是否健康（积压、丢弃、回调异常）； - 性能调优时可观察 CatchUp 耗时、缓冲利用率； - 对接 Prometheus/Grafana 等监控系统时，这些指标是核心数据源。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics">
+
+
+
+  <h1 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics" class="text-break">Class PlcNotificationHubMetrics</h1>
+  <div class="markdown level0 summary"><p>通知中枢运行指标快照。</p>
+<p>
+用于工业现场的可观测性与诊断：
+- 运维人员可通过指标判断中枢是否健康（积压、丢弃、回调异常）；
+- 性能调优时可观察 CatchUp 耗时、缓冲利用率；
+- 对接 Prometheus/Grafana 等监控系统时，这些指标是核心数据源。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcNotificationHubMetrics</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Notifications.html">Notifications</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class PlcNotificationHubMetrics</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_BufferedLiveEventsCurrent_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.BufferedLiveEventsCurrent*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_BufferedLiveEventsCurrent" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.BufferedLiveEventsCurrent">BufferedLiveEventsCurrent</h4>
+  <div class="markdown level1 summary"><p>所有订阅者当前缓冲中待发放的 live 事件总数。
+持续升高意味着消费端处理速度跟不上生产端，存在背压风险。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BufferedLiveEventsCurrent { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_BufferedLiveEventsTotal_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.BufferedLiveEventsTotal*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_BufferedLiveEventsTotal" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.BufferedLiveEventsTotal">BufferedLiveEventsTotal</h4>
+  <div class="markdown level1 summary"><p>累计进入缓冲区的事件总数（含已发放和已丢弃）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long BufferedLiveEventsTotal { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CallbackErrorCount_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CallbackErrorCount*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CallbackErrorCount" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CallbackErrorCount">CallbackErrorCount</h4>
+  <div class="markdown level1 summary"><p>订阅者回调抛出异常的次数。
+中枢会吞掉异常以保持分发链路存活，但此计数器可用于监控告警。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long CallbackErrorCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpAvgMs_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpAvgMs*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpAvgMs" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpAvgMs">CatchUpAvgMs</h4>
+  <div class="markdown level1 summary"><p>CatchUp 平均耗时（毫秒），用于评估回放性能。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double CatchUpAvgMs { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpCount_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpCount*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpCount" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpCount">CatchUpCount</h4>
+  <div class="markdown level1 summary"><p>累计完成的 CatchUp 次数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long CatchUpCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpInFlight_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpInFlight*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpInFlight" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpInFlight">CatchUpInFlight</h4>
+  <div class="markdown level1 summary"><p>正在进行 CatchUp（回放追赶）的订阅者数量。
+正常情况下此值应短暂升高后归零；若持续不为 0，说明回放性能瓶颈或订阅者处理太慢。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CatchUpInFlight { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpMaxMs_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpMaxMs*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_CatchUpMaxMs" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.CatchUpMaxMs">CatchUpMaxMs</h4>
+  <div class="markdown level1 summary"><p>CatchUp 最大耗时（毫秒），用于发现极端情况。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double CatchUpMaxMs { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_DeliveredEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.DeliveredEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_DeliveredEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.DeliveredEvents">DeliveredEvents</h4>
+  <div class="markdown level1 summary"><p>累计成功投递给订阅者的事件数（含回放和实时）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DeliveredEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_DroppedBufferedEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.DroppedBufferedEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_DroppedBufferedEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.DroppedBufferedEvents">DroppedBufferedEvents</h4>
+  <div class="markdown level1 summary"><p>因缓冲区满而被丢弃的事件数。
+此值非零是告警信号：说明订阅者处理速度严重滞后，已发生数据丢失。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DroppedBufferedEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_FlushedBufferedEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.FlushedBufferedEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_FlushedBufferedEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.FlushedBufferedEvents">FlushedBufferedEvents</h4>
+  <div class="markdown level1 summary"><p>CatchUp 完成后，从缓冲区成功排空发放的事件数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long FlushedBufferedEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_MaxBufferedLiveEventsPerSubscription_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.MaxBufferedLiveEventsPerSubscription*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_MaxBufferedLiveEventsPerSubscription" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.MaxBufferedLiveEventsPerSubscription">MaxBufferedLiveEventsPerSubscription</h4>
+  <div class="markdown level1 summary"><p>当前配置的每个订阅的最大缓冲区大小。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MaxBufferedLiveEventsPerSubscription { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_MaxReplayEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.MaxReplayEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_MaxReplayEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.MaxReplayEvents">MaxReplayEvents</h4>
+  <div class="markdown level1 summary"><p>当前配置的回放窗口上限（事件条数）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MaxReplayEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedConnectionEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedConnectionEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedConnectionEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedConnectionEvents">PublishedConnectionEvents</h4>
+  <div class="markdown level1 summary"><p>累计发布的连接状态事件数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long PublishedConnectionEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedDeviceStateEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedDeviceStateEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedDeviceStateEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedDeviceStateEvents">PublishedDeviceStateEvents</h4>
+  <div class="markdown level1 summary"><p>累计发布的设备运行状态事件数（DeviceRoot 启动/停止/异常切换）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long PublishedDeviceStateEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedEvents">PublishedEvents</h4>
+  <div class="markdown level1 summary"><p>中枢累计发布的事件总数（TagChanges + Connection + DeviceStateChanged）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long PublishedEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedTagChangeEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedTagChangeEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_PublishedTagChangeEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.PublishedTagChangeEvents">PublishedTagChangeEvents</h4>
+  <div class="markdown level1 summary"><p>累计发布的标签值变化事件数。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long PublishedTagChangeEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_ReplayedEvents_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.ReplayedEvents*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_ReplayedEvents" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.ReplayedEvents">ReplayedEvents</h4>
+  <div class="markdown level1 summary"><p>累计回放的事件数。
+回放发生在订阅建立时，用于让新订阅者快速获取最近的历史状态。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long ReplayedEvents { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_SubscriberCount_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.SubscriberCount*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHubMetrics_SubscriberCount" data-uid="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.SubscriberCount">SubscriberCount</h4>
+  <div class="markdown level1 summary"><p>当前活跃订阅者数量。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SubscriberCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

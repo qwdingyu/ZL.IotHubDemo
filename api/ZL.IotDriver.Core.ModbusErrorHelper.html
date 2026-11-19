@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ModbusErrorHelper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ModbusErrorHelper | ZL IoT SDK API ">
+    
+    <meta name="description" content="Modbus 异常码到中文描述的映射（唯一实现）。  【为什么要它（docs/293）】同一张表此前在 ModbusRtuDriver 与 ModbusRtuOverTcpDriver 各有一份 private static 副本（逐字相同）， 而这两个类**分属不同继承体系**（一个直接实现 IPlcDevice、一个继承 NativeDriverBase）⇒ 无法上提到基类，只能收敛为共享静态件。 一张表两处实现 ⇒ 将来改一处必漏另一处（本仓反复出现的根因， docs/271/284/287/288/291/292）。   【口径】按 Modbus 规范（MODBUS Application Protocol V1.1b3）的公开异常码； 未登记码返回&quot;未知异常码 N&quot;（保留原行为，便于现场定位）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Core.ModbusErrorHelper">
+
+
+
+  <h1 id="ZL_IotDriver_Core_ModbusErrorHelper" data-uid="ZL.IotDriver.Core.ModbusErrorHelper" class="text-break">Class ModbusErrorHelper</h1>
+  <div class="markdown level0 summary"><p>Modbus 异常码到中文描述的映射（<strong>唯一实现</strong>）。</p>
+<p>
+【为什么要它（docs/293）】同一张表此前在 <code>ModbusRtuDriver</code> 与
+<code>ModbusRtuOverTcpDriver</code> 各有一份 <code>private static</code> 副本（逐字相同），
+而这两个类**分属不同继承体系**（一个直接实现 <code>IPlcDevice</code>、一个继承
+<code>NativeDriverBase</code>）⇒ 无法上提到基类，只能收敛为共享静态件。
+一张表两处实现 ⇒ 将来改一处必漏另一处（本仓反复出现的根因，
+docs/271/284/287/288/291/292）。
+</p>
+<p>
+【口径】按 Modbus 规范（MODBUS Application Protocol V1.1b3）的公开异常码；
+未登记码返回"未知异常码 N"（保留原行为，便于现场定位）。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">ModbusErrorHelper</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Core.html">Core</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Core_ModbusErrorHelper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obfuscation(Exclude = true, ApplyToMembers = true)]
+public static class ModbusErrorHelper</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Core_ModbusErrorHelper_Describe_" data-uid="ZL.IotDriver.Core.ModbusErrorHelper.Describe*"></a>
+  <h4 id="ZL_IotDriver_Core_ModbusErrorHelper_Describe_System_Byte_" data-uid="ZL.IotDriver.Core.ModbusErrorHelper.Describe(System.Byte)">Describe(byte)</h4>
+  <div class="markdown level1 summary"><p>把 Modbus 异常码翻译为可诊断的中文描述。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Describe(byte code)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">code</span></td>
+        <td><p>异常码（协议第 8 字节）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>中文描述；未登记时返回&quot;未知异常码 N&quot;。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotDriver_Core_ModbusErrorHelper_Describe_System_Byte__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>[!!]【2026-11-14 补完整出处（AGENTS §22.6）】
+<strong>官方来源</strong>：<code>MODBUS Application Protocol Specification V1.1b</code> §7「MODBUS Exception Responses」
+定义 <strong>9 个</strong>标准异常码：<code>01/02/03/04/05/06/08/0A/0B</code>（<strong>无 07</strong>）。
+<strong>本表覆盖 11 个</strong> = 官方 9 个 + 我方扩展 2 个：
+· <code>07 NEGATIVE ACKNOWLEDGE</code> —— <strong>非标准</strong>，属 Modbus Plus / 部分厂商扩展
+（官方 V1.1b 与 HSL 反编译<strong>均无此码</strong>）；保留是因为现场确有设备返回，
+删掉会退化成&quot;未知异常码 7&quot;⇒ 现场更难定位 ⇒ <strong>保留但标注非标准</strong>。
+· 无遗漏核对：官方 9 个码在本 switch 里<strong>逐个命中</strong>（1/2/3/4/5/6/8/10/11）。
+<strong>码 9</strong>：官方规范<strong>未定义</strong>（保留为&quot;未知异常码 9&quot;，符合预期）。</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

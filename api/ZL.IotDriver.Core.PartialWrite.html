@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PartialWrite | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PartialWrite | ZL IoT SDK API ">
+    
+    <meta name="description" content="[][][*] 分片写的&amp;quot;部分写入&amp;quot;披露（2026-11-16 建立，解决&amp;quot;多帧写非原子&amp;quot;这一结构性问题）。 【问题的本质（不是 bug，是协议限制）】多数 PLC 协议（Modbus FC16/FC15、S7、FEnet、 EasyNet、Memobus、FX-Links、Keyence、Cimon、HostLink …）**单帧有长度上限且没有事务语义**。 因此&quot;一次逻辑写超过单帧上限&quot;**物理上不可能原子**： 第 k 帧失败时，前 k-1 帧已在 PLC 生效且**无法回滚**。 ⇒ 既然**不可能**让它原子，唯一的彻底做法是让**&quot;部分写入&quot;结构上不可能被忽略**： **可预知的失败全部前置**到第 1 帧之前（长度、地址范围、片边界校验）；**任何**中途失败都必须由本类生成**显式披露**的文案（含&quot;已写 X/Y 字节、N 帧&quot;）；`IPlcDevice.WriteBytesAsync` 的契约写明这一点（见该接口 XML 注释）。 【为什么用一个共享类，而不是每个驱动各写一句话】文案必须**格式统一**， 否则调用方无法可靠识别&quot;这是部分写入&quot;。单点定义也保证**新增分片驱动时不会漏写**。 【复核命令】 grep -rn &quot;PartialWrite.Fail&quot; ZL.IotDriver --include=*.cs | wc -l   # 应等于分片驱动数">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Core.PartialWrite">
+
+
+
+  <h1 id="ZL_IotDriver_Core_PartialWrite" data-uid="ZL.IotDriver.Core.PartialWrite" class="text-break">Class PartialWrite</h1>
+  <div class="markdown level0 summary"><p>[<em>][</em>][*] <strong>分片写的&quot;部分写入&quot;披露</strong>（2026-11-16 建立，解决&quot;多帧写非原子&quot;这一结构性问题）。</p>
+<p>【问题的本质（不是 bug，是协议限制）】多数 PLC 协议（Modbus FC16/FC15、S7、FEnet、
+EasyNet、Memobus、FX-Links、Keyence、Cimon、HostLink …）**单帧有长度上限且没有事务语义**。
+因此"一次逻辑写超过单帧上限"**物理上不可能原子**：
+第 k 帧失败时，前 k-1 帧已在 PLC 生效且**无法回滚**。</p>
+<p>⇒ 既然**不可能**让它原子，唯一的彻底做法是让**"部分写入"结构上不可能被忽略**：
+<ol><li>**可预知的失败全部前置**到第 1 帧之前（长度、地址范围、片边界校验）；</li><li>**任何**中途失败都必须由本类生成**显式披露**的文案（含"已写 X/Y 字节、N 帧"）；</li><li>`IPlcDevice.WriteBytesAsync` 的契约写明这一点（见该接口 XML 注释）。</li></ol>
+<p>【为什么用一个共享类，而不是每个驱动各写一句话】文案必须**格式统一**，
+否则调用方无法可靠识别"这是部分写入"。单点定义也保证**新增分片驱动时不会漏写**。</p>
+<p>【复核命令】
+<pre><code class="lang-csharp">grep -rn "PartialWrite.Fail" ZL.IotDriver --include=*.cs | wc -l   # 应等于分片驱动数</code></pre>
+
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PartialWrite</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Core.html">Core</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Core_PartialWrite_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PartialWrite</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Core_PartialWrite_Describe_" data-uid="ZL.IotDriver.Core.PartialWrite.Describe*"></a>
+  <h4 id="ZL_IotDriver_Core_PartialWrite_Describe_System_String_System_String_System_Int32_System_Int32_System_Int32_System_String_System_String_" data-uid="ZL.IotDriver.Core.PartialWrite.Describe(System.String,System.String,System.Int32,System.Int32,System.Int32,System.String,System.String)">Describe(string, string, int, int, int, string, string)</h4>
+  <div class="markdown level1 summary"><p>构造<strong>部分写入</strong>的失败文案（统一格式，供所有分片驱动复用）。</p>
+<p>【证据等级：N/A】**不是协议码表**（分片写的"部分写入"披露文案）⇒ 无"官方出处"概念。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Describe(string protocol, string address, int appliedUnits, int totalUnits, int perFrameUnits, string unit, string cause)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocol</span></td>
+        <td><p>协议显示名（如 <code>Modbus</code>、<code>S7</code>）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>原始地址串（便于定位）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">appliedUnits</span></td>
+        <td><p><strong>已经发出并成功</strong>的<strong>分片单位数</strong>（字节 / 点 / 字，见 <code class="paramref">unit</code>）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">totalUnits</span></td>
+        <td><p>本次逻辑写的总单位数。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">perFrameUnits</span></td>
+        <td><p><strong>每帧能承载的单位数</strong>（= 调用方分片时用的那个常量，如 <code>MaxChunkBytes</code> / <code>MaxChunkCoils</code> /
+<code>MaxWriteLength</code> / <code>MaxPayloadBytesPerCommand</code>）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">unit</span></td>
+        <td><p>单位名（<code>字节</code> / <code>点</code> / <code>字</code>）—— 原文案硬编码&quot;字节&quot;，对线圈/字地址是<strong>错的</strong>。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">cause</span></td>
+        <td><p>失败原因（透传底层错误）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>统一格式的文案。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotDriver_Core_PartialWrite_Describe_System_String_System_String_System_Int32_System_Int32_System_Int32_System_String_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>[!!][!!] 【2026-11-16 <strong>全局结构性修正</strong>】本方法<strong>不再接受 <code>appliedFrames</code></strong>，
+改为接受 <code class="paramref">perFrameUnits</code> 并<strong>在内部算帧数</strong>。</p>
+<p>
+**为什么必须这样改**（不是风格问题，是缺陷类）：
+· 原签名要调用方手工算 `frames`，而**算它所需的常量就在手边**；
+· `applied / total / frames` **全是 `int`** ⇒ **编译器无法拦截参数串位**；
+· **实证**：2026-11-16 第 22 轮，**4 处**把字节数当帧数传了进去
+  （文案会写"已写 540/2000 字节（**540 帧**）"，实为 1 帧），
+  而**编译通过、3187 条测试全绿** —— 因为没有断言约束这些参数。
+</p>
+<p>
+**改后**：调用方传的是**它本来就在用的分片常量**（与循环里的 `+= MaxChunkBytes` 同源），
+帧数由本方法 `applied / perFrame` 得出 ⇒ **"字节 vs 帧"混淆在结构上不可能再发生** ✓
+</p>
+<p>
+**不变式**：`appliedUnits` 恒为 <code class="paramref">perFrameUnits</code> 的整数倍
+（只有**整片成功**才累加；失败的那片不计入）⇒ 整除**无舍入误差** ✓
+</p>
+</div>
+  <a id="ZL_IotDriver_Core_PartialWrite_DescribeChunkFailure_" data-uid="ZL.IotDriver.Core.PartialWrite.DescribeChunkFailure*"></a>
+  <h4 id="ZL_IotDriver_Core_PartialWrite_DescribeChunkFailure_System_String_System_String_System_Int32_System_Int32_System_Int32_System_String_System_String_" data-uid="ZL.IotDriver.Core.PartialWrite.DescribeChunkFailure(System.String,System.String,System.Int32,System.Int32,System.Int32,System.String,System.String)">DescribeChunkFailure(string, string, int, int, int, string, string)</h4>
+  <div class="markdown level1 summary"><p>[*] <strong>分片写失败披露（合并入口）</strong> —— 调用点只需一次调用，不必自己写 <code>applied == 0 ? A : B</code>。</p>
+<p>
+【为什么要这个合并入口】分片点在**失败分支**里，若每个点都写三元表达式，
+调用处会膨胀 7~8 行；而本仓对**文件代码行数有基线约束**（`check_file_size`）。
+把分支收进本方法后，调用点只需 **2 行**（`if (!r.IsSuccess)` + `return Fail(...)`）。
+</p>
+<p>
+【语义】`appliedBytes == 0` ⇒ 第 1 帧即失败（PLC 未改变，可安全重试）；
+否则 ⇒ 已部分写入（PLC 可能处于**混合状态**，需核对）。见 <a class="xref" href="ZL.IotDriver.Core.PartialWrite.html#ZL_IotDriver_Core_PartialWrite_Describe_System_String_System_String_System_Int32_System_Int32_System_Int32_System_String_System_String_">Describe(string, string, int, int, int, string, string)</a> 与本方法。
+</p>
+<p>【证据等级：N/A】同上（内部工具类）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DescribeChunkFailure(string protocol, string address, int appliedUnits, int totalUnits, int perFrameUnits, string unit, string cause)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocol</span></td>
+        <td><p>协议名（如 <code>Modbus</code>）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>原始地址串。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">appliedUnits</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">totalUnits</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">perFrameUnits</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">unit</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">cause</span></td>
+        <td><p>失败原因。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>可直接作为 <code>DeviceResult.Fail</code> 消息的文本。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Core_PartialWrite_DescribeNothingApplied_" data-uid="ZL.IotDriver.Core.PartialWrite.DescribeNothingApplied*"></a>
+  <h4 id="ZL_IotDriver_Core_PartialWrite_DescribeNothingApplied_System_String_System_String_System_String_" data-uid="ZL.IotDriver.Core.PartialWrite.DescribeNothingApplied(System.String,System.String,System.String)">DescribeNothingApplied(string, string, string)</h4>
+  <div class="markdown level1 summary"><p>构造<strong>一帧都没发出</strong>的失败文案（与 <a class="xref" href="ZL.IotDriver.Core.PartialWrite.html#ZL_IotDriver_Core_PartialWrite_Describe_System_String_System_String_System_Int32_System_Int32_System_Int32_System_String_System_String_">Describe(string, string, int, int, int, string, string)</a> 区分）——
+用于&quot;第 1 帧就失败&quot;的情况，此时<strong>状态未改变</strong>，调用方可以安全重试。</p>
+<p>【证据等级：N/A】同上（内部工具类）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DescribeNothingApplied(string protocol, string address, string cause)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocol</span></td>
+        <td><p>协议显示名。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>原始地址串。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">cause</span></td>
+        <td><p>失败原因。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Enum PlcRealtimeEventKind | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Enum PlcRealtimeEventKind | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 实时事件类型枚举。  在工控采集场景中，中枢向下游（SCADA/MES/WinForm）分发的事件分为三类： 1) 标签值变化事件 —— 采集到的 PLC 寄存器数据发生变化时触发； 2) 连接状态事件 —— 设备连接/断线/Ping 状态变化时触发； 3) 设备运行状态事件 —— DeviceRoot 生命周期阶段（启动/停止/异常）切换时触发。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEventKind">
+
+
+
+
+  <h1 id="ZL_IotEngine_Notifications_PlcRealtimeEventKind" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEventKind" class="text-break">Enum PlcRealtimeEventKind</h1>
+  <div class="markdown level0 summary"><p>PLC 实时事件类型枚举。</p>
+<p>
+在工控采集场景中，中枢向下游（SCADA/MES/WinForm）分发的事件分为三类：
+1) 标签值变化事件 —— 采集到的 PLC 寄存器数据发生变化时触发；
+2) 连接状态事件 —— 设备连接/断线/Ping 状态变化时触发；
+3) 设备运行状态事件 —— DeviceRoot 生命周期阶段（启动/停止/异常）切换时触发。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Notifications.html">Notifications</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Notifications_PlcRealtimeEventKind_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum PlcRealtimeEventKind</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    </thead></thead><tbody>
+      <tr>
+        <td id="ZL_IotEngine_Notifications_PlcRealtimeEventKind_Connection">Connection</td>
+        <td><p>连接状态事件：PLC 设备的连接状态（Connected）或心跳状态（PingOk）发生变化。
+用于上位系统感知设备在线/离线，触发告警或 UI 状态切换。</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotEngine_Notifications_PlcRealtimeEventKind_DeviceStateChanged">DeviceStateChanged</td>
+        <td><p>设备运行状态事件：DeviceRoot 在启动/停止/异常等生命周期阶段切换时触发。
+区别于 <a class="xref" href="ZL.IotEngine.Notifications.PlcRealtimeEventKind.html#ZL_IotEngine_Notifications_PlcRealtimeEventKind_Connection">Connection</a>：Connection 仅反映物理链路通断，
+DeviceStateChanged 反映&quot;业务层&quot;运行阶段（Running/Stopped/Error 等）。</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotEngine_Notifications_PlcRealtimeEventKind_TagChanges">TagChanges</td>
+        <td><p>标签值变化事件：一个或多个 PLC 标签（Tag）的值/质量码发生变化。
+这是最高频的事件类型，对应工业现场的周期性数据采集推送。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

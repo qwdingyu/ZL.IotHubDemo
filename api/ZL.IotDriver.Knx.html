@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.Knx | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.Knx | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Knx">
+
+  <h1 id="ZL_IotDriver_Knx" data-uid="ZL.IotDriver.Knx" class="text-break">Namespace ZL.IotDriver.Knx</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Knx.KnxAddress.html">KnxAddress</a></h4>
+      <section><p>KNX 点位地址：<code>&lt;主/中/子&gt;[:&lt;DPT&gt;]</code>，例 <code>1/2/3</code>（默认 DPT 1.001）、<code>1/2/4:9.001</code>。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Knx.KnxDpt.html">KnxDpt</a></h4>
+      <section><p>DPT 编解码（本期：1.001 / 5.001 / 9.001）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Knx.KnxDriver.html">KnxDriver</a></h4>
+      <section><p>KNXnet/IP 采集驱动：单播隧道（TUNNELLING）+ <code>A_GroupValue_Read</code> / <code>A_GroupValue_Write</code>。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Knx.KnxFrame.html">KnxFrame</a></h4>
+      <section><p>KNXnet/IP 帧编解码。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Knx.KnxFrame.Tpdu.html">KnxFrame.Tpdu</a></h4>
+      <section><p>TPDU 构造（依据 <code>_vendor/go-knx</code> 的 <code>apdu/apdu.go:169-210</code> 的 <code>TPDU.Append</code> 规则，实测对齐）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Knx.KnxService.html">KnxService</a></h4>
+      <section><p>KNXnet/IP 服务号（实测值，对照 <code>docs/588</code> §8.1 的 45 条黄金帧）。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

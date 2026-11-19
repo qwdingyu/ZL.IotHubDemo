@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Interface IBitBatchReader | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Interface IBitBatchReader | ZL IoT SDK API ">
+    
+    <meta name="description" content="支持「一次读取 N 个连续位」的驱动能力 ✓（位区专用 ✓）。  ⚠️ **不要**用  模拟本接口 ✗ —— 那条路的 `length` 是**字节** ✓，且本仓 MC 模拟器上位区字访问实测失败（`C0B0`）； 驱动错误信息提示并非所有 PLC 都如此 ⇒ **不可依赖**，位标签必须走位通道 ✓。  未实现本接口的驱动 ⇒ 位标签只能逐点读 ✓（见 `DeviceRoot` 的兜底 ✓）。  【2026-10-23 继承  ✓】位号/区域/位字属性本就是 地址语义的一部分 ⇒ 派生自通用语义接口 ✓，不再单独造一套 ✗ （否则批量位读与建块各用一套口径，必然漂移 ✗）。 &#167;五 5.5。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.IBitBatchReader">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_IBitBatchReader" data-uid="ZL.IotAbstraction.Abstractions.IBitBatchReader" class="text-break">Interface IBitBatchReader</h1>
+  <div class="markdown level0 summary"><p>支持「<strong>一次读取 N 个连续位</strong>」的驱动能力 ✓（位区专用 ✓）。</p>
+<p>
+⚠️ **不要**用 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytesAsync_System_String_System_UInt16_">ReadBytesAsync(string, ushort)</a> 模拟本接口 ✗ ——
+那条路的 `length` 是**字节** ✓，且本仓 MC 模拟器上位区字访问实测失败（`C0B0`）；
+驱动错误信息提示并非所有 PLC 都如此 ⇒ **不可依赖**，位标签必须走位通道 ✓。
+</p>
+<p>未实现本接口的驱动 ⇒ 位标签只能逐点读 ✓（见 `DeviceRoot` 的兜底 ✓）。</p>
+<p>
+【2026-10-23 继承 <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a> ✓】位号/区域/位字属性本就是
+<b>地址语义</b>的一部分 ⇒ 派生自通用语义接口 ✓，不再单独造一套 ✗
+（否则批量位读与建块各用一套口径，必然漂移 ✗）。 §五 5.5。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html#ZL_IotAbstraction_Abstractions_IAddressSemantics_TryGetAddressSemantics_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__">IAddressSemantics.TryGetAddressSemantics(string, out DeviceAddressSemantics)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html#ZL_IotAbstraction_Abstractions_IAddressSemantics_TryGetAddressSemantics_System_String_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__">IAddressSemantics.TryGetAddressSemantics(string, string, out DeviceAddressSemantics)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_IBitBatchReader_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IBitBatchReader : IAddressSemantics</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_IBitBatchReader_ReadBitsAsync_" data-uid="ZL.IotAbstraction.Abstractions.IBitBatchReader.ReadBitsAsync*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_IBitBatchReader_ReadBitsAsync_System_String_System_UInt16_" data-uid="ZL.IotAbstraction.Abstractions.IBitBatchReader.ReadBitsAsync(System.String,System.UInt16)">ReadBitsAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>从 <code class="paramref">address</code> 起，<strong>一次</strong>读取 <code class="paramref">count</code> 个连续位 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;DeviceResult&lt;bool[]&gt;&gt; ReadBitsAsync(string address, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>起始位地址（如 MC 的 <code>X20</code> ✓）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p><strong>点数</strong>（不是字节 ✗）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]&gt;&gt;</td>
+        <td><p>长度<strong>恰好等于</strong> <code class="paramref">count</code> 的布尔数组，顺序与地址递增一致 ✓。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_IBitBatchReader_TryGetBitDevice_" data-uid="ZL.IotAbstraction.Abstractions.IBitBatchReader.TryGetBitDevice*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_IBitBatchReader_TryGetBitDevice_System_String_System_String__System_Int64__" data-uid="ZL.IotAbstraction.Abstractions.IBitBatchReader.TryGetBitDevice(System.String,System.String@,System.Int64@)">TryGetBitDevice(string, out string, out long)</h4>
+  <div class="markdown level1 summary"><p>解析位地址 ⇒ <strong>驱动口径</strong>的「软元件区域 + 位号」✓。</p>
+<p>
+【权威性 ✓】位号必须是**协议原生编号**（MC 的 `X20` = 0x20 = 32 ✓；
+松下 `X100` = 160 ✓）；**不得**用通用地址解析器代算 ✗（进制/位字属性可能不同 ✗）。
+</p>
+<p>
+【区域一致性 ✓】<code class="paramref">areaKey</code> 必须能区分**不同软元件** ✓
+（如 `X`/`Y`/`M`；松下 `R`/`SM`）—— 一条读命令只能指定一个软元件码 ✗。
+同一软元件的不同别名可以返回同一个 key ✓。
+</p>
+<p>⚠️ 非位地址、解析失败、不支持 ⇒ 返回 <code>false</code> ✓（**不抛异常** ✓）。</p>
+<p>
+【实现方式 ✓】各驱动**不必**单独实现本方法 —— 用
+<a class="xref" href="ZL.IotAbstraction.Abstractions.AddressSemanticsAdapter.html#ZL_IotAbstraction_Abstractions_AddressSemanticsAdapter_TryGetBitDevice_ZL_IotAbstraction_Abstractions_IAddressSemantics_System_String_System_String__System_Int64__">TryGetBitDevice(IAddressSemantics, string, out string, out long)</a>
+从 <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html#ZL_IotAbstraction_Abstractions_IAddressSemantics_TryGetAddressSemantics_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__">TryGetAddressSemantics(string, out DeviceAddressSemantics)</a> 派生 ✓（单一实现点 ✓）。
+本签名保留是为了**不破坏既有调用方**（`BitBatchPlan`、`DeviceRoot` 探测等）✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryGetBitDevice(string address, out string areaKey, out long deviceNumber)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>待解析的地址串（原样 ✓）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">areaKey</span></td>
+        <td><p>区域标识（同一软元件必须稳定相同 ✓）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">deviceNumber</span></td>
+        <td><p>该软元件内的<strong>位号</strong>（协议原生编号 ✓）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class CCLinkCyclicFrame | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class CCLinkCyclicFrame | ZL IoT SDK API ">
+    
+    <meta name="description" content="周期帧编解码（纯函数，无 IO）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame">
+
+
+
+  <h1 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame" class="text-break">Class CCLinkCyclicFrame</h1>
+  <div class="markdown level0 summary"><p>周期帧编解码（纯函数，无 IO）。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">CCLinkCyclicFrame</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.CCLinkIE.html">CCLinkIE</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class CCLinkCyclicFrame</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CommandCyclic" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CommandCyclic">CommandCyclic</h4>
+  <div class="markdown level1 summary"><p>周期数据命令码。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort CommandCyclic = 3696</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CyclicDataHeaderSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CyclicDataHeaderSize">CyclicDataHeaderSize</h4>
+  <div class="markdown level1 summary"><p>周期数据头长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int CyclicDataHeaderSize = 20</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CyclicInfoOffset" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CyclicInfoOffset">CyclicInfoOffset</h4>
+  <div class="markdown level1 summary"><p>周期请求的&quot;周期信息偏移&quot;。</p>
+<p>
+**已取证**：原文 <code>CL_CCIEFB_CYCLIC_REQ_CYCLIC_OFFSET = 36</code>
+（证据文件 `cl_types.h` 的 `CL_CCIEFB_CYCLIC_REQ_CYCLIC_OFFSET` 定义）。
+</p>
+<p>
+[!] 2026-11-16 修正：我先前**推断**该值为 67（= 固定前缀长度），**错了**。
+真实值 36 与固定前缀长度无关 —— 这正是"不许猜"的实例。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort CyclicInfoOffset = 36</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CyclicRequestHeaderSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CyclicRequestHeaderSize">CyclicRequestHeaderSize</h4>
+  <div class="markdown level1 summary"><p>周期请求头长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int CyclicRequestHeaderSize = 20</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CyclicRespInfoOffset" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CyclicRespInfoOffset">CyclicRespInfoOffset</h4>
+  <div class="markdown level1 summary"><p>周期响应的&quot;周期信息偏移&quot;。</p>
+<p>**已取证**：<code>CL_CCIEFB_CYCLIC_RESP_CYCLIC_OFFSET = 40</code>（证据文件 `cl_types.h` 的 `CL_CCIEFB_CYCLIC_RESP_CYCLIC_OFFSET` 定义）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort CyclicRespInfoOffset = 40</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CyclicResponseDataHeaderSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CyclicResponseDataHeaderSize">CyclicResponseDataHeaderSize</h4>
+  <div class="markdown level1 summary"><p>响应数据头长度（<code>cl_cciefb_cyclic_resp_data_header_t</code>）。</p>
+<p>**已取证**：`CC_STATIC_ASSERT(... == 8)`（cl_types.h:529）；
+字段：slave_id(4) + group_no(1) + reserved2(1) + frame_sequence_no(2)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int CyclicResponseDataHeaderSize = 8</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CyclicResponseHeaderSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CyclicResponseHeaderSize">CyclicResponseHeaderSize</h4>
+  <div class="markdown level1 summary"><p>周期响应头长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int CyclicResponseHeaderSize = 20</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CyclicTransmissionStateAllOff" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CyclicTransmissionStateAllOff">CyclicTransmissionStateAllOff</h4>
+  <div class="markdown level1 summary"><p>周期传输状态：全部停止。</p>
+<p>**已取证**：`CL_CCIEFB_CYCLIC_REQ_DATA_HEADER_CYCLIC_TR_STATE_ALL_OFF = 0x0000`
+（cl_types.h:518）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort CyclicTransmissionStateAllOff = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_DefaultTimeoutCount" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.DefaultTimeoutCount">DefaultTimeoutCount</h4>
+  <div class="markdown level1 summary"><p>timeout_count 的<strong>默认值</strong> —— 当配置值 &lt; MIN 时使用。</p>
+<p>**已取证**：`CL_CCIEFB_DEFAULT_TIMEOUT_COUNT = 3`（cl_types.h:41）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort DefaultTimeoutCount = 3</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_DefaultTimeoutMs" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.DefaultTimeoutMs">DefaultTimeoutMs</h4>
+  <div class="markdown level1 summary"><p>timeout_value 的<strong>默认值</strong>（毫秒）—— 当配置值 &lt; MIN 时使用。</p>
+<p>**已取证**：`CL_CCIEFB_DEFAULT_TIMEOUT = 500`（cl_types.h:38）；
+依据 `cl_calculate_total_timeout_us`（cl_iefb.c:838-846）：
+`timeout = (timeout_value &lt; MIN) ? DEFAULT : timeout_value`。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort DefaultTimeoutMs = 500</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_DlOffset" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.DlOffset">DlOffset</h4>
+  <div class="markdown level1 summary"><p><code>dl</code> 字段的&quot;起算偏移&quot;。</p>
+<p>
+**已取证**：<code>CL_CCIEFB_REQ_HEADER_DL_OFFSET = 9</code>、<code>CL_CCIEFB_RESP_HEADER_DL_OFFSET = 9</code>
+（证据文件 `cl_types.h` 的 `CL_CCIEFB_REQ_HEADER_DL_OFFSET` / `CL_CCIEFB_RESP_HEADER_DL_OFFSET` 两处定义）。
+</p>
+<p>
+[!] 2026-11-16 修正：我先前按"总长 - 15"（= 请求头长度）实现，**错了**。
+原文写入是 <code>dl = udp_payload_len - DL_OFFSET</code>，校验是
+<code>dl + DL_OFFSET == recv_len</code>，而 DL_OFFSET = **9**（不是头长度 15）。
+9 恰好是 `dl` 字段之后的位置（[0..1]帧类型 [2][3] [4..5]IO [6]扩展 [7..8]dl）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DlOffset = 9</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_FrameTypeRequest" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.FrameTypeRequest">FrameTypeRequest</h4>
+  <div class="markdown level1 summary"><p>周期请求帧类型（<strong>大端</strong>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort FrameTypeRequest = 20480</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_FrameTypeResponse" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.FrameTypeResponse">FrameTypeResponse</h4>
+  <div class="markdown level1 summary"><p>周期响应帧类型（<strong>大端</strong>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort FrameTypeResponse = 53248</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_InvalidIp" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.InvalidIp">InvalidIp</h4>
+  <div class="markdown level1 summary"><p>无效 IP（<code>0.0.0.0</code>）。</p>
+<p>**已取证**：`CL_IPADDR_INVALID = 0x00000000`（cl_types.h:53）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const uint InvalidIp = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MasterLocalUnitInfoMaskV1" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MasterLocalUnitInfoMaskV1">MasterLocalUnitInfoMaskV1</h4>
+  <div class="markdown level1 summary"><p>主站 <code>master_local_unit_info</code> 的<strong>保留位掩码</strong>（协议 v1）。</p>
+<p>**已取证**：`CL_CCIEFB_MASTER_STATION_NOTIFICATION_MASK_BITS_VER1 = 0xFFFE`
+（cl_types.h:469）=&gt; v1 下**只有 bit0 可用**，bit1..15 必须为 0。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort MasterLocalUnitInfoMaskV1 = 65534</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MasterLocalUnitInfoMaskV2" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MasterLocalUnitInfoMaskV2">MasterLocalUnitInfoMaskV2</h4>
+  <div class="markdown level1 summary"><p>主站 <code>master_local_unit_info</code> 的保留位掩码（协议 v2）。</p>
+<p>**已取证**：`..._MASK_BITS_VER2 = 0xFFFC`（cl_types.h:470）
+=&gt; v2 下 bit0/bit1 可用（`STOPPED_BY_USER=0x0002` 仅 v2 合法）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort MasterLocalUnitInfoMaskV2 = 65532</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MasterLocalUnitInfoRunning" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MasterLocalUnitInfoRunning">MasterLocalUnitInfoRunning</h4>
+  <div class="markdown level1 summary"><p>主站应用状态：运行中。</p>
+<p>**已取证**：<code>CL_CCIEFB_MASTER_LOCAL_UNIT_INFO_RUNNING = 0x0001</code>（证据文件 `cl_types.h` 的 `CL_CCIEFB_MASTER_LOCAL_UNIT_INFO_RUNNING` 定义）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort MasterLocalUnitInfoRunning = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MasterLocalUnitInfoStopped" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MasterLocalUnitInfoStopped">MasterLocalUnitInfoStopped</h4>
+  <div class="markdown level1 summary"><p>主站应用状态：已停止（已取证 0x0000）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort MasterLocalUnitInfoStopped = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MasterLocalUnitInfoStoppedByUser" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MasterLocalUnitInfoStoppedByUser">MasterLocalUnitInfoStoppedByUser</h4>
+  <div class="markdown level1 summary"><p>主站应用状态：被用户停止（已取证 0x0002）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort MasterLocalUnitInfoStoppedByUser = 2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MasterNotificationSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MasterNotificationSize">MasterNotificationSize</h4>
+  <div class="markdown level1 summary"><p>主站通知长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MasterNotificationSize = 12</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MinTimeoutCount" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MinTimeoutCount">MinTimeoutCount</h4>
+  <div class="markdown level1 summary"><p>timeout_count 的最小值。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort MinTimeoutCount = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MinTimeoutMs" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MinTimeoutMs">MinTimeoutMs</h4>
+  <div class="markdown level1 summary"><p>timeout_value 的最小值（毫秒）。</p>
+<p>**已取证**：`CL_CCIEFB_MIN_TIMEOUT = 1`（cl_types.h:37）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort MinTimeoutMs = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_MultistationIndicator" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.MultistationIndicator">MultistationIndicator</h4>
+  <div class="markdown level1 summary"><p>多占站标记：占用站数 &gt; 1 时，该从站<strong>第 2..N 个</strong> slot 填此值（不是重复填 IP）。</p>
+<p>
+**已取证**：`CL_CCIEFB_MULTISTATION_INDICATOR = UINT32_MAX = 0xFFFFFFFF`
+（cl_types.h:581）。
+</p>
+<p>
+[!!] 2026-11-16 修**重大缺陷**：原实现把同一 IP **重复填 N 次** ⇒
+从站侧 `cl_iefb_analyze_slave_ids`（cl_iefb.c:756-768）会判定
+「Repeated occurrence of my IP address, should not happen」=&gt; `goto error` [X]
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const uint MultistationIndicator = 4294967295</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_RequestFixedSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.RequestFixedSize">RequestFixedSize</h4>
+  <div class="markdown level1 summary"><p>请求帧固定前缀总长。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int RequestFixedSize = 67</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_RequestHeaderSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.RequestHeaderSize">RequestHeaderSize</h4>
+  <div class="markdown level1 summary"><p>请求头长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int RequestHeaderSize = 15</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_ResponseFixedSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.ResponseFixedSize">ResponseFixedSize</h4>
+  <div class="markdown level1 summary"><p>响应帧固定前缀总长 = <strong>59</strong>。</p>
+<p>
+**已取证**：原文注释「Fixed part **59** bytes, and 72 bytes for each occupied station」
+（cl_iefb.c:370-377）=&gt; 11 + 20 + 20 + 8 = 59 ✓
+</p>
+<p>
+[!!] 2026-11-16 修**重大缺陷**：原实现 = 11 + 20 = **31**，
+漏了 `slave_station_notification`(20) 与 `cyclic_resp_data_header`(8)
+=&gt; 响应解析**全部字段错位**（数据区起点差 28 字节）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int ResponseFixedSize = 59</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_ResponseHeaderSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.ResponseHeaderSize">ResponseHeaderSize</h4>
+  <div class="markdown level1 summary"><p>响应头长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int ResponseHeaderSize = 11</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_SlaveLocalUnitInfoMask" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.SlaveLocalUnitInfoMask">SlaveLocalUnitInfoMask</h4>
+  <div class="markdown level1 summary"><p>从站 <code>slave_local_unit_info</code> 的保留位掩码。</p>
+<p>**已取证**：`CL_CCIEFB_SLAVE_STATION_NOTIFICATION_MASK_BITS = 0xFFFE`
+（cl_types.h:493）=&gt; 只有 bit0 可用。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const ushort SlaveLocalUnitInfoMask = 65534</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_SlaveNotificationSize" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.SlaveNotificationSize">SlaveNotificationSize</h4>
+  <div class="markdown level1 summary"><p>从站通知长度（<code>cl_cciefb_slave_station_notification_t</code>）。</p>
+<p>**已取证**：`CC_STATIC_ASSERT(... == 20)`（cl_types.h:489）；
+字段：vendor_code(2) + reserved1(2) + model_code(4) + equipment_ver(2)
++ reserved2(2) + slave_local_unit_info(2) + slave_err_code(2) + local_management_info(4)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int SlaveNotificationSize = 20</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_BuildRequest_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.BuildRequest*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_BuildRequest_System_Net_IPAddress_System_Int32_System_UInt16_System_Int32_System_UInt16_System_UInt16_System_UInt16_System_Collections_Generic_IReadOnlyList_ZL_IotDriver_CCLinkIE_CCLinkStationOutput__System_String__System_UInt16_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.BuildRequest(System.Net.IPAddress,System.Int32,System.UInt16,System.Int32,System.UInt16,System.UInt16,System.UInt16,System.Collections.Generic.IReadOnlyList{ZL.IotDriver.CCLinkIE.CCLinkStationOutput},System.String@,System.UInt16)">BuildRequest(IPAddress, int, ushort, int, ushort, ushort, ushort, IReadOnlyList&lt;CCLinkStationOutput&gt;, out string, ushort)</h4>
+  <div class="markdown level1 summary"><p>构造周期请求帧。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildRequest(IPAddress masterIp, int groupNo, ushort parameterNo, int protocolVersion, ushort timeoutValueMs, ushort timeoutCount, ushort frameSequenceNo, IReadOnlyList&lt;CCLinkStationOutput&gt; stations, out string error, ushort cyclicTransmissionState = 65535)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">masterIp</span></td>
+        <td><p>主站 IP（写入 master_id 与通知）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">groupNo</span></td>
+        <td><p>组号（1..64）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">parameterNo</span></td>
+        <td><p>参数号。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">protocolVersion</span></td>
+        <td><p>协议版本（1..2）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">timeoutValueMs</span></td>
+        <td><p>超时值（毫秒）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">timeoutCount</span></td>
+        <td><p>超时计数。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">frameSequenceNo</span></td>
+        <td><p>帧序号。</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkStationOutput.html">CCLinkStationOutput</a>&gt;</td>
+        <td><span class="parametername">stations</span></td>
+        <td><p>各站数据（IP + RWw + RY）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>失败原因（成功为 null）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">cyclicTransmissionState</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><p>完整帧；失败返回 null。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_BuildTransmissionState_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.BuildTransmissionState*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_BuildTransmissionState_System_Int32_System_Boolean_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.BuildTransmissionState(System.Int32,System.Boolean)">BuildTransmissionState(int, bool)</h4>
+  <div class="markdown level1 summary"><p>构造&quot;指定占用站参与周期通信&quot;的 <code>cyclic_transmission_state</code> 位掩码。</p>
+<p>
+**依据**：`cl_iefb_set_cyclic_transmission_state`（cl_iefb.c:795-817）——
+`mask = BIT(slave_station_no - 1)`，`state=true` 则置位、`false` 则清位；
+站号范围 1..16（超出则忽略）。
+</p>
+<p>
+**语义**：bit(n-1) = 第 n 个**占用站**是否参与周期通信（1=参与，0=停止）。
+例如 2 个占用站都参与 =&gt; `0b11` = 0x0003。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ushort BuildTransmissionState(int occupiedStations, bool allActive = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">occupiedStations</span></td>
+        <td><p>总占用站数（1..16）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">allActive</span></td>
+        <td><p>true = 全部参与（返回全 1）；false = 全部停止（0）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CalculateRequestSize_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CalculateRequestSize*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CalculateRequestSize_System_Collections_Generic_IReadOnlyList_ZL_IotDriver_CCLinkIE_CCLinkStationOutput__" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CalculateRequestSize(System.Collections.Generic.IReadOnlyList{ZL.IotDriver.CCLinkIE.CCLinkStationOutput})">CalculateRequestSize(IReadOnlyList&lt;CCLinkStationOutput&gt;)</h4>
+  <div class="markdown level1 summary"><p>计算请求帧总长（<strong>按各站实际占用站数</strong>）。</p>
+<p>多占站时每站数据是 4 + 64*N + 8*N 字节。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CalculateRequestSize(IReadOnlyList&lt;CCLinkStationOutput&gt; stations)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkStationOutput.html">CCLinkStationOutput</a>&gt;</td>
+        <td><span class="parametername">stations</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CalculateRequestSize_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CalculateRequestSize*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CalculateRequestSize_System_Int32_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CalculateRequestSize(System.Int32)">CalculateRequestSize(int)</h4>
+  <div class="markdown level1 summary"><p>计算请求帧总长。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CalculateRequestSize(int stationCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">stationCount</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CalculateResponseSize_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CalculateResponseSize*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_CalculateResponseSize_System_Int32_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.CalculateResponseSize(System.Int32)">CalculateResponseSize(int)</h4>
+  <div class="markdown level1 summary"><p>计算响应帧总长。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CalculateResponseSize(int stationCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">stationCount</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_IsStationActive_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.IsStationActive*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_IsStationActive_System_UInt16_System_Int32_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.IsStationActive(System.UInt16,System.Int32)">IsStationActive(ushort, int)</h4>
+  <div class="markdown level1 summary"><p>从 <code>cyclic_transmission_state</code> 中<strong>提取某占用站</strong>是否参与周期通信。</p>
+<p>
+**依据**：`cl_iefb_extract_my_transmission_state`（cl_iefb.c:819-836）：
+`mask = BIT(station_no - 1)`；返回 `(state &amp; mask) &gt; 0`；
+**站号越界返回 false**（不抛）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsStationActive(ushort state, int slaveStationNo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">state</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">slaveStationNo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_NormalizeTimeout_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.NormalizeTimeout*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_NormalizeTimeout_System_UInt16_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.NormalizeTimeout(System.UInt16)">NormalizeTimeout(ushort)</h4>
+  <div class="markdown level1 summary"><p>按证据规则<strong>规范化</strong> timeout 值：<code>&lt; MIN</code> 时用 DEFAULT。</p>
+<p>依据 `cl_calculate_total_timeout_us`（cl_iefb.c:838-846）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ushort NormalizeTimeout(ushort timeoutValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">timeoutValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_NormalizeTimeoutCount_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.NormalizeTimeoutCount*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_NormalizeTimeoutCount_System_UInt16_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.NormalizeTimeoutCount(System.UInt16)">NormalizeTimeoutCount(ushort)</h4>
+  <div class="markdown level1 summary"><p>按证据规则规范化 timeout_count：<code>&lt; MIN</code> 时用 DEFAULT。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ushort NormalizeTimeoutCount(ushort timeoutCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">timeoutCount</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_SetStationTransmissionState_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.SetStationTransmissionState*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_SetStationTransmissionState_System_UInt16_System_Int32_System_Boolean_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.SetStationTransmissionState(System.UInt16,System.Int32,System.Boolean)">SetStationTransmissionState(ushort, int, bool)</h4>
+  <div class="markdown level1 summary"><p>在 <code>cyclic_transmission_state</code> 中<strong>按单站</strong>置位/清位。</p>
+<p>
+**依据**：`cl_iefb_set_cyclic_transmission_state`（cl_iefb.c:795-817）：
+`mask = BIT(station_no - 1)`；`state=true` =&gt; `|= mask`；`false` =&gt; `&amp;= ~mask`；
+**站号 0 或 &gt;16 时静默忽略**（证据就是 `return`，不报错）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ushort SetStationTransmissionState(ushort state, int slaveStationNo, bool active)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>当前掩码。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">slaveStationNo</span></td>
+        <td><p>占用站号（1..16）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">active</span></td>
+        <td><p>true = 置位（参与）；false = 清位（停止）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_TryParseResponse_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.TryParseResponse*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_TryParseResponse_System_Byte___System_UInt16__System_UInt16__System_Collections_Generic_List_ZL_IotDriver_CCLinkIE_CCLinkStationInput___System_String__" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.TryParseResponse(System.Byte[],System.UInt16@,System.UInt16@,System.Collections.Generic.List{ZL.IotDriver.CCLinkIE.CCLinkStationInput}@,System.String@)">TryParseResponse(byte[], out ushort, out ushort, out List&lt;CCLinkStationInput&gt;, out string)</h4>
+  <div class="markdown level1 summary"><p>解析周期响应帧。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseResponse(byte[] frame, out ushort endCode, out ushort protocolVersion, out List&lt;CCLinkStationInput&gt; stations, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">frame</span></td>
+        <td><p>完整响应帧。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">endCode</span></td>
+        <td><p>输出：结束码。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">protocolVersion</span></td>
+        <td><p>输出：协议版本。</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkStationInput.html">CCLinkStationInput</a>&gt;</td>
+        <td><span class="parametername">stations</span></td>
+        <td><p>输出：各站 RWr/RX。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>失败原因。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>是否成功。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_TryParseResponse_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.TryParseResponse*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_TryParseResponse_System_Byte___System_UInt16__System_UInt16__ZL_IotDriver_CCLinkIE_CCLinkSlaveNotification__System_Collections_Generic_List_ZL_IotDriver_CCLinkIE_CCLinkStationInput___System_String__" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.TryParseResponse(System.Byte[],System.UInt16@,System.UInt16@,ZL.IotDriver.CCLinkIE.CCLinkSlaveNotification@,System.Collections.Generic.List{ZL.IotDriver.CCLinkIE.CCLinkStationInput}@,System.String@)">TryParseResponse(byte[], out ushort, out ushort, out CCLinkSlaveNotification, out List&lt;CCLinkStationInput&gt;, out string)</h4>
+  <div class="markdown level1 summary"><p>解析周期响应帧（<strong>带从站通知</strong>）。</p>
+<p>与另一重载的区别：本重载额外返回 <a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkSlaveNotification.html">CCLinkSlaveNotification</a>（诊断信息）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseResponse(byte[] frame, out ushort endCode, out ushort protocolVersion, out CCLinkSlaveNotification notification, out List&lt;CCLinkStationInput&gt; stations, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">frame</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">endCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">protocolVersion</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkSlaveNotification.html">CCLinkSlaveNotification</a></td>
+        <td><span class="parametername">notification</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkStationInput.html">CCLinkStationInput</a>&gt;</td>
+        <td><span class="parametername">stations</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_TryParseResponse_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.TryParseResponse*"></a>
+  <h4 id="ZL_IotDriver_CCLinkIE_CCLinkCyclicFrame_TryParseResponse_System_Byte___System_UInt16__System_UInt16__ZL_IotDriver_CCLinkIE_CCLinkSlaveNotification__System_Collections_Generic_List_ZL_IotDriver_CCLinkIE_CCLinkStationInput___System_String__System_Net_IPAddress_" data-uid="ZL.IotDriver.CCLinkIE.CCLinkCyclicFrame.TryParseResponse(System.Byte[],System.UInt16@,System.UInt16@,ZL.IotDriver.CCLinkIE.CCLinkSlaveNotification@,System.Collections.Generic.List{ZL.IotDriver.CCLinkIE.CCLinkStationInput}@,System.String@,System.Net.IPAddress)">TryParseResponse(byte[], out ushort, out ushort, out CCLinkSlaveNotification, out List&lt;CCLinkStationInput&gt;, out string, IPAddress)</h4>
+  <div class="markdown level1 summary"><p>解析周期响应帧（<strong>校验 slave_id 与来源 IP 一致</strong>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseResponse(byte[] frame, out ushort endCode, out ushort protocolVersion, out CCLinkSlaveNotification notification, out List&lt;CCLinkStationInput&gt; stations, out string error, IPAddress expectedSlaveIp)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">frame</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">endCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">protocolVersion</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkSlaveNotification.html">CCLinkSlaveNotification</a></td>
+        <td><span class="parametername">notification</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="ZL.IotDriver.CCLinkIE.CCLinkStationInput.html">CCLinkStationInput</a>&gt;</td>
+        <td><span class="parametername">stations</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">expectedSlaveIp</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

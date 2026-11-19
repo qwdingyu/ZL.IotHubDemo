@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.Mitsubishi | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.Mitsubishi | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Mitsubishi">
+
+  <h1 id="ZL_IotDriver_Mitsubishi" data-uid="ZL.IotDriver.Mitsubishi" class="text-break">Namespace ZL.IotDriver.Mitsubishi</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.KeyenceMcAsciiDriver.html">KeyenceMcAsciiDriver</a></h4>
+      <section><p>基恩士 MC 3E ASCII over TCP（<code>keyence-mc-ascii</code>）。</p>
+<p>
+**继承 <a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.html">MelsecMcAsciiDriver</a>**（ASCII 帧逻辑）⇒ 只需覆写
+<a class="xref" href="ZL.IotDriver.Mitsubishi.KeyenceMcAsciiDriver.html#ZL_IotDriver_Mitsubishi_KeyenceMcAsciiDriver_ParseAddress_System_String_">ParseAddress(string)</a> 换成基恩士地址语义 ✓
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.KeyenceMcDriver.html">KeyenceMcDriver</a></h4>
+      <section><p>基恩士 MC 协议驱动。基于三菱 MC 协议，基恩士 KV-7500/5500 等系列使用。
+地址格式：MR0, LR0, CR0（基恩士专用的继电器/寄存器类型）。</p>
+<p>
+**MR / LR / CR / CM 已实现** ✓（2026-10-21，依 HSL 12.9.2 `ParseKeyenceFrom` + 码值表）。
+`MR/LR/CR` 的编号是**复杂地址**（2026-10-23 修正 ✗→✓）：无点号且长度 &gt; 2 时
+按 `前段 × 16 + 末两位十进制`（如 `MR100` ⇒ **16**，不是 100 ✗）；带点号时
+按 HSL `CalculateComplexAddress` 处理末段（含 A-F 用 16 进制）✓。
+</p>
+<p>
+⚠️ **可信度边界**：码值与复杂地址语义均来自 HSL 12.9.2 反编译，**未经真机验证**
+⇒ 对外只能标“依 HSL 实现”，不得声称“已验证” ✗。详见 <a class="xref" href="ZL.IotDriver.Mitsubishi.KeyenceMcDriver.html#ZL_IotDriver_Mitsubishi_KeyenceMcDriver_ParseAddress_System_String_">ParseAddress(string)</a> 内注释。
+</p>
+<p>
+⚠️⚠️ **必须知道的使用陷阱（2026-11-10 全局审查补充）**：
+除 <code>ZR</code> / <code>MR</code> / <code>LR</code> / <code>CR</code> / <code>CM</code> 外，**其余前缀一律走
+`fallback` = 三菱 MC 的解析器** ⇒ 按**三菱区域码**下发 ✗
+</p>
+<p>
+**为什么是这样**（不是缺陷，是参考实现如此）：HSL 的 <code>KeyenceMcNet : MelsecMcNet</code>
+**直接继承**，只对布尔地址做额外判定，其余完全复用三菱解析 ✓
+⇒ 我方 `ParseKeyenceAddressCore(address, fallback)` 与该语义一致 ✓
+</p>
+<p>
+**后果**：`SM100` / `SD100` / `X100` 这类在**三菱**里合法的写法，
+本驱动**不会报错**，而是按三菱区域码发出去 ⇒
+若目标基恩士 PLC 上该区不存在或含义不同 ⇒ 可能**读到错误的区，且 `IsSuccess = true`** ✗✗
+⇒ **点表请只用 `MR` / `LR` / `CR` / `CM` / `ZR`**；
+   确需其它区时，**先对照基恩士手册确认区域码与三菱一致**后再用 ✓
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecA1EDriver.html">MelsecA1EDriver</a></h4>
+      <section><p>三菱 A 系列 1E 帧协议驱动。
+A-1E 帧默认端口 6000，地址格式与 Qna-3E 略有不同。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecFxDriver.html">MelsecFxDriver</a></h4>
+      <section><p>三菱 FX 系列串口协议驱动（RS232/RS422）。</p>
+<p>
+协议帧格式：
+- 命令帧：ENQ + 站号(2ASCII) + PLC号(2ASCII) + 命令(2ASCII) + 延时(1ASCII) + 地址(5ASCII) + 字节数/点数(2ASCII) + 校验和(2HEX)
+- 响应帧：STX + 数据 + ETX + 校验和(2)
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecFxLinksOverTcp.html">MelsecFxLinksOverTcp</a></h4>
+      <section><p>三菱 FX 系列 PLC FxLinks over TCP 协议驱动。</p>
+<p>参考: HSL MelsecFxLinksOverTcp + MelsecFxLinksHelper + MelsecFxLinksAddress</p>
+<p>端口默认 8000。地址格式: X0, Y0, M0, S0, D100, R0, TS0, TN0, CS0, CN0</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecFxOverTcpDriver.html">MelsecFxOverTcpDriver</a></h4>
+      <section><p>三菱 FX <strong>串口转网口</strong>驱动（串口帧经 TCP 透传，&quot;串口服务器&quot;形态）。</p>
+<p>
+【2026-10-26 新增，docs/todolist ④】帧构建（ENQ/命令/求和）/ 收帧
+（STX/ETX/校验和）/ NAK 识别 **单源复用** <a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecFxDriver.html">MelsecFxDriver</a> ✓
+—— 本类只覆写传输层 3 缝与连接管理（与
+<a class="xref" href="ZL.IotDriver.Panasonic.PanasonicMewtocolOverTcpDriver.html">PanasonicMewtocolOverTcpDriver</a> 同模式 ✓）。
+</p>
+<p>
+【GOT 中转支持（2026-10-28，docs/490 §4.1-1 → docs/491 补充）】
+<a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecFxOverTcpDriver.html#ZL_IotDriver_Mitsubishi_MelsecFxOverTcpDriver_UseGot">UseGot</a> = true 时走「FX3U 编程口 → GOT 触摸屏 → 上位机以太网」形态：
+当前代码尝试封装 GOT 头尾并发送登录序列；不代表 GOT 已验证可用。
+【2026-10-28 安全复核，docs/502】父类 ENQ+WR/BR 内帧与 HSL STX+E00 方言不同；
+发送转义及响应剥尾已按 HSL 包装函数修正，尚未实测。未取得足以裁定 GOT 中转语义的独立证据，
+不得把现有实现直接注册为生产可用协议。父类协议解析保持不变。
+</p>
+<p>
+【验证边界】FxGotFrameCrossTests 的旧脚本端不回复登录数据，且未检查连接结果；
+不能作为登录后读请求或真实 GOT 互通证据。无 GOT 真机验收结论，详见 docs/502。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.html">MelsecMcAsciiDriver</a></h4>
+      <section><p>三菱 MC 3E <strong>ASCII 帧</strong> 驱动（SLMP ASCII over TCP）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecMcAsciiUdpDriver.html">MelsecMcAsciiUdpDriver</a></h4>
+      <section><p>三菱 MC 3E <strong>ASCII over UDP</strong> 驱动。</p>
+<p>ASCII 帧构建/解析/地址换算**全部继承自** <a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.html">MelsecMcAsciiDriver</a>
+（与 MC-ASCII-TCP **逐字节同帧**），本类只把**传输层**换成 UDP 数据报 ✓</p>
+<p>⚠️ UDP 无连接语义：ConnectServer 仅记下默认对端，
+不会因"对端未监听"而失败（UDP 特性，非缺陷）✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecMcUdpDriver.html">MelsecMcUdpDriver</a></h4>
+      <section><p>三菱 MC（SLMP）<strong>over UDP</strong> 驱动。</p>
+<p>帧构造/解析/地址换算/位批处理**全部继承自**
+<a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html">MitsubishiMcDriver</a>（与 MC-TCP **逐字节同帧**），
+本类只把**传输层**从 TCP 流换成 UDP 数据报 ✓</p>
+<p>⚠️ UDP 无连接语义：ConnectServer 仅记下默认对端，
+不会因"对端未监听"而失败（UDP 特性，非缺陷）✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html">MitsubishiMcDriver</a></h4>
+      <section><p>三菱 MC 协议驱动 —— 纯 C# 实现，不依赖任何第三方库。<strong>28 个前缀</strong>（与 melsec-mc 白名单一一对应，2026-10-21 实测 28/28 通过 ✓）：
+D M W X Y L B F V S R Z SM SD SW SB SS SC ZR TN CN CC CS TS TC DX DY SN。不含裸 T：定时器须写 TN(当前值)/TS(触点)/TC(线圈)，与 HSL 一致（MelsecMcDataType.cs/112/117 只有 TN/TS/TC）。<strong>含 <code>SN</code></strong>（2026-10-21 已修）：
+原 <code>Format=100</code> 是<strong>非法进制</strong>（.NET 只认 2/8/10/16）⇒ 任何 <code>SN</code> 地址都抛 <code>ArgumentException: Invalid Base.</code> ✗；
+现按 HSL <code>MelsecMcDataType</code> 的 <code>FromBase=10</code> 修正 ⇒ <code>SN100</code> 正常 ✓（<code>case</code> 内已注明）。
+【进制】以 HSL <code>MelsecMcDataType.FromBase</code> 为准（逐区实测）：<strong>16 进制</strong> = <code>X Y B W SW SB DX DY</code>；其余为 10 进制，
+<strong>含 <code>ZR</code></strong>（2026-11-18 Owner 裁定：按官方 SH-080008 用 16 进制）。【A-1E】<code>X</code>/<code>Y</code> 为 8 进制，<code>M</code>/<code>S</code>/<code>D</code>/<code>R</code> 为 10 进制。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.McAddress.html">MitsubishiMcDriver.McAddress</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.PanasonicMcDriver.html">PanasonicMcDriver</a></h4>
+      <section><p>松下 MC 协议驱动。基于三菱 MC 协议，松下 FP 系列使用。
+地址格式：R0（内部继电器）、X0（输入）、Y0（输出）、D0（数据寄存器）、L0（链接继电器）、W0/DT0（报警/数据）。
+默认端口：6010（<strong>历史默认，无官方依据</strong>）。</p>
+<p>⚠️ 官方 FP7 Ethernet Expansion 手册 §9.1.2 明确 MC 协议
+<code>Home port number 5000 (Recommended)</code>；6010 在本仓未找到任何官方原文支撑。
+为不破坏既有现场点表/直连代码，**保留 6010 为默认值**，但不再声称“松下标准”；
+新项目建议显式配置 5000（或按设备实际监听端口）。</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiVersion.html">MitsubishiVersion</a></h4>
+      <section><p>三菱 PLC 版本。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

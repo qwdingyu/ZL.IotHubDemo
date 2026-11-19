@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Enum ModbusAddressingMode | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Enum ModbusAddressingMode | ZL IoT SDK API ">
+    
+    <meta name="description" content="⭐ Modbus 地址的&amp;quot;数字含义&amp;quot;如何解释（设备级开关）。 为什么必须有它：厂商文档存在**两种互斥约定**，同一字符串 （如 30073）含义完全不同，且**当前无声明途径** ✗ ① Modicon（默认，现行行为）     按 **5 位文档地址约定**解释：0xxxx=线圈、1xxxx=离散输入、     3xxxx=输入寄存器、4xxxx=保持寄存器，且**一基归一**（`30001` ⇒ 区内偏移 0）。 例：30073 ⇒ 输入寄存器第 72 个。   ② Raw（原始寄存器号）     数字**即 PDU 地址**，**不做** 5 位解释、**不做**一基归一。 例：30073 ⇒ DefaultArea 区的**第 30073 个**寄存器。     ⚠️ 这是**逆变器/电表类设备的主流约定**（如华为 SUN2000 手册明文     &quot;document addresses are used directly as PDU addresses — do NOT subtract offsets&quot;）✓    ⚠️ 阶段范围（`docs/567` &#167;三）：本开关**仅标准 `ModbusTcpDriver`** 支持； 6 个品牌子类与 RTU/ASCII 族**不在范围**（其 mapper/区语义未实证）✗">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.ModbusTcp.ModbusAddressingMode">
+
+
+
+
+  <h1 id="ZL_IotDriver_ModbusTcp_ModbusAddressingMode" data-uid="ZL.IotDriver.ModbusTcp.ModbusAddressingMode" class="text-break">Enum ModbusAddressingMode</h1>
+  <div class="markdown level0 summary"><p>⭐ <strong>Modbus 地址的&quot;数字含义&quot;如何解释</strong>（设备级开关）。</p>
+<p><b>为什么必须有它</b>：厂商文档存在**两种互斥约定**，同一字符串
+（如 <code>30073</code>）含义完全不同，且**当前无声明途径** ✗</p>
+<table><tbody><tr><td class="term">① Modicon（默认，现行行为）</td><td class="description">
+    按 **5 位文档地址约定**解释：<code>0xxxx</code>=线圈、<code>1xxxx</code>=离散输入、
+    <code>3xxxx</code>=输入寄存器、<code>4xxxx</code>=保持寄存器，且**一基归一**（`30001` ⇒ 区内偏移 0）。
+<p>例：<code>30073</code> ⇒ 输入寄存器第 72 个。</p>
+  </td></tr><tr><td class="term">② Raw（原始寄存器号）</td><td class="description">
+    数字**即 PDU 地址**，**不做** 5 位解释、**不做**一基归一。
+<p>例：<code>30073</code> ⇒ <code>DefaultArea</code> 区的**第 30073 个**寄存器。</p>
+    <p>⚠️ 这是**逆变器/电表类设备的主流约定**（如华为 SUN2000 手册明文
+    "document addresses are used directly as PDU addresses — do NOT subtract offsets"）✓</p>
+  </td></tr></tbody></table>
+<p>⚠️ <b>阶段范围</b>（`docs/567` §三）：本开关**仅标准 `ModbusTcpDriver`** 支持；
+6 个品牌子类与 RTU/ASCII 族**不在范围**（其 mapper/区语义未实证）✗</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.ModbusTcp.html">ModbusTcp</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_ModbusTcp_ModbusAddressingMode_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum ModbusAddressingMode</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    </thead></thead><tbody>
+      <tr>
+        <td id="ZL_IotDriver_ModbusTcp_ModbusAddressingMode_Modicon">Modicon</td>
+        <td><p><strong>Modicon 5 位文档地址约定 + 一基归一</strong>（默认，与历史行为<strong>逐字节一致</strong>）。</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotDriver_ModbusTcp_ModbusAddressingMode_Raw">Raw</td>
+        <td><p><strong>原始寄存器号</strong>：数字即 PDU 地址，不做 5 位解释、不做一基归一。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

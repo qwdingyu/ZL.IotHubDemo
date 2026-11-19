@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DeviceWriteDispatch | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DeviceWriteDispatch | ZL IoT SDK API ">
+    
+    <meta name="description" content="把&amp;quot;按运行时类型分发到对应的类型化写入&amp;quot;这条规则收敛到一处。  【为什么异步能共享、同步不能】  **声明了异步的类型化写入**（WriteAsync(string, bool/short/…/double)、 数组版、WriteAsync(string, string, Encoding)、WriteBytesAsync） ⇒ 分发可以**经接口**完成 ⇒ 能共享 [OK]； 而**同步**的类型化写入**不在**接口里（只有 Write(string, object|string|byte[])） ⇒ 无法经接口分派，给公开接口补成员又是**破坏性变更** ⇒ 同步分发**消不掉** [OK]。   【本实现覆盖的变体】对应原 AllenBradleyCipDriver / ModbusRtuDriver 两份 **逐字相同**的实现：11 个分支（bool/short/ushort/int/uint/long/ulong/float/double/string/byte[]）， 字符串固定用传入的编码（原为 ），不支持的类型返回 Fail(&quot;不支持的类型: …&quot;)。   【不覆盖的变体（有意）】SiemensS7Driver 多一支 byte 且有 null 检查； MitsubishiMcDriver/OmronFinsDriver 是 Task.Run(() =&amp;gt; Write(address, value)) **一行转发到同步路径**（不是同一条规则）；NativeDriverBase/SerialDriverBase/ ModbusAsciiDriver/HttpDriverBase 各自不同 ⇒ 合并它们需要**统一语义**， 属产品决策，已在列出完整变体地图 [OK]。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.DeviceWriteDispatch">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_DeviceWriteDispatch" data-uid="ZL.IotAbstraction.Abstractions.DeviceWriteDispatch" class="text-break">Class DeviceWriteDispatch</h1>
+  <div class="markdown level0 summary"><p>把&quot;按运行时类型分发到对应的类型化写入&quot;这条规则收敛到<strong>一处</strong>。</p>
+<p>
+【为什么异步能共享、同步不能】
+<a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a> **声明了异步的类型化写入**（<code>WriteAsync(string, bool/short/…/double)</code>、
+数组版、<code>WriteAsync(string, string, Encoding)</code>、<code>WriteBytesAsync</code>）
+⇒ 分发可以**经接口**完成 ⇒ 能共享 [OK]；
+而**同步**的类型化写入**不在**接口里（只有 <code>Write(string, object|string|byte[])</code>）
+⇒ 无法经接口分派，给公开接口补成员又是**破坏性变更** ⇒ 同步分发**消不掉**
+[OK]。
+</p>
+<p>
+【本实现覆盖的变体】对应原 <code>AllenBradleyCipDriver</code> / <code>ModbusRtuDriver</code> 两份
+**逐字相同**的实现：11 个分支（bool/short/ushort/int/uint/long/ulong/float/double/string/byte[]），
+字符串固定用传入的编码（原为 <span class="xref">System.Text.Encoding.UTF8</span>），不支持的类型返回
+<code>Fail("不支持的类型: …")</code>。
+</p>
+<p>
+【不覆盖的变体（有意）】<code>SiemensS7Driver</code> 多一支 <code>byte</code> 且有 null 检查；
+<code>MitsubishiMcDriver</code>/<code>OmronFinsDriver</code> 是 <code>Task.Run(() =&gt; Write(address, value))</code>
+**一行转发到同步路径**（不是同一条规则）；<code>NativeDriverBase</code>/<code>SerialDriverBase</code>/
+<code>ModbusAsciiDriver</code>/<code>HttpDriverBase</code> 各自不同 ⇒ 合并它们需要**统一语义**，
+属产品决策，已在列出完整变体地图 [OK]。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">DeviceWriteDispatch</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_DeviceWriteDispatch_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obfuscation(Exclude = true, ApplyToMembers = true)]
+public static class DeviceWriteDispatch</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceWriteDispatch_WriteObjectAsync_" data-uid="ZL.IotAbstraction.Abstractions.DeviceWriteDispatch.WriteObjectAsync*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceWriteDispatch_WriteObjectAsync_ZL_IotAbstraction_Abstractions_IPlcDevice_System_String_System_Object_System_Text_Encoding_" data-uid="ZL.IotAbstraction.Abstractions.DeviceWriteDispatch.WriteObjectAsync(ZL.IotAbstraction.Abstractions.IPlcDevice,System.String,System.Object,System.Text.Encoding)">WriteObjectAsync(IPlcDevice, string, object, Encoding)</h4>
+  <div class="markdown level1 summary"><p>按运行时类型分发到 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a> 的异步类型化写入。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;DeviceResult&gt; WriteObjectAsync(IPlcDevice device, string address, object value, Encoding stringEncoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></td>
+        <td><span class="parametername">device</span></td>
+        <td><p>目标设备（经接口分派，故不依赖具体驱动类型）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>点位地址。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>写入值。</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">stringEncoding</span></td>
+        <td><p>字符串写入所用编码（原实现固定 UTF-8）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td><p>写入结果；不支持的类型返回失败。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

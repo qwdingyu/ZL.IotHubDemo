@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Enum PlcDataFormat | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Enum PlcDataFormat | ZL IoT SDK API ">
+    
+    <meta name="description" content="数据格式（字节序）——定义 16/32/64 位数据的字节排列方式。  命名约定：每个字母代表一个字节位置（A=最低字节, D=最高字节） ABCD大端序（Big-Endian）：D0 最高字节在最前DCBA小端序（Little-Endian）：D0 最低字节在最前CDAB字内字节交换：先交换 16 位字，再按大端排列BADC字内字节交换：先交换 16 位字，再按小端排列   适用场景：汇川（Inovance）、台达（Delta）等 PLC 使用 CDAB 字节序。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.PlcDataFormat">
+
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_PlcDataFormat" data-uid="ZL.IotAbstraction.Abstractions.PlcDataFormat" class="text-break">Enum PlcDataFormat</h1>
+  <div class="markdown level0 summary"><p>数据格式（字节序）——定义 16/32/64 位数据的字节排列方式。</p>
+<p>
+命名约定：每个字母代表一个字节位置（A=最低字节, D=最高字节）
+<table><tbody><tr><td class="term">ABCD</td><td class="description">大端序（Big-Endian）：D0 最高字节在最前</td></tr><tr><td class="term">DCBA</td><td class="description">小端序（Little-Endian）：D0 最低字节在最前</td></tr><tr><td class="term">CDAB</td><td class="description">字内字节交换：先交换 16 位字，再按大端排列</td></tr><tr><td class="term">BADC</td><td class="description">字内字节交换：先交换 16 位字，再按小端排列</td></tr></tbody></table>
+
+<p>
+适用场景：汇川（Inovance）、台达（Delta）等 PLC 使用 CDAB 字节序。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_PlcDataFormat_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum PlcDataFormat</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    </thead></thead><tbody>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_PlcDataFormat_ABCD">ABCD</td>
+        <td><p>大端序（Big-Endian / ABCD）</p>
+<p>字节排列：[D0][D1][D2][D3]（最高字节在前）</p>
+<p>对应 BigEndianConverter</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_PlcDataFormat_BADC">BADC</td>
+        <td><p>字内字节交换（BADC）</p>
+<p>字节排列：[D2][D3][D0][D1]（先交换 16 位字，再按小端排列）</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_PlcDataFormat_CDAB">CDAB</td>
+        <td><p>字内字节交换（CDAB）</p>
+<p>字节排列：[D1][D0][D3][D2]（先交换 16 位字，再按大端排列）</p>
+<p>汇川（Inovance）、台达（Delta）等 PLC 使用</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_PlcDataFormat_DCBA">DCBA</td>
+        <td><p>小端序（Little-Endian / DCBA）</p>
+<p>字节排列：[D3][D2][D1][D0]（最低字节在前）</p>
+<p>对应 LittleEndianConverter</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

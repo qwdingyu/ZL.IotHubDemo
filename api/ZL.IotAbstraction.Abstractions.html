@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotAbstraction.Abstractions | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotAbstraction.Abstractions | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions">
+
+  <h1 id="ZL_IotAbstraction_Abstractions" data-uid="ZL.IotAbstraction.Abstractions" class="text-break">Namespace ZL.IotAbstraction.Abstractions</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.AddressSemanticsAdapter.html">AddressSemanticsAdapter</a></h4>
+      <section><p>地址语义适配器 ✓ —— 从通用语义派生&quot;位地址三元组&quot;，<strong>全仓唯一实现点</strong>。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.BadcEndianConverter.html">BadcEndianConverter</a></h4>
+      <section><p>BADC 字节序转换器（字内字节交换，字间小端）。</p>
+<p>
+协议字节 <code>[B][A][D][C]</code> 中，先交换每个 16 位字内的两字节得到 <code>[A][B][C][D]</code>
+的字内顺序，字与字之间按小端（低字在前）排列。
+</p>
+<p>
+⚠️ <b>当前无生产驱动使用本类</b>。整个 32/64 位实现在 2026-09-03 之前是错的
+（<code>TransInt32</code> 与 <a class="xref" href="ZL.IotAbstraction.Abstractions.BigEndianConverter.html">BigEndianConverter</a> 逐字符相同，等于没做 BADC 重排），
+已按 HSL <code>DataFormat.BADC</code> 修正并补单测。启用到任何驱动前请先在真机验证。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.BigEndianConverter.html">BigEndianConverter</a></h4>
+      <section><p>大端序（Big-Endian / ABCD）字节序转换器。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.CdabEndianConverter.html">CdabEndianConverter</a></h4>
+      <section><p>CDAB 字节序转换器（字内字节交换，字间小端）。</p>
+<p>
+协议字节 <code>[C][D][A][B]</code> 表示数值 <code>0xABCD</code>：每个 16 位字内按大端
+（<code>[C][D]</code> = 字 <code>0xCD</code>），字与字之间按小端排列（低字在前，即
+<code>[C][D]</code> 是低 16 位、<code>[A][B]</code> 是高 16 位）。
+</p>
+<p>
+⚠️ 本注释 2026-09-29 修正：旧注释误写"字间大端（高字在前）"，与实现相反
+（Order32={1,0,3,2} 解码为低字在前）。已用 HSL ByteTransformBase CDAB 分支
+与 FATEK 真交叉测试（Float/Int32 跨字）双重验证：实现正确，注释错误。
+</p>
+<p>
+适用场景：汇川（Inovance）、台达（Delta）、永宏 FATEK（跨字小端）等 PLC。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.ConnectionHealthReport.html">ConnectionHealthReport</a></h4>
+      <section><p>PLC 连接健康报告——定期生成的连接状态体检结果。</p>
+<p>
+在工控现场，PLC 与上位机之间的通讯可能因网络抖动、PLC 重启、网线松动等原因中断。
+健康报告提供多维度的连接质量指标，供上层系统（运维看板、告警引擎）使用：
+- 成功率低于阈值 → 触发告警；
+- 距上次成功时间过长 → 判定为"疑似断连"；
+- 心跳失败次数 → 触发重连策略。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.Crc16Ccitt.html">Crc16Ccitt</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKindExtensions.html">DeviceFailureKindExtensions</a></h4>
+      <section><p><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html">DeviceFailureKind</a> 的语义辅助（<strong>单一真相</strong>：可重试性只在此处定义）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></h4>
+      <section><p>PLC 通讯操作的非泛型结果（用于写入等无返回值的操作）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html">DeviceResultExtensions</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult&lt;T&gt;</a></h4>
+      <section><p>PLC 通讯操作的泛型结果（用于读取有返回值的操作）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceWriteDispatch.html">DeviceWriteDispatch</a></h4>
+      <section><p>把&quot;按运行时类型分发到对应的类型化写入&quot;这条规则收敛到<strong>一处</strong>。</p>
+<p>
+【为什么异步能共享、同步不能】
+<a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a> **声明了异步的类型化写入**（<code>WriteAsync(string, bool/short/…/double)</code>、
+数组版、<code>WriteAsync(string, string, Encoding)</code>、<code>WriteBytesAsync</code>）
+⇒ 分发可以**经接口**完成 ⇒ 能共享 [OK]；
+而**同步**的类型化写入**不在**接口里（只有 <code>Write(string, object|string|byte[])</code>）
+⇒ 无法经接口分派，给公开接口补成员又是**破坏性变更** ⇒ 同步分发**消不掉**
+[OK]。
+</p>
+<p>
+【本实现覆盖的变体】对应原 <code>AllenBradleyCipDriver</code> / <code>ModbusRtuDriver</code> 两份
+**逐字相同**的实现：11 个分支（bool/short/ushort/int/uint/long/ulong/float/double/string/byte[]），
+字符串固定用传入的编码（原为 <span class="xref">System.Text.Encoding.UTF8</span>），不支持的类型返回
+<code>Fail("不支持的类型: …")</code>。
+</p>
+<p>
+【不覆盖的变体（有意）】<code>SiemensS7Driver</code> 多一支 <code>byte</code> 且有 null 检查；
+<code>MitsubishiMcDriver</code>/<code>OmronFinsDriver</code> 是 <code>Task.Run(() =&gt; Write(address, value))</code>
+**一行转发到同步路径**（不是同一条规则）；<code>NativeDriverBase</code>/<code>SerialDriverBase</code>/
+<code>ModbusAsciiDriver</code>/<code>HttpDriverBase</code> 各自不同 ⇒ 合并它们需要**统一语义**，
+属产品决策，已在列出完整变体地图 [OK]。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DisposeGuard.html">DisposeGuard</a></h4>
+      <section><p>「<strong>是否已释放</strong>」的<strong>唯一判定入口</strong> ✓。</p>
+<p>
+【为什么需要它 ✗→✓】本仓的驱动存在**三种并行范式** ✓：
+<ol><li><b>继承 <code>NativeDriverBase</code></b>（5 个驱动）✓ —— 基类只提供
+    <code>EnsureNotDisposed()</code>（**抛异常** ✗），**没有**"只判释放"的属性 ✗</li><li><b>继承 <code>SerialDriverBase</code></b>（5 个驱动）✓ —— 另一套平行实现 ✗</li><li><b>独立实现 <code>IPlcDevice, IDisposable</code></b>（9 个驱动）✗ ——
+    **各自**声明 `_disposedFlag` 并**各自**写判定 ✗</li></ol>
+<p>⇒ 同一个问题「<strong>已释放之后该返回失败还是抛异常</strong>」在仓里曾有<strong>三套答案</strong> ✗✓，
+于是必然出现&quot;改了 A 漏了 B、修了 7 个还剩 2 个&quot; ✗（本项目真实发生过 ✓）。</p>
+
+<p>
+【本类的职责很窄 ✓】只回答"**这个标志位是否已置位**" ✓，
+**不碰 socket、不碰锁、不抛异常、无状态** ✓ ⇒ 可以直接用在**任何**范式里 ✓。
+⚠️ 它**不是**新的抽象层 ✗：没有接口、没有继承关系、没有依赖注入 ✓。
+</p>
+<p>
+【⭐ 关键纪律 ✗】**"已释放"和"未连接"是两件事，不可混淆** ✗✓ ——
+本项目曾因用 `IsConnected`（同时含"未连接"与"已释放"两个条件 ✓）
+去判定"是否已释放" ✗，把 `ConnectServer()` 的**正常连接流程也挡掉了** ✗，
+导致 3 条 S7 用例变红 ✓。
+⇒ 需要"能否收发包"的判定用 `IsConnected` ✓；
+  **需要"是否已释放"的判定一律用本类** ✓。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.FailureClassifier.html">FailureClassifier</a></h4>
+      <section><p>从失败消息<strong>尽力推断</strong> <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html">DeviceFailureKind</a>（兜底用，非主要手段）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IoPerformanceReport.html">IoPerformanceReport</a></h4>
+      <section><p>IO 性能报告——汇总所有 IO 操作的统计数据。</p>
+<p>
+用于性能分析和问题排查：
+- 识别慢操作（如某个读取操作平均耗时异常高）；
+- 监控成功率下降趋势；
+- 评估 PLC 通讯负载。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.LittleEndianConverter.html">LittleEndianConverter</a></h4>
+      <section><p>小端序（Little-Endian / DCBA）字节序转换器。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.MeterBcd.html">MeterBcd</a></h4>
+      <section><p>DLT645 / CJT188 等<strong>计量表协议</strong>的 BCD 数值编解码（低字节在前）。</p>
+<p>这些协议的响应体是 <b>BCD、低字节在前</b>，且每 DI 的小数位不同。
+本类把它们做对：<b>反序 → BCD→整数 → ÷10^digit</b>，写方向做完全对称的反算。</p>
+<p><b>典型用法</b>（读）：</p>
+<pre><code class="lang-csharp">var raw = device.ReadBytes("000000000001;02010100", 2);   // 原始字节，如 {0x11,0x23}
+if (raw.IsSuccess) {
+    decimal volt = MeterBcd.ToEngineering(raw.Content, decimals: 1);   // 231.1m
+}</code></pre>
+<p><b>典型用法</b>（写）：</p>
+<pre><code class="lang-csharp">byte[] wire = MeterBcd.ToWire(231.1m, byteLength: 2, decimals: 1);     // {0x11,0x23}</code></pre>
+<p>[!] 本类**不做**"用户自定义换算"（乘系数/加偏置）—— 那是
+ValueScale 的职责，两者语义不同，不要混用。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.NativeProtocolDescriptor.html">NativeProtocolDescriptor</a></h4>
+      <section><p>原生协议画像：把&quot;设备类型差异&quot;从驱动主逻辑中剥离的策略对象。
+不同 PLC 协议（西门子、三菱、欧姆龙等）在客户端创建方式、地址格式、字节序等方面存在差异。
+本类将这些差异封装为可插拔策略，使 NativeUnifiedDriver 能以统一逻辑驱动所有协议。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcAddress.html">PlcAddress</a></h4>
+      <section><p>PLC 地址的统一归一化模型。
+不论底层是西门子 DB、三菱 D、Modbus HR 还是欧姆龙 CIO，
+所有地址经 PlcAddressHelper.Parse 后都会转化为本对象，
+供后续的批量读取引擎（BatchEngine）和值提取器（PlcValueExtractor）使用。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcAddressHelper.html">PlcAddressHelper</a></h4>
+      <section><p>多协议 PLC 地址解析器——本库的核心基础设施之一。</p>
+<p>将不同厂商的文本地址（如 &quot;DB1.DBX0.0&quot;、&quot;40001&quot;、&quot;D100.3&quot;、&quot;CIO100.03&quot;）
+统一归一化为 PlcAddress 对象（DataBlock + TypeCode + ByteOffset + BitOffset），
+使上层的批量读取引擎和值提取器可以跨协议工作，无需关心底层地址格式差异。</p>
+<p>解析策略采用&quot;正则匹配链&quot;：按优先级依次尝试 12+ 种正则模式，
+匹配成功则立即返回，全部失败则抛出 FormatException。
+支持通过 PlcAddressParseOptions 指定协议画像和严格模式以消除歧义。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcDataTypeMap.html">PlcDataTypeMap</a></h4>
+      <section><p>PLC 数据类型映射表（唯一权威来源）。</p>
+<p>
+── 为什么需要这个类 ────────────────────────────────────────
+历史实现在多处各自维护"类型码 → 字节长度"的 switch
+（<code>PlcReadBlockBuilder.GetTagByteLength</code>、<code>GetTagActualBytes</code>、
+<code>PlcValueExtractor.Extract</code>、<code>DeviceBase.ReadTypedAsync</code> 等），
+这些副本**只列规范名**，别名（<code>int16</code> / <code>int32</code> / <code>real</code> / <code>int64</code> …）
+会落到各处的 <code>default</code> 分支。
+</p>
+<p>
+其中 <code>PlcReadBlockBuilder</code> 的 <code>default</code> 返回 <b>1</b>，
+导致别名点位的读取块长度被算成 1 字节。危害是**完全静默**的：
+</p>
+<ul><li>块长度 1 字节 → 只读到 1 字节；</li><li>提取阶段 <code>rel + 2 &lt;= buffer.Length</code> 不成立 → <b>整个标签被丢弃</b>；</li><li>不抛异常、<code>IsSuccess</code> 始终为 true、无告警；</li><li>现场现象是"这个点位一直没有值"，排查方向会被误导到 PLC 侧。</li></ul>
+<p>
+本类的目标是把"类型码 → 长度/规范名"收敛为**单一实现**，
+任何新增类型只需在此处登记一次。
+</p>
+<p>
+兼容性约定：
+<ul><li>查表**大小写不敏感**（<code>Float</code> 与 <code>float</code> 等价）；</li><li>未知类型**不抛异常**，由调用方决定回落行为（保持历史兼容）。</li></ul>
+
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard.html">PlcReadLengthGuard</a></h4>
+      <section><p>读长度的<strong>窄化守卫</strong>。</p>
+<p>
+【缺陷背景】点表 <code>TagItem.Length</code> 来自 XML（`TagItem.LoadByXmlElement` 只有 `int.Parse`，
+**没有任何范围校验**），而字符串读路径把它 `(ushort)` 窄化后交给驱动
+（`ReadStringAsync(address, (ushort)readLength, …)`）⇒ 例如 `Length = 100000`
+**静默回绕成 34464** ⇒ **读错长度、返回错值，且不抛异常、不告警**。
+</p>
+<p>
+【为什么"响亮失败"而不是"钳位"】钳位（截到 65535）仍然是**静默读错** ✗；
+而越界 `Length` 的当前行为本就是**未定义的错误值** ✗ ⇒ 换成**明确失败**属于
+“消除静默错误” ✓，不是改变一个被正确依赖的语义 ✓。
+</p>
+<p>
+【为什么单独成类】字符串读路径有**多处**（`DevicePro`、`BatchMonitor`、
+`DeviceBase`），逐处各写一遍判定必然漂移 ⇒ 统一收口到这里，
+且它是**纯函数** ⇒ 可离线单测（`InternalsVisibleTo("ZL.IotHub.Tests")` ✓）。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringKindResolver.html">PlcStringKindResolver</a></h4>
+      <section><p>&quot;标签生效 StringKind&quot;的<strong>唯一解析点</strong>。</p>
+<p>
+【为什么必须唯一】收口前该判定在仓内**抄了 6 遍**（`DevicePro`×2 ✓、`DeviceBase`×2 ✓、
+`BatchMonitor`×1 ✓、`PlcValueExtractor`×1 ✓），模式完全相同：
+<code>if (kind == None) kind = DefaultStringKind != None ? DefaultStringKind : Raw;</code> ✗
+—— 同一概念多处成立，任一处漏改即分叉 ✗（本仓已多次因此出问题 ✓）。
+现只在此定义 ✓，并让"驱动自述布局"只需接一次 ✓。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html">PlcStringReadHelper</a></h4>
+      <section><p>PLC 字符串读取的共享 <b>纯函数</b>（读侧<b>唯一</b>解析源，与写侧 PlcStringWriteHelper 成对）。</p>
+<p>
+职责边界：只负责「把一段已经读到的字节缓冲，按 <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a> 布局与 encoding 解析成 .NET string」，
+<b>不负责</b>传输（读几段、从哪开始读、读多长）。传输策略由各调用方决定。
+</p>
+<p>
+【2026-10-17 二次收口】此前"唯一解码源"只完成了 <b>1/4</b> ✗：
+仅 <code>PlcValueExtractor</code> 委托到这里，而 <code>DevicePro.ReadStringAsync&lt;T&gt;</code> 与
+<code>DeviceBase.ReadFromDeviceInternal</code> 各自内联一套头剥离 + 解码 + 修剪 ✗，
+<code>BatchMonitor.ReadStringAsync</code> 更是"先让驱动把地址偏移 +2 拿到无头内容、再对 string 剥一次头" ✗。
+实测后果：同一个 S7String 标签、同一份 PLC 数据，四条读路径给出<b>不同</b>的值 ✗。
+</p>
+<p>
+【统一口径（四条读路径共同遵守）】
+① 头剥离只发生在<b>原始字节</b>上，且只发生一次 —— 对已解码的 <code>string</code> 再剥头是结构错误 ✗；
+② 内容区<b>只按布局声明的长度</b>取（Raw=声明长度、S7String=Byte1、S7WString=实际字数×2）；
+③ <b>不</b>按内嵌 <code>\0</code> 截断（S7 STRING 允许内嵌 NUL，按首 NUL 截会丢数据）；
+④ 只做 <code>TrimEnd('\0')</code>（尾部填充），<b>不</b>去首尾空白、<b>不</b>删内部 CR/LF。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard.html">PlcStringWriteGuard</a></h4>
+      <section><p>Raw 字符串写入的容量守卫。</p>
+<p>
+【为什么单独成类】仓内共有 <b>6 处</b>带 <code>maxLength</code> 的 Raw 写入点：
+<code>NativeDriverBase.WriteString/WriteStringAsync</code>、
+<code>SiemensS7Driver.WriteString/WriteStringAsync</code>（该类直接实现 IPlcDevice，不派生自 NativeDriverBase）、
+<code>PlcDeviceStringWriteExtensions.WriteStringFallback/WriteStringFallbackAsync</code>
+（服务 AB / 三菱等“裸字驱动”，直接 <code>device.Write(byte[])</code> ⇒ 绕开前两者）。
+若逐点各写一遍判定，阈值与提示语迟早漂移、且新增第七个写入点时极易漏判 ⇒
+统一收口到这里，判定规则与提示语只有一处定义。
+</p>
+<p>
+【缺陷背景】<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html#ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_System_String_System_Text_Encoding_System_Int32_">BuildRawPayload(string, Encoding, int)</a> 的契约是
+“不截断超长，由调用方决定 Fail 或截断”，而上述 6 处原先都没有判定；
+<code>NormalWriteRequest.StringLength</code>/<code>SafetyWriteRequest.StringLength</code> 对外文档是
+“字符串<b>最大</b>长度（字节/字符）”，且 <code>tag.Length</code> 就是字段字节宽
+（读侧 <code>ReadString(addr,size)</code> 走 <code>ReadBytes(addr,size)</code>；写侧短则补零到该长度）
+⇒ 超长时按实际字节数写入会<b>写穿点表 Length 界定的字段</b>，静默覆盖其后相邻的 PLC 存储区。
+兄弟路径 S7 STRING / WSTRING 一直是超长即 Fail ⇒ 本类把同一约定补齐到 Raw 路径。
+</p>
+<p>
+【为什么不把判定做进 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html">PlcStringWriteHelper</a>】该类是“平台无关的纯函数”集合，
+不应反向依赖 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>；故“纯函数只负责算、是否可写由本类判定”。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html">PlcStringWriteHelper</a></h4>
+      <section><p>PLC 字符串写入的共享纯函数。</p>
+<p>
+原先"是否加 S7 前导头/如何构造 payload/如何解析编码"的逻辑散落在消费端，
+现集中到驱动层，供 DeviceBase/DevicePro/SiemensS7Driver 统一使用。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.SiemensByteTransform.html">SiemensByteTransform</a></h4>
+      <section><p>西门子 Big-Endian（ABCD）字节序转换器。</p>
+<p>
+西门子 S7 协议使用 ABCD（Big-Endian）字节序，与 x86/x64 的 DCBA（Little-Endian）相反。
+此实现完全自有，不依赖 HSL.Communication。
+</p>
+<p>
+【2026-11-05】原还实现冗余的 `IByteTransform`（HSL 镜像接口，仅本类引用）⇒ 已删除该接口，
+本类只保留**活契约** `IEndianConverter`（X 侧适配器与驱动均用它）✓
+设计决策：IEndianConverter 适配由 HslEndianAdapter 桥接类完成，
+避免在 Abstractions 项目中产生对 ZL.IotAbstraction.Abstractions.IEndianConverter 的循环引用。
+</p>
+</section>
+    <h3 id="structs">
+Structs
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html">DeviceAddressSemantics</a></h4>
+      <section><p>地址的<strong>协议原生语义</strong>（驱动权威输出 ✓）。</p>
+<p>
+⚠️ 这里的编号是**协议原生编号**，**不做任何单位换算** ✓：
+MC 的 `X20` ⇒ 32（不是字节 4）；松下 `X100` ⇒ 160（packed）。
+换算成字节布局是**建块层**的唯一职责 ✓（见 `PlcAddressSemanticsConverter`）。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.StringReadResult.html">PlcStringReadHelper.StringReadResult</a></h4>
+      <section><p>字符串读取结果（值或失败原因）。</p>
+</section>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a></h4>
+      <section><p>【能力：地址语义权威】驱动回答&quot;这个地址到底是什么&quot; ✓。</p>
+<p>
+⚠️ **未实现本接口的驱动行为完全不变** ✓ —— 建块层会回退到
+<code>PlcAddressHelper</code>（原路径）✓。这是"零影响其它协议"的结构保证。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IAreaAwareReader.html">IAreaAwareReader</a></h4>
+      <section><p><strong>带数据区语义的批量读</strong>（可选能力，2026-11-03）。</p>
+<p>实现本接口的驱动会被采集引擎**优先**用于"块上带区名"的读取；
+未实现的驱动**完全不受影响**（继续走 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytes_System_String_System_UInt16_">ReadBytes(string, ushort)</a>）。</p>
+<p>⚠️ <b>契约</b>：<code class="paramref">length</code> 与 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytes_System_String_System_UInt16_">ReadBytes(string, ushort)</a>
+**完全一致 —— 恒为字节数**（AGENTS §21.1），返回前必须**截断到该长度** ✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IBitBatchReader.html">IBitBatchReader</a></h4>
+      <section><p>支持「<strong>一次读取 N 个连续位</strong>」的驱动能力 ✓（位区专用 ✓）。</p>
+<p>
+⚠️ **不要**用 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytesAsync_System_String_System_UInt16_">ReadBytesAsync(string, ushort)</a> 模拟本接口 ✗ ——
+那条路的 `length` 是**字节** ✓，且本仓 MC 模拟器上位区字访问实测失败（`C0B0`）；
+驱动错误信息提示并非所有 PLC 都如此 ⇒ **不可依赖**，位标签必须走位通道 ✓。
+</p>
+<p>未实现本接口的驱动 ⇒ 位标签只能逐点读 ✓（见 `DeviceRoot` 的兜底 ✓）。</p>
+<p>
+【2026-10-23 继承 <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a> ✓】位号/区域/位字属性本就是
+<b>地址语义</b>的一部分 ⇒ 派生自通用语义接口 ✓，不再单独造一套 ✗
+（否则批量位读与建块各用一套口径，必然漂移 ✗）。 §五 5.5。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IBlockSizeHintProvider.html">IBlockSizeHintProvider</a></h4>
+      <section><p><strong>可选</strong>：驱动声明「本协议单次读取块的<strong>最大字节数</strong>」（2026-11-16 新增，修台账 BO）。</p>
+<p>【为什么需要】采集引擎的 `PlcReadBlockBuilder` 有一个**全局默认** `MaxBlockSize = 220`。
+但少数协议的真实单帧上限**低于 220**（实测记录）：
+<ul><li>`melsec-fx-links` **≤128 字节**（超出会被钳位，读到的比请求少）</li><li>`modbus-rtu-over-tcp` **≤250 字节**（实测 250 OK / 256 失败）</li><li>`allen-bradley` **≤256 字节**（实测 300 → 返 256，静默截断）</li></ul>
+<p>⇒ 用默认 220 请求这些协议，会发出<strong>超过其能力</strong>的块。</p>
+<p>【为什么是「引擎问驱动」而不是「引擎查表」】AGENTS §15.3 规定
+**引擎零协议知识**（不得引入任何协议枚举/常量表）⇒ 协议上限只能由**驱动自己**声明，
+引擎通过本接口**通用地**读取。这与既有的
+Core.IAddressSemantics（引擎向驱动问地址语义）是**同一模式**。</p>
+<p>【语义约定（必须遵守）】
+<ol><li><b>0 = 未声明</b> ⇒ 引擎沿用其配置的 `MaxBlockSize`（**行为零变化**）</li><li><b>&gt; 0</b> ⇒ 引擎取 <code>Min(配置值, 本值)</code> ⇒ **只收紧、不放大**
+    （用户显式把 `MaxBlockSize` 调小仍然生效）</li><li>本值只影响**读取块的长度**，不改变单点读/写路径</li></ol>
+<p>[!] 声明值必须有**实测或官方依据**并写在该驱动的实现处（AGENTS §22.5），
+不得凭印象填。填小了只损失吞吐，填大了会**读到截断数据**。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IDeviceDriver.html">IDeviceDriver</a></h4>
+      <section><p>最底层设备驱动接口：定义与任意硬件设备（PLC、仪表、传感器等）通讯的最小契约。</p>
+<p>
+设计意图：提供同步读写的最小抽象，适用于简单场景或遗留设备驱动。
+新开发推荐使用 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDriver.html">IPlcDriver</a>（异步+事件驱动模型）。
+</p>
+<p>
+【2026-11-05 迁入 <code>Abstractions</code>】原在 <code>ZL.IotEngine.Orchestration</code>：
+契约接口按分层应归 <code>Abstractions</code>；且同名的 <code>ZL.IotAbstraction.Tag.IDeviceDriver</code>（死接口，已删除）曾导致消费者
+同时 <code>using ZL.IotAbstraction.Tag;</code> + <code>using ZL.IotAbstraction.Orchestration;</code> 时裸写 <code>IDeviceDriver</code> 出现 CS0104 歧义。
+⚠️ 本包**尚未发布** ⇒ 迁移零兼容成本；发布后再改命名空间即为破坏性变更。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IEndianConverter.html">IEndianConverter</a></h4>
+      <section><p>字节序转换器接口——从字节缓冲区提取/写入各种数据类型。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IFormattedStringWriter.html">IFormattedStringWriter</a></h4>
+      <section><p>支持&quot;按 <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a> 处理协议头/补零&quot;的字符串写入的驱动实现此接口。</p>
+<p>方法签名与 NativeDriverBase.WriteString **逐字一致**，
+故自研基类及其子类无需改代码、只需声明接口 ✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IMultiTagReader.html">IMultiTagReader</a></h4>
+      <section><p>可选能力接口：驱动支持&quot;<strong>一次协议往返读多个标签</strong>&quot;时实现它。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDriver.html">IPlcDriver</a></h4>
+      <section><p>标准化 PLC 驱动接口（推荐）：支持异步连接、高性能缓存读取、点位写入及触发式事件抛出。</p>
+<p>
+这是项目中 PLC 通讯的核心契约。所有驱动实现（HslUnifiedDriver 等）
+均需实现此接口，使上层采集逻辑与底层协议解耦。
+</p>
+<p>
+设计要点：
+- 异步优先：ConnectAsync / WriteTagAsync 均返回 Task，避免阻塞采集线程。
+- 缓存读取：GetCachedValue 从内存缓存中取值，无需每次发起网络 IO。
+- 事件驱动：DataCollected 事件在批量采集完成后统一推送，支持 SCADA/MES 订阅。
+</p>
+<p>
+【2026-11-05 迁入 <code>Abstractions</code>】原在 <code>ZL.IotEngine.Orchestration</code>：契约接口按分层归 <code>Abstractions</code>
+（与 <code>IDeviceDriver</code> 同批）。本包**尚未发布** ⇒ 零兼容成本；发布后改命名空间即破坏性变更 ✓
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a></h4>
+      <section><p>协议键注入接口。</p>
+<p>
+NativeDriverBase / SerialDriverBase 已内置 SetProtocolKey/EnsureLicensed（经 <code>LicenseGate</code>）；
+直接实现 IPlcDevice 的驱动也应通过本接口注入协议键，并在 EnsureLicensed 中调用
+<code>LicenseGate.ThrowIfDenied</code>，禁止再手写 CommercialCheck 组合。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolPlugin.html">IProtocolPlugin</a></h4>
+      <section><p>协议插件契约：驱动程序集向引擎<strong>自报</strong>其提供的全部协议描述符。</p>
+<p>⚠️ `ApiVersion` 必须硬校验：不符即该插件 `Unavailable`（**不降级**）——
+依据 ：版本号不变但语义变了会造成"全绿但错"。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolSelfCheck.html">IProtocolSelfCheck</a></h4>
+      <section><p>旁路自检接口（可选实现）：插件把&quot;自检告警&quot;报给引擎，
+引擎再暴露为 Native.NativeProtocolRegistry.MissingSingleValueKeys。</p>
+<p>为什么用旁路接口而不是给 <a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolPlugin.html">IProtocolPlugin</a> 加默认实现：
+`netstandard2.0` **不支持**默认接口方法 ✗ ⇒ 用"可选接口 + is 判定" ✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IRawAddressingProvider.html">IRawAddressingProvider</a></h4>
+      <section><p>驱动是否按 raw（原始寄存器号）语义解释地址。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.IStringLayoutProvider.html">IStringLayoutProvider</a></h4>
+      <section><p><strong>可选</strong>契约：驱动自述其字符串的<strong>原生物理布局</strong>。</p>
+<p>
+【为什么需要它 —— 降低下游负担】`StringKind` 是**布局判别式**，对**协议固定**的设备
+（如 AB Logix 的 `STRING` 恒为 `DINT LEN + SINT DATA`）来说，这个值是**驱动的事实** ✓，
+**不该**要求用户/上位机去配置 ✗。
+实测下游证据：`iot-sdk` 的 `UcTagTable` 把 `StringKind` 当**布尔开关**用
+（`StringHasLeader ? StringKind.S7String : StringKind.Raw` ✗）⇒ UI **无法表达**新成员 ✗
+⇒ 若把 `AbCipString` 做成"必须配置"，等于给所有下游加负担 ✗。
+</p>
+<p>
+【设计取舍】用**独立可选接口**而非给 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a> 加成员 ✓：
+· 加成员会让**所有外部实现者**编译失败 ✗（`ZL.IotHub` 是已发布 NuGet 包）；
+· 本接口是**增量**契约 ⇒ 既有驱动零改动 ✓、不实现者行为不变 ✓。
+</p>
+<p>
+【解析优先级】标签显式 <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html#ZL_IotAbstraction_Tag_TagItem_StringKind">StringKind</a> &gt; 本接口（驱动事实 ✓）
+> 设备配置 &gt; <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_Raw">Raw</a> —— 见 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringKindResolver.html">PlcStringKindResolver</a> ✓。
+驱动声明**优先于设备配置**，因为对协议固定的设备，配置改不出正确结果 ✗，
+让配置覆盖它只会制造"看似可调、实则必错"的旋钮 ✗。
+</p>
+<p>
+⚠️ **只对"字符串布局恒定"的协议实现本接口** ✓：如 AB Logix 的 `STRING` ✓。
+S7 **不得**实现 —— 其 `STRING` 与 `WSTRING` 是**变量级**选择 ✗，驱动无从得知 ✗
+（那仍由点表/设备配置决定 ✓，属真正的配置维度 ✓）。
+</p>
+<p>
+🔴 **历史误判标注**：曾有人 grep「S7 未实现本接口」
+直接定性为缺陷并开"实现 provider"的修复处方 —— **这是错的** ✗（见上方
+「S7 不得实现」的明文决策；照做会破坏 WSTRING 用户）。审查/审计时若发现
+「某协议未实现本接口」，**先读本段决策再定性** ✓；string 配置要求见
+`docs/drivers/SiemensS7.md` 6.3.1（string 必须显式配 StringKind）✓。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.ITriggerableDriver.html">ITriggerableDriver</a></h4>
+      <section><p>可触发驱动的统一事件接口。</p>
+<p>
+实现此接口的驱动（如 <code>Native.NativeUnifiedDriver</code>、
+<code>Hsl.HslUnifiedDriver</code>（由 ZL.IotHub.X 提供）、`S7NativeDriver`（ZL.IotDriver.Siemens） 等）
+在采集到标签值变化时触发 <a class="xref" href="ZL.IotAbstraction.Abstractions.ITriggerableDriver.html#ZL_IotAbstraction_Abstractions_ITriggerableDriver_TriggerDataChanged">TriggerDataChanged</a> 事件。
+</p>
+<p>
+调用方只需检查 <code>driver is ITriggerableDriver</code> 即可订阅，
+无需通过 switch 逐类型匹配，避免遗漏新增驱动导致的事件静默丢失。
+</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DataFormat.html">DataFormat</a></h4>
+      <section><p>字节序格式（DataFormat），用于控制字节排列顺序。</p>
+<p>
+与 HSL.DataFormat 同名但不同命名空间，实现解耦。
+西门子 S7 使用 ABCD（Big-Endian），Modbus 常用 BADC/CBAD/DCBA。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html">DeviceFailureKind</a></h4>
+      <section><p><strong>失败性质</strong>（跨协议统一）。用于下游做<strong>程序化分支</strong>（重试 / 告警 / 弃用点位）。</p>
+<p>🔴 设计原则：<b>粒度只到"下游做决策所需"</b>，不追求穷尽所有技术细节 ✗ ——
+过细的分类会让驱动实现者无从判断，反而降低可靠性。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.FailureOwner.html">FailureOwner</a></h4>
+      <section><p><strong>失败的责任方</strong>（粗分类，回答&quot;谁该来修&quot;）。与 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html">DeviceFailureKind</a> <strong>并存、不替代</strong>。</p>
+<p>🔴 <b>为什么细码之外还需要粗分类</b>：
+PROFINET 同时有 <code>ChannelErrorType</code>（细）与 <code>ErrorCategory</code>（粗），两者互不替代；
+OPC UA 也同时有 <code>Bad</code>（严重级）与具体状态码 ✓</p>
+<p>🔴 <b>为什么不用一个布尔</b>：
+曾设计 `IsConfigurationError = Kind is ArgumentError or AddressError`，
+有三个缺陷 ✗：
+① 命名说"配置"，实际只含 2 个值（`Unsupported`/`Disposed` 被排除在外）；
+② 把**两个不同责任方**混在一起 —— `ArgumentError` 是**调用方代码 bug**（传了 null），
+   `AddressError` 是**点表配置错**（地址写错），运维看到 `true` 不知改哪；
+③ 布尔把 5 种原因**压平**成 1 位信息 ⇒ 下游拿不到诊断价值 ✓</p>
+<p>⇒ 改为四值枚举：**保留全部诊断信息**，且能直接指导"该找谁修"✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcDataFormat.html">PlcDataFormat</a></h4>
+      <section><p>数据格式（字节序）——定义 16/32/64 位数据的字节排列方式。</p>
+<p>
+命名约定：每个字母代表一个字节位置（A=最低字节, D=最高字节）
+<table><tbody><tr><td class="term">ABCD</td><td class="description">大端序（Big-Endian）：D0 最高字节在最前</td></tr><tr><td class="term">DCBA</td><td class="description">小端序（Little-Endian）：D0 最低字节在最前</td></tr><tr><td class="term">CDAB</td><td class="description">字内字节交换：先交换 16 位字，再按大端排列</td></tr><tr><td class="term">BADC</td><td class="description">字内字节交换：先交换 16 位字，再按小端排列</td></tr></tbody></table>
+
+<p>
+适用场景：汇川（Inovance）、台达（Delta）等 PLC 使用 CDAB 字节序。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ProbeOutcome.html">PlcStringReadHelper.ProbeOutcome</a></h4>
+      <section><p>两段式读取的结果分类（调用方据此决定&quot;返回空串&quot;还是&quot;返回失败&quot;）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.StringReadStatus.html">PlcStringReadHelper.StringReadStatus</a></h4>
+      <section><p>字符串读取结果分类。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,4199 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class OmronFinsDriver | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class OmronFinsDriver | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Omron.OmronFinsDriver">
+
+
+
+  <h1 id="ZL_IotDriver_Omron_OmronFinsDriver" data-uid="ZL.IotDriver.Omron.OmronFinsDriver" class="text-break">Class OmronFinsDriver</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">OmronFinsDriver</span></div>
+      <div class="level2"><a class="xref" href="ZL.IotDriver.Omron.OmronFinsUdpDriver.html">OmronFinsUdpDriver</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Omron.html">Omron</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Omron_OmronFinsDriver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class OmronFinsDriver : IPlcDevice, IDisposable, IProtocolKey</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver__ctor_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.#ctor*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver__ctor_System_String_System_Int32_System_Int32_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.#ctor(System.String,System.Int32,System.Int32)">OmronFinsDriver(string, int, int)</h4>
+  <div class="markdown level1 summary"><p>创建欧姆龙 FINS 驱动实例。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OmronFinsDriver(string ip, int port = 9600, int timeoutMs = 3000)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">ip</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">port</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">timeoutMs</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver__ioLock" data-uid="ZL.IotDriver.Omron.OmronFinsDriver._ioLock">_ioLock</h4>
+  <div class="markdown level1 summary"><p>socket I/O 锁（docs/62 双锁铁律）。<strong>protected</strong>（2026-10-27）：
+UDP 变体覆写 <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_SendAndReceive_System_Byte___">SendAndReceive(byte[])</a> 时必须复用同一把锁，
+否则同一驱动的并发请求会交错读写同一 socket ✗</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly SemaphoreSlim _ioLock</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">SemaphoreSlim</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver__socket" data-uid="ZL.IotDriver.Omron.OmronFinsDriver._socket">_socket</h4>
+  <div class="markdown level1 summary"><p>底层套接字。<strong>protected</strong>（2026-10-27）：供 UDP 变体
+<a class="xref" href="ZL.IotDriver.Omron.OmronFinsUdpDriver.html">OmronFinsUdpDriver</a> 复用同一套 FINS 帧构造/解析 ——
+TCP 用 Stream（+ FINS/TCP 头与握手）、UDP 用 Dgram（<strong>无</strong>头无握手），
+差异全部集中在 <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_CreateSocket">CreateSocket()</a> / <a class="xref" href="ZL.IotDriver.Omron.OmronFinsDriver.html#ZL_IotDriver_Omron_OmronFinsDriver_ConnectSocket_System_Net_IPAddress_">ConnectSocket(IPAddress)</a> 两处 ✓
+（原为 private；放宽可见性<strong>不改变任何行为</strong>）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Socket _socket</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Socket</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_EndianConverter_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.EndianConverter*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_EndianConverter" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.EndianConverter">EndianConverter</h4>
+  <div class="markdown level1 summary"><p>字节序转换器 — 欧姆龙 <strong>FINS 使用 CDAB</strong>（每 16 位字内高低字节交换，跨字低字在前）✓。</p>
+<p>
+🔴 【2026-10-18 修复，docs/415】原声明为 <a class="xref" href="ZL.IotAbstraction.Abstractions.BigEndianConverter.html">BigEndianConverter</a> ✗ ——
+那是**错的** ✗。依据（用户指定：无官方证据时**以 HSL 为参考** ✓）：
+HSL `OmronFinsNet` 显式设置
+<code>ByteTransform = new RegularByteTransform(DataFormat.CDAB)</code> ✓，
+且 **HSL 对全部欧姆龙协议统一如此** ✓
+（`OmronFinsNet` / `OmronFinsUdp` / `OmronHostLink` / `OmronHostLinkCMode` 均同 ✓）。
+</p>
+<p>
+【实测证据（HSL 与自研连同一模拟器，裸字节对比）】✓
+<pre><code class="lang-csharp">Int32 123456789 (0x075BCD15)：
+  自研写 → 线上 07 5B CD 15   ← 大端 ✗（与 HSL 不符）
+  HSL 写 → 线上 CD 15 07 5B   ← CDAB ✓
+  ⇒ HSL 读自研写的数据得 -854259877 ✗（字节被重新解释）</code></pre>
+
+<p>
+【为什么用 <a class="xref" href="ZL.IotAbstraction.Abstractions.CdabEndianConverter.html">CdabEndianConverter</a> 而不是新写一个】本仓**已有**该转换器 ✓，
+且它已在 **Fatek** 交叉测试中被验证（`FatekCrossTest` 21/21 通过 ✓，
+其注释写明"自研以每字 {hi,lo} 缓冲（配 CdabEndianConverter）"✓）
+⇒ 语义正是"每字内交换 + 跨字低字在前" ✓，与 HSL 的 CDAB 一致 ✓。
+</p>
+<p>
+⚠️ 这是**行为变更** ✗：所有 FINS 数值读写都会改变 ✗ ——
+判据是"与参考实现/现场上位机一致" ✓，而非"与自己的旧版本一致" ✗。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEndianConverter EndianConverter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IEndianConverter.html">IEndianConverter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_IpAddress_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.IpAddress*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_IpAddress" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.IpAddress">IpAddress</h4>
+  <div class="markdown level1 summary"><p>IP 地址</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string IpAddress { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_IsConnected_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.IsConnected*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_IsConnected" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.IsConnected">IsConnected</h4>
+  <div class="markdown level1 summary"><p>是否已连接</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Port_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Port*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Port" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Port">Port</h4>
+  <div class="markdown level1 summary"><p>端口</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Port { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadSplits_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadSplits*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadSplits" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadSplits">ReadSplits</h4>
+  <div class="markdown level1 summary"><p>每次读取最大字数限制（FINS 协议单帧最大字数）。
+默认 500 字（=1000 字节），对齐 HSL: OmronFinsNet.ReadSplits。
+当读取长度超过此值时自动分片。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ReadSplits { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_SA1_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.SA1*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_SA1" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.SA1">SA1</h4>
+  <div class="markdown level1 summary"><p>SA1 客户端节点编号</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte SA1 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_UnitAddress_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.UnitAddress*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_UnitAddress" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.UnitAddress">UnitAddress</h4>
+  <div class="markdown level1 summary"><p>DA2（目标单元地址）0x00=PC(CPU)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte UnitAddress { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ConnectClose_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ConnectClose*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ConnectClose" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ConnectClose">ConnectClose()</h4>
+  <div class="markdown level1 summary"><p>关闭连接</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult ConnectClose()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ConnectServer_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ConnectServer*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ConnectServer" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ConnectServer">ConnectServer()</h4>
+  <div class="markdown level1 summary"><p>同步连接 PLC</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult ConnectServer()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ConnectSocket_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ConnectSocket*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ConnectSocket_System_Net_IPAddress_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ConnectSocket(System.Net.IPAddress)">ConnectSocket(IPAddress)</h4>
+  <div class="markdown level1 summary"><p>建立连接。<strong>默认 = TCP 三次握手</strong>（走 <code>TcpConnectHelper</code>，与改造前<strong>完全一致</strong>）✓</p>
+<p>UDP 变体覆写为"仅记下默认对端"（UDP 无握手，不产生网络往返）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult ConnectSocket(IPAddress address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPAddress</span></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_CreateSocket_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.CreateSocket*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_CreateSocket" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.CreateSocket">CreateSocket()</h4>
+  <div class="markdown level1 summary"><p>关闭 socket。<strong>规则收敛到 <a class="xref" href="ZL.IotDriver.Core.SocketCloseHelper.html#ZL_IotDriver_Core_SocketCloseHelper_CloseSafely_System_Net_Sockets_Socket__">CloseSafely(ref Socket)</a> 一处</strong>（docs/291）。</p>
+<p>原实现是本类私有副本，且与其他 7 份**互不相同**（多数不会把 _socket 置空、
+有的省略 Connected 检查）⇒ 已改为调用共享实现，仅保留本类特有的状态位处理。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Socket CreateSocket()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Socket</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Dispose_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Dispose*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Dispose" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_DoTcpHandshake_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.DoTcpHandshake*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_DoTcpHandshake" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.DoTcpHandshake">DoTcpHandshake()</h4>
+  <div class="markdown level1 summary"><p><strong>FINS/TCP 专有握手</strong>（<code>[FINS][12][0*8]</code> → 读回状态码与节点号）。</p>
+<p>⚠️ **UDP 无此步骤** ⇒ UDP 变体覆写为空实现（直接返回 Ok）✓
+这是 FINS/TCP 与 FINS/UDP 的**核心差异**（不是可选项）✗</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult DoTcpHandshake()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_EnsureLicensed_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.EnsureLicensed*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_EnsureLicensed" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.EnsureLicensed">EnsureLicensed()</h4>
+  <div class="markdown level1 summary"><p>L2 授权检查：按协议键做功能掩码检查（docs/115 P2-4）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void EnsureLicensed()</code></pre>
+  </div>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_FillWords_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.FillWords*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_FillWords_System_String_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.FillWords(System.String,System.UInt16,System.UInt16)">FillWords(string, ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>把同一个 16 位字重复填充到连续 <code class="paramref">count</code> 个字（FINS <code>01 03</code>）。</p>
+<p>
+官方 OMRON W342-E1-15 §5-3-4（PDF 175 页）：命令体 =
+<code>01 03 + 区域码 + 起始字地址(2B) + 位(1B) + 字数(2B) + 数据(2B)</code>；
+响应只有 MRC/SRC + EndCode。官方明确：字数为 0 时“正常结束但不写”。
+</p>
+<p>
+⚠️ 只支持**字地址**（如 <code>D100</code>/<code>CIO100</code>），不支持位地址（<code>D100.0</code>）；
+本入口**不分片**，<code class="paramref">count</code> 过大时由 PLC 返回端码，不静默截断。
+</p>
+<p>【未验证】未在真实 NJ/NX/CJ 硬件核对；仿真器支持 <code>01 03</code>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult FillWords(string address, ushort value, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_FillWordsAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.FillWordsAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_FillWordsAsync_System_String_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.FillWordsAsync(System.String,System.UInt16,System.UInt16)">FillWordsAsync(string, ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>异步填充连续字。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; FillWordsAsync(string address, ushort value, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBool_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBool*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBool_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBool(System.String)">ReadBool(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;bool&gt; ReadBool(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBoolAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBoolAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBoolAsync_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBoolAsync(System.String)">ReadBoolAsync(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;bool&gt;&gt; ReadBoolAsync(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadByte_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadByte*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadByte_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadByte(System.String)">ReadByte(string)</h4>
+  <div class="markdown level1 summary"><p>读取单个字节（8 位无符号）。</p>
+<p>【2026-11-12 补】接口此前遗漏，详见 <code>docs/661</code>。
+单字节<b>无需字节序转换</b>（与 Int16/UInt16 不同，它们要 <code>EndianConverter</code>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;byte&gt; ReadByte(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadByteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadByteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadByteAsync_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadByteAsync(System.String)">ReadByteAsync(string)</h4>
+  <div class="markdown level1 summary"><p>读取单个字节（异步版）—— 与本类风格一致。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;byte&gt;&gt; ReadByteAsync(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBytes_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBytes*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBytes_System_String_System_UInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBytes(System.String,System.UInt16)">ReadBytes(string, ushort)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;byte[]&gt; ReadBytes(string address, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBytesAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBytesAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadBytesAsync_System_String_System_UInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadBytesAsync(System.String,System.UInt16)">ReadBytesAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;byte[]&gt;&gt; ReadBytesAsync(string address, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuBusUnitConfiguration_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuBusUnitConfiguration*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuBusUnitConfiguration" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuBusUnitConfiguration">ReadCpuBusUnitConfiguration()</h4>
+  <div class="markdown level1 summary"><p>读取 CPU Bus Unit configuration（FINS <code>05 01</code>，参数 <code>01</code>，64 字节）。</p>
+<p>
+官方 W342-E1-15 §5-3-15：16 个单元 × 2B ID + 32B 系统保留 = 64B。
+本方法返回**原始 64 字节**；不把 2B ID 拆成 Present/ModelId（官方未给字节序）。
+</p>
+<p>【未验证】未在真实硬件核对。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;byte[]&gt; ReadCpuBusUnitConfiguration()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuBusUnitConfigurationAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuBusUnitConfigurationAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuBusUnitConfigurationAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuBusUnitConfigurationAsync">ReadCpuBusUnitConfigurationAsync()</h4>
+  <div class="markdown level1 summary"><p>异步读取 CPU Bus Unit configuration。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;byte[]&gt;&gt; ReadCpuBusUnitConfigurationAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuTime_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuTime*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuTime" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuTime">ReadCpuTime()</h4>
+  <div class="markdown level1 summary"><p>读取 CPU 单元的时间信息</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;DateTime&gt; ReadCpuTime()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuTimeAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuTimeAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuTimeAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuTimeAsync">ReadCpuTimeAsync()</h4>
+  <div class="markdown level1 summary"><p>异步读取 CPU 时间</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;DateTime&gt;&gt; ReadCpuTimeAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitData_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitData*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitData" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitData">ReadCpuUnitData()</h4>
+  <div class="markdown level1 summary"><p>读取 CPU 单元数据（FINS <code>05 01</code>，参数 <code>00</code>）。</p>
+<p>
+对齐 HSL 13.0.3 <code>OmronFinsNet.ReadCpuUnitData()</code> 的入口，但**解析按官方手册**：
+OMRON W342-E1-15 §5-3-15（PDF 第 190-191 页）规定参数 <code>00</code> 的响应数据为
+<b>20 字节型号 + 20 字节 CPU 内部系统版本 + 40 字节系统保留 + 12 字节区域数据</b>，
+共 <b>92 字节</b>；HSL 的 <code>OmronCpuUnitData</code> 把版本只取 10 字节，属其自身偏差，
+本实现不复制该偏差。
+</p>
+<p>
+【未验证】未在真实 NJ/NX/CJ 硬件上核对；<code>LargestEMNumber</code> 的 <code>data[41]</code>
+偏移来自 HSL 单源（B 级），官方手册只给出“系统保留区”图示。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;OmronCpuUnitData&gt; ReadCpuUnitData()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitData.html">OmronCpuUnitData</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitDataAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitDataAsync">ReadCpuUnitDataAsync()</h4>
+  <div class="markdown level1 summary"><p>异步读取 CPU 单元数据。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;OmronCpuUnitData&gt;&gt; ReadCpuUnitDataAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitData.html">OmronCpuUnitData</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataFull_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitDataFull*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataFull" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitDataFull">ReadCpuUnitDataFull()</h4>
+  <div class="markdown level1 summary"><p>读取 CPU 单元全量数据（FINS <code>05 01</code>，无参数，156 字节）。</p>
+<p>
+官方 W342-E1-15 §5-3-15：无参数 = 参数 <code>00</code> 的 92B + 参数 <code>01</code> 的 64B
+CPU Bus Unit configuration，共 <b>156B</b>。
+</p>
+<p>【未验证】未在真实硬件核对；64B 配置区原样返回，不解析 16 位 ID 字节序。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;OmronCpuUnitDataFull&gt; ReadCpuUnitDataFull()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitDataFull.html">OmronCpuUnitDataFull</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataFullAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitDataFullAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitDataFullAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitDataFullAsync">ReadCpuUnitDataFullAsync()</h4>
+  <div class="markdown level1 summary"><p>异步读取 CPU 单元全量数据。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;OmronCpuUnitDataFull&gt;&gt; ReadCpuUnitDataFullAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitDataFull.html">OmronCpuUnitDataFull</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitStatus_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitStatus*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitStatus" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitStatus">ReadCpuUnitStatus()</h4>
+  <div class="markdown level1 summary"><p>读取 CPU 单元状态（FINS <code>06 01</code>，响应 28 字节）。</p>
+<p>
+对齐 HSL <code>OmronFinsNet.ReadCpuUnitStatus()</code>：解析运行状态、电池、CPU 状态、
+运行模式、错误码与错误信息。仿真器侧对应
+<code>OmronFinsUdpServer.HandleCpuUnitStatus</code>。
+</p>
+<p>
+⚠️ 字段偏移来自 HSL 单一实现（B 级）；仿真器只填了状态位/模式，
+错误码与错误信息恒 0/空。真机未验证，见 <code>docs/drivers/OmronFins.md</code> 已知限制。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;OmronCpuUnitStatus&gt; ReadCpuUnitStatus()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitStatus.html">OmronCpuUnitStatus</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitStatusAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitStatusAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCpuUnitStatusAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCpuUnitStatusAsync">ReadCpuUnitStatusAsync()</h4>
+  <div class="markdown level1 summary"><p>异步读取 CPU 单元状态。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;OmronCpuUnitStatus&gt;&gt; ReadCpuUnitStatusAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCpuUnitStatus.html">OmronCpuUnitStatus</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCycleTime_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCycleTime*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCycleTime" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCycleTime">ReadCycleTime()</h4>
+  <div class="markdown level1 summary"><p>读取 CPU 循环时间（FINS <code>06 20</code>，参数 <code>01</code>）。</p>
+<p>
+官方 OMRON W342-E1-15 §5-3-18（PDF 196-197 页）：参数 <code>01</code> 的响应数据为
+<b>4B 平均 + 4B 最大 + 4B 最小</b>，二进制、单位 <b>0.1 ms</b>。
+参数 <code>00</code> 是“初始化循环时间历史”，不是读取；本入口只发 <code>01</code>。
+</p>
+<p>【未验证】未在真实 NJ/NX/CJ 硬件核对；仿真器返回固定测试值。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;OmronCycleTime&gt; ReadCycleTime()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCycleTime.html">OmronCycleTime</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCycleTimeAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCycleTimeAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadCycleTimeAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadCycleTimeAsync">ReadCycleTimeAsync()</h4>
+  <div class="markdown level1 summary"><p>异步读取 CPU 循环时间。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;OmronCycleTime&gt;&gt; ReadCycleTimeAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="ZL.IotDriver.Omron.OmronCycleTime.html">OmronCycleTime</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadDouble_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadDouble*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadDouble_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadDouble(System.String)">ReadDouble(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;double&gt; ReadDouble(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadDoubleAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadDoubleAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadDoubleAsync_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadDoubleAsync(System.String)">ReadDoubleAsync(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;double&gt;&gt; ReadDoubleAsync(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadFloat_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadFloat*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadFloat_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadFloat(System.String)">ReadFloat(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;float&gt; ReadFloat(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadFloatAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadFloatAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadFloatAsync_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadFloatAsync(System.String)">ReadFloatAsync(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;float&gt;&gt; ReadFloatAsync(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt16*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt16_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt16(System.String)">ReadInt16(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;short&gt; ReadInt16(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt16Async_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt16Async*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt16Async_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt16Async(System.String)">ReadInt16Async(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;short&gt;&gt; ReadInt16Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt32_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt32*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt32_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt32(System.String)">ReadInt32(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;int&gt; ReadInt32(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt32Async_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt32Async*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt32Async_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt32Async(System.String)">ReadInt32Async(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;int&gt;&gt; ReadInt32Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt64_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt64*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt64_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt64(System.String)">ReadInt64(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;long&gt; ReadInt64(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt64Async_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt64Async*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadInt64Async_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadInt64Async(System.String)">ReadInt64Async(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;long&gt;&gt; ReadInt64Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadString_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadString*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadString_System_String_System_UInt16_System_Text_Encoding_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadString(System.String,System.UInt16,System.Text.Encoding)">ReadString(string, ushort, Encoding)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;string&gt; ReadString(string address, ushort size, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">size</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadStringAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadStringAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadStringAsync_System_String_System_UInt16_System_Text_Encoding_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadStringAsync(System.String,System.UInt16,System.Text.Encoding)">ReadStringAsync(string, ushort, Encoding)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;string&gt;&gt; ReadStringAsync(string address, ushort size, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">size</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt16*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt16_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt16(System.String)">ReadUInt16(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;ushort&gt; ReadUInt16(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt16Async_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt16Async*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt16Async_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt16Async(System.String)">ReadUInt16Async(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;ushort&gt;&gt; ReadUInt16Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt32_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt32*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt32_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt32(System.String)">ReadUInt32(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;uint&gt; ReadUInt32(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt32Async_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt32Async*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt32Async_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt32Async(System.String)">ReadUInt32Async(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;uint&gt;&gt; ReadUInt32Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt64_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt64*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt64_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt64(System.String)">ReadUInt64(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;ulong&gt; ReadUInt64(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt64Async_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt64Async*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ReadUInt64Async_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ReadUInt64Async(System.String)">ReadUInt64Async(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;ulong&gt;&gt; ReadUInt64Async(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ResetCycleTimeHistory_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ResetCycleTimeHistory*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ResetCycleTimeHistory" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ResetCycleTimeHistory">ResetCycleTimeHistory()</h4>
+  <div class="markdown level1 summary"><p>初始化 PLC 的循环时间历史（FINS <code>06 20</code>，参数 <code>00</code>）。</p>
+<p>
+官方 OMRON W342-E1-15 §5-3-18（PDF 196-197 页）：参数 <code>00</code> 只初始化历史，
+响应无数据；参数 <code>01</code> 才读取平均/最大/最小。本入口只发 <code>00</code>。
+</p>
+<p>【未验证】未在真实 NJ/NX/CJ 硬件核对；仿真器参数 00 只回成功、不维护真实历史。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult ResetCycleTimeHistory()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ResetCycleTimeHistoryAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ResetCycleTimeHistoryAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ResetCycleTimeHistoryAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ResetCycleTimeHistoryAsync">ResetCycleTimeHistoryAsync()</h4>
+  <div class="markdown level1 summary"><p>异步初始化循环时间历史。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; ResetCycleTimeHistoryAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Run_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Run*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Run" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Run">Run()</h4>
+  <div class="markdown level1 summary"><p>将 CPU 单元的操作模式更改为 RUN</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Run()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_RunAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.RunAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_RunAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.RunAsync">RunAsync()</h4>
+  <div class="markdown level1 summary"><p>异步 RUN</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; RunAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_SendAndReceive_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.SendAndReceive*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_SendAndReceive_System_Byte___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.SendAndReceive(System.Byte[])">SendAndReceive(byte[])</h4>
+  <div class="markdown level1 summary"><p>发送一条 FINS 命令并收响应。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult&lt;byte[]&gt; SendAndReceive(byte[] command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">command</span></td>
+        <td><p>命令帧。<strong>两种形态都接受</strong> ✓：</p>
+<ul><li><b>完整 FINS/TCP 帧</b>（`BuildReadCommand`/`BuildWriteCommand` 产出，含 16 字节 TCP 头）⇒ <b>原样发送</b></li><li><b>裸命令</b>（`Run()`=`{4,1,255,255,4}`、`Stop()`=`{4,2,255,255}`、`ReadCpuTime()`=`{7,1}`）
+      ⇒ <b>自动补 FINS/TCP 头</b>后再发 ✓</li></ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotDriver_Omron_OmronFinsDriver_SendAndReceive_System_Byte____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>🔴🔴 【2026-10-22 修复：<strong>裸命令曾被直接 <code>_socket.Send</code> ⇒ 帧不完整 ⇒ 必然超时</strong>】✗</p>
+<p>【原缺陷】本方法原为 <code>_socket.Send(command)</code> —— <strong>直接把入参当整帧发</strong> ✗
+而 <code>Run()</code>/<code>Stop()</code>/<code>ReadCpuTime()</code> 传的是<strong>裸命令</strong>（2~5 字节，无 TCP 头、无 FINS 头）：
+· <code>Run()</code>        ⇒ <code>{ 4, 1, 255, 255, 4 }</code>
+· <code>Stop()</code>       ⇒ <code>{ 4, 2, 255, 255 }</code>
+· <code>ReadCpuTime()</code>⇒ <code>{ 7, 1 }</code>
+⇒ 发出去的是<strong>残缺帧</strong>（FINS/TCP 要求 <code>FINS|length|command|error|FINS头|MRC/SRC</code>）
+⇒ 服务端按&quot;帧不完整&quot;处理（不回应或断开）⇒ <strong>我方一律超时</strong> ✗
+⇒ 实测：对仿真器 <code>ReadCpuTime()</code> ⇒ <code>通信失败: Operation timed out</code> ✗
+（而手工组好整帧再发 ⇒ 正常返回时钟 ✓ —— 证明<strong>缺陷在本方法，不在服务端</strong>）</p>
+<p>【为什么长期没发现】
+<code>Run()</code>/<code>Stop()</code>/<code>ReadCpuTime()</code> <strong>三个入口此前零测试覆盖</strong> ✗
+（<code>grep -rn &quot;Run()\|Stop()\|ReadCpuTime()&quot; tests/</code> 全为空）
+⇒ 缺陷被&quot;仿真器/PLC 不响应&quot;的表象长期掩盖 ✗</p>
+<p>【修法】按<strong>首 4 字节是否为 ASCII &quot;FINS&quot;</strong> 判断形态：
+· 是 ⇒ 已含 TCP 头 ⇒ 原样发 ✓
+· 否 ⇒ 裸命令 ⇒ 补 16 字节 TCP 头 + 10 字节 FINS 头后再发 ✓
+⚠️ 这样<strong>两种调用方式都成立</strong>，且<strong>不改变</strong> <code>BuildReadCommand</code>/<code>BuildWriteCommand</code> 的既有行为 ✓
+⚠️ <strong>不要</strong>改成&quot;要求调用方自己组帧&quot;—— 那会把复杂度推给三层调用点，且历史调用点未改 ✗</p>
+</div>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_SetProtocolKey_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.SetProtocolKey*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_SetProtocolKey_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.SetProtocolKey(System.String)">SetProtocolKey(string)</h4>
+  <div class="markdown level1 summary"><p>L2 授权检查：验证当前协议键是否已授权。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetProtocolKey(string protocolKey)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolKey</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Stop_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Stop*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Stop" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Stop">Stop()</h4>
+  <div class="markdown level1 summary"><p>将 CPU 单元的操作模式更改为 PROGRAM，停止程序执行</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Stop()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_StopAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.StopAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_StopAsync" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.StopAsync">StopAsync()</h4>
+  <div class="markdown level1 summary"><p>异步 STOP</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; StopAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_ValidateFinsResponse_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ValidateFinsResponse*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_ValidateFinsResponse_System_Byte___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.ValidateFinsResponse(System.Byte[])">ValidateFinsResponse(byte[])</h4>
+  <div class="markdown level1 summary"><p>验证 FINS 响应状态码。
+对齐 HSL: OmronFinsNetHelper.ResponseValidAnalysis
+FINS 端码位于 TCP 响应的 offset 30-31 (或 FINS 帧的 offset 12-13)
+主码 [30] 的 bit7=1 表示出错，副码 [31] 的低 6 位表示具体错误</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult ValidateFinsResponse(byte[] response)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">response</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Boolean_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Boolean)">Write(string, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Byte_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Byte)">Write(string, byte)</h4>
+  <div class="markdown level1 summary"><p>写单个字节（同步）—— 同契约。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, byte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Byte___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Byte[])">Write(string, byte[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, byte[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Double_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Double)">Write(string, double)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, double value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Int16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Int16)">Write(string, short)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Int32_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Int32)">Write(string, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, int value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Int64_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Int64)">Write(string, long)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, long value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Object_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Object)">Write(string, object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_SByte_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.SByte)">Write(string, sbyte)</h4>
+  <div class="markdown level1 summary"><p>写单个字节（有符号，同步）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, sbyte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_Single_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.Single)">Write(string, float)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, float value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_String_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.String)">Write(string, string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_String_System_Text_Encoding_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.String,System.Text.Encoding)">Write(string, string, Encoding)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, string value, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_UInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.UInt16)">Write(string, ushort)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_UInt32_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.UInt32)">Write(string, uint)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, uint value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_Write_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_Write_System_String_System_UInt64_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.Write(System.String,System.UInt64)">Write(string, ulong)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Write(string address, ulong value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Boolean_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Boolean)">WriteAsync(string, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Boolean___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Boolean[])">WriteAsync(string, bool[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, bool[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Byte_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Byte)">WriteAsync(string, byte)</h4>
+  <div class="markdown level1 summary"><p>写单个字节（8 位无符号）—— 与 <code>ReadByte/ReadByteAsync</code> 对称（docs/672 §三-A1）。</p>
+<pre><code>&lt;p&gt;契约：写 **1 个字节**；协议无法表达单字节写时必须**明确失败**，不得静默写 2 字节/截断。&lt;/p&gt;
+</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, byte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Double_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Double)">WriteAsync(string, double)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, double value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Double___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Double[])">WriteAsync(string, double[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, double[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Int16)">WriteAsync(string, short)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int16___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Int16[])">WriteAsync(string, short[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, short[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int32_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Int32)">WriteAsync(string, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, int value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int32___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Int32[])">WriteAsync(string, int[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, int[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int64_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Int64)">WriteAsync(string, long)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, long value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Int64___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Int64[])">WriteAsync(string, long[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, long[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Object_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Object)">WriteAsync(string, object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_SByte_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.SByte)">WriteAsync(string, sbyte)</h4>
+  <div class="markdown level1 summary"><p>写单个字节（有符号）—— 与 <code>WriteAsync(string, byte)</code> 同契约（docs/673 §六.2）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, sbyte value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Single_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Single)">WriteAsync(string, float)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, float value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_Single___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.Single[])">WriteAsync(string, float[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, float[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_String_System_Text_Encoding_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.String,System.Text.Encoding)">WriteAsync(string, string, Encoding)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, string value, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt16_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.UInt16)">WriteAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt16___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.UInt16[])">WriteAsync(string, ushort[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, ushort[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt32_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.UInt32)">WriteAsync(string, uint)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, uint value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt32___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.UInt32[])">WriteAsync(string, uint[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, uint[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt64_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.UInt64)">WriteAsync(string, ulong)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, ulong value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteAsync_System_String_System_UInt64___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteAsync(System.String,System.UInt64[])">WriteAsync(string, ulong[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteAsync(string address, ulong[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteBytes_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteBytes*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteBytes_System_String_System_Byte___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteBytes(System.String,System.Byte[])">WriteBytes(string, byte[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult WriteBytes(string address, byte[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteBytesAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteBytesAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteBytesAsync_System_String_System_Byte___" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteBytesAsync(System.String,System.Byte[])">WriteBytesAsync(string, byte[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteBytesAsync(string address, byte[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteCpuTime_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteCpuTime*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteCpuTime_System_DateTime_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteCpuTime(System.DateTime)">WriteCpuTime(DateTime)</h4>
+  <div class="markdown level1 summary"><p>写入 CPU 时钟（FINS <code>07 02</code>）。</p>
+<p>
+官方 OMRON W342-E1-15 §5-3-20（PDF 198 页）：命令体 = <code>07 02</code> +
+年(2 位 BCD)/月/日/时/分/秒/星期（各 1 字节 BCD）；响应只有 MRC/SRC + EndCode。
+星期：0=周日 … 6=周六。
+</p>
+<p>
+⚠️ 年份只发**两位**：官方规定 1998/1999/2000 ⇒ 98/99/00，2096/2097 ⇒ 96/97，
+因此 **1996 与 2096、1997 与 2097 在协议上不可区分**。本入口只接受
+<b>1998..2097</b>，超出即拒绝，不猜测世纪。
+</p>
+<p>【未验证】未在真实 NJ/NX/CJ 硬件核对；仿真器写入后可由 <code>07 01</code> 读回。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult WriteCpuTime(DateTime time)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">time</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronFinsDriver_WriteCpuTimeAsync_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteCpuTimeAsync*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronFinsDriver_WriteCpuTimeAsync_System_DateTime_" data-uid="ZL.IotDriver.Omron.OmronFinsDriver.WriteCpuTimeAsync(System.DateTime)">WriteCpuTimeAsync(DateTime)</h4>
+  <div class="markdown level1 summary"><p>异步写入 CPU 时钟。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteCpuTimeAsync(DateTime time)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">time</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

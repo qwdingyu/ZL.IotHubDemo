@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class NormalWriteRequest | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class NormalWriteRequest | ZL IoT SDK API ">
+    
+    <meta name="description" content="普通写入请求——可被合并去重的低优先级写入操作。  在工控场景中，HMI 界面上的滑块或输入框可能频繁触发写入请求（如用户拖动滑块）， 但 PLC 通讯带宽有限，不能每次都实际发送。NormalWriteRequest 被放入写入队列后， 如果同一地址有新的请求到来，旧请求可以被合并/丢弃（取最新值）， 从而减轻 PLC 通讯压力，避免&quot;写入风暴&quot;。   通过  将异步结果返回给调用方， 调用方 await 即可获知写入是否成功。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Models.NormalWriteRequest">
+
+
+
+  <h1 id="ZL_IotEngine_Models_NormalWriteRequest" data-uid="ZL.IotEngine.Models.NormalWriteRequest" class="text-break">Class NormalWriteRequest</h1>
+  <div class="markdown level0 summary"><p>普通写入请求——可被合并去重的低优先级写入操作。</p>
+<p>
+在工控场景中，HMI 界面上的滑块或输入框可能频繁触发写入请求（如用户拖动滑块），
+但 PLC 通讯带宽有限，不能每次都实际发送。NormalWriteRequest 被放入写入队列后，
+如果同一地址有新的请求到来，旧请求可以被合并/丢弃（取最新值），
+从而减轻 PLC 通讯压力，避免"写入风暴"。
+</p>
+<p>
+通过 <span class="xref">System.Threading.Tasks.TaskCompletionSource&lt;TResult&gt;</span> 将异步结果返回给调用方，
+调用方 await 即可获知写入是否成功。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">NormalWriteRequest</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Models_NormalWriteRequest_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class NormalWriteRequest</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_Address_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.Address*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_Address" data-uid="ZL.IotEngine.Models.NormalWriteRequest.Address">Address</h4>
+  <div class="markdown level1 summary"><p>目标 PLC 地址（经地址解析器归一化后的物理地址）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Address { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_CompletionSource_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.CompletionSource*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_CompletionSource" data-uid="ZL.IotEngine.Models.NormalWriteRequest.CompletionSource">CompletionSource</h4>
+  <div class="markdown level1 summary"><p>异步结果回调源——写入完成后通过 SetResult/SetException 通知调用方</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TaskCompletionSource&lt;DeviceResult&gt; CompletionSource { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TaskCompletionSource</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_LastUpdated_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.LastUpdated*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_LastUpdated" data-uid="ZL.IotEngine.Models.NormalWriteRequest.LastUpdated">LastUpdated</h4>
+  <div class="markdown level1 summary"><p>最后一次更新时间（UTC），用于判断请求是否已过期需要丢弃</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime LastUpdated { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_Requestor_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.Requestor*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_Requestor" data-uid="ZL.IotEngine.Models.NormalWriteRequest.Requestor">Requestor</h4>
+  <div class="markdown level1 summary"><p>请求发起者标识（如 &quot;HMI_OpPanel&quot;、&quot;MES_RecipeModule&quot;），用于日志审计和问题排查</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Requestor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_StringEncoding_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.StringEncoding*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_StringEncoding" data-uid="ZL.IotEngine.Models.NormalWriteRequest.StringEncoding">StringEncoding</h4>
+  <div class="markdown level1 summary"><p>字符串编码名称，如 &quot;ASCII&quot;、&quot;UTF-8&quot;、&quot;GB2312&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StringEncoding { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_StringKind_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.StringKind*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_StringKind" data-uid="ZL.IotEngine.Models.NormalWriteRequest.StringKind">StringKind</h4>
+  <div class="markdown level1 summary"><p>字符串写入格式，仅字符串类型写入有效</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StringKind StringKind { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_StringLength_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.StringLength*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_StringLength" data-uid="ZL.IotEngine.Models.NormalWriteRequest.StringLength">StringLength</h4>
+  <div class="markdown level1 summary"><p>字符串最大长度（字节/字符），-1 表示使用默认值</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int StringLength { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_TagId_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.TagId*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_TagId" data-uid="ZL.IotEngine.Models.NormalWriteRequest.TagId">TagId</h4>
+  <div class="markdown level1 summary"><p>目标点位标识（如 &quot;DB1.DBW10&quot;）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TagId { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_NormalWriteRequest_Value_" data-uid="ZL.IotEngine.Models.NormalWriteRequest.Value*"></a>
+  <h4 id="ZL_IotEngine_Models_NormalWriteRequest_Value" data-uid="ZL.IotEngine.Models.NormalWriteRequest.Value">Value</h4>
+  <div class="markdown level1 summary"><p>要写入的值，类型需与 PLC 地址的数据类型匹配</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Value { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

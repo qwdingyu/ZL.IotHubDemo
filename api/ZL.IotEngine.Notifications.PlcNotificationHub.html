@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcNotificationHub | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcNotificationHub | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 实时通知中枢 —— 工控数据采集与上位系统之间的核心事件分发枢纽。  在工业现场，采集侧（`DeviceRoot`；原 `BatchEngine` 已于 `24bfaaba` 删除）周期性从 PLC 读取标签数据， 产生&quot;标签值变化&quot;和&quot;连接状态变化&quot;两类事件。本中枢负责：  事件发布与分发：接收采集侧事件，按序号排序后分发给所有活跃订阅者（SCADA/MES/UI）。有限窗口回放（Replay）：新订阅者建立时，可立即回放最近 N 条事件，解决 UI 打开时的&quot;冷启动&quot;问题。消费位点跟踪（Ack）：下游消费者通过 Acknowledge 报告消费进度，支持断点续传场景。CatchUp 追赶机制：订阅建立期间到达的新事件先缓冲，回放完成后按序排空，保证&quot;无重复、无乱序、无窗口丢失&quot;。可观测性指标：提供完整的运行指标快照，用于现场诊断和监控告警。  &#128308;&#128308;【**使用契约 —— 必读，选错路径会导致设备误动作**，详见 docs/649】  本类投递的事件是「变化通知」，不是「控制信号源」 ✗ 实时控制 / 闭环 / 联锁判定   **读当前值**：GetLatestSnapshot() 或设备侧 DeviceRoot.GetTagValue()（走 localCache）。   事件只当「有变化，该去读一次」的**唤醒信号** ✓   &#128308; **禁止**把事件回调里的值当作控制决策的**唯一输入** —— 本类通道是**有界 ＋ DropOldest**   （设计见 docs/07 &#167;6、审查见 docs/604 &#167;3.2），慢消费者会**丢中间值**；   而控制决策**必须基于当前物理状态** —— 一条 3 秒前的「到位=true」若被重放/延迟使用，   机械早已离开 ⇒ **夹空/撞机** ✗✗SCADA / HMI 展示   同样**以缓存读为准**（docs/252 的&quot;缓存优先&quot;），事件用于**触发刷新** ✓   允许丢中间值：下一次读/快照会校正画面 ✓MES / 追溯 / 历史   **不要用本类事件流承载历史** ✗ —— 平台**刻意不内置历史存储**（docs/07 &#167;7），   请由消费侧落库（如 SqlSugar）或接外部 Historian ✓报警 / 联锁 / 扫码触发（Trigger）   这是**唯一**需要「一条都不丢」（at-least-once）的场景 ✓   ⇒ 必须走**持久化**：`PlcEventDispatcher.TriggerSpool`（docs/649 P1，**2026-11-10 已实现**）     —— 队列满时落盘而非丢弃（at-least-once）；**默认关闭**，需显式启用 ✓   不能只依赖内存通道 ✗上位机 → PLC 命令写入   用 WriteAsync/SendCommand：**同步 ＋ 超时 ＋ CommandId 幂等** ✓ 无队列、不重放 ✓ 一句话：控制与显示都**读当前值**，事件只是「有变化」的通知； 只有 Trigger 需要「每条都不丢」，而它必须走持久化；历史放外部 ✓  线程安全：本类设计为完全线程安全，支持多线程并发发布和订阅。 采用单例模式（Instance），确保全局只有一个事件分发点。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub">
+
+
+
+  <h1 id="ZL_IotEngine_Notifications_PlcNotificationHub" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub" class="text-break">Class PlcNotificationHub</h1>
+  <div class="markdown level0 summary"><p>PLC 实时通知中枢 —— 工控数据采集与上位系统之间的核心事件分发枢纽。</p>
+<p>
+在工业现场，采集侧（`DeviceRoot`；原 `BatchEngine` 已于 `24bfaaba` 删除）周期性从 PLC 读取标签数据，
+产生"标签值变化"和"连接状态变化"两类事件。本中枢负责：
+</p>
+<ol><li><b>事件发布与分发</b>：接收采集侧事件，按序号排序后分发给所有活跃订阅者（SCADA/MES/UI）。</li><li><b>有限窗口回放（Replay）</b>：新订阅者建立时，可立即回放最近 N 条事件，解决 UI 打开时的"冷启动"问题。</li><li><b>消费位点跟踪（Ack）</b>：下游消费者通过 Acknowledge 报告消费进度，支持断点续传场景。</li><li><b>CatchUp 追赶机制</b>：订阅建立期间到达的新事件先缓冲，回放完成后按序排空，保证"无重复、无乱序、无窗口丢失"。</li><li><b>可观测性指标</b>：提供完整的运行指标快照，用于现场诊断和监控告警。</li></ol>
+<p>
+🔴🔴【**使用契约 —— 必读，选错路径会导致设备误动作**，详见 <code>docs/649</code>】
+</p>
+<p><b>本类投递的事件是「变化通知」，<u>不是</u>「控制信号源」</b> ✗</p>
+<table><tbody><tr><td class="term">实时控制 / 闭环 / 联锁判定</td><td class="description">
+  **读当前值**：<code>GetLatestSnapshot()</code> 或设备侧 <code>DeviceRoot.GetTagValue()</code>（走 <code>localCache</code>）。
+  事件只当「有变化，该去读一次」的**唤醒信号** ✓<br>
+  🔴 **禁止**把事件回调里的值当作控制决策的**唯一输入** —— 本类通道是**有界 ＋ DropOldest**
+  （设计见 <code>docs/07 §6</code>、审查见 <code>docs/604 §3.2</code>），慢消费者会**丢中间值**；
+  而控制决策**必须基于当前物理状态** —— 一条 3 秒前的「到位=true」若被重放/延迟使用，
+  机械早已离开 ⇒ **夹空/撞机** ✗✗</td></tr><tr><td class="term">SCADA / HMI 展示</td><td class="description">
+  同样**以缓存读为准**（<code>docs/252</code> 的"缓存优先"），事件用于**触发刷新** ✓<br>
+  允许丢中间值：下一次读/快照会校正画面 ✓</td></tr><tr><td class="term">MES / 追溯 / 历史</td><td class="description">
+  **不要用本类事件流承载历史** ✗ —— 平台**刻意不内置历史存储**（<code>docs/07 §7</code>），
+  请由消费侧落库（如 SqlSugar）或接外部 Historian ✓</td></tr><tr><td class="term">报警 / 联锁 / 扫码触发（Trigger）</td><td class="description">
+  这是**唯一**需要「一条都不丢」（at-least-once）的场景 ✓
+  ⇒ 必须走**持久化**：`PlcEventDispatcher.TriggerSpool`（<code>docs/649 P1</code>，**2026-11-10 已实现**）
+    —— 队列满时落盘而非丢弃（at-least-once）；**默认关闭**，需显式启用 ✓
+  不能只依赖内存通道 ✗</td></tr><tr><td class="term">上位机 → PLC 命令写入</td><td class="description">
+  用 <code>WriteAsync</code>/<code>SendCommand</code>：**同步 ＋ 超时 ＋ <code>CommandId</code> 幂等** ✓ 无队列、不重放 ✓</td></tr></tbody></table>
+<p><b>一句话</b>：控制与显示都**读当前值**，事件只是「有变化」的通知；
+只有 Trigger 需要「每条都不丢」，而它必须走持久化；历史放外部 ✓</p>
+<p>
+线程安全：本类设计为完全线程安全，支持多线程并发发布和订阅。
+采用单例模式（Instance），确保全局只有一个事件分发点。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcNotificationHub</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Notifications.html">Notifications</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Notifications_PlcNotificationHub_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class PlcNotificationHub</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_Instance_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.Instance*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_Instance" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.Instance">Instance</h4>
+  <div class="markdown level1 summary"><p>全局单例。工业现场通常只需一个通知中枢，所有设备共享同一事件分发管道。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PlcNotificationHub Instance { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html">PlcNotificationHub</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_Acknowledge_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.Acknowledge*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_Acknowledge_System_String_System_Int64_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.Acknowledge(System.String,System.Int64)">Acknowledge(string, long)</h4>
+  <div class="markdown level1 summary"><p>报告消费位点（Acknowledge）。</p>
+<p>
+下游消费者处理完事件后调用此方法报告进度，用于：
+- 断点续传：重启后可从上次 Ack 位置继续消费；
+- 监控告警：对比 LatestSequence 和 AckSequence 可判断消费延迟。
+Ack 只允许前进不允许回退，避免旧消息覆盖消费位点。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Acknowledge(string consumerId, long sequence)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">consumerId</span></td>
+        <td><p>消费者唯一标识（如 &quot;MES-Consumer-1&quot;）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">sequence</span></td>
+        <td><p>已消费的最大事件序号。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>true=成功更新，false=参数无效。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_ClearAllTags_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.ClearAllTags*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_ClearAllTags" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.ClearAllTags">ClearAllTags()</h4>
+  <div class="markdown level1 summary"><p>清空所有标签快照。
+在系统重启或全部设备卸载时调用。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearAllTags()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_ConfigureLimits_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.ConfigureLimits*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_ConfigureLimits_System_Nullable_System_Int32__System_Nullable_System_Int32__" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.ConfigureLimits(System.Nullable{System.Int32},System.Nullable{System.Int32})">ConfigureLimits(int?, int?)</h4>
+  <div class="markdown level1 summary"><p>运行时动态调整中枢的回放窗口和缓冲区上限。</p>
+<p>
+工业现场可能需要根据实际负载动态调参：
+- 高频采集场景调大缓冲区以避免丢数据；
+- 内存受限场景调小回放窗口以降低占用。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ConfigureLimits(int? maxReplayEvents = null, int? maxBufferedLiveEventsPerSubscription = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">maxReplayEvents</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">maxBufferedLiveEventsPerSubscription</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_GetAcknowledgedSequence_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetAcknowledgedSequence*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_GetAcknowledgedSequence_System_String_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetAcknowledgedSequence(System.String)">GetAcknowledgedSequence(string)</h4>
+  <div class="markdown level1 summary"><p>查询指定消费者的已确认消费序号。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long GetAcknowledgedSequence(string consumerId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">consumerId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_GetLatestSequence_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetLatestSequence*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_GetLatestSequence" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetLatestSequence">GetLatestSequence()</h4>
+  <div class="markdown level1 summary"><p>获取中枢当前最新事件序号（逻辑时钟）。
+用于判断消费延迟：delay = GetLatestSequence() - GetAcknowledgedSequence(consumerId)。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long GetLatestSequence()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_GetLatestSnapshot_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetLatestSnapshot*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_GetLatestSnapshot_System_Collections_Generic_IEnumerable_System_String__" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetLatestSnapshot(System.Collections.Generic.IEnumerable{System.String})">GetLatestSnapshot(IEnumerable&lt;string&gt;)</h4>
+  <div class="markdown level1 summary"><p>获取标签最新值快照。</p>
+<p>
+直接从索引表取当前最新值，无需订阅事件流。适用于：
+- UI 页面初始化时获取所有/指定标签的当前状态；
+- 一次性查询场景（如 API 接口返回当前值）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;TagValueChange&gt; GetLatestSnapshot(IEnumerable&lt;string&gt; tagIds = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">tagIds</span></td>
+        <td><p>要查询的标签 ID 集合，null 表示返回全部标签的最新值。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;</td>
+        <td><p>按 TagId 排序的标签值变化快照列表（深拷贝，调用方可安全修改）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_GetMetricsSnapshot_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetMetricsSnapshot*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_GetMetricsSnapshot" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.GetMetricsSnapshot">GetMetricsSnapshot()</h4>
+  <div class="markdown level1 summary"><p>获取中枢运行指标快照（非破坏性读取，不影响计数器）。
+调用方可定期轮询此方法，将结果上报到 Prometheus/Grafana 或写入日志。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcNotificationHubMetrics GetMetricsSnapshot()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.html">PlcNotificationHubMetrics</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_PublishConnectionStatus_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.PublishConnectionStatus*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_PublishConnectionStatus_System_String_System_Boolean_System_Boolean_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.PublishConnectionStatus(System.String,System.Boolean,System.Boolean)">PublishConnectionStatus(string, bool, bool)</h4>
+  <div class="markdown level1 summary"><p>发布设备连接状态事件。</p>
+<p>
+由连接管理器（ConnectionStateManager）在检测到连接状态变化时调用。
+工业现场常用此事件驱动 SCADA 画面上的设备在线/离线指示灯。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PublishConnectionStatus(string deviceId, bool pingOk, bool connected)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>设备标识。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">pingOk</span></td>
+        <td><p>TCP 心跳探测是否正常。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">connected</span></td>
+        <td><p>通讯连接是否建立。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_PublishDeviceStateChanged_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.PublishDeviceStateChanged*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_PublishDeviceStateChanged_System_String_System_String_System_String_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.PublishDeviceStateChanged(System.String,System.String,System.String)">PublishDeviceStateChanged(string, string, string)</h4>
+  <div class="markdown level1 summary"><p>发布设备运行状态变化事件。</p>
+<p>
+由 DeviceRoot 在生命周期阶段切换（启动/停止/异常恢复）时调用。
+与 <a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html#ZL_IotEngine_Notifications_PlcNotificationHub_PublishConnectionStatus_System_String_System_Boolean_System_Boolean_">PublishConnectionStatus(string, bool, bool)</a> 的区别：
+- Connection 反映物理链路通断（TCP/Ping 探测）；
+- DeviceStateChanged 反映业务层"是否正在运行"（Running/Stopped/Error 等）。
+工业现场常通过此事件驱动上层告警、UI 状态卡片、日志审计。
+</p>
+<p>
+性能特征：与 Connection 同频（每个设备每天几条到几十条），远低于 TagChanges 高频路径，
+但仍走与高频事件相同的回放窗口和订阅分发链路，保证新订阅者可回放最近状态。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PublishDeviceStateChanged(string deviceId, string runtimeState, string message = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>设备标识。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">runtimeState</span></td>
+        <td><p>运行状态：Running / Stopped / Error / Starting / Stopping 等。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>状态变化原因/消息（可空），例如&quot;设备启动失败: 连接超时&quot;。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_PublishTagChanges_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.PublishTagChanges*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_PublishTagChanges_System_Collections_Generic_IReadOnlyList_ZL_IotEngine_Models_TagValueChange__System_String_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.PublishTagChanges(System.Collections.Generic.IReadOnlyList{ZL.IotEngine.Models.TagValueChange},System.String)">PublishTagChanges(IReadOnlyList&lt;TagValueChange&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>发布标签值变化事件。</p>
+<p>
+由采集侧（`DeviceRoot`）在每次成功读取 PLC 数据后调用。
+流程：深拷贝变化列表 → 更新最新值索引 → 分配序号 → 缓存到回放窗口 → 分发给所有订阅者。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PublishTagChanges(IReadOnlyList&lt;TagValueChange&gt; changes, string deviceId = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;</td>
+        <td><span class="parametername">changes</span></td>
+        <td><p>本次采集到的标签值变化列表（批量）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>产生变化的设备标识。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_RemoveDeviceTags_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.RemoveDeviceTags*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_RemoveDeviceTags_System_Collections_Generic_IEnumerable_System_String__" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.RemoveDeviceTags(System.Collections.Generic.IEnumerable{System.String})">RemoveDeviceTags(IEnumerable&lt;string&gt;)</h4>
+  <div class="markdown level1 summary"><p>【已废弃】不指定设备、直接按 tagIds 删快照。</p>
+<p>⚠️ **它已不再"无条件删除"**（2026-11-11 起）：无设备作用域时本类
+**只清理"无主"条目**（`deviceId` 为空时发布的快照），**有归属的快照一律不动** ——
+否则同名 TagId 会误删他设备条目（B1 同族）。语义见
+<a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html#ZL_IotEngine_Notifications_PlcNotificationHub_RemoveDeviceTags_System_Collections_Generic_IEnumerable_System_String__System_String_">RemoveDeviceTags(IEnumerable&lt;string&gt;, string)</a>。</p>
+<p>请改用带 `deviceId` 的重载，才能精确移除**某台设备**的快照。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;同名 TagId 会误删其他设备的快照。请改用 RemoveDeviceTags(tagIds, deviceId)。&quot;)]
+public void RemoveDeviceTags(IEnumerable&lt;string&gt; tagIds)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">tagIds</span></td>
+        <td><p>要移除的标签 ID 列表</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_RemoveDeviceTags_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.RemoveDeviceTags*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_RemoveDeviceTags_System_Collections_Generic_IEnumerable_System_String__System_String_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.RemoveDeviceTags(System.Collections.Generic.IEnumerable{System.String},System.String)">RemoveDeviceTags(IEnumerable&lt;string&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>移除指定设备的<strong>全部</strong>标签快照（设备卸载 / Dispose 时调用）。</p>
+<p>【2026-11-11 修 B1 同族】原实现按 tagIds 直接删全局字典，同名 TagId 会误删他设备条目；
+传 <code class="paramref">deviceId</code> 后只删归属本设备的（见 SyncActiveTags(IEnumerable&lt;string&gt;, string) 的规则）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveDeviceTags(IEnumerable&lt;string&gt; tagIds, string deviceId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">tagIds</span></td>
+        <td><p>要移除的标签 ID 列表</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>设备标识；空 ⇒ 退化为旧行为（只删&quot;无主&quot;条目，仅限单设备场景）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_Subscribe_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.Subscribe*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_Subscribe_System_Action_ZL_IotEngine_Notifications_PlcRealtimeEvent__ZL_IotEngine_Notifications_PlcSubscriptionOptions_System_Threading_SynchronizationContext_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.Subscribe(System.Action{ZL.IotEngine.Notifications.PlcRealtimeEvent},ZL.IotEngine.Notifications.PlcSubscriptionOptions,System.Threading.SynchronizationContext)">Subscribe(Action&lt;PlcRealtimeEvent&gt;, PlcSubscriptionOptions, SynchronizationContext)</h4>
+  <div class="markdown level1 summary"><p>创建回调式订阅。</p>
+<p>
+订阅建立流程（核心并发语义，保证"无重复、无乱序、无窗口丢失"）：
+1) 将订阅挂入订阅表 —— 此后到达的 live 事件会被缓存到该订阅的缓冲区；
+2) 采样当前最新序号作为 CatchUp 上界；
+3) 回放历史窗口中 ≤ 上界的事件；
+4) 按序排空缓冲区中的 live 事件，切换到直发模式。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDisposable Subscribe(Action&lt;PlcRealtimeEvent&gt; onEvent, PlcSubscriptionOptions options = null, SynchronizationContext synchronizationContext = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="ZL.IotEngine.Notifications.PlcRealtimeEvent.html">PlcRealtimeEvent</a>&gt;</td>
+        <td><span class="parametername">onEvent</span></td>
+        <td><p>事件回调，每次收到事件时调用。不可为 null。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Notifications.PlcSubscriptionOptions.html">PlcSubscriptionOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>过滤与回放选项，null 表示使用默认值。</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SynchronizationContext</span></td>
+        <td><span class="parametername">synchronizationContext</span></td>
+        <td><p>可选的同步上下文。WinForm/WPF 场景传入 UI 线程上下文，
+使回调自动回到 UI 线程，避免跨线程操作控件异常。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></td>
+        <td><p>IDisposable 句柄，Dispose 即取消订阅。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_SubscribeChannel_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.SubscribeChannel*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_SubscribeChannel_ZL_IotEngine_Notifications_PlcSubscriptionOptions_System_Int32_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.SubscribeChannel(ZL.IotEngine.Notifications.PlcSubscriptionOptions,System.Int32)">SubscribeChannel(PlcSubscriptionOptions, int)</h4>
+  <div class="markdown level1 summary"><p>创建基于 Channel 的异步流订阅。</p>
+<p>
+适合 async/await 消费模型，下游用 await foreach 拉取事件。
+内部使用 BoundedChannel + DropOldest 实现背压控制：
+当消费端处理速度跟不上时，丢弃最旧的事件而非阻塞生产端。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcChannelSubscription SubscribeChannel(PlcSubscriptionOptions options = null, int capacity = 512)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Notifications.PlcSubscriptionOptions.html">PlcSubscriptionOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>过滤与回放选项。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">capacity</span></td>
+        <td><p>Channel 容量，默认 512。工业高频采集场景可适当调大。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Notifications.PlcChannelSubscription.html">PlcChannelSubscription</a></td>
+        <td><p>PlcChannelSubscription，通过 Reader 属性异步消费事件。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_SyncActiveTags_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.SyncActiveTags*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_SyncActiveTags_System_Collections_Generic_IEnumerable_System_String__" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.SyncActiveTags(System.Collections.Generic.IEnumerable{System.String})">SyncActiveTags(IEnumerable&lt;string&gt;)</h4>
+  <div class="markdown level1 summary"><p>【已废弃，<strong>多设备场景会误删他设备快照</strong>】按&quot;活跃集合&quot;清理全局 <code>_latestByTag</code>。</p>
+<p>
+🔴🔴【2026-11-11 修 B1】**这是本仓一个真实的生产缺陷**（实测复现，见
+<code>SnapshotLifecycleMultiDeviceTests.多设备重建计划_不得清掉其他设备的快照</code>）：
+本方法遍历的是**进程级全局**字典 `_latestByTag`，而入参只是**调用者本设备**的
+`Tags.Keys` ⇒ 同进程多设备（`DeviceManager` 是静态注册表，天然多设备）时：
+设备 B 因重连/自愈/热改点表重建计划 ⇒ 用 B 的集合清掉 A 的**全部**快照 ✗
+⇒ A 中值不再变化的点位**永不回写**（快照只在值变化时更新）
+⇒ `ScadaHub.OnConnectedAsync` 下发的冷启动快照"少设备、缺点位"，**且无任何告警** ✗。
+</p>
+<p>
+请改用 SyncActiveTags(IEnumerable&lt;string&gt;, string)（带设备作用域）。
+本重载**保留**仅为二进制兼容：它现在**只清理"无归属"条目**，绝不触碰有归属的快照
+（即不再具备跨设备误删能力），因此也不会再造成上述故障。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;多设备场景会误删其他设备的快照（2026-11-11 B1）。请改用 SyncActiveTags(tagIds, deviceId)。&quot;)]
+public void SyncActiveTags(IEnumerable&lt;string&gt; activeTagIds)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">activeTagIds</span></td>
+        <td><p>当前设备所有活跃的标签 ID</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcNotificationHub_SyncActiveTags_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.SyncActiveTags*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_SyncActiveTags_System_Collections_Generic_IEnumerable_System_String__System_String_System_Int64_" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.SyncActiveTags(System.Collections.Generic.IEnumerable{System.String},System.String,System.Int64)">SyncActiveTags(IEnumerable&lt;string&gt;, string, long)</h4>
+  <div class="markdown level1 summary"><p>【<strong>推荐</strong>】按<strong>设备作用域</strong>同步活跃标签集合，只清理<strong>本设备拥有</strong>的幽灵快照。</p>
+<p>
+判定规则（三条，必须同时看清）：
+① 在 <code class="paramref">activeTagIds</code> 中的键 ⇒ **永不删除**（本设备仍在采它）；
+② 归属等于 <code class="paramref">deviceId</code> 且不在活跃集合中 ⇒ **删除**（本设备已删该点）；
+③ 归属是**其他设备**或**无归属** ⇒ **永不删除**（不属于本设备的清理范围）。
+</p>
+<p>
+`deviceId` 为空 ⇒ 退化为"只清理无归属条目"（即旧重载的兼容行为，不再跨设备误删）。
+</p>
+<p>
+✅ **同名 TagId 已不再是边界**（2026-11-11 D1 根治）：快照键是复合键
+`(DeviceId, TagId)` ⇒ 两台设备的同名标签**各自独立成条**，归属由
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">DeviceIdOfKey(string)</a> 从键里精确取出 ⇒ 规则 ②③ 对**每一条**都成立，
+既不会漏删、也不会误删他设备（原 `_tagOwner` 只记得住"最后一个发布者" ⇒ 会漏/会误，已删除）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SyncActiveTags(IEnumerable&lt;string&gt; activeTagIds, string deviceId, long clearWatermark = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">activeTagIds</span></td>
+        <td><p>当前设备的活跃标签 ID</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td><p>当前设备标识（空/空白 ⇒ 不按设备过滤，只清无主条目）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">clearWatermark</span></td>
+        <td><p>【台账 CD 修复 v2】<strong>清空水位线</strong>：调用方传入「此刻的事件入队序号」
+（通常 <code>PlcEventDispatcher.CurrentEventSeq</code>）。
+被移除的点会记下该值作墓碑 ⇒ 之后到达的、<strong>序号更早</strong>的排队事件被判定陈旧并丢弃。
+<strong>默认 0 = 不启用陈旧判定</strong>（行为与修复前完全一致，向后兼容）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+</h3>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_DeviceConnStatus" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.DeviceConnStatus">DeviceConnStatus</h4>
+  <div class="markdown level1 summary"><p>设备连接状态变化事件（轻量版）。</p>
+<p>
+直接传递三个简单参数。
+</p>
+<p>参数说明：</p>
+<p>• string — 设备唯一标识（DeviceId）</p>
+<p>• bool (第2个) — PingOk，网络层是否可达</p>
+<p>• bool (第3个) — Connected，协议层是否已建立连接</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;string, bool, bool&gt;? DeviceConnStatus</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-3">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_DeviceStateChanged" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.DeviceStateChanged">DeviceStateChanged</h4>
+  <div class="markdown level1 summary"><p>设备运行状态变化事件（轻量版）。</p>
+<p>
+直接传递三个简单参数。
+</p>
+<p>参数说明：</p>
+<p>• string — 设备唯一标识（DeviceId）</p>
+<p>• string (第2个) — 运行状态（Running/Stopped/Error/Starting/Stopping）</p>
+<p>• string (第3个) — 状态变化原因/消息（可空）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;string, string, string&gt;? DeviceStateChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-3">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_TagChanges" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.TagChanges">TagChanges</h4>
+  <div class="markdown level1 summary"><p>批量标签值变化事件（轻量版）。</p>
+<p>
+直接传递 List{T}，
+无需处理 PlcRealtimeEvent 包装。适合 WinForm/WPF/SCADA 等简单刷新场景。
+</p>
+<p>
+触发时机：在 PublishTagChanges 内部同步触发，与 Subscribe 订阅者并行分发。
+</p>
+<p>
+注意：此事件不携带 DeviceId。若需按设备过滤，请改用 <a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html#ZL_IotEngine_Notifications_PlcNotificationHub_TagChangesWithDeviceId">TagChangesWithDeviceId</a> 或 <a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html#ZL_IotEngine_Notifications_PlcNotificationHub_Subscribe_System_Action_ZL_IotEngine_Notifications_PlcRealtimeEvent__ZL_IotEngine_Notifications_PlcSubscriptionOptions_System_Threading_SynchronizationContext_">Subscribe(Action&lt;PlcRealtimeEvent&gt;, PlcSubscriptionOptions, SynchronizationContext)</a>。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;List&lt;TagValueChange&gt;&gt;? TagChanges</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<span class="xref">List</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotEngine_Notifications_PlcNotificationHub_TagChangesWithDeviceId" data-uid="ZL.IotEngine.Notifications.PlcNotificationHub.TagChangesWithDeviceId">TagChangesWithDeviceId</h4>
+  <div class="markdown level1 summary"><p>批量标签值变化事件（带设备标识）。</p>
+<p>
+与 <a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html#ZL_IotEngine_Notifications_PlcNotificationHub_TagChanges">TagChanges</a> 同时触发，但额外携带 DeviceId，便于按设备过滤。
+</p>
+<p>参数说明：</p>
+<p>• string — 设备唯一标识（DeviceId）</p>
+<p>• List{T} — 标签值变化列表</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;string, List&lt;TagValueChange&gt;&gt;? TagChangesWithDeviceId</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">List</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

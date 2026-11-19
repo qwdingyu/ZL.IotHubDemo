@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Enum TagQuality | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Enum TagQuality | ZL IoT SDK API ">
+    
+    <meta name="description" content="数据质量代码，对标 OPC DA/UA 标准中的 Quality 字段。  在工控采集中，每个从 PLC 读取的点位都需要附带质量码， 上位系统（MES/SCADA/HMI）根据质量码判断数据是否可信： - Good(0xC0)：数据来自 PLC 实时读取，可放心使用； - Uncertain(0x40)：通讯短暂中断，保留最后一次有效值（&quot;陈旧值&quot;），上位可酌情使用或报警； - Bad(0x00)：通讯完全失败或地址配置错误，数据不可信； - Initializing(0x01)：设备尚未完成首次采集，值为默认值。   质量码数值设计参考 OPC 规范的高/低两位编码方式， 便于通过位运算快速判断大类（Good≥0xC0, Uncertain≥0x40, Bad=0x00）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Models.TagQuality">
+
+
+
+
+  <h1 id="ZL_IotEngine_Models_TagQuality" data-uid="ZL.IotEngine.Models.TagQuality" class="text-break">Enum TagQuality</h1>
+  <div class="markdown level0 summary"><p>数据质量代码，对标 OPC DA/UA 标准中的 Quality 字段。</p>
+<p>
+在工控采集中，每个从 PLC 读取的点位都需要附带质量码，
+上位系统（MES/SCADA/HMI）根据质量码判断数据是否可信：
+- Good(0xC0)：数据来自 PLC 实时读取，可放心使用；
+- Uncertain(0x40)：通讯短暂中断，保留最后一次有效值（"陈旧值"），上位可酌情使用或报警；
+- Bad(0x00)：通讯完全失败或地址配置错误，数据不可信；
+- Initializing(0x01)：设备尚未完成首次采集，值为默认值。
+</p>
+<p>
+质量码数值设计参考 OPC 规范的高/低两位编码方式，
+便于通过位运算快速判断大类（Good≥0xC0, Uncertain≥0x40, Bad=0x00）。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Models_TagQuality_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum TagQuality</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    </thead></thead><tbody>
+      <tr>
+        <td id="ZL_IotEngine_Models_TagQuality_Bad">Bad</td>
+        <td><p>通讯失败或地址错误，数据不可信，上位应忽略或触发报警</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotEngine_Models_TagQuality_Good">Good</td>
+        <td><p>数据正常，来自 PLC 实时读取，可信度最高</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotEngine_Models_TagQuality_Initializing">Initializing</td>
+        <td><p>设备尚未完成首次采集周期，当前值为默认初始值</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotEngine_Models_TagQuality_Uncertain">Uncertain</td>
+        <td><p>数据陈旧——通讯中断但保留最后一次有效值，或设备正在初始化中</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

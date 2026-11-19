@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.Siemens | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.Siemens | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Siemens">
+
+  <h1 id="ZL_IotDriver_Siemens" data-uid="ZL.IotDriver.Siemens" class="text-break">Namespace ZL.IotDriver.Siemens</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.SiemensFetchWriteAddress.html">SiemensFetchWriteAddress</a></h4>
+      <section><p>西门子 Fetch/Write 地址（如 <code>DB1.100</code>、<code>MB10</code>、<code>I0</code>、<code>Q4</code>、<code>T3</code>）。</p>
+<p>⚠️ 本类只做**语法解析**，不做 IO；可与驱动分开单测 ✓</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.SiemensFetchWriteDriver.html">SiemensFetchWriteDriver</a></h4>
+      <section><p>西门子 Fetch/Write（S5 兼容）驱动。</p>
+<p>地址形态见 <a class="xref" href="ZL.IotDriver.Siemens.SiemensFetchWriteAddress.html">SiemensFetchWriteAddress</a>；帧格式见文件头。</p>
+<p>⚠️ **未真机验证**（A 台数 0）—— 与仿真器 `SiemensFetchWriteServer` 端到端验证见
+`SiemensFetchWriteE2ETests`，但那证明的是"与仿真器一致"，**不等于"与真机一致"** ✗</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.SiemensPpiDriver.html">SiemensPpiDriver</a></h4>
+      <section><p>西门子 S7-200 <strong>PPI 串口</strong>驱动（也可经串口服务器 TCP 透传，见 <code>SiemensPpiOverTcpDriver</code>）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.SiemensPpiOverTcpDriver.html">SiemensPpiOverTcpDriver</a></h4>
+      <section><p>西门子 S7-200 PPI 的<strong>串口服务器透传</strong>形态（RFC2217 之外的纯 TCP 透传）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.SiemensS7Driver.html">SiemensS7Driver</a></h4>
+      <section><p>西门子 S7 协议纯 C# 原生驱动 —— 直接基于 TCP Socket 实现 ISO-on-TCP + S7 通信，
+无需 S7.Net / Sharp7 / HSL 等任何第三方依赖。</p>
+<p>【协议要点】</p>
+<ul>
+<li>ISO-on-TCP (RFC 1006)：TPKT(4B) + COTP(3~7B) 头封装</li>
+<li>三次握手：Connect Request(CR) → Connect Confirm(CC) → S7 Communication Setup</li>
+<li>读取命令：Header(4B) + S7 Header(18B) + Parameter(12B/条)</li>
+<li>写入命令：Header(4B) + S7 Header(18B) + Parameter(16B/条) + Data</li>
+<li>每个地址项 12 字节参数（读取）或 16+ 字节（写入）</li>
+<li>响应解析：返回数据在报文末尾，长度由响应头第 2-3 字节指示</li>
+</ul>
+<p>【地址格式】
+DB1.0      数据块 1，字节 0
+DB1.DBX0.0 数据块 1，位 0.0（X 标记可省略）
+M0.0       存储区，字节 0 位 0
+I0.0       输入区，字节 0 位 0（E0.0 德文兼容）
+Q0.0       输出区，字节 0 位 0（A0.0 德文兼容）
+T1         定时器
+C1         计数器
+V0         V 区（S7-200 兼容）</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.FetchWriteArea.html">FetchWriteArea</a></h4>
+      <section><p>Fetch/Write 区域（对应帧内 <code>[8]</code> 区域码）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.SiemensCpuType.html">SiemensCpuType</a></h4>
+      <section><p>西门子 CPU 型号枚举。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

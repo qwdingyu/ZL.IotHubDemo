@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class WriteGate | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class WriteGate | ZL IoT SDK API ">
+    
+    <meta name="description" content="L3 写入授权门禁的统一入口 ✓。  【为什么要它 ✗→✓】本仓 10 个驱动文件里，**19 处**逐字重复着同一段判断 ✓： if (!LicenseGate.AllowWrite(_protocolKey))     return LicenseGate.WriteDenied(); —— 只有注释里的驱动名不同 ✗，判定逻辑完全一致 ✓。 ⇒ 收口后：改口径只需改一处 ✓；新增驱动也不容易漏 ✓。   【⚠️ 与&quot;有意分层&quot;的区别 ✗】本项目此前曾把&quot;许可门禁&quot;整体判为&quot;有意分层、不做收口&quot;✗ —— 那个判断对 **L2（`EnsureLicensed`，抛 `LicenseException`）** 成立 ✓： L2 是&quot;**根本不该运行**&quot;✗、L3 是&quot;**单次操作被拒**&quot;✓，两者语义确实不同 ✓，不该合并。 但**本类只收口 L3 内部的重复写法** ✓ —— **不改变 L2/L3 的分层** ✗，**只把&quot;L3 长什么样&quot;收敛成一处** ✓。 两件事必须分清 ✗：**分层是语义 ✓，重复是写法 ✗**。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Core.WriteGate">
+
+
+
+  <h1 id="ZL_IotDriver_Core_WriteGate" data-uid="ZL.IotDriver.Core.WriteGate" class="text-break">Class WriteGate</h1>
+  <div class="markdown level0 summary"><p>L3 <strong>写入授权</strong>门禁的统一入口 ✓。</p>
+<p>
+【为什么要它 ✗→✓】本仓 10 个驱动文件里，**19 处**逐字重复着同一段判断 ✓：
+<pre><code class="lang-csharp">if (!LicenseGate.AllowWrite(_protocolKey))
+    return LicenseGate.WriteDenied();</code></pre>
+<p>—— 只有注释里的驱动名不同 ✗，<strong>判定逻辑完全一致</strong> ✓。
+⇒ 收口后：改口径只需改<strong>一处</strong> ✓；新增驱动也不容易漏 ✓。</p>
+
+<p>
+【⚠️ 与"有意分层"的区别 ✗】本项目此前曾把"许可门禁"整体判为"有意分层、不做收口"✗ ——
+那个判断对 **L2（`EnsureLicensed`，抛 `LicenseException`）** 成立 ✓：
+L2 是"**根本不该运行**"✗、L3 是"**单次操作被拒**"✓，两者语义确实不同 ✓，不该合并。
+但**本类只收口 L3 内部的重复写法** ✓ ——
+**不改变 L2/L3 的分层** ✗，**只把"L3 长什么样"收敛成一处** ✓。
+两件事必须分清 ✗：**分层是语义 ✓，重复是写法 ✗**。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">WriteGate</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Core.html">Core</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Core_WriteGate_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class WriteGate</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Core_WriteGate_Check_" data-uid="ZL.IotDriver.Core.WriteGate.Check*"></a>
+  <h4 id="ZL_IotDriver_Core_WriteGate_Check_System_String_" data-uid="ZL.IotDriver.Core.WriteGate.Check(System.String)">Check(string?)</h4>
+  <div class="markdown level1 summary"><p>检查是否允许<strong>写入</strong> ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult Check(string? protocolKey)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">protocolKey</span></td>
+        <td><p>驱动持有的协议键 ✓（可为空 ✓，由 <code>LicenseGate</code> 自行处理 ✓）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td><p><code>null</code> ⇒ <strong>已授权，可以继续写</strong> ✓；
+非 <code>null</code> ⇒ <strong>未授权</strong> ✓，调用方必须<strong>直接返回该结果</strong> ✗（不要自己造错误信息 ✗）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotDriver_Core_WriteGate_Check_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>【为什么返回&quot;结果&quot;而不是&quot;bool&quot; ✓】
+原写法是 <code>if (!Allowed) return WriteDenied();</code> ✓ —— 拒绝时要<strong>带统一错误文案</strong> ✓
+（<code>LicenseGate.WriteDeniedMessage</code> ✓）。若只返回 <code>bool</code> ✗，
+每个调用点还要再写一次 <code>return LicenseGate.WriteDenied();</code> ✗ ⇒ <strong>重复依旧存在</strong> ✗。
+⇒ 本方法<strong>把&quot;判定 + 拒绝结果&quot;打包</strong> ✓，调用点只剩一行 ✓。</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

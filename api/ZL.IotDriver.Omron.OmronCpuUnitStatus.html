@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class OmronCpuUnitStatus | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class OmronCpuUnitStatus | ZL IoT SDK API ">
+    
+    <meta name="description" content="欧姆龙 FINS 06 01「读 CPU 单元状态」的解析结果。  字段语义对齐 HSL 13.0.3 _vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.Omron/OmronCpuUnitStatus.cs： Status（Run/Stop）、BatteryStatus（Present/No）、 CpuStatus（Normal/Standby）、Mode（PROGRAM/MONITOR/RUN）、 ErrorCode、ErrorMessage。   【证据等级】字段偏移与 HSL 同源（B 级：单一实现），但本类只解析**有明确依据**的字段； 对响应长度不足的字段返回空/0，不猜测、不越界。仿真器的状态帧布局见 ZL.PlcSimulator/src/PlcSimulator.Lite/Protocols/Omron/OmronFinsUdpServer.cs 的 HandleCpuUnitStatus。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus">
+
+
+
+  <h1 id="ZL_IotDriver_Omron_OmronCpuUnitStatus" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus" class="text-break">Class OmronCpuUnitStatus</h1>
+  <div class="markdown level0 summary"><p>欧姆龙 FINS <code>06 01</code>「读 CPU 单元状态」的解析结果。</p>
+<p>
+字段语义对齐 HSL 13.0.3
+<code>_vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.Omron/OmronCpuUnitStatus.cs</code>：
+<code>Status</code>（Run/Stop）、<code>BatteryStatus</code>（Present/No）、
+<code>CpuStatus</code>（Normal/Standby）、<code>Mode</code>（PROGRAM/MONITOR/RUN）、
+<code>ErrorCode</code>、<code>ErrorMessage</code>。
+</p>
+<p>
+【证据等级】字段偏移与 HSL 同源（B 级：单一实现），但本类只解析**有明确依据**的字段；
+对响应长度不足的字段返回空/0，不猜测、不越界。仿真器的状态帧布局见
+<code>ZL.PlcSimulator/src/PlcSimulator.Lite/Protocols/Omron/OmronFinsUdpServer.cs</code>
+的 <code>HandleCpuUnitStatus</code>。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">OmronCpuUnitStatus</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Omron.html">Omron</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class OmronCpuUnitStatus</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitStatus_BatteryStatus_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.BatteryStatus*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_BatteryStatus" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.BatteryStatus">BatteryStatus</h4>
+  <div class="markdown level1 summary"><p>电池状态：<code>Present</code> 或 <code>No</code>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string BatteryStatus { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitStatus_CpuStatus_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.CpuStatus*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_CpuStatus" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.CpuStatus">CpuStatus</h4>
+  <div class="markdown level1 summary"><p>CPU 状态：<code>Normal</code> 或 <code>Standby</code>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CpuStatus { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitStatus_ErrorCode_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.ErrorCode*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_ErrorCode" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.ErrorCode">ErrorCode</h4>
+  <div class="markdown level1 summary"><p>错误码（大端 16 位，0 表示无错误）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ErrorCode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitStatus_ErrorMessage_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.ErrorMessage*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_ErrorMessage" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.ErrorMessage">ErrorMessage</h4>
+  <div class="markdown level1 summary"><p>错误信息（ASCII，16 字节，尾部空格/NUL 已去除；无错误时为空串）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ErrorMessage { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitStatus_Mode_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.Mode*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_Mode" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.Mode">Mode</h4>
+  <div class="markdown level1 summary"><p>运行模式：<code>PROGRAM</code> / <code>MONITOR</code> / <code>RUN</code>；未知时为空串。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Mode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitStatus_Status_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.Status*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_Status" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.Status">Status</h4>
+  <div class="markdown level1 summary"><p>CPU 运行状态：<code>Run</code> 或 <code>Stop</code>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Status { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Omron_OmronCpuUnitStatus_ToString_" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.ToString*"></a>
+  <h4 id="ZL_IotDriver_Omron_OmronCpuUnitStatus_ToString" data-uid="ZL.IotDriver.Omron.OmronCpuUnitStatus.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>便于日志输出的简短描述。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

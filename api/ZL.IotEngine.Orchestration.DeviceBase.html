@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DeviceBase | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DeviceBase | ZL IoT SDK API ">
+    
+    <meta name="description" content="简化版设备基类 —— 工控 PLC 数据采集的「轻量驱动骨架」。  与 （高级版，含 QoS 写入队列、ConnectionStateManager）不同， 本类面向中小型采集场景：直接同步读写 PLC 寄存器，不使用写入队列和连接状态机。   核心职责： 1. 连接生命周期管理（初次连接 + 断线指数退避重连） 2. 多频率后台扫描引擎（按标签组 ScanRate 分波次轮询 PLC） 3. 心跳写入（独立锁，不阻塞业务读取） 4. 按数据类型分发同步/异步读写 5. 资源释放（Dispose 模式）   继承链：DeviceBase → DeviceRoot（标签管理/计划构建/事件发布）→ object 实现接口：IDeviceDriver（驱动契约）、IPlcDriver（PLC 读写契约）、IDisposable">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Orchestration.DeviceBase">
+
+
+
+  <h1 id="ZL_IotEngine_Orchestration_DeviceBase" data-uid="ZL.IotEngine.Orchestration.DeviceBase" class="text-break">Class DeviceBase</h1>
+  <div class="markdown level0 summary"><p>简化版设备基类 —— 工控 PLC 数据采集的「轻量驱动骨架」。</p>
+<p>
+与 <a class="xref" href="ZL.IotEngine.Orchestration.DevicePro.html">DevicePro</a>（高级版，含 QoS 写入队列、ConnectionStateManager）不同，
+本类面向中小型采集场景：直接同步读写 PLC 寄存器，不使用写入队列和连接状态机。
+</p>
+<p>
+核心职责：
+1. 连接生命周期管理（初次连接 + 断线指数退避重连）
+2. 多频率后台扫描引擎（按标签组 ScanRate 分波次轮询 PLC）
+3. 心跳写入（独立锁，不阻塞业务读取）
+4. 按数据类型分发同步/异步读写
+5. 资源释放（Dispose 模式）
+</p>
+<p>
+继承链：DeviceBase → DeviceRoot（标签管理/计划构建/事件发布）→ object
+实现接口：IDeviceDriver（驱动契约）、IPlcDriver（PLC 读写契约）、IDisposable
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html">DeviceRoot</a></div>
+    <div class="level2"><span class="xref">DeviceBase</span></div>
+      <div class="level3"><a class="xref" href="ZL.IotEngine.Native.NativeUnifiedDriver.html">NativeUnifiedDriver</a></div>
+      <div class="level3"><a class="xref" href="ZL.IotEngine.Orchestration.DevicePro.html">DevicePro</a></div>
+      <div class="level3"><a class="xref" href="ZL.IotEngine.Orchestration.ManagedDeviceBase.html">ManagedDeviceBase</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IDeviceDriver.html">IDeviceDriver</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDriver.html">IPlcDriver</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Device">DeviceRoot.Device</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Transformer">DeviceRoot.Transformer</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_deviceConfig">DeviceRoot.deviceConfig</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Tags">DeviceRoot.Tags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TagTable">DeviceRoot.TagTable</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TriggerTags">DeviceRoot.TriggerTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_HeartbeatTags">DeviceRoot.HeartbeatTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ReadyOkTags">DeviceRoot.ReadyOkTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_QuarantineTags">DeviceRoot.QuarantineTags</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DeviceIp">DeviceRoot.DeviceIp</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_CompanyId">DeviceRoot.CompanyId</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PlantId">DeviceRoot.PlantId</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Line">DeviceRoot.Line</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StationNo">DeviceRoot.StationNo</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TagFilePath">DeviceRoot.TagFilePath</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DeviceId">DeviceRoot.DeviceId</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DebugMode">DeviceRoot.DebugMode</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DefaultStringKind">DeviceRoot.DefaultStringKind</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_EffectiveDefaultStringKind">DeviceRoot.EffectiveDefaultStringKind</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_maxRetryAttempts">DeviceRoot.maxRetryAttempts</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_heartBeatTimerInterval">DeviceRoot.heartBeatTimerInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_pingTimerInterval">DeviceRoot.pingTimerInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ping">DeviceRoot.ping</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsClosed">DeviceRoot.IsClosed</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsConnected">DeviceRoot.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PingHealthy">DeviceRoot.PingHealthy</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ConnectionState">DeviceRoot.ConnectionState</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot__isInitialized">DeviceRoot._isInitialized</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LastTagLoadDiagnostic">DeviceRoot.LastTagLoadDiagnostic</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TagsFailedToLoad">DeviceRoot.TagsFailedToLoad</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsEmptyDevice">DeviceRoot.IsEmptyDevice</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_plcTriggerInterval">DeviceRoot.plcTriggerInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_consecutiveFailures">DeviceRoot.consecutiveFailures</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_samplingLock">DeviceRoot.samplingLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_deviceLock">DeviceRoot.deviceLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_blockBuilder">DeviceRoot.blockBuilder</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_readPlan">DeviceRoot.readPlan</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_planLock">DeviceRoot.planLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_scannablePlans">DeviceRoot.scannablePlans</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_plcValueExtractor">DeviceRoot.plcValueExtractor</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_isFrist">DeviceRoot.isFrist</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_reconnectionTask">DeviceRoot.reconnectionTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_readLoopTask">DeviceRoot.readLoopTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_heartbeatTask">DeviceRoot.heartbeatTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_pingTask">DeviceRoot.pingTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_quarantineRetryTask">DeviceRoot.quarantineRetryTask</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_globalCts">DeviceRoot.globalCts</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PerformanceMonitor">DeviceRoot.PerformanceMonitor</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DataCollectedSkippedNoSubscriber">DeviceRoot.DataCollectedSkippedNoSubscriber</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_localCache">DeviceRoot.localCache</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ConnectionChanged">DeviceRoot.ConnectionChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LogOccurred">DeviceRoot.LogOccurred</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DataCollected">DeviceRoot.DataCollected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StationCode">DeviceRoot.StationCode</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_OnTriggerDataChange_System_String_System_Object_ZL_IotAbstraction_Tag_TagItem_">DeviceRoot.OnTriggerDataChange(string, object, TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_FormatBatchAddress_System_String_System_Int32_">DeviceRoot.FormatBatchAddress(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ResolveSingleTagAddress_ZL_IotAbstraction_Tag_TagItem_System_Int32_ZL_IotAbstraction_Addressing_PlcAddressProfile_System_Boolean_System_Func_System_String_System_Int32_System_String__ZL_IotAbstraction_Abstractions_IAddressSemantics_">DeviceRoot.ResolveSingleTagAddress(TagItem, int, PlcAddressProfile, bool, Func&lt;string, int, string&gt;, IAddressSemantics)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ResolveDriverAddress_ZL_IotAbstraction_Tag_TagItem_">DeviceRoot.ResolveDriverAddress(TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ResolveBlockAddress_ZL_IotEngine_Addressing_PlcReadBlock_System_Boolean_System_Func_System_String_System_Int32_System_String__">DeviceRoot.ResolveBlockAddress(PlcReadBlock, bool, Func&lt;string, int, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetReadAddressLength_System_Int32_">DeviceRoot.GetReadAddressLength(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_AddressProfile">DeviceRoot.AddressProfile</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetAddressUnitBytes">DeviceRoot.GetAddressUnitBytes()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Initialize">DeviceRoot.Initialize()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_InitializeTagDictionaries">DeviceRoot.InitializeTagDictionaries()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StartBackgroundTasks">DeviceRoot.StartBackgroundTasks()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Stop">DeviceRoot.Stop()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_StartSelfBackgroundTasks">DeviceRoot.StartSelfBackgroundTasks()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Start">DeviceRoot.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TryStart_System_String__">DeviceRoot.TryStart(out string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PausableToken">DeviceRoot.PausableToken</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ReleasePauseTokens">DeviceRoot.ReleasePauseTokens()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_PingLoop_System_Threading_CancellationToken_">DeviceRoot.PingLoop(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ProcessTagValueChange_ZL_IotAbstraction_Tag_TagItem_System_Object_">DeviceRoot.ProcessTagValueChange(TagItem, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_BuildPlan">DeviceRoot.BuildPlan()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecutePlanByRate_System_Int32_System_Threading_CancellationToken_">DeviceRoot.ExecutePlanByRate(int, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ProcessValueChanges_System_Collections_Generic_Dictionary_System_String_System_Object__">DeviceRoot.ProcessValueChanges(Dictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_QuarantineRetryLoop_System_Threading_CancellationToken_">DeviceRoot.QuarantineRetryLoop(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ProbeTagAsync_ZL_IotAbstraction_Tag_TagItem_System_UInt16_System_Threading_CancellationToken_">DeviceRoot.ProbeTagAsync(TagItem, ushort, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecuteWithDeviceLockAsync__1_System_Func_System_Threading_Tasks_Task___0___System_Threading_CancellationToken_System_Int32_">DeviceRoot.ExecuteWithDeviceLockAsync&lt;T&gt;(Func&lt;Task&lt;T&gt;&gt;, CancellationToken, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecuteWithDeviceLockAsync_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_System_Int32_">DeviceRoot.ExecuteWithDeviceLockAsync(Func&lt;Task&gt;, CancellationToken, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ExecuteWithDeviceLock__1_System_Func___0__System_Int32_">DeviceRoot.ExecuteWithDeviceLock&lt;T&gt;(Func&lt;T&gt;, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_EmitDataCollected_System_String_">DeviceRoot.EmitDataCollected(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_OnDataCollected_ZL_IotAbstraction_Models_PlcCollectRecord_">DeviceRoot.OnDataCollected(PlcCollectRecord)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GenerateCacheKey_ZL_IotAbstraction_Tag_TagItem_">DeviceRoot.GenerateCacheKey(TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_IsValidTag_ZL_IotAbstraction_Tag_TagItem_">DeviceRoot.IsValidTag(TagItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetTagById_System_String_">DeviceRoot.GetTagById(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetTagValue_System_String_">DeviceRoot.GetTagValue(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetValue__1_System_String_">DeviceRoot.GetValue&lt;T&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetValueResult__1_System_String_">DeviceRoot.GetValueResult&lt;T&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_TryGetValueResult__1_System_String___0__System_String__">DeviceRoot.TryGetValueResult&lt;T&gt;(string, out T, out string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DroppedEventBatches">DeviceRoot.DroppedEventBatches</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DroppedTriggerBatches">DeviceRoot.DroppedTriggerBatches</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_DroppedTriggerChanges">DeviceRoot.DroppedTriggerChanges</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_SetAllTagsQuality_ZL_IotEngine_Models_TagQuality_">DeviceRoot.SetAllTagsQuality(TagQuality)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_CaptureSnapshot">DeviceRoot.CaptureSnapshot()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_Log_System_String_System_String_">DeviceRoot.Log(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LogError_System_String_">DeviceRoot.LogError(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LogWarn_System_String_">DeviceRoot.LogWarn(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_OnConnectionChanged_System_String_System_Boolean_">DeviceRoot.OnConnectionChanged(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_OnLogOccurred_System_String_System_String_">DeviceRoot.OnLogOccurred(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_FormatValueForLog_System_Object_">DeviceRoot.FormatValueForLog(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_GetDiagnosticsReport">DeviceRoot.GetDiagnosticsReport()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_AdjustReadInterval_System_Int64_System_Boolean_">DeviceRoot.AdjustReadInterval(long, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Orchestration.html">Orchestration</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Orchestration_DeviceBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class DeviceBase : DeviceRoot, IDeviceDriver, IPlcDriver, IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase__ctor_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase__ctor_ZL_IotAbstraction_Tag_DeviceConfig_System_Boolean_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.#ctor(ZL.IotAbstraction.Tag.DeviceConfig,System.Boolean)">DeviceBase(DeviceConfig, bool)</h4>
+  <div class="markdown level1 summary"><p>构造函数 —— 初始化设备并启动后台任务。</p>
+<p>
+执行顺序：
+1. 调用 Initialize() 解析配置、初始化标签字典
+2. 若初始化成功，异步发起首次连接（不阻塞构造函数）
+3. 启动后台任务（重连循环、批量读取循环、心跳循环、Ping 探测）
+</p>
+<p>
+<code class="paramref">startFirstConnectInCtor</code>：首连是否由基类构造启动。
+<a class="xref" href="ZL.IotEngine.Orchestration.ManagedDeviceBase.html">ManagedDeviceBase</a> 注入式壳必须传 false 并在自身构造体
+（驱动注入赋值完成）之后调用 <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_StartFirstConnect">StartFirstConnect()</a> ——
+C# 语言限制基类 ctor 必先于派生构造体执行，若由基类在 ctor 内 Task.Run 首连，
+池线程压力下首连可能抢在派生赋值前读到的仍是「未注入」状态，
+走进 lazy 分支自建第二个驱动（+1 泄漏，详见 ManagedDeviceBase 注入构造注释）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected DeviceBase(DeviceConfig config, bool startFirstConnectInCtor = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>设备配置（含 PLC 地址、端口、协议类型、标签列表等）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">startFirstConnectInCtor</span></td>
+        <td><p>true=基类构造内自动发起首连（默认，存量语义）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase__firstConnectTask" data-uid="ZL.IotEngine.Orchestration.DeviceBase._firstConnectTask">_firstConnectTask</h4>
+  <div class="markdown level1 summary"><p>构造函数发起的首次连接任务句柄。</p>
+<p>
+【为什么要持有引用】首次连接是后台 fire-and-forget 任务，若不持有引用：
+1. Dispose 无法等待它退出，可能在它仍持有/即将释放 connectLock 时就 Dispose 掉信号量，
+   导致 connectLock.Release() 抛 ObjectDisposedException（落入 UnobservedTaskException，运维不可见）；
+2. 任务脱离 globalCts，Dispose 后仍可能继续访问已释放资源。
+持有句柄 + 使用 globalCts.Token，使其纳入统一的优雅停止流程。
+</p>
+<p>
+protected：派生类（ManagedDeviceBase）需在自身构造体完成后补设首连句柄
+（注入式壳在驱动赋值就位后才允许启动首连，见 StartFirstConnect 注释）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task _firstConnectTask</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase__isDisposingFlag" data-uid="ZL.IotEngine.Orchestration.DeviceBase._isDisposingFlag">_isDisposingFlag</h4>
+  <div class="markdown level1 summary"><p>释放占位标志（0=未释放，1=释放中/已释放）。</p>
+<p>
+【2026-10-17 释放路径幂等化，docs/287】原为 <code>volatile bool</code> 且守卫写成
+<code>if (_isDisposing) return; _isDisposing = true;</code> ⇒ **非原子**：
+<code>Dispose()</code> 与 <code>DisposeAsync()</code> 并发（或经 <a class="xref" href="ZL.IotEngine.Orchestration.ManagedDeviceBase.html">ManagedDeviceBase</a>
+的壳/驱动双路径）时两者都可能通过判定 ⇒ 释放体跑两遍 ⇒
+<code>finally</code> 里 <code>LicenseManager.DecrementDeviceCount()</code> 重复扣减。
+</p>
+<p>
+现改为 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Exchange(ref int, int)</a> **原子占位**（返回旧值，
+只有拿到 0 的那个线程继续）—— 语义不变（一次性闩锁），但"恰好释放一次"。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected int _isDisposingFlag</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_IsDisposed_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.IsDisposed*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_IsDisposed" data-uid="ZL.IotEngine.Orchestration.DeviceBase.IsDisposed">IsDisposed</h4>
+  <div class="markdown level1 summary"><p>是否正在释放或已释放。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDisposed { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_LicenseCountEligible_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.LicenseCountEligible*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_LicenseCountEligible" data-uid="ZL.IotEngine.Orchestration.DeviceBase.LicenseCountEligible">LicenseCountEligible</h4>
+  <div class="markdown level1 summary"><p>本实例是否参与授权设备计数（Dispose 时执行 DecrementDeviceCount）。</p>
+<p>
+语义：授权计数以「经 <a class="xref" href="ZL.IotEngine.Orchestration.DriverFactory.html#ZL_IotEngine_Orchestration_DriverFactory_Create_ZL_IotAbstraction_Tag_DeviceConfig_">Create(DeviceConfig)</a> 创建的驱动实例」为单位
+（创建时 +1，见 DriverFactory.CreateWithBackend）。凡直接由 DriverFactory 创建、
+或自身即为一个独立授权设备单元的 DeviceBase 子类应保持 true；
+仅作为业务壳包装内部驱动（如 <a class="xref" href="ZL.IotEngine.Orchestration.ManagedDeviceBase.html">ManagedDeviceBase</a>）的子类应覆写为 false，
+避免其 base.Dispose 在内部驱动已 -1 后再次扣减造成计数漂移。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool LicenseCountEligible { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_Overrun_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Overrun*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_Overrun" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Overrun">Overrun</h4>
+  <div class="markdown level1 summary"><p>单频率扫描引擎循环 —— 按指定频率周期性执行一次批量读取。</p>
+<p>
+v12 优化：改用 <a class="xref" href="ZL.IotAbstraction.Utils.CustomPeriodicTimer.html">CustomPeriodicTimer</a> 替代 Task.Delay。
+原因（T8 测试实测数据）：
+<ul><li>Task.Delay 版本：实际周期 = IO耗时 + scanRate，长期累积漂移。
+        T8 实测 100ms 目标下 30s 漂移 403ms，1小时漂移超过 800ms。</li><li>PeriodicTimer 版本：以绝对时间为基准，自动补偿 IO 耗时。
+        T8 实测 100ms 目标下 30s 仅漂移 8ms，精度提升 50×。</li></ul>
+<p>工控行业标准（对标 Kepware）：采集周期必须基于绝对时间，不受 IO 耗时影响。</p>
+
+<p>
+异常处理：捕获后短暂等待（min(scanRate, 1000)ms），防止持续异常导致 CPU 飙升。
+PeriodicTimer 不提供内建错误退避，需手动控制。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OverrunMonitor Overrun { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Orchestration.OverrunMonitor.html">OverrunMonitor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotEngine_Orchestration_DeviceBase_Overrun_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>[!!]【2026-11-11 可见性 <code>private</code> → <code>protected virtual</code>】供门禁做<strong>确定性验证</strong>：
+「运行期新增频率桶 ⇒ 必须自动补建波次」这条契约只能在 <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_BatchReadLoop_System_Threading_CancellationToken_">BatchReadLoop(CancellationToken)</a> 层断言，
+而真实波次会去读 PLC（离线用例不可用）⇒ 测试替身覆写本方法、只登记被启动的 <code>planKey</code>
+并挂起到取消为止。<strong>不改任何采集行为</strong> [OK]（生产路径仍只有本类的实现）。</p>
+</div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_BatchReadLoop_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.BatchReadLoop*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_BatchReadLoop_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.BatchReadLoop(System.Threading.CancellationToken)">BatchReadLoop(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>批量读取主循环 —— 多频率自适应轮询引擎（<strong>波次监管者</strong>）。</p>
+<p>
+工控场景中不同标签对实时性要求不同：
+- 关键工艺参数（如温度、压力）需要 100ms 级采集频率
+- 辅助状态（如计数器、产量）可接受 1-5 秒级频率
+本方法为 `scannablePlans` 里的**每一个频率桶**维持一个独立扫描波次（Task.Run），
+各自按自身周期运行、互不干扰；并在运行期**持续对齐**桶集合与波次集合
+（`BuildPlan()` 会整体替换 `scannablePlans`，桶键集合随之变化 —— 详见方法内注释）。
+</p>
+<p>
+[!] 历史说明：v12 之前「所有标签都用默认频率时回退为单循环（Task.Delay + ExecutePlanByRate(0)）」
+的分支已删除 —— `BuildPlan` 恒为每个块分配桶键（默认频率桶的键 = `plcTriggerInterval`），
+因此该分支只在"计划完全为空"时可达，而那时它与监管循环一样只是空转，
+保留它反而多一条"同一语义两处实现"的分叉来源（docs/271 / 273 / 275 / 279 的病根）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task BatchReadLoop(CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">token</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_BatchReadLoop_System_Threading_CancellationToken_">DeviceRoot.BatchReadLoop(CancellationToken)</a></div>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ClearSnapshotOnDispose_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ClearSnapshotOnDispose*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ClearSnapshotOnDispose" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ClearSnapshotOnDispose">ClearSnapshotOnDispose()</h4>
+  <div class="markdown level1 summary"><p>释放设备资源（同步，Best-Effort）—— 停止后台任务、关闭 PLC 连接、释放锁。</p>
+<p>
+释放顺序（重要）：
+1. 发送取消信号（globalCts.Cancel）—— 通知所有后台循环退出
+2. 等待后台任务优雅退出（最多 1.5 秒）—— 给正在进行的 PLC 读写留完成时间
+3. 释放 CancellationTokenSource
+4. 关闭 PLC 连接（释放 Socket/TCP 资源）
+5. 释放所有 SemaphoreSlim 锁
+</p>
+<p>
+这是工控程序的标准 Dispose 模式，确保程序退出时不会遗留未关闭的 PLC 连接，
+避免 PLC 侧连接数耗尽（许多 PLC 有最大连接数限制，如西门子 S7-1200 最多 16 个）。
+</p>
+<p>
+【注意】此方法使用 .Wait() 同步等待，会短暂阻塞线程池线程。
+如需非阻塞释放，请使用 <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_DisposeAsync">DisposeAsync()</a>。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ClearSnapshotOnDispose()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_Connect_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Connect*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_Connect" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Connect">Connect()</h4>
+  <div class="markdown level1 summary"><p>抽象方法 —— 由子类实现具体的 PLC 连接逻辑（如 S7.Net 连接、Modbus TCP 连接等）。
+返回 true 表示连接成功，false 表示连接失败。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool Connect()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ConnectAsync_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ConnectAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ConnectAsync_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ConnectAsync(System.Threading.CancellationToken)">ConnectAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>异步连接（带取消令牌，供 IDeviceDriver 接口调用）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; ConnectAsync(CancellationToken ct)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_Dispose_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Dispose*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_Dispose" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>释放设备连接及相关资源。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Dispose()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_DisposeAsync_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.DisposeAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_DisposeAsync" data-uid="ZL.IotEngine.Orchestration.DeviceBase.DisposeAsync">DisposeAsync()</h4>
+  <div class="markdown level1 summary"><p>异步释放设备资源（推荐方式）—— 不阻塞线程池线程。</p>
+<p>
+与同步 Dispose 的区别：使用 async/await 等待后台任务退出，
+避免 Thread.Wait 浪费线程池线程。适合 async using 或显式 await 调用场景。
+</p>
+<p>
+virtual 的原因：派生壳（如 <a class="xref" href="ZL.IotEngine.Orchestration.ManagedDeviceBase.html">ManagedDeviceBase</a>）持有内部驱动，
+必须在基类清理完后台任务后补释放该驱动。若此方法非虚，壳无法在异步路径
+释放驱动 —— 驱动会成为孤儿（授权名额 +1 永不归还、重连循环变僵尸）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task DisposeAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_GetCachedValue_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.GetCachedValue*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_GetCachedValue_System_String_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.GetCachedValue(System.String)">GetCachedValue(string)</h4>
+  <div class="markdown level1 summary"><p>从本地缓存获取标签最新值（无 PLC 通讯，毫秒级返回）。
+适用于 HMI/WinForm 界面实时刷新，不需要每次查询都读取 PLC。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object GetCachedValue(string tagId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagId</span></td>
+        <td><p>标签唯一标识</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><p>缓存的值，未找到返回 null</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_HalfOpenProbeAsync_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.HalfOpenProbeAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_HalfOpenProbeAsync_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.HalfOpenProbeAsync(System.Threading.CancellationToken)">HalfOpenProbeAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Circuit Breaker 半开探测 —— 重连后验证 PLC 是否真正可用。</p>
+<p>
+TCP Socket 连通 ≠ PLC 程序正常运行。某些 PLC 在固件崩溃或程序停止时
+仍能接受 TCP 连接但无法响应 S7 协议请求。此方法通过实际读取一个标签
+来确认 PLC 端到端可用。
+</p>
+<p>
+探测策略（优先级从高到低）：
+1. 心跳标签（通常是最小 bool 类型，读取最快）
+2. 就绪信号标签
+3. 任意一个启用的采集标签
+</p>
+<p>
+[!!] 2026-10-31 收敛改造（单一真源）：旧实现自写一份探测（<code>ReadValue</code> 透传原始地址、
+**不持 deviceLock**——触发 ReadValue 的"未持锁"警告、且并发读取无锁纪律；
+位标签不走位通道、非字符串无 Length 钳位）。现**委派 DeviceRoot.ProbeTagAsync**
+（隔离区拆探沿用的硬化原语）：位标签自动走 <a class="xref" href="ZL.IotAbstraction.Abstractions.IBitBatchReader.html">IBitBatchReader</a> 位通道
+（MC 位区字访问实测失败，docs/452）、读取全程持 deviceLock、Length 超限钳位并记日志
+（PlcReadLengthGuard，docs/391）。该原语已被隔离区路径在本类上生产验证 [OK]
+</p>
+<p>
+[!!]【2026-11-11 收口为 protected（G3）】原为 private ⇒ 派生类 `DevicePro` 够不着，
+被迫维护了一份**已分叉**的副本（漏 ReadyOk 回退 / 不持 deviceLock / 自建探测）——
+「同一语义两份实现必然分叉」再次应验 ⇒ 删掉副本，派生类直接复用本方法 [OK]
+（与 <code>ProbeTagAsync</code> 的收口同一先例）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task&lt;bool&gt; HalfOpenProbeAsync(CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">token</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_HeartBeatLoop_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.HeartBeatLoop*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_HeartBeatLoop_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.HeartBeatLoop(System.Threading.CancellationToken)">HeartBeatLoop(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>心跳写入循环 —— 后台常驻任务。</p>
+<p>
+工业场景中的作用：周期性向 PLC 写入心跳值（0/1 交替），
+用于 PLC 程序判断上位机通讯是否正常。PLC 侧通常有看门狗逻辑：
+若心跳值长时间不变化，则判定上位机掉线，触发安全停机或报警。
+</p>
+<p>
+心跳写入经过 deviceLock 保护（S7 单连接要求串行访问），
+所有心跳写入带 5 秒超时保护，防止 PLC 无响应时锁被永久持有。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task HeartBeatLoop(CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">token</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_HeartBeatLoop_System_Threading_CancellationToken_">DeviceRoot.HeartBeatLoop(CancellationToken)</a></div>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_LoadSelfConfig_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.LoadSelfConfig*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_LoadSelfConfig" data-uid="ZL.IotEngine.Orchestration.DeviceBase.LoadSelfConfig">LoadSelfConfig()</h4>
+  <div class="markdown level1 summary"><p>加载设备自身配置（子类可扩展）。默认空实现，子类可按需覆盖。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void LoadSelfConfig()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_LoadSelfConfig">DeviceRoot.LoadSelfConfig()</a></div>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_OnTagWritten_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.OnTagWritten*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_OnTagWritten_System_String_System_Object_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.OnTagWritten(System.String,System.Object)">OnTagWritten(string, object)</h4>
+  <div class="markdown level1 summary"><p>写入成功后的扩展点：子类可覆写此方法，在标签写入成功后执行额外逻辑（如发布事件）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnTagWritten(string tagId, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagId</span></td>
+        <td><p>写入成功的标签标识</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>写入的值</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ReadResultAsync_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadResultAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ReadResultAsync__1_System_String_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadResultAsync``1(System.String,System.Threading.CancellationToken)">ReadResultAsync&lt;T&gt;(string, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>【2026-11-09 新增，docs/624 / A-233】<strong>实例版</strong>异步读 —— 让&quot;可判别的读&quot;从设备实例<strong>直接可达</strong> [OK]</p>
+<p>
+[!!] **为什么需要**：`ReadAsync&lt;T&gt;` 原本只存在于 `IPlcDeviceExtensions`（扩展方法），
+而 <code>DeviceBase</code> **不是** `IPlcDevice`（`IPlcDriver : IDisposable`，与 `IPlcDevice` 无继承关系）
+⇒ 从 `DeviceFactory.Create` 拿到的设备**调不到**它（`CS1929`）[X][X]
+（实测见 `docs/624` §4.8）
+</p>
+<p>
+[OK] 本方法内部走**同一真源** <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadResult__1_System_String_">ReadResult&lt;T&gt;(string)</a>（保持"标签 Id"语义，
+与地址级 `device.Device.ReadAsync&lt;T&gt;(address)` **不同** —— 后者吃地址 [X]）
+</p>
+<p>[!] 本方法是**同步读取的异步包装**（不占用调用线程等待锁），语义与 `ReadResult&lt;T&gt;` 完全一致。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;T&gt;&gt; ReadResultAsync&lt;T&gt;(string id, CancellationToken ct = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ReadResult_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadResult*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ReadResult__1_System_String_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadResult``1(System.String)">ReadResult&lt;T&gt;(string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;T&gt; ReadResult&lt;T&gt;(string id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ReadString_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadString*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ReadString__1_System_String_System_UInt16_System_Text_Encoding_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadString``1(System.String,System.UInt16,System.Text.Encoding)">ReadString&lt;T&gt;(string, ushort, Encoding)</h4>
+  <div class="markdown level1 summary"><p>按<strong>地址</strong>读字符串。</p>
+<p>[!]【kind 语义（2026-10-27 补，理解灾难预防）】本重载**没有 TagItem 上下文**
+⇒ StringKind = 设备级默认（EffectiveDefaultStringKind，含驱动自述/
+配置/Raw 回落链）——**无法表达标签级 StringKind** [X]。需要标签级布局的调用方
+请用 <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadString__1_ZL_IotAbstraction_Tag_TagItem_System_Text_Encoding_">ReadString&lt;T&gt;(TagItem, Encoding)</a> 重载 [OK]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;T&gt; ReadString&lt;T&gt;(string address, ushort size, Encoding encoding = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">size</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ReadString_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadString*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ReadString__1_ZL_IotAbstraction_Tag_TagItem_System_Text_Encoding_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadString``1(ZL.IotAbstraction.Tag.TagItem,System.Text.Encoding)">ReadString&lt;T&gt;(TagItem, Encoding)</h4>
+  <div class="markdown level1 summary"><p>从 PLC 读取字符串类型数据（支持标签级 StringKind 配置）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;T&gt; ReadString&lt;T&gt;(TagItem tag, Encoding encoding = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>同 <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadString__1_System_String_System_UInt16_System_Text_Encoding_">ReadString&lt;T&gt;(string, ushort, Encoding)</a>：<code>null</code> ⇒ <code>Encoding.UTF8</code>（方案 D：跨 TFM 确定）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ReadValue_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadValue*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ReadValue_System_String_System_String_System_String_System_Int32_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReadValue(System.String,System.String,System.String,System.Int32)">ReadValue(string, string, string, int)</h4>
+  <div class="markdown level1 summary"><p>根据数据类型读取 PLC 地址值。</p>
+<p>
+【重要】此方法必须在 deviceLock 保护下调用，否则会导致并发访问 PLC 连接。
+常规使用应通过 <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_Read__1_System_String_">Read&lt;T&gt;(string)</a> 调用，它会自动加锁。
+若直接调用此方法，请先通过 ExecuteWithDeviceLock&lt;T&gt; 包装。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;返回 dynamic ⇒ 失去编译期类型检查，且失败时返回 \&quot;\&quot; 无法与\&quot;读到空串\&quot;区分。请改用 ReadResult&lt;T&gt;（DeviceResult&lt;T&gt;）或 TryRead&lt;T&gt;（bool ＋ 错误消息）。&quot;, false)]
+public dynamic ReadValue(string dataTypeCode, string address, string stringEncoding, int length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataTypeCode</span></td>
+        <td><p>数据类型码（如 bool, int, string 等）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>PLC 地址</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">stringEncoding</span></td>
+        <td><p>字符串编码（用于 string 类型）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">length</span></td>
+        <td><p>读取长度（用于 string/byte[] 类型）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">dynamic</span></td>
+        <td><p>读取成功返回实际值，失败返回空字符串</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_Read_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Read*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_Read__1_System_String_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Read``1(System.String)">Read&lt;T&gt;(string)</h4>
+  <div class="markdown level1 summary"><p>同步读取标签值 —— 直接从 PLC 读取指定标签的当前值（非缓存）。</p>
+<p>
+适用于需要实时获取 PLC 当前值的场景（如手动触发查询、写入前回读验证）。
+常规的周期性采集应使用后台扫描引擎 + GetCachedValue，而非此方法。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Read&lt;T&gt;(string id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>标签唯一标识</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>读取到的值，失败或未找到标签时返回 default(T)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>期望的返回值类型</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ReconnectionLoop_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReconnectionLoop*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ReconnectionLoop_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ReconnectionLoop(System.Threading.CancellationToken)">ReconnectionLoop(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>断线重连循环 —— 后台常驻任务。</p>
+<p>
+采用指数退避策略：首次重连间隔 1 秒，每次失败后延迟翻倍，上限 30 秒。
+重连成功后立即重置延迟为 1 秒。
+这是工控场景中保证数据连续性的关键机制 —— PLC 网络抖动、交换机重启等
+情况下必须自动恢复连接，无需人工干预。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task ReconnectionLoop(CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">token</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html#ZL_IotEngine_Orchestration_DeviceRoot_ReconnectionLoop_System_Threading_CancellationToken_">DeviceRoot.ReconnectionLoop(CancellationToken)</a></div>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_ResolveProtocolKey_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ResolveProtocolKey*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_ResolveProtocolKey" data-uid="ZL.IotEngine.Orchestration.DeviceBase.ResolveProtocolKey">ResolveProtocolKey()</h4>
+  <div class="markdown level1 summary"><p>从设备配置中解析协议键（用于授权检查）。</p>
+<p>
+业务意图：DeviceBase 作为驱动外壳，需要知道底层协议类型才能做免费版策略检查。
+解析逻辑与 <a class="xref" href="ZL.IotEngine.Orchestration.ProtocolKeyHelper.html#ZL_IotEngine_Orchestration_ProtocolKeyHelper_ResolveProtocolKey_ZL_IotAbstraction_Tag_DeviceConfig_">ResolveProtocolKey(DeviceConfig)</a> 保持一致。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string? ResolveProtocolKey()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_SimpleScanEngineLoop_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.SimpleScanEngineLoop*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_SimpleScanEngineLoop_System_Int32_System_Int32_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.SimpleScanEngineLoop(System.Int32,System.Int32,System.Threading.CancellationToken)">SimpleScanEngineLoop(int, int, CancellationToken)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task SimpleScanEngineLoop(int scanRate, int planKey, CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">scanRate</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">planKey</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">token</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_StartFirstConnect_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.StartFirstConnect*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_StartFirstConnect" data-uid="ZL.IotEngine.Orchestration.DeviceBase.StartFirstConnect">StartFirstConnect()</h4>
+  <div class="markdown level1 summary"><p>发起异步首次连接（返回任务句柄，调用方需持有以纳入生命周期管理）。</p>
+<p>
+派生类在自身构造完成（含字段注入就位）后调用本方法启动首连，
+替代基类 ctor 内的自动启动 —— 用于派生构造体晚于基类 ctor 赋值字段的场景
+（ManagedDeviceBase 注入式壳：驱动必须就位后才允许 Connect 看到它）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task StartFirstConnect()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_TryRead_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.TryRead*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_TryRead__1_System_String___0__System_String__" data-uid="ZL.IotEngine.Orchestration.DeviceBase.TryRead``1(System.String,``0@,System.String@)">TryRead&lt;T&gt;(string, out T, out string)</h4>
+  <div class="markdown level1 summary"><p>【2026-11-09 新增，docs/624 / A-233】按标签 Id 读取，<strong>用 <code>Try</code> 惯例</strong>报告成败 [OK]</p>
+<p>
+与 .NET 的 `TryParse` / `TryGetValue` 一致：**失败时返回 <code>false</code> 并给出原因**，
+调用方**必须**检查返回值 [X]（这正是它存在的意义 —— 让"忘了判失败"变成**显式**选择）
+</p>
+<p>内部委托 <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html#ZL_IotEngine_Orchestration_DeviceBase_ReadResult__1_System_String_">ReadResult&lt;T&gt;(string)</a>（单一真源 [OK]），不重复任何判定逻辑。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRead&lt;T&gt;(string id, out T value, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>标签 Id</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>成功时的值；失败时为 <code>default(T)</code></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>失败原因（成功时为 <code>null</code>）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>成功 <code>true</code>；失败 <code>false</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_Write_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Write*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_Write_System_String_System_Object_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.Write(System.String,System.Object)">Write(string, object)</h4>
+  <div class="markdown level1 summary"><p>同步写入标签值 —— 向 PLC 指定地址写入数据。</p>
+<p>
+包含重试机制（最多 maxRetryAttempts 次，间隔 10ms），应对 PLC 偶发繁忙。
+使用 deviceLock 保证同一时刻只有一个业务写入操作，防止并发写入导致数据错乱。
+L3 授权检查：写入前检查 LicenseGate，禁止未授权写入。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DeviceResult Write(string id, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>标签唯一标识</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>待写入的值</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td><p>操作结果（含成功/失败状态和错误信息）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_WriteAsync_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.WriteAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_WriteAsync_System_String_System_Object_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.WriteAsync(System.String,System.Object)">WriteAsync(string, object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;DeviceResult&gt; WriteAsync(string id, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_WriteString_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.WriteString*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_WriteString_ZL_IotAbstraction_Tag_TagItem_System_String_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.WriteString(ZL.IotAbstraction.Tag.TagItem,System.String)">WriteString(TagItem, string)</h4>
+  <div class="markdown level1 summary"><p>写入字符串到 PLC —— 根据 StringKind 处理不同存储格式。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult WriteString(TagItem tag, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceBase_WriteTagAsync_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.WriteTagAsync*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceBase_WriteTagAsync_System_String_System_Object_System_Threading_CancellationToken_" data-uid="ZL.IotEngine.Orchestration.DeviceBase.WriteTagAsync(System.String,System.Object,System.Threading.CancellationToken)">WriteTagAsync(string, object, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>异步写入标签值（供 IDeviceDriver 接口调用）。
+内部委托给 WriteAsync 并返回是否成功。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; WriteTagAsync(string tagId, object value, CancellationToken ct)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IDeviceDriver.html">IDeviceDriver</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDriver.html">IPlcDriver</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

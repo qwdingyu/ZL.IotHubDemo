@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.LSis | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.LSis | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.LSis">
+
+  <h1 id="ZL_IotDriver_LSis" data-uid="ZL.IotDriver.LSis" class="text-break">Namespace ZL.IotDriver.LSis</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html">LSisFEnetAddress</a></h4>
+      <section><p>LSis <strong>FEnet</strong> 协议的地址（解析结果 + 归一化）✓。</p>
+<p>
+【唯一权威来源 ✓】本文件的每条规则均逐条核对自 **vendor 的 HSL 12.9.2**
+（`_vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.LSIS/LSFastEnet.cs` ✓）：
+<ul><li><code>AnalysisAddress</code> —— 归一化规则（区域 / 单位 / 数字倍率）✓</li><li><code>GetDataTypeToAddress</code> —— 数据类型判定 ✓</li></ul>
+<p>⚠️ <strong>不得</strong>据 NuGet DLL 的运行时行为反推本规则 ✗ ——
+两者在 <code>MX</code> 上<strong>行为不同</strong> ✗（属 HSL 版本分歧 ✓，详见 <code>docs/425</code> §4 坑 C ✓）。</p>
+
+<p>
+🔴 **【协议基准在此】完整协议详录见 `docs/429_LSis_FEnet协议详录_源码与实测全量对照`** ✓ ——
+那里按"源码怎么说 / 实测怎么做 / 我们怎么实现 / 为什么"四栏并列写清了**每一条规则** ✓。
+改本文件前**必须先读它** ✗，否则极易再次出现"看源码写错、看 DLL 又改回来"的反复 ✗
+（本项目已在 LSis 上反复多次，全部记录在 `docs/429` §七 ✓）。
+</p>
+<p>
+【为什么必须"归一化"】FEnet 线上帧里送的是**归一化后的地址串** ✓
+（形如 <code>%DB100</code> ✓），而**不是**用户书写的 `D100` ✗。
+归一化由 `AnalysisAddress` 完成 ✓；本类把它显式建模，便于单测与变异自检 ✓。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetDriver.html">LSisFEnetDriver</a></h4>
+      <section><p>LS Electric（GLOFA / MASTER-K / XGB）<strong>FEnet</strong> 驱动 [OK]。</p>
+<p>
+【分层（本仓既定做法 [OK]）】
+<ul><li><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html">LSisFEnetAddress</a> —— 地址解析与归一化 [OK]（**纯函数** [OK]，43 条门禁测试 [OK]）</li><li><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.html">LSisFEnetFrame</a> —— 帧构造与解析 [OK]（**纯函数** [OK]，32 条门禁测试 + 黄金向量 [OK]）</li><li><b>本类</b> —— 只做 socket 收发 + <code>IPlcDevice</code> 契约 + 许可门禁 [OK]</li></ul>
+
+<p>
+【唯一权威基准 [OK]】`_vendor` 的 HSL 12.9.2（`LSFastEnet` [OK]）。
+[!] **不得**据 NuGet DLL 反推 [X]（两者在 `MX` 上不同 [OK]，见 `docs/425` §4 坑 C [OK]）。
+</p>
+<p>
+【已实测确认的关键事实 [OK]】
+① **字节序 = 小端** [OK]（`docs/425` §9.1 [OK]：HSL 写 Int16 0x1234 ⇒ 线上 `34 12` [OK]）；
+② 读的「字节数」是**字节数** [OK] 不是元素数 [X]（§4 坑 B [OK]）；
+③ 位读走 **Individual** 结构 [OK]（§4 坑 A [OK]）；
+④ 大长度读写**现已可用** [OK]（仿真器侧第 9 处缺陷已修 [OK]，实测至 1024 字节 [OK]）。
+</p>
+<p>
+【v1 已知限制 [X]】带 `.` 的地址（如 `IX0.0.0`）会被 <a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html">LSisFEnetAddress</a>
+**显式拒绝** [OK]（需复刻 HSL 的 `GetBitIndexInformation` [X]，v1 未实现 [OK]）。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.html">LSisFEnetFrame</a></h4>
+      <section><p>FEnet 帧的<strong>构造</strong>与<strong>解析</strong> [OK]（纯函数 [OK]，不碰 socket [X] ⇒ 可在 CI 门禁内离线单测 [OK]）。</p>
+<p>
+【为什么单独成层】把"帧长什么样"与"怎么收发"分开 [OK]：
+纯函数部分可在门禁内被测死 [OK]，驱动只剩薄薄的 IO 包装 [OK]。
+</p>
+<p>
+[!!] **【协议基准在此】完整协议详录见 `docs/429_LSis_FEnet协议详录_源码与实测全量对照`** [OK] ——
+其中 §一 是帧结构、§三 是 `dt` 与 `length` 口径、§四 是字节序 [OK]。
+[!] **改动前必读** [X]：本项目在 LSis 上反复推翻多次，根因都是"把源码当成对端行为"[X]，
+现在固定的判据顺序是 **① 先抓包 → ② 再看数据落点 → ③ 最后才看源码** [OK]（见 `docs/429` §七 [OK]）。
+</p>
+<p>
+【唯一权威来源 [OK]】每条布局均逐条核对自 **vendor 的 HSL 12.9.2**
+（`_vendor/.../LSIS/LSFastEnet.cs` [OK]），并与仿真器侧的**抓包实测**互相印证 [OK]：
+<ul><li><code>PackCommandWithHeader</code> —— 20 字节头（含长度与校验和 [OK]）</li><li><code>BuildReadByteCommand</code> / <code>BuildWriteByteCommand</code> —— 批量读写 [OK]</li><li><code>BuildReadIndividualCommand</code> —— 位读（**结构不同** [X]）</li><li><code>ExtractActualData</code> —— 响应解析 [OK]</li></ul>
+<p>[!] <strong>不得</strong>据 NuGet DLL 的运行时行为反推 [X]（两者在 <code>MX</code> 上不同 [X]，见 <code>docs/425</code> §4 坑 C [OK]）。</p>
+
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType.html">LSisFEnetFrame.LSisCpuType</a></h4>
+      <section><p>CPU 类型码 [OK]（写入头 <code>[12]</code> [OK]）。缺省取 <a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType.html#ZL_IotDriver_LSis_LSisFEnetFrame_LSisCpuType_XgbMk">XgbMk</a> [OK]
+（与仿真器侧一致 [OK]）。</p>
+<p>[!] 源码里**未显式设置时该字节保持 0** [X] —— 是否被真实 PLC 接受**未验证** [X]，
+故本实现**显式设定** [OK]，避免依赖"0 也能用"这一未证假设 [X]。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

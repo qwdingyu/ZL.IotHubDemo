@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcStringReadHelper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcStringReadHelper | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 字符串读取的共享 纯函数（读侧唯一解析源，与写侧 PlcStringWriteHelper 成对）。  职责边界：只负责「把一段已经读到的字节缓冲，按  布局与 encoding 解析成 .NET string」， 不负责传输（读几段、从哪开始读、读多长）。传输策略由各调用方决定。   【2026-10-17 二次收口】此前&quot;唯一解码源&quot;只完成了 1/4 ✗： 仅 PlcValueExtractor 委托到这里，而 DevicePro.ReadStringAsync&amp;lt;T&amp;gt; 与 DeviceBase.ReadFromDeviceInternal 各自内联一套头剥离 + 解码 + 修剪 ✗， BatchMonitor.ReadStringAsync 更是&quot;先让驱动把地址偏移 +2 拿到无头内容、再对 string 剥一次头&quot; ✗。 实测后果：同一个 S7String 标签、同一份 PLC 数据，四条读路径给出不同的值 ✗。   【统一口径（四条读路径共同遵守）】 ① 头剥离只发生在原始字节上，且只发生一次 —— 对已解码的 string 再剥头是结构错误 ✗； ② 内容区只按布局声明的长度取（Raw=声明长度、S7String=Byte1、S7WString=实际字数&#215;2）； ③ 不按内嵌 \0 截断（S7 STRING 允许内嵌 NUL，按首 NUL 截会丢数据）； ④ 只做 TrimEnd(&#39;\0&#39;)（尾部填充），不去首尾空白、不删内部 CR/LF。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper" class="text-break">Class PlcStringReadHelper</h1>
+  <div class="markdown level0 summary"><p>PLC 字符串读取的共享 <b>纯函数</b>（读侧<b>唯一</b>解析源，与写侧 PlcStringWriteHelper 成对）。</p>
+<p>
+职责边界：只负责「把一段已经读到的字节缓冲，按 <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a> 布局与 encoding 解析成 .NET string」，
+<b>不负责</b>传输（读几段、从哪开始读、读多长）。传输策略由各调用方决定。
+</p>
+<p>
+【2026-10-17 二次收口】此前"唯一解码源"只完成了 <b>1/4</b> ✗：
+仅 <code>PlcValueExtractor</code> 委托到这里，而 <code>DevicePro.ReadStringAsync&lt;T&gt;</code> 与
+<code>DeviceBase.ReadFromDeviceInternal</code> 各自内联一套头剥离 + 解码 + 修剪 ✗，
+<code>BatchMonitor.ReadStringAsync</code> 更是"先让驱动把地址偏移 +2 拿到无头内容、再对 string 剥一次头" ✗。
+实测后果：同一个 S7String 标签、同一份 PLC 数据，四条读路径给出<b>不同</b>的值 ✗。
+</p>
+<p>
+【统一口径（四条读路径共同遵守）】
+① 头剥离只发生在<b>原始字节</b>上，且只发生一次 —— 对已解码的 <code>string</code> 再剥头是结构错误 ✗；
+② 内容区<b>只按布局声明的长度</b>取（Raw=声明长度、S7String=Byte1、S7WString=实际字数×2）；
+③ <b>不</b>按内嵌 <code>\0</code> 截断（S7 STRING 允许内嵌 NUL，按首 NUL 截会丢数据）；
+④ 只做 <code>TrimEnd('\0')</code>（尾部填充），<b>不</b>去首尾空白、<b>不</b>删内部 CR/LF。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcStringReadHelper</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PlcStringReadHelper</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_DecodeRaw_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.DecodeRaw*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_DecodeRaw_System_Byte___System_Int32_System_Int32_System_Text_Encoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.DecodeRaw(System.Byte[],System.Int32,System.Int32,System.Text.Encoding)">DecodeRaw(byte[], int, int, Encoding)</h4>
+  <div class="markdown level1 summary"><p>把一段原始的（裸字节/无布局头）字符区用 <code class="paramref">encoding</code> 解码，并按
+IEC/西门子惯例裁掉尾部 0x00（PLC 常以 0 填充剩余区）。这是所有 Raw 场景的统一出口。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DecodeRaw(byte[] buffer, int start, int length, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_DecodeRaw_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.DecodeRaw*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_DecodeRaw_System_Byte___System_Int32_System_Int32_System_Text_Encoding_System_Boolean_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.DecodeRaw(System.Byte[],System.Int32,System.Int32,System.Text.Encoding,System.Boolean)">DecodeRaw(byte[], int, int, Encoding, bool)</h4>
+  <div class="markdown level1 summary"><p>同 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_DecodeRaw_System_Byte___System_Int32_System_Int32_System_Text_Encoding_">DecodeRaw(byte[], int, int, Encoding)</a>，但可<strong>选择截断策略</strong> ✓。</p>
+<p>
+【两套语义并存的原因】本仓历史上有两种"结尾 NUL"处理 ✗：
+· **IEC 语义**：在**首个** <code>\0</code> 处截断 ✓（`NativeDriverBase` / `SerialDriverBase` 的 `ReadString` 长期如此 ✓）；
+· **裁尾语义**：只裁掉**尾部** <code>\0</code> ✓，保留内容中的内部 <code>\0</code> ✓（本方法原行为 ✓）。
+二者只在"**内容含内部 NUL 且其后仍有非 NUL 字节**"时结果不同 ✗
+（纯填充、全 0、空缓冲三种场景**完全一致** ✓）。
+</p>
+<p>
+【为什么必须两套都留】对**定长/RAW 字符串字段**（如 Modbus 保持区 ✓），
+填充之后未必全 0（PLC 可能只覆盖了前缀 ✗）⇒ **首个 NUL 截断**才是正确语义 ✓；
+而对**带长度头**的字段（S7 STRING ✓），内部 <code>\0</code> 是合法内容 ✗ ⇒ 必须用**裁尾** ✓。
+⇒ 由调用方按**协议的字段语义**选择 ✓，不能全局二选一 ✗。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DecodeRaw(byte[] buffer, int start, int length, Encoding encoding, bool truncateAtNul)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">truncateAtNul</span></td>
+        <td><p><code>true</code> = IEC 语义，在<strong>首个</strong> <code>0x00</code> 处截断（再裁尾部 NUL，结果等价 ✓）；
+<code>false</code> = 只裁<strong>尾部</strong> <code>0x00</code>，保留内部 NUL ✓。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ParseLayout_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ParseLayout*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ParseLayout_System_Byte___System_Int32_System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Text_Encoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ParseLayout(System.Byte[],System.Int32,System.Int32,ZL.IotAbstraction.Tag.StringKind,System.Text.Encoding)">ParseLayout(byte[], int, int, StringKind, Encoding)</h4>
+  <div class="markdown level1 summary"><p>解析一段<b>已读齐</b>的、含完整&quot;布局头 + 字符区&quot;的缓冲，返回解码后的字符串。
+无法按布局解析时（头字节不足 / 声明长度超出缓冲）返回 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string.empty">Empty</a>。</p>
+<p>
+⚠️ **"PLC 里是空串"与"布局不合法"返回的都是空串** —— 调用方若需区分，
+必须用 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryParseLayout_System_Byte___System_Int32_System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Text_Encoding_System_Int32__">TryParseLayout(byte[], int, int, StringKind, Encoding, out int)</a>（空串 ⇒ <code>true</code> 且 <code>consumedBytes</code> = 头长；
+布局不合法 ⇒ <code>false</code>）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ParseLayout(byte[] buffer, int startIndex, int declaredLength, StringKind kind, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">startIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_PlanRemainingRead_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.PlanRemainingRead*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_PlanRemainingRead_System_Byte___System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Int32__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.PlanRemainingRead(System.Byte[],System.Int32,ZL.IotAbstraction.Tag.StringKind,System.Int32@)">PlanRemainingRead(byte[], int, StringKind, out int)</h4>
+  <div class="markdown level1 summary"><p>两段式读取的第二步：用<strong>首读到的头</strong>求出补读长度。</p>
+<p>
+【为什么集中在这里】收口前 <code>DevicePro</code> 用 <code>actualLen + 2</code> /
+<code>wActualChars * 2 + 4</code>，<code>DeviceBase</code> 用 <code>wLen * 2</code> ——
+对"头要不要计入"是两种理解 ✗，且后者把 <code>wLen * 2</code> 直接 <code>(ushort)</code> 窄化 ✗。
+现在两者都调本方法，口径只有一处。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PlcStringReadHelper.ProbeOutcome PlanRemainingRead(byte[] header, int declaredLength, StringKind kind, out int nextReadLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">header</span></td>
+        <td><p>首读到的字节（长度 = <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryPlanProbe_ZL_IotAbstraction_Tag_StringKind_System_Int32_System_Int32__">TryPlanProbe(StringKind, int, out int)</a> 给出的 probeLen）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">nextReadLength</span></td>
+        <td><p>补读长度（= 头 + 内容的<strong>总</strong>字节数）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html">PlcStringReadHelper</a>.<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ProbeOutcome.html">ProbeOutcome</a></td>
+        <td><p><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ProbeOutcome.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ProbeOutcome_Done">Done</a>：头已足够得出结果（空串），无需补读；
+<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ProbeOutcome.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ProbeOutcome_NeedMore">NeedMore</a>：按 <code class="paramref">nextReadLength</code> 补读后整段解析；
+<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ProbeOutcome.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ProbeOutcome_Invalid">Invalid</a>：布局不成立。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ReadStringAsync_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ReadStringAsync*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ReadStringAsync_System_Func_System_Int32_System_Threading_Tasks_Task_System_Byte_____System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Text_Encoding_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ReadStringAsync(System.Func{System.Int32,System.Threading.Tasks.Task{System.Byte[]}},System.Int32,ZL.IotAbstraction.Tag.StringKind,System.Text.Encoding)">ReadStringAsync(Func&lt;int, Task&lt;byte[]&gt;&gt;, int, StringKind, Encoding)</h4>
+  <div class="markdown level1 summary"><p><strong>两段式读取的唯一编排</strong>：读头 → 按头声明补读 → 解码，并<strong>校验真的读够</strong>。</p>
+<p>
+【为什么必须收口到这一处】此前同一套编排在 <code>DevicePro</code>、<code>DeviceBase</code>、
+<code>BatchMonitor</code> 各写一遍 ✗ ⇒ 失败口径三路不同：
+<code>DevicePro</code> 返回失败 ✓、<code>BatchMonitor</code> 返回 null + 日志 ✓、
+而 <code>DeviceBase</code> **把"没读够"返回成 `IsSuccess = true` + 空串** ✗（静默错误）。
+更早还出现过"一次读够最大长度"与"两段式"两种读法在同一路径上反复改动 ✗。
+</p>
+<p>
+【短读必须失败 —— 这不是新约定】✓ 本仓既有两个块读路径**已经**这么做：
+<code>BatchMonitor.ExecuteReadCycleAsync</code> 对 <code>Content.Length &lt; block.Length</code> 记
+<code>MarkBlockFailure</code> ✓；<code>PlcValueExtractor</code> 对"缓冲区不足"走
+<code>OnOutOfRange</code> 并**丢弃该值** ✓。本方法把同一口径补齐到字符串读路径。
+</p>
+<p>
+【不抛异常】<code>read</code> 抛出的异常**原样向上传播**（与收口前一致 ✓）——
+各调用方本就有外层 try/catch 把它转成各自的结果类型。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;PlcStringReadHelper.StringReadResult&gt; ReadStringAsync(Func&lt;int, Task&lt;byte[]&gt;&gt; read, int declaredLength, StringKind kind, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <span class="xref">Task</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</td>
+        <td><span class="parametername">read</span></td>
+        <td><p>读取给定字节数；返回 <code>null</code> 表示<strong>读失败</strong>（驱动失败）。返回长度可少于请求（短读）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td><p>点表声明长度（仅 Raw 使用；带前导符的长度由头部声明）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td><p>字符串存储格式（已解析出设备级回落值）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html">PlcStringReadHelper</a>.<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.StringReadResult.html">StringReadResult</a>&gt;</td>
+        <td><p><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.StringReadResult.html">PlcStringReadHelper.StringReadResult</a>：读到值、或明确失败并带原因。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_SwapBytesWithinWords_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.SwapBytesWithinWords*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_SwapBytesWithinWords_System_Byte___System_Int32_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.SwapBytesWithinWords(System.Byte[],System.Int32,System.Int32)">SwapBytesWithinWords(byte[], int, int)</h4>
+  <div class="markdown level1 summary"><p>把 <code class="paramref">buffer</code> 的 <code>[start, start+length)</code> 区间按 <strong>16 位「字」逐字交换两个字节</strong>
+（<strong>元素顺序不变</strong> ✓），等价于 HSL 的 <code>SoftBasic.BytesReverseByWord</code> ✓。</p>
+<p>
+【谁在用】
+· **S7 WSTRING**：PLC 存大端字符、而 .NET 的 <span class="xref">System.Text.Encoding.Unicode</span> 按小端解 ✓；
+· **欧姆龙系（FINS / HostLink）**：HSL 对其全部协议设
+  <code>IsStringReverseByteWord = true</code> ✓（按字单位反转字符串）——
+  见 `OmronFinsDriver` / `OmronHostLinkOverTcp` 的字符串读写 ✓。
+</p>
+<p>
+⚠️ **只交换字内两字节，不改变元素顺序** ✗ —— 这与"整体 <code>Array.Reverse</code>"是**两回事** ✗
+（后者会把元素顺序也倒过来 ✗，正是本仓曾出过的缺陷 ✓）。
+奇数尾字节**原样保留**（不参与交换），避免越界 ✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] SwapBytesWithinWords(byte[] buffer, int start, int length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ToS7WStringWireBytes_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ToS7WStringWireBytes*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ToS7WStringWireBytes_System_Byte___" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.ToS7WStringWireBytes(System.Byte[])">ToS7WStringWireBytes(byte[])</h4>
+  <div class="markdown level1 summary"><p>把一段 <strong>UTF-16LE 字节</strong>转成 S7 WSTRING 的<strong>线上字节</strong>（逐字交换 ⇒ 大端字符）✓ ——
+与 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">DecodeContent(byte[], int, int, StringKind, Encoding)</a> 的 S7WString 分支<strong>互为逆变换</strong> ✓（写读对称 ✓）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] ToS7WStringWireBytes(byte[] utf16LeBytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">utf16LeBytes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryParseLayout_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.TryParseLayout*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryParseLayout_System_Byte___System_Int32_System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Text_Encoding_System_Int32__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.TryParseLayout(System.Byte[],System.Int32,System.Int32,ZL.IotAbstraction.Tag.StringKind,System.Text.Encoding,System.Int32@)">TryParseLayout(byte[], int, int, StringKind, Encoding, out int)</h4>
+  <div class="markdown level1 summary"><p>同 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_ParseLayout_System_Byte___System_Int32_System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Text_Encoding_">ParseLayout(byte[], int, int, StringKind, Encoding)</a>，但<strong>额外输出该字符串从 <code class="paramref">startIndex</code> 起占用的总字节数</strong>
+（含头），供&quot;先读头 → 再按长度补读内容&quot;的路径决定补读长度。</p>
+<p>
+【为什么需要它】此前每条两段式路径各自算一遍补读长度：
+<code>actualLen + 2</code>、<code>wActualChars * 2</code>、<code>wActualChars * 2 + 4</code> ——
+对"头要不要计入"出现了三种理解 ✗，其中两处还把 <code>wActualChars * 2</code> 直接
+<code>(ushort)</code> 窄化 ⇒ PLC 头声明越大回绕越离谱 ✗。把"布局 → 总占用字节数"与
+"布局 → 字符串"放进同一处，二者<b>不可能</b>再分叉 ✓。
+</p>
+<p>
+返回 <code>false</code> 表示<b>该布局在给定缓冲下不成立</b>，调用方须按"明确失败"处理，
+<b>不得</b>退化成"读 1 字节再看看" ✗。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseLayout(byte[] buffer, int startIndex, int declaredLength, StringKind kind, Encoding encoding, out int consumedBytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">startIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">consumedBytes</span></td>
+        <td><p>该字符串从 <code class="paramref">startIndex</code> 起占用的总字节数（含头）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryParseLayout_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.TryParseLayout*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryParseLayout_System_Byte___System_Int32_System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Text_Encoding_System_Int32__System_String__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.TryParseLayout(System.Byte[],System.Int32,System.Int32,ZL.IotAbstraction.Tag.StringKind,System.Text.Encoding,System.Int32@,System.String@)">TryParseLayout(byte[], int, int, StringKind, Encoding, out int, out string)</h4>
+  <div class="markdown level1 summary"><p>解析 + 给出占用字节数（一次调用拿全），供两段式路径使用。</p>
+<p>
+【为什么需要这个重载】两段式路径读到的缓冲通常<b>正好</b>是"头 + 内容"，
+因此 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.html#ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryParseLayout_System_Byte___System_Int32_System_Int32_ZL_IotAbstraction_Tag_StringKind_System_Text_Encoding_System_Int32__">TryParseLayout(byte[], int, int, StringKind, Encoding, out int)</a> 的"缓冲必须够长"判定天然成立；
+但调用方还要区分三件事：**布局是否成立**、**空串**、**实际值**。
+只给 <code>consumedBytes</code> 会让"空串"（Byte1=0）与"不可解析"都落到 <code>false</code> 上，语义混淆 ✗。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseLayout(byte[] buffer, int startIndex, int declaredLength, StringKind kind, Encoding encoding, out int consumedBytes, out string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">startIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">consumedBytes</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>解析结果；布局不成立时为 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string.empty">Empty</a>。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryPlanProbe_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.TryPlanProbe*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringReadHelper_TryPlanProbe_ZL_IotAbstraction_Tag_StringKind_System_Int32_System_Int32__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringReadHelper.TryPlanProbe(ZL.IotAbstraction.Tag.StringKind,System.Int32,System.Int32@)">TryPlanProbe(StringKind, int, out int)</h4>
+  <div class="markdown level1 summary"><p>两段式读取的第一步：先读多少字节才能拿到&quot;布局头&quot;。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryPlanProbe(StringKind kind, int declaredLength, out int probeLen)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">probeLen</span></td>
+        <td><p>首读字节数。Raw 无头，<code class="paramref">declaredLength</code> 即为要读的全部。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>false</code> 表示声明长度非法（≤ 0），调用方不得继续读。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

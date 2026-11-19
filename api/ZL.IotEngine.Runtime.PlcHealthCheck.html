@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcHealthCheck | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcHealthCheck | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 采集系统健康检查器——零外部依赖，基于已有诊断数据聚合。  使用场景： - 容器编排 HealthCheck 探针（K8s liveness/readiness） - 运维看板轮询 - 定时告警判断   设计原则： - 不新增后台线程，按需查询 - 不修改 DeviceRoot/DevicePro，通过 Func 委托注入诊断数据 - 判定阈值可配置">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck">
+
+
+
+  <h1 id="ZL_IotEngine_Runtime_PlcHealthCheck" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck" class="text-break">Class PlcHealthCheck</h1>
+  <div class="markdown level0 summary"><p>PLC 采集系统健康检查器——零外部依赖，基于已有诊断数据聚合。</p>
+<p>
+使用场景：
+- 容器编排 HealthCheck 探针（K8s liveness/readiness）
+- 运维看板轮询
+- 定时告警判断
+</p>
+<p>
+设计原则：
+- 不新增后台线程，按需查询
+- 不修改 DeviceRoot/DevicePro，通过 Func 委托注入诊断数据
+- 判定阈值可配置
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcHealthCheck</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Runtime.html">Runtime</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Runtime_PlcHealthCheck_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PlcHealthCheck</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcHealthCheck__ctor_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcHealthCheck__ctor_ZL_IotEngine_Runtime_PlcHealthCheck_HealthThresholds_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.#ctor(ZL.IotEngine.Runtime.PlcHealthCheck.HealthThresholds)">PlcHealthCheck(HealthThresholds?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcHealthCheck(PlcHealthCheck.HealthThresholds? thresholds = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.html">PlcHealthCheck</a>.<a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.HealthThresholds.html">HealthThresholds</a></td>
+        <td><span class="parametername">thresholds</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcHealthCheck_DeviceCount_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.DeviceCount*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcHealthCheck_DeviceCount" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.DeviceCount">DeviceCount</h4>
+  <div class="markdown level1 summary"><p>获取已注册设备数</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DeviceCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Runtime_PlcHealthCheck_Check_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.Check*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcHealthCheck_Check" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.Check">Check()</h4>
+  <div class="markdown level1 summary"><p>执行全量健康检查（同步，不阻塞，仅读取已有数据快照）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcHealthCheck.HealthResult Check()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.html">PlcHealthCheck</a>.<a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.HealthResult.html">HealthResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcHealthCheck_CreateDataProvider_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.CreateDataProvider*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcHealthCheck_CreateDataProvider_ZL_IotEngine_Orchestration_DeviceRoot_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.CreateDataProvider(ZL.IotEngine.Orchestration.DeviceRoot)">CreateDataProvider(DeviceRoot)</h4>
+  <div class="markdown level1 summary"><p>从 DeviceRoot 派生类构建 HealthData 提供者。
+适用于 DeviceBase 和 DevicePro。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;PlcHealthCheck.HealthData&gt; CreateDataProvider(DeviceRoot device)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Orchestration.DeviceRoot.html">DeviceRoot</a></td>
+        <td><span class="parametername">device</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.html">PlcHealthCheck</a>.<a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.HealthData.html">HealthData</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcHealthCheck_FormatSummary_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.FormatSummary*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcHealthCheck_FormatSummary_ZL_IotEngine_Runtime_PlcHealthCheck_HealthResult_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.FormatSummary(ZL.IotEngine.Runtime.PlcHealthCheck.HealthResult)">FormatSummary(HealthResult)</h4>
+  <div class="markdown level1 summary"><p>将健康检查结果格式化为文本摘要，便于日志输出。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string FormatSummary(PlcHealthCheck.HealthResult result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.html">PlcHealthCheck</a>.<a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.HealthResult.html">HealthResult</a></td>
+        <td><span class="parametername">result</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcHealthCheck_RegisterDevice_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.RegisterDevice*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcHealthCheck_RegisterDevice_System_String_System_Func_ZL_IotEngine_Runtime_PlcHealthCheck_HealthData__" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.RegisterDevice(System.String,System.Func{ZL.IotEngine.Runtime.PlcHealthCheck.HealthData})">RegisterDevice(string, Func&lt;HealthData&gt;)</h4>
+  <div class="markdown level1 summary"><p>注册一个设备的诊断数据提供者。
+建议在设备 Start() 后调用，传入 lambda 捕获设备实例。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RegisterDevice(string deviceId, Func&lt;PlcHealthCheck.HealthData&gt; getData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.html">PlcHealthCheck</a>.<a class="xref" href="ZL.IotEngine.Runtime.PlcHealthCheck.HealthData.html">HealthData</a>&gt;</td>
+        <td><span class="parametername">getData</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Runtime_PlcHealthCheck_UnregisterDevice_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.UnregisterDevice*"></a>
+  <h4 id="ZL_IotEngine_Runtime_PlcHealthCheck_UnregisterDevice_System_String_" data-uid="ZL.IotEngine.Runtime.PlcHealthCheck.UnregisterDevice(System.String)">UnregisterDevice(string)</h4>
+  <div class="markdown level1 summary"><p>移除设备注册</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UnregisterDevice(string deviceId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

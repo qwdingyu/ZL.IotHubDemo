@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DeviceConfig | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DeviceConfig | ZL IoT SDK API ">
+    
+    <meta name="description" content="通用设备配置容器。  使用 Dictionary 灵活存储任意键值对配置参数（IP、端口、标签路径、扫描间隔等）， 支持从 JSON 文件、数据库或上层应用动态构造后注入到 DeviceRoot/DevicePro。   线程安全说明：本类本身不是线程安全的，应在设备构造阶段（单线程）完成所有配置写入， 运行时仅做只读访问。如需热更新配置，由调用方负责加锁。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Tag.DeviceConfig">
+
+
+
+  <h1 id="ZL_IotAbstraction_Tag_DeviceConfig" data-uid="ZL.IotAbstraction.Tag.DeviceConfig" class="text-break">Class DeviceConfig</h1>
+  <div class="markdown level0 summary"><p>通用设备配置容器。</p>
+<p>
+使用 Dictionary 灵活存储任意键值对配置参数（IP、端口、标签路径、扫描间隔等），
+支持从 JSON 文件、数据库或上层应用动态构造后注入到 DeviceRoot/DevicePro。
+</p>
+<p>
+线程安全说明：本类本身不是线程安全的，应在设备构造阶段（单线程）完成所有配置写入，
+运行时仅做只读访问。如需热更新配置，由调用方负责加锁。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">DeviceConfig</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Tag.html">Tag</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Tag_DeviceConfig_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DeviceConfig</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_RequireTags_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.RequireTags*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_RequireTags" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.RequireTags">RequireTags</h4>
+  <div class="markdown level1 summary"><p>【2026-11-09 新增，<strong>唯一权威口径</strong>】本设备<strong>必须有点位</strong>才允许连接（默认 <code>false</code>）。</p>
+<p>
+🔒 **这是【策略】开关，不是【机制】** —— 两者的分工由钉死：
+<ul><li>**机制（引擎自动，无开关）**：`TagsFailedToLoad`（**配了点表却加载失败**＝确定错误）
+      ⇒ `Connect()` **一律拒绝** ✓</li><li>**策略（应用显式）**：<a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html#ZL_IotAbstraction_Tag_DeviceConfig_RequireTags">RequireTags</a> = <code>true</code> ⇒ 额外把「当前 0 个点位」也视为错误 ✓</li></ul>
+
+<p>
+⚠️ **为什么默认 <code>false</code>**（架构决定，非"怕改测试"）✗：
+① 库**无法知道**用户意图（协议自测？地址级 I/O？后置加点？采集？）⇒ 不该替用户决定 ✗
+② 仓库 `DeviceRoot.Start()` 的 XML 注释**明文档支持**"构造时 0 点位（后置添加标签）"
+    ⇒ 默认 `true` 等于**推翻该契约** ✗
+③ 与「点表默认只读」不冲突：那条管**权限**（安全侧收紧），本条管**校验强度**（默认不误伤）✓
+</p>
+<p>
+✅ **生产采集部署建议**：由宿主显式设 <code>RequireTags = true</code>
+⇒ 把"忘了配点表"从"静默采不到"变成**连接即失败** ✓
+</p>
+<p>⚠️ 命名刻意用**正向**表述（"需要点位"）而非 `AllowEmptyTags`（"允许空"）——
+正向命名让默认值 <code>false</code> 自然合理，避免读代码时的双重否定 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RequireTags { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_Add_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.Add*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_Add_System_String_System_Object_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.Add(System.String,System.Object)">Add(string, object)</h4>
+  <div class="markdown level1 summary"><p>添加或更新一个配置项</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(string key, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>配置项名称</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>配置值（可为任意类型）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_ContainsKey_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.ContainsKey*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_ContainsKey_System_String_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.ContainsKey(System.String)">ContainsKey(string)</h4>
+  <div class="markdown level1 summary"><p>判断配置项是否存在且值不为 null</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ContainsKey(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_GetEnumerator_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.GetEnumerator*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_GetEnumerator" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>返回底层字典的枚举器，支持 foreach 遍历所有配置项</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_GetParam_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.GetParam*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_GetParam_System_String_System_Object_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.GetParam(System.String,System.Object)">GetParam(string, object)</h4>
+  <div class="markdown level1 summary"><p>获取配置项原始值，不存在时返回 defaultValue</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object GetParam(string key, object defaultValue = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_GetWarnedBadConfigValues_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.GetWarnedBadConfigValues*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_GetWarnedBadConfigValues" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.GetWarnedBadConfigValues">GetWarnedBadConfigValues()</h4>
+  <div class="markdown level1 summary"><p>【A-260】<strong>查询&quot;本次进程内有哪些配置项的值格式非法&quot;</strong>（只读快照，诊断用）✓</p>
+<p>
+🔑 **为什么要有这个 API**：
+① **对现场有用** —— `grep CONFIG-DIAG` 只能看日志文本；本 API 让宿主/诊断页
+   可以**结构化查询**"到底哪几个键的值写错了、写成了什么"✓
+② **对测试有用** —— 守卫测试此前用**反射**读私有静态字段，实测在全量门禁下
+   **偶发 `Assert.NotNull() Failure: Value is null`** ✗（反射转型失败）
+   ⇒ 改用本 API 后**彻底消除反射依赖** ⇒ 不再偶发红 ✓
+</p>
+<p>⚠️ 返回的是**快照副本** ⇒ 调用方遍历时不会被并发写入影响 ✓</p>
+<p>⚠️ **进程级静态**（非每设备）：同 key **同值**在全进程只告警一次；
+同 key **异值**各自留痕（F-6 / A-295，多设备现场第 2 台不再静默）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyDictionary&lt;string, string&gt; GetWarnedBadConfigValues()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_Get_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.Get*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_Get__1_System_String___0_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.Get``1(System.String,``0)">Get&lt;T&gt;(string, T)</h4>
+  <div class="markdown level1 summary"><p>获取配置项并自动转换为指定泛型类型 T，不存在或转换失败时返回 defaultValue</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Get&lt;T&gt;(string key, T defaultValue = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_DeviceConfig_SetParam_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.SetParam*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_DeviceConfig_SetParam_System_String_System_Object_" data-uid="ZL.IotAbstraction.Tag.DeviceConfig.SetParam(System.String,System.Object)">SetParam(string, object)</h4>
+  <div class="markdown level1 summary"><p>添加或更新一个配置项（与 Add 等价，兼容不同命名习惯）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetParam(string key, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

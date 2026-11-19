@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcAddress | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcAddress | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 地址的统一归一化模型。 不论底层是西门子 DB、三菱 D、Modbus HR 还是欧姆龙 CIO， 所有地址经 PlcAddressHelper.Parse 后都会转化为本对象， 供后续的批量读取引擎（BatchEngine）和值提取器（PlcValueExtractor）使用。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_PlcAddress" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress" class="text-break">Class PlcAddress</h1>
+  <div class="markdown level0 summary"><p>PLC 地址的统一归一化模型。
+不论底层是西门子 DB、三菱 D、Modbus HR 还是欧姆龙 CIO，
+所有地址经 PlcAddressHelper.Parse 后都会转化为本对象，
+供后续的批量读取引擎（BatchEngine）和值提取器（PlcValueExtractor）使用。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcAddress</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_PlcAddress_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PlcAddress</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress__ctor_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.#ctor*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress__ctor_System_String_System_Char_System_Int32_System_Int32_System_Int32_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.#ctor(System.String,System.Char,System.Int32,System.Int32,System.Int32)">PlcAddress(string, char, int, int, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcAddress(string dataBlock, char typeCode, int byteLength, int byteOffset, int bitOffset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataBlock</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></td>
+        <td><span class="parametername">typeCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">byteLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">byteOffset</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">bitOffset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress_BitOffset_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.BitOffset*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress_BitOffset" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.BitOffset">BitOffset</h4>
+  <div class="markdown level1 summary"><p>位偏移量（0-7），仅在 TypeCode='X' 时有效，用于从字节中提取特定位</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BitOffset { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress_ByteLength_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ByteLength*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress_ByteLength" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ByteLength">ByteLength</h4>
+  <div class="markdown level1 summary"><p>该地址占用的字节长度（用于批量读取时计算读取范围）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ByteLength { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress_ByteOffset_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ByteOffset*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress_ByteOffset" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ByteOffset">ByteOffset</h4>
+  <div class="markdown level1 summary"><p>字节偏移量（相对于数据区起始位置），是读取 buffer 中定位数据的核心索引</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ByteOffset { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress_ByteOffsetIsBytes_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ByteOffsetIsBytes*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress_ByteOffsetIsBytes" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ByteOffsetIsBytes">ByteOffsetIsBytes</h4>
+  <div class="markdown level1 summary"><p><code>ByteOffset</code> 的<strong>单位是否为字节</strong>（true = 字节；false = 协议原生地址单位，如&quot;字/寄存器号&quot;）。</p>
+<p>
+【2026-10-20 新增， §十一】解析层存在**两种单位** ✗：
+</p>
+<ul><li><b>位地址</b>规则（OmronWordBit / AbWordBit / MitsubishiModule / GenericWordBit /
+        AltSeparator / BitArea）已用 `word*2` 或 `/8` 换算成**字节** ⇒ 本标志 = true；</li><li><b>纯字地址</b>规则（WordArea / Modbus HR·IR·4xxxx / PureNumber）保留
+        **字号（协议原生单位）** ⇒ 本标志 = false；</li><li>字节寻址协议（西门子 S7 / Beckhoff ADS）的规则产出字节，但其协议单位本就是 1 字节
+        ⇒ 两种取值等价，不影响结果。</li></ul>
+<p>
+⚠️ 本标志**只声明单位、不改变 `ByteOffset` 的数值** ⇒ 所有既有断言（只比对数值）不受影响 ✓
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ByteOffsetIsBytes { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress_DataBlock_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.DataBlock*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress_DataBlock" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.DataBlock">DataBlock</h4>
+  <div class="markdown level1 summary"><p>数据区标识，如 &quot;DB100&quot;（西门子DB块）、&quot;HR&quot;（Modbus保持寄存器）、&quot;D&quot;（三菱D区）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DataBlock { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress_TypeCode_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.TypeCode*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress_TypeCode" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.TypeCode">TypeCode</h4>
+  <div class="markdown level1 summary"><p>访问类型码：'X' = 位（布尔）访问，'B' = 字节/字访问</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char TypeCode { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddress_ToString_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ToString*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddress_ToString" data-uid="ZL.IotAbstraction.Abstractions.PlcAddress.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

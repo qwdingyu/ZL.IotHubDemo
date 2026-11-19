@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class LogThrottle | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class LogThrottle | ZL IoT SDK API ">
+    
+    <meta name="description" content="日志时间节流：同一 key 在  内最多放行一次。  【为什么要有这个类 —— 2026-10-17 全局复盘】 本仓此前&quot;日志刷屏&quot;的治理是**各写各的**：DeviceRoot 用内联的 _lastHealthLogTicks（周期健康日志 60s）、DriverFactory 用 volatile 的 &quot;只发一次&quot;标志、而失败路径（Ping 告警/块读超时/块读异常）**什么都没用** ⇒ 按周期刷屏。 第一次修复时我把同一段节流逻辑**复制到了两个类**里 —— 那正是本仓反复出问题的形态 ⇒ 复盘后收敛为**本类唯一实现**。   【设计取舍】 &#183; **无锁**：极端并发下最多多打一条（日志重复无害），换取采集热路径零锁竞争 ——   与 DriverFactory 的&quot;重复警告无害&quot;取舍一致； &#183; **键的基数有限**（块地址 / 固定名）⇒ 内存有界，无需淘汰； &#183; 间隔是**类级默认值**（不是每个实例各一个旋钮）⇒ 全仓只有一个口径，避免&quot;两处阈值不一致&quot;。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Utils.LogThrottle">
+
+
+
+  <h1 id="ZL_IotAbstraction_Utils_LogThrottle" data-uid="ZL.IotAbstraction.Utils.LogThrottle" class="text-break">Class LogThrottle</h1>
+  <div class="markdown level0 summary"><p>日志<strong>时间节流</strong>：同一 key 在 <a class="xref" href="ZL.IotAbstraction.Utils.LogThrottle.html#ZL_IotAbstraction_Utils_LogThrottle_DefaultInterval">DefaultInterval</a> 内最多放行一次。</p>
+<p>
+【为什么要有这个类 —— 2026-10-17 全局复盘】
+本仓此前"日志刷屏"的治理是**各写各的**：<code>DeviceRoot</code> 用内联的
+<code>_lastHealthLogTicks</code>（周期健康日志 60s）、<code>DriverFactory</code> 用 volatile 的
+"只发一次"标志、而失败路径（Ping 告警/块读超时/块读异常）**什么都没用** ⇒ 按周期刷屏。
+第一次修复时我把同一段节流逻辑**复制到了两个类**里 —— 那正是本仓反复出问题的形态
+⇒ 复盘后收敛为**本类唯一实现**。
+</p>
+<p>
+【设计取舍】
+· **无锁**：极端并发下最多多打一条（日志重复无害），换取采集热路径零锁竞争 ——
+  与 <code>DriverFactory</code> 的"重复警告无害"取舍一致；
+· **键的基数有限**（块地址 / 固定名）⇒ 内存有界，无需淘汰；
+· 间隔是**类级默认值**（不是每个实例各一个旋钮）⇒ 全仓只有一个口径，避免"两处阈值不一致"。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">LogThrottle</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Utils.html">Utils</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Utils_LogThrottle_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class LogThrottle</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Utils_LogThrottle_DefaultInterval" data-uid="ZL.IotAbstraction.Utils.LogThrottle.DefaultInterval">DefaultInterval</h4>
+  <div class="markdown level1 summary"><p>默认节流间隔（60 秒）。internal 便于门禁调大/调零做<strong>确定性</strong>验证
+（§16.4：改前存原值、finally 还原）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TimeSpan DefaultInterval</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Utils_LogThrottle_IntervalHint_" data-uid="ZL.IotAbstraction.Utils.LogThrottle.IntervalHint*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_LogThrottle_IntervalHint" data-uid="ZL.IotAbstraction.Utils.LogThrottle.IntervalHint">IntervalHint</h4>
+  <div class="markdown level1 summary"><p>把当前口径写进日志文案，便于运维判断&quot;为什么日志变少了&quot;。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string IntervalHint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Utils_LogThrottle_ShouldLog_" data-uid="ZL.IotAbstraction.Utils.LogThrottle.ShouldLog*"></a>
+  <h4 id="ZL_IotAbstraction_Utils_LogThrottle_ShouldLog_System_String_" data-uid="ZL.IotAbstraction.Utils.LogThrottle.ShouldLog(System.String)">ShouldLog(string)</h4>
+  <div class="markdown level1 summary"><p>判断该 key 是否应当输出日志；<code>true</code> 表示放行（并记录本次时间）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShouldLog(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>节流键（同一&quot;告警来源&quot;用同一个键，如块地址或固定名）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

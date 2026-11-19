@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class LSisFEnetAddress | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class LSisFEnetAddress | ZL IoT SDK API ">
+    
+    <meta name="description" content="LSis FEnet 协议的地址（解析结果 + 归一化）✓。  【唯一权威来源 ✓】本文件的每条规则均逐条核对自 **vendor 的 HSL 12.9.2** （`_vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.LSIS/LSFastEnet.cs` ✓）： AnalysisAddress —— 归一化规则（区域 / 单位 / 数字倍率）✓GetDataTypeToAddress —— 数据类型判定 ✓ ⚠️ 不得据 NuGet DLL 的运行时行为反推本规则 ✗ —— 两者在 MX 上行为不同 ✗（属 HSL 版本分歧 ✓，详见 docs/425 &#167;4 坑 C ✓）。   &#128308; **【协议基准在此】完整协议详录见 `docs/429_LSis_FEnet协议详录_源码与实测全量对照`** ✓ —— 那里按&quot;源码怎么说 / 实测怎么做 / 我们怎么实现 / 为什么&quot;四栏并列写清了**每一条规则** ✓。 改本文件前**必须先读它** ✗，否则极易再次出现&quot;看源码写错、看 DLL 又改回来&quot;的反复 ✗ （本项目已在 LSis 上反复多次，全部记录在 `docs/429` &#167;七 ✓）。   【为什么必须&quot;归一化&quot;】FEnet 线上帧里送的是**归一化后的地址串** ✓ （形如 %DB100 ✓），而**不是**用户书写的 `D100` ✗。 归一化由 `AnalysisAddress` 完成 ✓；本类把它显式建模，便于单测与变异自检 ✓。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress">
+
+
+
+  <h1 id="ZL_IotDriver_LSis_LSisFEnetAddress" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress" class="text-break">Class LSisFEnetAddress</h1>
+  <div class="markdown level0 summary"><p>LSis <strong>FEnet</strong> 协议的地址（解析结果 + 归一化）✓。</p>
+<p>
+【唯一权威来源 ✓】本文件的每条规则均逐条核对自 **vendor 的 HSL 12.9.2**
+（`_vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.LSIS/LSFastEnet.cs` ✓）：
+<ul><li><code>AnalysisAddress</code> —— 归一化规则（区域 / 单位 / 数字倍率）✓</li><li><code>GetDataTypeToAddress</code> —— 数据类型判定 ✓</li></ul>
+<p>⚠️ <strong>不得</strong>据 NuGet DLL 的运行时行为反推本规则 ✗ ——
+两者在 <code>MX</code> 上<strong>行为不同</strong> ✗（属 HSL 版本分歧 ✓，详见 <code>docs/425</code> §4 坑 C ✓）。</p>
+
+<p>
+🔴 **【协议基准在此】完整协议详录见 `docs/429_LSis_FEnet协议详录_源码与实测全量对照`** ✓ ——
+那里按"源码怎么说 / 实测怎么做 / 我们怎么实现 / 为什么"四栏并列写清了**每一条规则** ✓。
+改本文件前**必须先读它** ✗，否则极易再次出现"看源码写错、看 DLL 又改回来"的反复 ✗
+（本项目已在 LSis 上反复多次，全部记录在 `docs/429` §七 ✓）。
+</p>
+<p>
+【为什么必须"归一化"】FEnet 线上帧里送的是**归一化后的地址串** ✓
+（形如 <code>%DB100</code> ✓），而**不是**用户书写的 `D100` ✗。
+归一化由 `AnalysisAddress` 完成 ✓；本类把它显式建模，便于单测与变异自检 ✓。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">LSisFEnetAddress</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.LSis.html">LSis</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_LSis_LSisFEnetAddress_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class LSisFEnetAddress</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_AreaChars" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.AreaChars">AreaChars</h4>
+  <div class="markdown level1 summary"><p>合法<strong>区域字母</strong>集 —— 与 HSL <code>&quot;PMLKFTCDSQINUZR&quot;</code> 逐字一致 ✓。</p>
+<p>顺序无关 ✓，但**必须完整** ✗：少一个字母就会把合法地址判为非法 ✗。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string AreaChars = &quot;PMLKFTCDSQINUZR&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_BitDeviceAreaChars" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.BitDeviceAreaChars">BitDeviceAreaChars</h4>
+  <div class="markdown level1 summary"><p><strong>位型设备区</strong>（ADR-002，docs/480）：<code>M</code>=内部继电器、<code>P</code>=I/O 继电器、
+<code>L</code>=链接继电器、<code>K</code>=保持继电器、<code>F</code>=特殊继电器 —— 设备号即<strong>位号</strong> ✓。</p>
+<p>
+【2026-10-25 用户批准（ADR-002，docs/480）】本五区**裸号 = 设备号** ⇒
+归一化切 **`X` 单位**（`M100` ⇒ `%MX100`，继电器 100 本位）——
+依据 = 三重独立外部证据（VagabondK XGB 点式 `%MX{n}` / devinno 单位字母定义 /
+涂装产线工业实证 `%MX8000`=位 8000）+ 物理模型（位设备号=位号，16 设备/字打包）。
+</p>
+<p>
+⚠️ **范围边界**：`T`/`C`/`S`（双 nature 区）**不在内**（VagabondK 对 T/C 走
+独立十进制点式分支，语义更复杂 ⇒ 随手册单独裁决，docs/480 §四）；
+`D`（字型）已按候选 A ×2 落地（`fb509be`）；`I`/`Q` 特例不乘（真机实证守卫）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string BitDeviceAreaChars = &quot;MPLKF&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_HslUnsupportedAreaChars" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.HslUnsupportedAreaChars">HslUnsupportedAreaChars</h4>
+  <div class="markdown level1 summary"><p><strong>HSL 侧根本不发帧</strong>的区域 ✗ —— 遇到这些区域必须<strong>前置拒绝并给出明确错误</strong> ✓，
+而不是等对端超时 ✓。</p>
+<p>
+【实测依据 ✓】（2026-10-19 抓包 ✓，见 `docs/429` ✓）：
+对 `N0` / `Z0` 写请求，HSL **一个字节都不发** ✗
+（`AnalysisAddress` 里这三类地址直接落到 `throw NotSupportedDataType` ✓）；
+而对照 `R0` / `M0` 均正常发出 `%RB0` / `%MB0` ✓。
+</p>
+<p>
+⚠️ 它们**仍在** <a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html#ZL_IotDriver_LSis_LSisFEnetAddress_AreaChars">AreaChars</a> 白名单里 ✓（那是"协议承认的区域集"✓），
+但**HSL 客户端发不出来** ✗ ⇒ 我方若接受它们，只会**等超时** ✗✓。
+⇒ 本常量用于"**快速失败**" ✓（把"不支持"说清楚 ✓，而不是让它看起来像网络故障 ✗）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string HslUnsupportedAreaChars = &quot;NZ&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_UnitChars" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.UnitChars">UnitChars</h4>
+  <div class="markdown level1 summary"><p>合法<strong>单位字母</strong>集 ✓：<code>X</code>=位、<code>B</code>=字节、<code>W</code>=字、<code>D</code>=双字、<code>L</code>=长字 ✓。</p>
+<p>⚠️ 单位**可缺省** ✓ —— 缺省时按 `B`（Continuous）处理 ✓（见 Normalize ✓）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string UnitChars = &quot;XBWDL&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_Area_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Area*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_Area" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Area">Area</h4>
+  <div class="markdown level1 summary"><p>区域字母 ✓（<strong>已大写</strong> ✓），取自 <a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html#ZL_IotDriver_LSis_LSisFEnetAddress_AreaChars">AreaChars</a> ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char Area { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_DataType_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.DataType*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_DataType" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.DataType">DataType</h4>
+  <div class="markdown level1 summary"><p>FEnet 线上的<strong>数据类型</strong>码 ✓（写入请求帧绝对偏移 <code>[22]</code> ✓）：
+<code>0</code>=Bit、<code>1</code>=Byte、<code>2</code>=Word、<code>3</code>=DWord、<code>4</code>=LWord、<code>20</code>=Continuous ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte DataType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_IsBit_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.IsBit*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_IsBit" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.IsBit">IsBit</h4>
+  <div class="markdown level1 summary"><p>是否为<strong>位</strong>访问 ✓（等价于 <a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html#ZL_IotDriver_LSis_LSisFEnetAddress_DataType">DataType</a> == 0 ✓）。</p>
+<p>
+⚠️ 位访问在**帧结构**上与字访问不同 ✗（读走 Individual 命令、末尾无字节数字段 ✓）；
+驱动据此分支 ✓，不可混用 ✗（详见 `docs/425` §4 坑 A ✓）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_Normalized_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Normalized*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_Normalized" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Normalized">Normalized</h4>
+  <div class="markdown level1 summary"><p>归一化后的完整地址串 ✓（形如 <code>%DB100</code> ✓，<strong>线上就送这个</strong> ✓）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Normalized { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_Number_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Number*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_Number" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Number">Number</h4>
+  <div class="markdown level1 summary"><p>归一化后的<strong>数字</strong> ✓（<strong>已按单位乘过倍率</strong> ✓，故线上地址里的数字就是它 ✓）。</p>
+<p>
+倍率（✓ 已逐条核对源码）：<code>W</code>×2 ✓、<code>D</code>×4 ✓、<code>L</code>×8 ✓、
+<code>B</code>/<code>X</code> 不变 ✓；**特例** ✗：区域为 `I`/`Q` 时**一律不乘** ✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Number { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_Raw_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Raw*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_Raw" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Raw">Raw</h4>
+  <div class="markdown level1 summary"><p>原始（用户书写的）地址 ✓，如 <code>D100</code> ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Raw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_Unit_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Unit*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_Unit" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.Unit">Unit</h4>
+  <div class="markdown level1 summary"><p>归一化后的<strong>单位字母</strong> ✓（<strong>必定有值</strong> ✓）：<code>X</code> / <code>B</code> / <code>W</code> / <code>D</code> / <code>L</code> ✓。</p>
+<p>用户未给单位时，此处为 `B` ✓（对齐 HSL 的缺省分支 ✓）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char Unit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_ResolveTcBareForm_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.ResolveTcBareForm*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_ResolveTcBareForm_System_String_System_Int32_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.ResolveTcBareForm(System.String,System.Int32)">ResolveTcBareForm(string, int)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string? ResolveTcBareForm(string address, int byteLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">byteLength</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_ToString_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.ToString*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_ToString" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>便于日志/断言 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+  <a id="ZL_IotDriver_LSis_LSisFEnetAddress_TryParse_" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.TryParse*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetAddress_TryParse_System_String_ZL_IotDriver_LSis_LSisFEnetAddress__" data-uid="ZL.IotDriver.LSis.LSisFEnetAddress.TryParse(System.String,ZL.IotDriver.LSis.LSisFEnetAddress@)">TryParse(string, out LSisFEnetAddress)</h4>
+  <div class="markdown level1 summary"><p>解析并<strong>归一化</strong>一个 FEnet 地址 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(string address, out LSisFEnetAddress result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>用户书写的地址 ✓，如 <code>D100</code> / <code>MB100</code> / <code>MW100</code> / <code>MX10</code> ✓。</p>
+<p>
+⚠️ **带 `%` 前缀的输入会被拒绝** ✗ —— 那是**归一化之后**的形式 ✓，
+其数字**已乘过倍率** ✗（如 `%MW200` 的 200 已是 ×2 的结果 ✓）
+⇒ 若再解析会**重复乘** ✗（实测 `%MW200` → `%MW400` ✗）⇒ **只接受用户书写形式** ✓。
+</p>
+<p>
+⚠️ **带 `.` 的地址（如 `M100.5`、`IX0.0.0`）在 v1 被显式拒绝** ✗ ——
+其归一化要走 HSL 的 <code>GetBitIndexInformation</code>（会**改写地址串** ✓，语义复杂 ✓），
+**本版未实现** ✗ ⇒ **快速失败** ✓（**远优于静默算错** ✗）。
+注意：实测 `IX0.0.0`/`QX0.0.0` 在仿真器下**确实可用** ✓，
+故这是**已知的能力缺口** ✗（记入 `docs/425` ✓），不是"不可能" ✗。
+</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html">LSisFEnetAddress</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>解析成功时输出 ✓；失败时为 <code>null</code> ✓。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code>=成功 ✓；<code>false</code>=地址非法（<strong>调用方须回错误</strong> ✗，不得当成默认地址 ✗）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

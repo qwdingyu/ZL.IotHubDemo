@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class TagTypeHelper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class TagTypeHelper | ZL IoT SDK API ">
+    
+    <meta name="description" content="TagType 的唯一真源（禁止再在业务代码里散落 &amp;quot;M&amp;quot;/&amp;quot;HB&amp;quot;/&amp;quot;RO&amp;quot; 魔法字符串）。 &#128308; **为什么必须收敛（2026-10-30 实测）**：改动前&quot;是否监控标签&quot;这一语义在 本仓被**重复实现了 12 处**，且用了**三种互相冲突的策略**： 区分大小写 tag.TagType == &quot;M&quot; —— 4 处：     DevicePro.cs、DeviceRoot.cs（采集热路径）、BatchEngine.cs &#215;2不区分大小写 string.Equals(..., OrdinalIgnoreCase) —— 7 处：     TagItem.cs、TagKit.cs &#215;3、PlcValidationTool.cs &#215;3switch (TagType?.ToUpperInvariant()) —— 1 处：DeviceRoot.cs 分桶 ⇒ 实测后果：点表写 TagType=&quot;m&quot; 时，标签**能进 TriggerTags、 还会被置 IsTrigger=true**，但**不进入 triggerChanges** ⇒ 触发回调**静默失效**、日志无任何提示，现场极难排查。 ✅ **根治方式（双保险）**：  的 setter **写入即归一化**（去空白 + 转大写）     ⇒ 无论 XML/CSV/JSON/代码赋值，下游看到的**永远是规范大写**；判定**一律走本类**（ 等）⇒ 即使将来有人绕过 setter，     语义也不会漂移。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper">
+
+
+
+  <h1 id="ZL_IotAbstraction_Tag_TagTypeHelper" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper" class="text-break">Class TagTypeHelper</h1>
+  <div class="markdown level0 summary"><p><code>TagType</code> 的<strong>唯一真源</strong>（禁止再在业务代码里散落 &quot;M&quot;/&quot;HB&quot;/&quot;RO&quot; 魔法字符串）。</p>
+<p>🔴 **为什么必须收敛（2026-10-30 实测）**：改动前"是否监控标签"这一语义在
+本仓被**重复实现了 12 处**，且用了**三种互相冲突的策略**：</p>
+<ul><li><b>区分大小写</b> <code>tag.TagType == "M"</code> —— 4 处：
+    <code>DevicePro.cs</code>、<code>DeviceRoot.cs</code>（采集热路径）、<code>BatchEngine.cs</code> ×2</li><li><b>不区分大小写</b> <code>string.Equals(..., OrdinalIgnoreCase)</code> —— 7 处：
+    <code>TagItem.cs</code>、<code>TagKit.cs</code> ×3、<code>PlcValidationTool.cs</code> ×3</li><li><code>switch (TagType?.ToUpperInvariant())</code> —— 1 处：<code>DeviceRoot.cs</code> 分桶</li></ul>
+<p>⇒ 实测后果：点表写 <code>TagType="m"</code> 时，标签**能进 <code>TriggerTags</code>、
+还会被置 <code>IsTrigger=true</code>**，但**不进入 <code>triggerChanges</code>**
+⇒ 触发回调**静默失效**、日志无任何提示，现场极难排查。</p>
+<p>✅ **根治方式（双保险）**：</p>
+<ol><li><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html#ZL_IotAbstraction_Tag_TagItem_TagType">TagType</a> 的 setter **写入即归一化**（去空白 + 转大写）
+    ⇒ 无论 XML/CSV/JSON/代码赋值，下游看到的**永远是规范大写**；</li><li>判定**一律走本类**（<a class="xref" href="ZL.IotAbstraction.Tag.TagTypeHelper.html#ZL_IotAbstraction_Tag_TagTypeHelper_IsMonitor_System_String_">IsMonitor(string)</a> 等）⇒ 即使将来有人绕过 setter，
+    语义也不会漂移。</li></ol>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">TagTypeHelper</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Tag.html">Tag</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Tag_TagTypeHelper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class TagTypeHelper</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Tag_TagTypeHelper_Heartbeat" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.Heartbeat">Heartbeat</h4>
+  <div class="markdown level1 summary"><p>心跳标签：定期写入，证明采集系统在线。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Heartbeat = &quot;HB&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotAbstraction_Tag_TagTypeHelper_Monitor" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.Monitor">Monitor</h4>
+  <div class="markdown level1 summary"><p>监控/触发标签：值变化时触发业务回调。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Monitor = &quot;M&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotAbstraction_Tag_TagTypeHelper_ReadyOk" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.ReadyOk">ReadyOk</h4>
+  <div class="markdown level1 summary"><p>就绪确认标签：数据处理完成后写入确认信号。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string ReadyOk = &quot;RO&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Tag_TagTypeHelper_IsHeartbeat_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.IsHeartbeat*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagTypeHelper_IsHeartbeat_System_String_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.IsHeartbeat(System.String)">IsHeartbeat(string)</h4>
+  <div class="markdown level1 summary"><p>是否心跳标签（<code>HB</code>，大小写/空白不敏感）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsHeartbeat(string tagType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagTypeHelper_IsMonitor_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.IsMonitor*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagTypeHelper_IsMonitor_System_String_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.IsMonitor(System.String)">IsMonitor(string)</h4>
+  <div class="markdown level1 summary"><p>是否监控/触发标签（<code>M</code>，大小写/空白不敏感）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsMonitor(string tagType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagTypeHelper_IsReadyOk_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.IsReadyOk*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagTypeHelper_IsReadyOk_System_String_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.IsReadyOk(System.String)">IsReadyOk(string)</h4>
+  <div class="markdown level1 summary"><p>是否就绪确认标签（<code>RO</code>，大小写/空白不敏感）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsReadyOk(string tagType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Tag_TagTypeHelper_Normalize_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.Normalize*"></a>
+  <h4 id="ZL_IotAbstraction_Tag_TagTypeHelper_Normalize_System_String_" data-uid="ZL.IotAbstraction.Tag.TagTypeHelper.Normalize(System.String)">Normalize(string)</h4>
+  <div class="markdown level1 summary"><p>归一化：去首尾空白 + 转<strong>大写</strong>（<code>Invariant</code>，不受区域文化影响）。</p>
+<p>null ⇒ 空字符串（历史行为：未配置即空）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Normalize(string tagType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tagType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

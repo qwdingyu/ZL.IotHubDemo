@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class SocketCloseHelper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class SocketCloseHelper | ZL IoT SDK API ">
+    
+    <meta name="description" content="Socket 安全关闭的唯一实现。  【为什么要它（docs/291）】&quot;安全关闭 socket&quot;这条规则此前在本仓有 **8 份实现**：  一份，另有 **7 个直接实现 IPlcDevice 的驱动各自私有的一份**。逐份比对发现它们**互不相同**， 其中最危险的分歧是：**5 份不会把 _socket 置空** ⇒ &quot;安全关闭&quot;之后仍留着 一个**已关闭的 socket 引用** ⇒ IsConnected 与后续连接复用都会看到不一致状态。 另有版本省略了 Connected 检查（对未连接 socket 调 Shutdown 会抛）。   【本实现取&quot;最防御&quot;的语义】（即原  的语义）： 仅当引用非空才处理；仅在 Connected 为真时才 Shutdown（避免对未连接 socket 抛异常）；Shutdown 与 Close **各自独立 try** ⇒ 前者失败不影响后者；最后把引用**置空** ⇒ 杜绝&quot;已关闭引用&quot;被复用。   【调用方职责】_connected 之类的**状态位**由调用方按各自语义处理 （本仓既有实现一律先置 false，故调用方应在调用前完成），本方法只负责 socket 本身。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Core.SocketCloseHelper">
+
+
+
+  <h1 id="ZL_IotDriver_Core_SocketCloseHelper" data-uid="ZL.IotDriver.Core.SocketCloseHelper" class="text-break">Class SocketCloseHelper</h1>
+  <div class="markdown level0 summary"><p>Socket 安全关闭的<strong>唯一实现</strong>。</p>
+<p>
+【为什么要它（docs/291）】"安全关闭 socket"这条规则此前在本仓有 **8 份实现**：
+<a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SafeCloseSocket">SafeCloseSocket()</a> 一份，另有 **7 个直接实现
+<code>IPlcDevice</code> 的驱动各自私有的一份**。逐份比对发现它们**互不相同**，
+其中最危险的分歧是：**5 份不会把 <code>_socket</code> 置空** ⇒ "安全关闭"之后仍留着
+一个**已关闭的 socket 引用** ⇒ <code>IsConnected</code> 与后续连接复用都会看到不一致状态。
+另有版本省略了 <code>Connected</code> 检查（对未连接 socket 调 <code>Shutdown</code> 会抛）。
+</p>
+<p>
+【本实现取"最防御"的语义】（即原 <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SafeCloseSocket">SafeCloseSocket()</a> 的语义）：
+<ol><li>仅当引用非空才处理；</li><li>仅在 <code>Connected</code> 为真时才 <code>Shutdown</code>（避免对未连接 socket 抛异常）；</li><li><code>Shutdown</code> 与 <code>Close</code> **各自独立 try** ⇒ 前者失败不影响后者；</li><li>最后把引用**置空** ⇒ 杜绝"已关闭引用"被复用。</li></ol>
+
+<p>
+【调用方职责】<code>_connected</code> 之类的**状态位**由调用方按各自语义处理
+（本仓既有实现一律先置 <code>false</code>，故调用方应在调用前完成），本方法只负责 socket 本身。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">SocketCloseHelper</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Core.html">Core</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Core_SocketCloseHelper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obfuscation(Exclude = true, ApplyToMembers = true)]
+public static class SocketCloseHelper</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Core_SocketCloseHelper_CloseSafely_" data-uid="ZL.IotDriver.Core.SocketCloseHelper.CloseSafely*"></a>
+  <h4 id="ZL_IotDriver_Core_SocketCloseHelper_CloseSafely_System_Net_Sockets_Socket__" data-uid="ZL.IotDriver.Core.SocketCloseHelper.CloseSafely(System.Net.Sockets.Socket@)">CloseSafely(ref Socket)</h4>
+  <div class="markdown level1 summary"><p>安全关闭并置空 socket 引用（异常一律吞掉：关闭是&quot;尽力而为&quot;的清理动作）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CloseSafely(ref Socket socket)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Socket</span></td>
+        <td><span class="parametername">socket</span></td>
+        <td><p>socket 字段的<strong>引用</strong>（本方法会把它置空）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

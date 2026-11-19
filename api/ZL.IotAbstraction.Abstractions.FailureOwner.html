@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Enum FailureOwner | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Enum FailureOwner | ZL IoT SDK API ">
+    
+    <meta name="description" content="失败的责任方（粗分类，回答&amp;quot;谁该来修&amp;quot;）。与  并存、不替代。 &#128308; 为什么细码之外还需要粗分类： PROFINET 同时有 ChannelErrorType（细）与 ErrorCategory（粗），两者互不替代； OPC UA 也同时有 Bad（严重级）与具体状态码 ✓ &#128308; 为什么不用一个布尔： 曾设计 `IsConfigurationError = Kind is ArgumentError or AddressError`， 有三个缺陷 ✗： ① 命名说&quot;配置&quot;，实际只含 2 个值（`Unsupported`/`Disposed` 被排除在外）； ② 把**两个不同责任方**混在一起 —— `ArgumentError` 是**调用方代码 bug**（传了 null），    `AddressError` 是**点表配置错**（地址写错），运维看到 `true` 不知改哪； ③ 布尔把 5 种原因**压平**成 1 位信息 ⇒ 下游拿不到诊断价值 ✓ ⇒ 改为四值枚举：**保留全部诊断信息**，且能直接指导&quot;该找谁修&quot;✓">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.FailureOwner">
+
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_FailureOwner" data-uid="ZL.IotAbstraction.Abstractions.FailureOwner" class="text-break">Enum FailureOwner</h1>
+  <div class="markdown level0 summary"><p><strong>失败的责任方</strong>（粗分类，回答&quot;谁该来修&quot;）。与 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html">DeviceFailureKind</a> <strong>并存、不替代</strong>。</p>
+<p>🔴 <b>为什么细码之外还需要粗分类</b>：
+PROFINET 同时有 <code>ChannelErrorType</code>（细）与 <code>ErrorCategory</code>（粗），两者互不替代；
+OPC UA 也同时有 <code>Bad</code>（严重级）与具体状态码 ✓</p>
+<p>🔴 <b>为什么不用一个布尔</b>：
+曾设计 `IsConfigurationError = Kind is ArgumentError or AddressError`，
+有三个缺陷 ✗：
+① 命名说"配置"，实际只含 2 个值（`Unsupported`/`Disposed` 被排除在外）；
+② 把**两个不同责任方**混在一起 —— `ArgumentError` 是**调用方代码 bug**（传了 null），
+   `AddressError` 是**点表配置错**（地址写错），运维看到 `true` 不知改哪；
+③ 布尔把 5 种原因**压平**成 1 位信息 ⇒ 下游拿不到诊断价值 ✓</p>
+<p>⇒ 改为四值枚举：**保留全部诊断信息**，且能直接指导"该找谁修"✓</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_FailureOwner_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum FailureOwner</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    </thead></thead><tbody>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_FailureOwner_Caller">Caller</td>
+        <td><p><strong>调用方代码该改</strong>：传参为 null/空、或对象已释放（生命周期 bug）。</p>
+<p>⇒ 对应 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_ArgumentError">ArgumentError</a> / <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_Disposed">Disposed</a>，
+应记日志并修业务代码，**不是**让现场改点表 ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_FailureOwner_Capability">Capability</td>
+        <td><p><strong>协议能力边界</strong>：该驱动/协议未实现此操作。</p>
+<p>⇒ 对应 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_Unsupported">Unsupported</a>，属功能边界（非故障），
+应改用其它方式或放弃该功能 ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_FailureOwner_Config">Config</td>
+        <td><p><strong>点表配置该改</strong>：地址格式不识别、区不支持、越界。</p>
+<p>⇒ 对应 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_AddressError">AddressError</a>，应提示现场用户修点表 ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_FailureOwner_Device">Device</td>
+        <td><p><strong>设备侧问题</strong>：未连接、超时、设备拒绝、数据异常。</p>
+<p>⇒ 对应 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_NotConnected">NotConnected</a> / <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_Timeout">Timeout</a> /
+<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_DeviceRejected">DeviceRejected</a> / <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html#ZL_IotAbstraction_Abstractions_DeviceFailureKind_DataError">DataError</a>，
+应按 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html#ZL_IotAbstraction_Abstractions_DeviceResult_IsRetryable">IsRetryable</a> 决定是否重试，并检查设备/网络 ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_FailureOwner_NotSpecified">NotSpecified</td>
+        <td><p>🔴 <strong>内部哨兵：'调用方未指定'</strong>（<strong>不是</strong>给下游用的语义值）。</p>
+<p><b>为什么必须单独一个值</b>（2026-11-04 复查发现的二义）：
+早期把 `owner` 参数的默认值设为 <a class="xref" href="ZL.IotAbstraction.Abstractions.FailureOwner.html#ZL_IotAbstraction_Abstractions_FailureOwner_Unknown">Unknown</a>，
+而 `Unknown` **同时又是**一个合法的业务取值（"确实判不出来"）✗
+⇒ 于是 <code>Fail(msg, -1, kind, owner: FailureOwner.Unknown)</code>
+会被误当成"未指定"而**自动推导**，导致**无法显式指定 Unknown** ✗ ✗</p>
+<p>⇒ 拆成两个值：本值是**默认哨兵**（-1，驱动不应使用）；
+<a class="xref" href="ZL.IotAbstraction.Abstractions.FailureOwner.html#ZL_IotAbstraction_Abstractions_FailureOwner_Unknown">Unknown</a> 是**合法结果**（"确实判不出来"）✓</p>
+<p>⚠️ 用负数：`Unknown=0` 的数值**保持不变**（向后兼容，已发布语义不变）✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_FailureOwner_Unknown">Unknown</td>
+        <td><p><strong>判不出来</strong>（保守取值，下游应按&quot;未知&quot;处理）。</p>
+<p>⚠️ 这是**合法结果**，不是"未指定"——未指定请用 <a class="xref" href="ZL.IotAbstraction.Abstractions.FailureOwner.html#ZL_IotAbstraction_Abstractions_FailureOwner_NotSpecified">NotSpecified</a>（内部）✓</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

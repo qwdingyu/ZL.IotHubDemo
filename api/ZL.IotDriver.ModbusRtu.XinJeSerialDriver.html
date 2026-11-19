@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class XinJeSerialDriver | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class XinJeSerialDriver | ZL IoT SDK API ">
+    
+    <meta name="description" content="信捷（XinJE）Modbus RTU 串口驱动。 帧格式 = 标准 Modbus RTU（继承 ，零帧逻辑复制）✓ 地址格式 = 信捷符号地址（`D100`/`M0`/`X5`/`SD100` 等）， 由  转换，**与 `xinje-tcp` 使用同一个映射器** ✓">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver">
+
+
+
+  <h1 id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver" class="text-break">Class XinJeSerialDriver</h1>
+  <div class="markdown level0 summary"><p>信捷（XinJE）<strong>Modbus RTU 串口</strong>驱动。</p>
+<p>帧格式 = 标准 Modbus RTU（继承 <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html">ModbusRtuDriver</a>，零帧逻辑复制）✓</p>
+<p>地址格式 = 信捷符号地址（`D100`/`M0`/`X5`/`SD100` 等），
+由 <a class="xref" href="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.html">XinJeAddressMapper</a> 转换，**与 `xinje-tcp` 使用同一个映射器** ✓</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html">ModbusRtuDriver</a></div>
+    <div class="level2"><span class="xref">XinJeSerialDriver</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_AddressMapper">ModbusRtuDriver.AddressMapper</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_Converter">ModbusRtuDriver.Converter</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_EndianConverter">ModbusRtuDriver.EndianConverter</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ConnectServer">ModbusRtuDriver.ConnectServer()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ConnectClose">ModbusRtuDriver.ConnectClose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_IsConnected">ModbusRtuDriver.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_SetProtocolKey_System_String_">ModbusRtuDriver.SetProtocolKey(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_EnsureLicensed">ModbusRtuDriver.EnsureLicensed()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadBytesAsync_System_String_System_UInt16_">ModbusRtuDriver.ReadBytesAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadBytes_System_String_System_UInt16_">ModbusRtuDriver.ReadBytes(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Byte_">ModbusRtuDriver.WriteAsync(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_Write_System_String_System_Byte_">ModbusRtuDriver.Write(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_SByte_">ModbusRtuDriver.WriteAsync(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_Write_System_String_System_SByte_">ModbusRtuDriver.Write(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteBytesAsync_System_String_System_Byte___">ModbusRtuDriver.WriteBytesAsync(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_Write_System_String_System_Byte___">ModbusRtuDriver.Write(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadBoolAsync_System_String_">ModbusRtuDriver.ReadBoolAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadInt16Async_System_String_">ModbusRtuDriver.ReadInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadByteAsync_System_String_">ModbusRtuDriver.ReadByteAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadUInt16Async_System_String_">ModbusRtuDriver.ReadUInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadInt32Async_System_String_">ModbusRtuDriver.ReadInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadUInt32Async_System_String_">ModbusRtuDriver.ReadUInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadInt64Async_System_String_">ModbusRtuDriver.ReadInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadUInt64Async_System_String_">ModbusRtuDriver.ReadUInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadFloatAsync_System_String_">ModbusRtuDriver.ReadFloatAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadDoubleAsync_System_String_">ModbusRtuDriver.ReadDoubleAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadBool_System_String_">ModbusRtuDriver.ReadBool(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadByte_System_String_">ModbusRtuDriver.ReadByte(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadInt16_System_String_">ModbusRtuDriver.ReadInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadUInt16_System_String_">ModbusRtuDriver.ReadUInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadInt32_System_String_">ModbusRtuDriver.ReadInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadUInt32_System_String_">ModbusRtuDriver.ReadUInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadInt64_System_String_">ModbusRtuDriver.ReadInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadUInt64_System_String_">ModbusRtuDriver.ReadUInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadFloat_System_String_">ModbusRtuDriver.ReadFloat(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadDouble_System_String_">ModbusRtuDriver.ReadDouble(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadStringAsync_System_String_System_UInt16_System_Text_Encoding_">ModbusRtuDriver.ReadStringAsync(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ReadString_System_String_System_UInt16_System_Text_Encoding_">ModbusRtuDriver.ReadString(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_String_System_Text_Encoding_">ModbusRtuDriver.WriteAsync(string, string, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Boolean_">ModbusRtuDriver.WriteAsync(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Int16_">ModbusRtuDriver.WriteAsync(string, short)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_UInt16_">ModbusRtuDriver.WriteAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Int32_">ModbusRtuDriver.WriteAsync(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_UInt32_">ModbusRtuDriver.WriteAsync(string, uint)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Int64_">ModbusRtuDriver.WriteAsync(string, long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_UInt64_">ModbusRtuDriver.WriteAsync(string, ulong)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Single_">ModbusRtuDriver.WriteAsync(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Double_">ModbusRtuDriver.WriteAsync(string, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Boolean___">ModbusRtuDriver.WriteAsync(string, bool[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Int16___">ModbusRtuDriver.WriteAsync(string, short[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_UInt16___">ModbusRtuDriver.WriteAsync(string, ushort[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Int32___">ModbusRtuDriver.WriteAsync(string, int[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_UInt32___">ModbusRtuDriver.WriteAsync(string, uint[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Int64___">ModbusRtuDriver.WriteAsync(string, long[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_UInt64___">ModbusRtuDriver.WriteAsync(string, ulong[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Single___">ModbusRtuDriver.WriteAsync(string, float[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Double___">ModbusRtuDriver.WriteAsync(string, double[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteAsync_System_String_System_Object_">ModbusRtuDriver.WriteAsync(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_Write_System_String_System_Object_">ModbusRtuDriver.Write(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_Write_System_String_System_String_">ModbusRtuDriver.Write(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_ParseAddress_System_String_System_Byte__System_Byte__">ModbusRtuDriver.ParseAddress(string, out byte, out byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_WriteRegistersSingle_System_UInt16_System_Byte___System_Byte_">ModbusRtuDriver.WriteRegistersSingle(ushort, byte[], byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_Dispose">ModbusRtuDriver.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.ModbusRtu.ModbusRtuDriver.html#ZL_IotDriver_ModbusRtu_ModbusRtuDriver_IsAddressWritableOnThisChannel_System_String_">ModbusRtuDriver.IsAddressWritableOnThisChannel(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.ModbusRtu.html">ModbusRtu</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class XinJeSerialDriver : ModbusRtuDriver, IPlcDevice, IDisposable, IProtocolKey</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver__ctor_" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver.#ctor*"></a>
+  <h4 id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver__ctor_System_String_System_Int32_System_Int32_System_IO_Ports_StopBits_System_IO_Ports_Parity_System_Byte_System_Int32_ZL_IotDriver_ModbusTcp_XinJESeries_" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver.#ctor(System.String,System.Int32,System.Int32,System.IO.Ports.StopBits,System.IO.Ports.Parity,System.Byte,System.Int32,ZL.IotDriver.ModbusTcp.XinJESeries)">XinJeSerialDriver(string, int, int, StopBits, Parity, byte, int, XinJESeries)</h4>
+  <div class="markdown level1 summary"><p>构造信捷串口驱动。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XinJeSerialDriver(string portName, int baudRate = 9600, int dataBits = 8, StopBits stopBits = StopBits.One, Parity parity = Parity.Even, byte stationNumber = 1, int timeoutMs = 1500, XinJESeries series = XinJESeries.XD)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">portName</span></td>
+        <td><p>串口名（如 <code>COM3</code> / <code>/dev/ttyUSB0</code>）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">baudRate</span></td>
+        <td><p>波特率，默认 9600（信捷出厂默认）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">dataBits</span></td>
+        <td><p>数据位，默认 8。</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">StopBits</span></td>
+        <td><span class="parametername">stopBits</span></td>
+        <td><p>停止位，默认 1。</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Parity</span></td>
+        <td><span class="parametername">parity</span></td>
+        <td><p>校验，<strong>默认 Even</strong>（信捷 RTU 常用 8-E-1；可按现场改 None）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">stationNumber</span></td>
+        <td><p>Modbus 从站号，默认 1。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">timeoutMs</span></td>
+        <td><p>超时毫秒，默认 1500。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.XinJESeries.html">XinJESeries</a></td>
+        <td><span class="parametername">series</span></td>
+        <td><p>信捷系列，默认 <a class="xref" href="ZL.IotDriver.ModbusTcp.XinJESeries.html#ZL_IotDriver_ModbusTcp_XinJESeries_XD">XD</a>。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver_Series_" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver.Series*"></a>
+  <h4 id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver_Series" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver.Series">Series</h4>
+  <div class="markdown level1 summary"><p>信捷系列（XC / XD）。默认 XD（与 <code>xinje-tcp</code> 的默认一致）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XinJESeries Series { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.XinJESeries.html">XinJESeries</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver_ToString_" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver.ToString*"></a>
+  <h4 id="ZL_IotDriver_ModbusRtu_XinJeSerialDriver_ToString" data-uid="ZL.IotDriver.ModbusRtu.XinJeSerialDriver.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>日志/诊断用描述（父类未公开 PortName/BaudRate 属性，故只带系列名）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

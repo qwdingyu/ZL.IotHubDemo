@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class XinJeAddressMapper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class XinJeAddressMapper | ZL IoT SDK API ">
+    
+    <meta name="description" content="信捷（XinJE）Modbus 地址映射器。  [OK] **2026-10-22 与 HSL 10.6.1 逐地址实测比对**（反射调 `XinJEHelper.PraseXinJEAddress`）： ── XD 系列（11 项，9 项一致）── X10  → 20488 / 20488 [OK]    Y10 → 24584 / 24584 [OK]    S10 → 28682 / 28682 [OK] T10  → 40970 / 40970 [OK]    C10 → 45066 / 45066 [OK]    M10 → 10 / 10 [OK] D10  → 10 / 10 [OK]          SD10 → 28682 / 28682 [OK]   HD10 → 41098 / 41098 [OK] TD10 → 32778 / **null** [!]（**我方不支持**）  CD10 → 36874 / **null** [!]（同上）  ── XC 系列（7 项全一致 + 2 项我方扩展）── X10 → 16392 [OK]  Y10 → 18440 [OK]  S10 → 20490 [OK]  T10 → 25610 [OK] C10 → 27658 [OK]  M10 → 10 [OK]     D10 → 10 [OK] SD10 → **HSL 报「Unsupported DataType」** / 我方 28682 [!]（**我方扩展**，用 XD 偏移） HD10 → **HSL 拒绝** / 我方 41098 [!]（同上） ⇒ 已支持的部分全部一致 [OK]；差异只在&amp;quot;支持范围&amp;quot;，不在&amp;quot;值&amp;quot; [OK]   [!] **能力差异（2026-10-24 复核后只剩 1 处，已登记 todolist）**： &#183; **XC 的 `SD`/`HD` 我方支持、HSL 拒绝** —— 我方借用 XD 的偏移（28682/41098）[!]   若真机上 XC 无此区 ⇒ 会读到错误寄存器 [X] **待真机确认** &#183; ~~XD 的 `TD`/`CD` 我方不支持~~ ⇒ **2026-10-24 已补齐** [OK]（连同其余 18 个缺失前缀，   见 docs/471 &#167;3.2 与下方「XD 全量码表」）   [U+1F7E2] **XD 全量码表（2026-10-24 补齐；&#167;22.5 四要素）**：  [!!][!!]【2026-11-10 **A-289 修复**】本段原写「每个值都带 HSL 行号证据」， 且把位区标成 `:196-206`、字区标成 `:248-258` —— **实测这两个行号都错了** [X][X] &#183; `:196-206` 现在指向 `station + (num3 + 20480)`（**偏移运算**，不是码表） &#183; `:248-258` 现在指向 `XinJEAddress.ParseFrom`（**解析入口**，不是码表） &#183; **真实码表位置**：`XinJEHelper.cs` 的 **`array initializer` 两处**   —— 位区 `:179-180`、字区 `:232-233`（2026-11-10 实测确认）[OK] **⇒ 教训：把&quot;行号&quot;当证据一定会失效**（HSL 一升级就漂）[X] ⇒ 本段改为**「值 + 判定 + 复核命令」**：行号只作**当前快照**参考， 真正可复跑的是文末【复核命令】[OK]   [OK] **2026-11-10 实测：位区 12 项、字区 13 项**码值与 HSL **逐条一致** [OK] （HSL 是 `int[]` 数组初始化器，顺序即协议顺序）  **位区**（HSL `:179-180` 数组初始化器，12 项；[OK] 逐条一致）：SEM=**49280**、HSC=**59648**、     SM=**36864**、ET=**49152**、HM=**49408**、HS=**55552**、HT=**57600**、HC=**58624**、     S=28672、T=40960、C=45056、M=0 [OK]**字区**（HSL `:232-233` 数组初始化器，13 项；[OK] 逐条一致）：HSCD=**50304**、ETD=**40960**、     HSD=**47232**、HTD=**48256**、HCD=**49280**、SFD=**58560**、SD=28672、TD=**32768**、     CD=**36864**、HD=41088、FD=**50368**、FS=**62656**、D=0 [OK]**分段**（八进制值按十进制阈值 4096/8192/12288 分 4 段，     HSL `:168-190`）：X=20480/20736/22736/23536；Y=24576/24832/26832/27632 [OK]     [!] **ID/QD 是十进制**且阈值不同（10000/20000/30000，HSL `:207-247`）：     ID=20480/20736/22736/23536；QD=24576/24832/26832/27632 [OK] 判定：全部 [OK] 对齐 HSL；复核命令： bash scripts/audit/brand_vs_hsl_diff.sh（XD 组含全部前缀 + 分段边界值，应 0 不一致）   地址映射关系（**逐个值与 HSL `XinJEHelper.cs` 核对过** [OK]，见下方&quot;依据&quot;列）： X + octal输入（**八进制**）—— XC: **+16384**、XD: **+20480**Y + octal输出（**八进制**）—— XC: **+18432**、XD: **+24576**S + number步进点 —— XC: **+20480**、XD: **+28672**T + number定时器 —— XC: **+25600**、XD: **+40960**C + number计数器 —— XC: **+27648**、XD: **+45056**M + number辅助继电器（位）—— XC: &amp;lt;8000 **+0** / ≥8000 **+24576**；XD: **+0**D + number数据寄存器 —— XC: &amp;lt;8000 **+0** / ≥8000 **+16384**；XD: **+0**（另有 SD=**+28672**、HD=**+41088**）E / F扩展寄存器 —— E: **+28672**；F: &amp;lt;8000 **+18432** / ≥8000 **+26624**  [!!][!!] **【2026-10-22 订正：本表原&quot;XD&quot;那一列的数字无法追溯到 HSL】**[X]   **原表（[X] 已删）** 声称「源自 HSL XinJEHelper」并给出 `XD: X +1024 / Y +1280 / S +2048 / T +3072 / C +3584 / M +2048` —— **这些数字在 HSL 里根本不存在** [X]： grep -rnE &#39;\b(1024|1280|3072|3584)\b&#39; --include=*.cs _vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.XINJE/ ⇒ 0 命中（3584 在**整个 _vendor** 的 .cs 里都不存在） ⇒ 一份声称有来源、实际无来源的表，比&amp;quot;留白&amp;quot;更危险 [X] （后人会拿它当&amp;quot;已验证的规格&amp;quot;去用，或据此&amp;quot;修正&amp;quot;本来正确的代码 [X]）   **现表（[OK]）** 的每个值都取自 HSL 的**具体行**（已逐行核对 [OK]）： XC 位：`{&quot;X&quot;,&quot;Y&quot;} ⇒ {16384, 18432}`（`XinJEHelper.cs`）；         `{&quot;S&quot;,&quot;T&quot;,&quot;C&quot;} ⇒ {20480, 25600, 27648}`（`:103`）XC 寄存器：`{&quot;E&quot;,&quot;T&quot;,&quot;C&quot;} ⇒ {28672, 12288, 14336}`（`:136`）XD 位：`{&quot;SEM&quot;,&quot;HSC&quot;,&quot;SM&quot;,&quot;ET&quot;,&quot;HM&quot;,&quot;HS&quot;,&quot;HT&quot;,&quot;HC&quot;,&quot;S&quot;,&quot;T&quot;,&quot;C&quot;,&quot;M&quot;}`         ⇒ `{49280, 59648, 36864, 49152, 49408, 55552, 57600, 58624, 28672, 40960, 45056, 0}`         （名称表 `:199-200`、数值表 `:203-204`，其中 **`M ⇒ 0`** [OK]）XD 寄存器：`{&quot;D&quot;,&quot;SD&quot;,&quot;HD&quot;} ⇒ {0, 28672, 41088}`（`:209`）XD 的 X/Y 在 HSL 里是**分段**的（X: 20480→20736→22736→23536，`:163-178`）；         ~~本实现只用第一段~~ ⇒ **2026-10-24 已实现完整 4 段**（`XdSegmented`，见 `mapXdAddress`）[OK]         （原&quot;只用第一段&quot;的简化会让 X≥4096（八进制 ≥10000）**静默错位** [X]）   [OK] **2026-10-22 订正**：裸 `E` **不是&quot;未证实&quot;** —— **XC 系列**的 HSL 表**明确有 `E ⇒ 28672`**（`XinJEHelper.cs`）⇒ 本实现**对齐 HSL** [OK] （原先误把 XC 与 XD 混为一谈；只有 **XD** 系列才没有裸 `E`，见 `mapXdAddress` 内注释）">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper">
+
+
+
+  <h1 id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper" class="text-break">Class XinJeAddressMapper</h1>
+  <div class="markdown level0 summary"><p>信捷（XinJE）Modbus 地址映射器。</p>
+<p>
+[OK] **2026-10-22 与 HSL 10.6.1 逐地址实测比对**（反射调 `XinJEHelper.PraseXinJEAddress`）：
+<pre><code class="lang-csharp">── XD 系列（11 项，9 项一致）──
+X10  → 20488 / 20488 [OK]    Y10 → 24584 / 24584 [OK]    S10 → 28682 / 28682 [OK]
+T10  → 40970 / 40970 [OK]    C10 → 45066 / 45066 [OK]    M10 → 10 / 10 [OK]
+D10  → 10 / 10 [OK]          SD10 → 28682 / 28682 [OK]   HD10 → 41098 / 41098 [OK]
+TD10 → 32778 / **null** [!]（**我方不支持**）  CD10 → 36874 / **null** [!]（同上）
+
+── XC 系列（7 项全一致 + 2 项我方扩展）──
+X10 → 16392 [OK]  Y10 → 18440 [OK]  S10 → 20490 [OK]  T10 → 25610 [OK]
+C10 → 27658 [OK]  M10 → 10 [OK]     D10 → 10 [OK]
+SD10 → **HSL 报「Unsupported DataType」** / 我方 28682 [!]（**我方扩展**，用 XD 偏移）
+HD10 → **HSL 拒绝** / 我方 41098 [!]（同上）</code></pre>
+<p>⇒ <strong>已支持的部分全部一致</strong> [OK]；差异<strong>只在&quot;支持范围&quot;</strong>，不在&quot;值&quot; [OK]</p>
+
+<p>
+[!] **能力差异（2026-10-24 复核后只剩 1 处，已登记 todolist）**：
+· **XC 的 `SD`/`HD` 我方支持、HSL 拒绝** —— 我方借用 XD 的偏移（28682/41098）[!]
+  若真机上 XC 无此区 ⇒ 会读到错误寄存器 [X] **待真机确认**
+· ~~XD 的 `TD`/`CD` 我方不支持~~ ⇒ **2026-10-24 已补齐** [OK]（连同其余 18 个缺失前缀，
+  见 docs/471 §3.2 与下方「XD 全量码表」）
+</p>
+<p>
+[U+1F7E2] **XD 全量码表（2026-10-24 补齐；§22.5 四要素）**：
+<p>
+[!!][!!]【2026-11-10 **A-289 修复**】本段原写「每个值都带 HSL 行号证据」，
+且把位区标成 `:196-206`、字区标成 `:248-258` —— **实测这两个行号都错了** [X][X]
+· `:196-206` 现在指向 `station + (num3 + 20480)`（**偏移运算**，不是码表）
+· `:248-258` 现在指向 `XinJEAddress.ParseFrom`（**解析入口**，不是码表）
+· **真实码表位置**：`XinJEHelper.cs` 的 **`array initializer` 两处**
+  —— 位区 `:179-180`、字区 `:232-233`（2026-11-10 实测确认）[OK]
+**⇒ 教训：把"行号"当证据一定会失效**（HSL 一升级就漂）[X]
+⇒ 本段改为**「值 + 判定 + 复核命令」**：行号只作**当前快照**参考，
+真正可复跑的是文末【复核命令】[OK]
+</p>
+<p>
+[OK] **2026-11-10 实测：位区 12 项、字区 13 项**码值与 HSL **逐条一致** [OK]
+（HSL 是 `int[]` 数组初始化器，顺序即协议顺序）
+</p>
+<table><tbody><tr><td class="description">**位区**（HSL `:179-180` 数组初始化器，12 项；[OK] 逐条一致）：SEM=**49280**、HSC=**59648**、
+    SM=**36864**、ET=**49152**、HM=**49408**、HS=**55552**、HT=**57600**、HC=**58624**、
+    S=28672、T=40960、C=45056、M=0 [OK]</td></tr><tr><td class="description">**字区**（HSL `:232-233` 数组初始化器，13 项；[OK] 逐条一致）：HSCD=**50304**、ETD=**40960**、
+    HSD=**47232**、HTD=**48256**、HCD=**49280**、SFD=**58560**、SD=28672、TD=**32768**、
+    CD=**36864**、HD=41088、FD=**50368**、FS=**62656**、D=0 [OK]</td></tr><tr><td class="description">**分段**（八进制值按十进制阈值 4096/8192/12288 分 4 段，
+    HSL `:168-190`）：X=20480/20736/22736/23536；Y=24576/24832/26832/27632 [OK]<br>
+    [!] **ID/QD 是十进制**且阈值不同（10000/20000/30000，HSL `:207-247`）：
+    ID=20480/20736/22736/23536；QD=24576/24832/26832/27632 [OK]</td></tr></tbody></table>
+<p><strong>判定</strong>：全部 [OK] 对齐 HSL；<strong>复核命令</strong>：
+<code>bash scripts/audit/brand_vs_hsl_diff.sh</code>（XD 组含全部前缀 + 分段边界值，应 0 不一致）</p>
+
+<p>
+地址映射关系（**逐个值与 HSL `XinJEHelper.cs` 核对过** [OK]，见下方"依据"列）：
+<table><tbody><tr><td class="term">X + octal</td><td class="description">输入（**八进制**）—— XC: **+16384**、XD: **+20480**</td></tr><tr><td class="term">Y + octal</td><td class="description">输出（**八进制**）—— XC: **+18432**、XD: **+24576**</td></tr><tr><td class="term">S + number</td><td class="description">步进点 —— XC: **+20480**、XD: **+28672**</td></tr><tr><td class="term">T + number</td><td class="description">定时器 —— XC: **+25600**、XD: **+40960**</td></tr><tr><td class="term">C + number</td><td class="description">计数器 —— XC: **+27648**、XD: **+45056**</td></tr><tr><td class="term">M + number</td><td class="description">辅助继电器（位）—— XC: &lt;8000 **+0** / ≥8000 **+24576**；XD: **+0**</td></tr><tr><td class="term">D + number</td><td class="description">数据寄存器 —— XC: &lt;8000 **+0** / ≥8000 **+16384**；XD: **+0**（另有 SD=**+28672**、HD=**+41088**）</td></tr><tr><td class="term">E / F</td><td class="description">扩展寄存器 —— E: **+28672**；F: &lt;8000 **+18432** / ≥8000 **+26624**</td></tr></tbody></table>
+<p>
+[!!][!!] **【2026-10-22 订正：本表原"XD"那一列的数字无法追溯到 HSL】**[X]
+</p>
+<p>
+**原表（[X] 已删）** 声称「源自 HSL XinJEHelper」并给出
+`XD: X +1024 / Y +1280 / S +2048 / T +3072 / C +3584 / M +2048` ——
+**这些数字在 HSL 里根本不存在** [X]：
+<pre><code class="lang-csharp">grep -rnE '\b(1024|1280|3072|3584)\b' --include=*.cs _vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.XINJE/
+⇒ 0 命中（3584 在**整个 _vendor** 的 .cs 里都不存在）</code></pre>
+<p>⇒ 一份<strong>声称有来源、实际无来源</strong>的表，比&quot;留白&quot;更危险 [X]
+（后人会拿它当&quot;已验证的规格&quot;去用，或据此&quot;修正&quot;本来正确的代码 [X]）</p>
+
+<p>
+**现表（[OK]）** 的每个值都取自 HSL 的**具体行**（已逐行核对 [OK]）：
+<ul><li>XC 位：`{"X","Y"} ⇒ {16384, 18432}`（`XinJEHelper.cs`）；
+        `{"S","T","C"} ⇒ {20480, 25600, 27648}`（`:103`）</li><li>XC 寄存器：`{"E","T","C"} ⇒ {28672, 12288, 14336}`（`:136`）</li><li>XD 位：`{"SEM","HSC","SM","ET","HM","HS","HT","HC","S","T","C","M"}`
+        ⇒ `{49280, 59648, 36864, 49152, 49408, 55552, 57600, 58624, 28672, 40960, 45056, 0}`
+        （名称表 `:199-200`、数值表 `:203-204`，其中 **`M ⇒ 0`** [OK]）</li><li>XD 寄存器：`{"D","SD","HD"} ⇒ {0, 28672, 41088}`（`:209`）</li><li>XD 的 X/Y 在 HSL 里是**分段**的（X: 20480→20736→22736→23536，`:163-178`）；
+        ~~本实现只用第一段~~ ⇒ **2026-10-24 已实现完整 4 段**（`XdSegmented`，见 `mapXdAddress`）[OK]
+        （原"只用第一段"的简化会让 X≥4096（八进制 ≥10000）**静默错位** [X]）</li></ul>
+
+<p>
+[OK] **2026-10-22 订正**：裸 `E` **不是"未证实"** ——
+**XC 系列**的 HSL 表**明确有 `E ⇒ 28672`**（`XinJEHelper.cs`）⇒ 本实现**对齐 HSL** [OK]
+（原先误把 XC 与 XD 混为一谈；只有 **XD** 系列才没有裸 `E`，见 `mapXdAddress` 内注释）
+</p>
+
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">XinJeAddressMapper</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotDriver.ModbusTcp.IModbusAddressMapper.html">IModbusAddressMapper</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.ModbusTcp.html">ModbusTcp</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class XinJeAddressMapper : IModbusAddressMapper</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper__ctor_" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.#ctor*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper__ctor_ZL_IotDriver_ModbusTcp_XinJESeries_" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.#ctor(ZL.IotDriver.ModbusTcp.XinJESeries)">XinJeAddressMapper(XinJESeries)</h4>
+  <div class="markdown level1 summary"><p>创建信捷地址映射器。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XinJeAddressMapper(XinJESeries series = XinJESeries.XD)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.XinJESeries.html">XinJESeries</a></td>
+        <td><span class="parametername">series</span></td>
+        <td><p>PLC 系列（默认 XD）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper_BrandName_" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.BrandName*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper_BrandName" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.BrandName">BrandName</h4>
+  <div class="markdown level1 summary"><p>品牌名称（用于日志和错误消息）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string BrandName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper_Series_" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.Series*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper_Series" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.Series">Series</h4>
+  <div class="markdown level1 summary"><p>信捷 PLC 系列</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XinJESeries Series { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.XinJESeries.html">XinJESeries</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper_MapAddress_" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.MapAddress*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_XinJeAddressMapper_MapAddress_System_String_System_Byte_" data-uid="ZL.IotDriver.ModbusTcp.XinJeAddressMapper.MapAddress(System.String,System.Byte)">MapAddress(string, byte)</h4>
+  <div class="markdown level1 summary"><p>将品牌符号地址转换为 Modbus 寄存器地址。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ushort? MapAddress(string address, byte functionCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>品牌符号地址，如 &quot;D100&quot;、&quot;MB0&quot;、&quot;X5&quot;、&quot;M0&quot;</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">functionCode</span></td>
+        <td><p>期望的功能码（由调用者根据操作类型决定，如 03=读寄存器, 01=读线圈）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>?</td>
+        <td><p>Modbus 寄存器地址（0-based），null 表示解析失败</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotDriver.ModbusTcp.IModbusAddressMapper.html">IModbusAddressMapper</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

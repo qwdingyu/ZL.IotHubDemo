@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.Siemens.Ppi | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.Siemens.Ppi | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Siemens.Ppi">
+
+  <h1 id="ZL_IotDriver_Siemens_Ppi" data-uid="ZL.IotDriver.Siemens.Ppi" class="text-break">Namespace ZL.IotDriver.Siemens.Ppi</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.Ppi.PpiAddress.html">PpiAddress</a></h4>
+      <section><p>PPI 地址解析结果：区域码 + DB 号 + <strong>位地址</strong>起点。</p>
+<p>
+⚠️ <a class="xref" href="ZL.IotDriver.Siemens.Ppi.PpiAddress.html#ZL_IotDriver_Siemens_Ppi_PpiAddress_AddressStart">AddressStart</a> 的单位是**位**（bit），不是字节 ✗
+—— PPI 的地址字段按位表达（见 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">CalcAddressStart(string, out int, out string)</a>）
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.html">PpiAddress.PpiDataCode</a></h4>
+      <section><p>⭐ <strong>PPI 区域代码全表</strong>（逐项对齐 HSL <code>SiemensPPIHelper.AnalysisAddress</code>）。</p>
+<p>
+| 前缀 | DataCode | 说明 | 判定 |
+|---|---|---|---|
+| `SYS` | **3** | 系统存储区 | ✅ 对齐 HSL |
+| `AI`  | **6** | 模拟量输入 | ✅ 对齐 HSL |
+| `AQ`  | **7** | 模拟量输出 | ✅ 对齐 HSL |
+| `T`   | **31** | 定时器 | ✅ 对齐 HSL |
+| `C`   | **30** | 计数器 | ✅ 对齐 HSL |
+| `SM`  | **5** | 特殊存储器 | ✅ 对齐 HSL |
+| `S`   | **4** | 顺序控制继电器 | ✅ 对齐 HSL |
+| `I`   | **129** | 数字量输入 | ✅ 对齐 HSL |
+| `Q`   | **130** | 数字量输出 | ✅ 对齐 HSL |
+| `M`   | **131** | 位存储器 | ✅ 对齐 HSL |
+| `V`/`D`/`DB` | **132** | 变量存储区（V 区 = DB1）| ✅ 对齐 HSL（HSL 里 D/DB 两分支同值）|
+<p>🔴🔴【2026-11-10 <strong>A-288 修复</strong>】本表原来第 4 列是「<strong>HSL 行号</strong>」，写 <code>:31</code>/<code>:36</code>/…<code>:81</code>
+⇒ <strong>实测已整体漂移 11 行</strong>（真实位置是 <code>:20</code>/<code>:25</code>/…<code>:70</code>）✗✗
+这就是 AGENTS §22.5 说的「<strong>行号一漂就无从恢复</strong>」—— 证据锚点失效后，
+后人按表里的行号去查，会看到<strong>完全无关的代码</strong> ⇒ 比没有证据更糟 ✗
+<strong>⇒ 改为「判定」列 ＋ 表尾【复核命令】</strong>：用 <code>grep</code> 直接列出所有 <code>DataCode = N</code>，
+值对不对一眼可见，且<strong>永不过期</strong> ✓</p>
+<p>✅ <strong>2026-11-10 实测：11 个 DataCode 值与 HSL 逐条一致</strong> ✓
+（<code>Sys=3 / Ai=6 / Aq=7 / T=31 / C=30 / Sm=5 / S=4 / I=129 / Q=130 / M=131 / V-D-DB=132</code>）</p>
+<p>【复核命令】（10 秒重跑，验上表与 HSL 仍一致）
+grep -nE &quot;DataCode = [0-9]+;&quot; <br>
+_vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.Siemens.Helper/SiemensPPIHelper.cs</p>
+
+<p>
+🔴 **判定**：✅ 对齐 HSL（逐项已核对行号）
+⚠️ **与 S7 的差异**：S7 的 `I/Q/M` 是 **129/130/131**（巧合相同），
+但 S7 的 `S` 区是**我方扩展**、`DataCode=4` 在 S7 中**不存在** ✗
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Siemens.Ppi.PpiFrame.html">PpiFrame</a></h4>
+      <section><p>PPI 帧常量与构建器（纯函数，无外部状态）。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotEngine.Notifications | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotEngine.Notifications | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Notifications">
+
+  <h1 id="ZL_IotEngine_Notifications" data-uid="ZL.IotEngine.Notifications" class="text-break">Namespace ZL.IotEngine.Notifications</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotEngine.Notifications.PlcChannelSubscription.html">PlcChannelSubscription</a></h4>
+      <section><p>基于 System.Threading.Channels 的订阅包装器。</p>
+<p>
+工控场景中的设计意图：
+回调式订阅（Action）适合简单场景，但在 async/await 消费模型中不够优雅。
+本类将中枢的回调桥接为 Channel，使下游可以用 await foreach 异步消费事件流，
+天然支持背压（bounded channel + DropOldest）和取消。
+</p>
+<p>
+典型用法：
+<pre><code class="lang-csharp">using var sub = hub.SubscribeChannel(options, capacity: 256);
+await foreach (var evt in sub.Reader.ReadAllAsync(cts.Token))
+{
+    // 处理事件：更新 UI、写入数据库、转发给 MES 等
+}</code></pre>
+
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHub.html">PlcNotificationHub</a></h4>
+      <section><p>PLC 实时通知中枢 —— 工控数据采集与上位系统之间的核心事件分发枢纽。</p>
+<p>
+在工业现场，采集侧（`DeviceRoot`；原 `BatchEngine` 已于 `24bfaaba` 删除）周期性从 PLC 读取标签数据，
+产生"标签值变化"和"连接状态变化"两类事件。本中枢负责：
+</p>
+<ol><li><b>事件发布与分发</b>：接收采集侧事件，按序号排序后分发给所有活跃订阅者（SCADA/MES/UI）。</li><li><b>有限窗口回放（Replay）</b>：新订阅者建立时，可立即回放最近 N 条事件，解决 UI 打开时的"冷启动"问题。</li><li><b>消费位点跟踪（Ack）</b>：下游消费者通过 Acknowledge 报告消费进度，支持断点续传场景。</li><li><b>CatchUp 追赶机制</b>：订阅建立期间到达的新事件先缓冲，回放完成后按序排空，保证"无重复、无乱序、无窗口丢失"。</li><li><b>可观测性指标</b>：提供完整的运行指标快照，用于现场诊断和监控告警。</li></ol>
+<p>
+🔴🔴【**使用契约 —— 必读，选错路径会导致设备误动作**，详见 <code>docs/649</code>】
+</p>
+<p><b>本类投递的事件是「变化通知」，<u>不是</u>「控制信号源」</b> ✗</p>
+<table><tbody><tr><td class="term">实时控制 / 闭环 / 联锁判定</td><td class="description">
+  **读当前值**：<code>GetLatestSnapshot()</code> 或设备侧 <code>DeviceRoot.GetTagValue()</code>（走 <code>localCache</code>）。
+  事件只当「有变化，该去读一次」的**唤醒信号** ✓<br>
+  🔴 **禁止**把事件回调里的值当作控制决策的**唯一输入** —— 本类通道是**有界 ＋ DropOldest**
+  （设计见 <code>docs/07 §6</code>、审查见 <code>docs/604 §3.2</code>），慢消费者会**丢中间值**；
+  而控制决策**必须基于当前物理状态** —— 一条 3 秒前的「到位=true」若被重放/延迟使用，
+  机械早已离开 ⇒ **夹空/撞机** ✗✗</td></tr><tr><td class="term">SCADA / HMI 展示</td><td class="description">
+  同样**以缓存读为准**（<code>docs/252</code> 的"缓存优先"），事件用于**触发刷新** ✓<br>
+  允许丢中间值：下一次读/快照会校正画面 ✓</td></tr><tr><td class="term">MES / 追溯 / 历史</td><td class="description">
+  **不要用本类事件流承载历史** ✗ —— 平台**刻意不内置历史存储**（<code>docs/07 §7</code>），
+  请由消费侧落库（如 SqlSugar）或接外部 Historian ✓</td></tr><tr><td class="term">报警 / 联锁 / 扫码触发（Trigger）</td><td class="description">
+  这是**唯一**需要「一条都不丢」（at-least-once）的场景 ✓
+  ⇒ 必须走**持久化**：`PlcEventDispatcher.TriggerSpool`（<code>docs/649 P1</code>，**2026-11-10 已实现**）
+    —— 队列满时落盘而非丢弃（at-least-once）；**默认关闭**，需显式启用 ✓
+  不能只依赖内存通道 ✗</td></tr><tr><td class="term">上位机 → PLC 命令写入</td><td class="description">
+  用 <code>WriteAsync</code>/<code>SendCommand</code>：**同步 ＋ 超时 ＋ <code>CommandId</code> 幂等** ✓ 无队列、不重放 ✓</td></tr></tbody></table>
+<p><b>一句话</b>：控制与显示都**读当前值**，事件只是「有变化」的通知；
+只有 Trigger 需要「每条都不丢」，而它必须走持久化；历史放外部 ✓</p>
+<p>
+线程安全：本类设计为完全线程安全，支持多线程并发发布和订阅。
+采用单例模式（Instance），确保全局只有一个事件分发点。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Notifications.PlcNotificationHubMetrics.html">PlcNotificationHubMetrics</a></h4>
+      <section><p>通知中枢运行指标快照。</p>
+<p>
+用于工业现场的可观测性与诊断：
+- 运维人员可通过指标判断中枢是否健康（积压、丢弃、回调异常）；
+- 性能调优时可观察 CatchUp 耗时、缓冲利用率；
+- 对接 Prometheus/Grafana 等监控系统时，这些指标是核心数据源。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Notifications.PlcRealtimeEvent.html">PlcRealtimeEvent</a></h4>
+      <section><p>PLC 实时事件载体。</p>
+<p>
+由通知中枢（PlcNotificationHub）统一发布，下游消费者（SCADA/MES/WinForm UI）通过订阅接收。
+每个事件携带全局递增序号（Sequence），用于消费位点跟踪和回放去重。
+根据 Kind 不同，携带不同的载荷字段。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotEngine.Notifications.PlcSubscriptionOptions.html">PlcSubscriptionOptions</a></h4>
+      <section><p>订阅过滤与回放选项。</p>
+<p>
+在工控场景中，不同的下游消费者通常只关心部分标签或部分设备的数据。
+例如：MES 系统只关心产量计数标签，SCADA 画面只关心某台 PLC 的全部标签，
+WinForm UI 只关心当前选中设备的连接状态。
+通过此对象可精确控制订阅者收到的事件范围，减少无效数据处理开销。
+</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotEngine.Notifications.PlcRealtimeEventKind.html">PlcRealtimeEventKind</a></h4>
+      <section><p>PLC 实时事件类型枚举。</p>
+<p>
+在工控采集场景中，中枢向下游（SCADA/MES/WinForm）分发的事件分为三类：
+1) 标签值变化事件 —— 采集到的 PLC 寄存器数据发生变化时触发；
+2) 连接状态事件 —— 设备连接/断线/Ping 状态变化时触发；
+3) 设备运行状态事件 —— DeviceRoot 生命周期阶段（启动/停止/异常）切换时触发。
+</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

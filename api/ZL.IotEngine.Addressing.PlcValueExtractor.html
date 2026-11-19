@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcValueExtractor | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcValueExtractor | ZL IoT SDK API ">
+    
+    <meta name="description" content="从批量读取的 buffer 中提取各标签的实际值。 工作流：BatchEngine 一次性读取 PlcReadBlock 对应的连续字节区域到 buffer， 然后由本类遍历块内每个标签，根据其地址偏移和数据类型， 利用 IEndianConverter 进行字节序转换，得到 .NET 强类型值。 关键设计：IEndianConverter 封装了大小端（Endian）差异， 西门子 S7 是大端（Big-Endian），Modbus RTU 也是大端， 但某些国产 PLC（如汇川）可能使用小端，通过注入不同的 EndianConverter 即可适配。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor">
+
+
+
+  <h1 id="ZL_IotEngine_Addressing_PlcValueExtractor" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor" class="text-break">Class PlcValueExtractor</h1>
+  <div class="markdown level0 summary"><p>从批量读取的 buffer 中提取各标签的实际值。</p>
+<p>工作流：BatchEngine 一次性读取 PlcReadBlock 对应的连续字节区域到 buffer，
+然后由本类遍历块内每个标签，根据其地址偏移和数据类型，
+利用 IEndianConverter 进行字节序转换，得到 .NET 强类型值。</p>
+<p>关键设计：IEndianConverter 封装了大小端（Endian）差异，
+西门子 S7 是大端（Big-Endian），Modbus RTU 也是大端，
+但某些国产 PLC（如汇川）可能使用小端，通过注入不同的 EndianConverter 即可适配。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcValueExtractor</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Addressing.html">Addressing</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Addressing_PlcValueExtractor_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PlcValueExtractor</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor__ctor_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.#ctor*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor__ctor_ZL_IotAbstraction_Tag_StringKind_System_Boolean_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.#ctor(ZL.IotAbstraction.Tag.StringKind,System.Boolean)">PlcValueExtractor(StringKind, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcValueExtractor(StringKind defaultStringKind, bool debugMode = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">defaultStringKind</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">debugMode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_DebugMode_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.DebugMode*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_DebugMode" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.DebugMode">DebugMode</h4>
+  <div class="markdown level1 summary"><p>调试模式：为 true 时在值提取异常时输出 Debug 日志，避免日志刷屏。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DebugMode { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_DefaultStringKind_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.DefaultStringKind*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_DefaultStringKind" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.DefaultStringKind">DefaultStringKind</h4>
+  <div class="markdown level1 summary"><p>字符串存储格式默认值。标签级 <a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html#ZL_IotAbstraction_Tag_TagItem_StringKind">StringKind</a> 为 <a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html#ZL_IotAbstraction_Tag_StringKind_None">None</a> 时回落到此设置。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StringKind DefaultStringKind { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_DefaultStringKindProvider_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.DefaultStringKindProvider*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_DefaultStringKindProvider" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.DefaultStringKindProvider">DefaultStringKindProvider</h4>
+  <div class="markdown level1 summary"><p><strong>惰性</strong>的设备级布局来源（优先于 <a class="xref" href="ZL.IotEngine.Addressing.PlcValueExtractor.html#ZL_IotEngine_Addressing_PlcValueExtractor_DefaultStringKind">DefaultStringKind</a> ✓）。
+【为什么必须惰性】同 <a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlockBuilder.html#ZL_IotEngine_Addressing_PlcReadBlockBuilder_DefaultStringKindProvider">DefaultStringKindProvider</a>：
+驱动的 <code>Device</code> 在 <strong>Connect 时</strong>才装配 ✗，本类却在构造时创建 ✗ ⇒ 构造期取值必错 ✗。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;StringKind&gt; DefaultStringKindProvider { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_OnOutOfRange_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.OnOutOfRange*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_OnOutOfRange" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.OnOutOfRange">OnOutOfRange</h4>
+  <div class="markdown level1 summary"><p>标签<strong>超出缓冲区范围</strong>回调（2026-10-17 收敛，docs/284 P2-C）。</p>
+<p>
+【为什么加它】此前"越界即跳过"是**静默**的：1 处 rel 预检 + **9 处** rel+N&lt;=buffer.Length
+分散判断 ⇒ ① 同一规则散在 10 处；② 值被静默丢弃（不产出、**不标质量码**、也不触发
+<a class="xref" href="ZL.IotEngine.Addressing.PlcValueExtractor.html#ZL_IotEngine_Addressing_PlcValueExtractor_OnUnsupportedDataType">OnUnsupportedDataType</a>，后者只管类型码未登记）⇒ 下游无法区分"没有新数据"
+与"当前值是旧值"（"静默数据缺口"族，见 docs/253/275/277）。
+</p>
+<p>
+【收敛后的形态】**一处**判定（最小 1 字节 + 定长类型的完整长度）+ **一处**上报（本回调）
+⇒ 所有调用方（含 BatchEngine 那条对外 API 路径）**天然**都被覆盖，不必各自再打补丁。
+参数为 (tag, 原因说明)。
+</p>
+<p>【语义等价性】定长类型的"需要字节数"取自与 switch 同一张表（<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcDataTypeMap.html#ZL_IotAbstraction_Abstractions_PlcDataTypeMap_TryGetFixedSize_System_String_System_Int32__">TryGetFixedSize(string, out int)</a>）
+⇒ 与原先各分支的 rel+N&lt;=buffer.Length **完全等价**；变长类型（string/byte[]）不在此判定
+（仍按原样 Math.Min 夹取，保留"部分值"语义）；未登记类型由 <a class="xref" href="ZL.IotEngine.Addressing.PlcValueExtractor.html#ZL_IotEngine_Addressing_PlcValueExtractor_OnUnsupportedDataType">OnUnsupportedDataType</a> 负责。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action&lt;TagItem, string&gt;? OnOutOfRange { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_OnUnsupportedDataType_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.OnUnsupportedDataType*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_OnUnsupportedDataType" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.OnUnsupportedDataType">OnUnsupportedDataType</h4>
+  <div class="markdown level1 summary"><p>未识别类型码回调（docs/148 D-5&quot;静默&quot;半边修复）：标签类型码经
+<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcDataTypeMap.html#ZL_IotAbstraction_Abstractions_PlcDataTypeMap_Normalize_System_String_">Normalize(string)</a> 后仍不在分发表内时触发，
+参数为 (tag, 原始类型码)。由宿主接线到设备日志（DeviceRoot/BatchMonitor），
+让&quot;点表类型码写错&quot;从静默丢值变为可诊断告警。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action&lt;TagItem, string&gt;? OnUnsupportedDataType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_Extract_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.Extract*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_Extract_ZL_IotAbstraction_Abstractions_IEndianConverter_ZL_IotEngine_Addressing_PlcReadBlock_System_Byte___System_Action_ZL_IotAbstraction_Tag_TagItem_System_Object__" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.Extract(ZL.IotAbstraction.Abstractions.IEndianConverter,ZL.IotEngine.Addressing.PlcReadBlock,System.Byte[],System.Action{ZL.IotAbstraction.Tag.TagItem,System.Object})">Extract(IEndianConverter, PlcReadBlock, byte[], Action&lt;TagItem, object&gt;)</h4>
+  <div class="markdown level1 summary"><p>从 buffer 中按块内标签逐一提取值。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Extract(IEndianConverter converter, PlcReadBlock block, byte[] buffer, Action&lt;TagItem, object&gt; onValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IEndianConverter.html">IEndianConverter</a></td>
+        <td><span class="parametername">converter</span></td>
+        <td><p>字节序转换器（项目自有 IEndianConverter，不依赖 HSL）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Addressing.PlcReadBlock.html">PlcReadBlock</a></td>
+        <td><span class="parametername">block</span></td>
+        <td><p>读取块（包含起始偏移和标签列表）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>从 PLC 读取的原始字节数组</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</td>
+        <td><span class="parametername">onValue</span></td>
+        <td><p>每提取到一个标签值的回调（tag, value）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_ProcessString_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.ProcessString*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_ProcessString_System_Byte___System_Int32_System_Int32_System_Text_Encoding_ZL_IotAbstraction_Tag_StringKind_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.ProcessString(System.Byte[],System.Int32,System.Int32,System.Text.Encoding,ZL.IotAbstraction.Tag.StringKind)">ProcessString(byte[], int, int, Encoding, StringKind)</h4>
+  <div class="markdown level1 summary"><p>处理 PLC 字符串，支持三种格式：Raw、S7String、S7WString。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ProcessString(byte[] buffer, int startIndex, int declaredLength, Encoding encoding, StringKind kind)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>原始字节缓冲区</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">startIndex</span></td>
+        <td><p>字符串起始位置</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td><p>声明长度（字节数）</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>字符编码</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td><p>字符串存储格式</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Addressing_PlcValueExtractor_ProcessStringWithLeader_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.ProcessStringWithLeader*"></a>
+  <h4 id="ZL_IotEngine_Addressing_PlcValueExtractor_ProcessStringWithLeader_System_Byte___System_Int32_System_Int32_System_Text_Encoding_System_Boolean_" data-uid="ZL.IotEngine.Addressing.PlcValueExtractor.ProcessStringWithLeader(System.Byte[],System.Int32,System.Int32,System.Text.Encoding,System.Boolean)">ProcessStringWithLeader(byte[], int, int, Encoding, bool)</h4>
+  <div class="markdown level1 summary"><p>处理 PLC 字符串，支持三种格式：Raw、S7String、S7WString。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ProcessStringWithLeader(byte[] buffer, int startIndex, int declaredLength, Encoding encoding, bool hasLeader)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>原始字节缓冲区</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">startIndex</span></td>
+        <td><p>字符串起始位置</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">declaredLength</span></td>
+        <td><p>声明长度（字节数）</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>字符编码</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">hasLeader</span></td>
+        <td><p>是否启用前导符模式（兼容旧接口）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

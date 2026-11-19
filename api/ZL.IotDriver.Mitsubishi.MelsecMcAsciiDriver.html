@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class MelsecMcAsciiDriver | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class MelsecMcAsciiDriver | ZL IoT SDK API ">
+    
+    <meta name="description" content="三菱 MC 3E ASCII 帧 驱动（SLMP ASCII over TCP）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver">
+
+
+
+  <h1 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver" class="text-break">Class MelsecMcAsciiDriver</h1>
+  <div class="markdown level0 summary"><p>三菱 MC 3E <strong>ASCII 帧</strong> 驱动（SLMP ASCII over TCP）。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html">MitsubishiMcDriver</a></div>
+    <div class="level2"><span class="xref">MelsecMcAsciiDriver</span></div>
+      <div class="level3"><a class="xref" href="ZL.IotDriver.Mitsubishi.KeyenceMcAsciiDriver.html">KeyenceMcAsciiDriver</a></div>
+      <div class="level3"><a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecMcAsciiUdpDriver.html">MelsecMcAsciiUdpDriver</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IBitBatchReader.html">IBitBatchReader</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver__socket">MitsubishiMcDriver._socket</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_IsConnected">MitsubishiMcDriver.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_IpAddress">MitsubishiMcDriver.IpAddress</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Port">MitsubishiMcDriver.Port</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Version">MitsubishiMcDriver.Version</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_EndianConverter">MitsubishiMcDriver.EndianConverter</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ConnectServer">MitsubishiMcDriver.ConnectServer()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ConnectClose">MitsubishiMcDriver.ConnectClose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_CreateSocket">MitsubishiMcDriver.CreateSocket()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ConnectSocket_System_Net_IPAddress_">MitsubishiMcDriver.ConnectSocket(IPAddress)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SetProtocolKey_System_String_">MitsubishiMcDriver.SetProtocolKey(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_EnsureLicensed">MitsubishiMcDriver.EnsureLicensed()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_EncodeFrameToWire_System_Byte___">MitsubishiMcDriver.EncodeFrameToWire(byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ResponseHeaderLength">MitsubishiMcDriver.ResponseHeaderLength</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_GetDataLengthFromHeader_System_Byte___">MitsubishiMcDriver.GetDataLengthFromHeader(byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WireTotalLength_System_Int32_">MitsubishiMcDriver.WireTotalLength(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_DecodeWireToBinary_System_Byte___System_Int32_">MitsubishiMcDriver.DecodeWireToBinary(byte[], int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SocketSend_System_Byte___">MitsubishiMcDriver.SocketSend(byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SocketReceive_System_Byte___System_Int32_">MitsubishiMcDriver.SocketReceive(byte[], int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SocketClose">MitsubishiMcDriver.SocketClose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SendPackageReliable_System_Byte___">MitsubishiMcDriver.SendPackageReliable(byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SendPackageRead_System_Byte___System_Int32_">MitsubishiMcDriver.SendPackageRead(byte[], int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ParseAddress_System_String_">MitsubishiMcDriver.ParseAddress(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_MakeKeyence_System_String_System_Byte_System_Byte_System_Int32_System_String_System_Int32_">MitsubishiMcDriver.MakeKeyence(string, byte, byte, int, string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_CalculateComplexAddress_System_String_">MitsubishiMcDriver.CalculateComplexAddress(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ParseKeyenceAddressCore_System_String_System_Func_System_String_ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_McAddress__">MitsubishiMcDriver.ParseKeyenceAddressCore(string, Func&lt;string, MitsubishiMcDriver.McAddress&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_KeyenceAreas">MitsubishiMcDriver.KeyenceAreas</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_BuildWriteCommand_ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_McAddress_System_Byte___System_Boolean_">MitsubishiMcDriver.BuildWriteCommand(MitsubishiMcDriver.McAddress, byte[], bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadRandomWithLengths_System_String___System_Int32___">MitsubishiMcDriver.ReadRandomWithLengths(string[], int[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadRandomWithLengthsAsync_System_String___System_Int32___">MitsubishiMcDriver.ReadRandomWithLengthsAsync(string[], int[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadRandomWithLength_System_String___System_UInt16_">MitsubishiMcDriver.ReadRandomWithLength(string[], ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadRandomWithLengthAsync_System_String___System_UInt16_">MitsubishiMcDriver.ReadRandomWithLengthAsync(string[], ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteRandom_System_String___System_Byte___">MitsubishiMcDriver.WriteRandom(string[], byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteRandomAsync_System_String___System_Byte___">MitsubishiMcDriver.WriteRandomAsync(string[], byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadExtend_System_UInt16_System_String_System_UInt16_">MitsubishiMcDriver.ReadExtend(ushort, string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadExtendAsync_System_UInt16_System_String_System_UInt16_">MitsubishiMcDriver.ReadExtendAsync(ushort, string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadMemory_System_UInt32_System_UInt16_">MitsubishiMcDriver.ReadMemory(uint, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadMemoryAsync_System_UInt32_System_UInt16_">MitsubishiMcDriver.ReadMemoryAsync(uint, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SupportsRemoteControl">MitsubishiMcDriver.SupportsRemoteControl</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_RemoteRun">MitsubishiMcDriver.RemoteRun()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_RemoteStop">MitsubishiMcDriver.RemoteStop()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_RemoteReset">MitsubishiMcDriver.RemoteReset()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadBytesInternal_System_String_System_UInt16_System_Boolean_">MitsubishiMcDriver.ReadBytesInternal(string, ushort, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadBytes_System_String_System_UInt16_">MitsubishiMcDriver.ReadBytes(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteBytes_System_String_System_Byte___">MitsubishiMcDriver.WriteBytes(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Byte___">MitsubishiMcDriver.Write(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadBool_System_String_">MitsubishiMcDriver.ReadBool(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadBitsAsync_System_String_System_UInt16_">MitsubishiMcDriver.ReadBitsAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_TryGetBitDevice_System_String_System_String__System_Int64__">MitsubishiMcDriver.TryGetBitDevice(string, out string, out long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_TryGetAddressSemantics_System_String_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__">MitsubishiMcDriver.TryGetAddressSemantics(string, string, out DeviceAddressSemantics)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_TryGetAddressSemantics_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__">MitsubishiMcDriver.TryGetAddressSemantics(string, out DeviceAddressSemantics)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadInt16_System_String_">MitsubishiMcDriver.ReadInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadByte_System_String_">MitsubishiMcDriver.ReadByte(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadUInt16_System_String_">MitsubishiMcDriver.ReadUInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadInt32_System_String_">MitsubishiMcDriver.ReadInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadUInt32_System_String_">MitsubishiMcDriver.ReadUInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadInt64_System_String_">MitsubishiMcDriver.ReadInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadUInt64_System_String_">MitsubishiMcDriver.ReadUInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadFloat_System_String_">MitsubishiMcDriver.ReadFloat(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadDouble_System_String_">MitsubishiMcDriver.ReadDouble(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadString_System_String_System_UInt16_System_Text_Encoding_">MitsubishiMcDriver.ReadString(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadBytesAsync_System_String_System_UInt16_">MitsubishiMcDriver.ReadBytesAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadBoolAsync_System_String_">MitsubishiMcDriver.ReadBoolAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadByteAsync_System_String_">MitsubishiMcDriver.ReadByteAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadInt16Async_System_String_">MitsubishiMcDriver.ReadInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadUInt16Async_System_String_">MitsubishiMcDriver.ReadUInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadInt32Async_System_String_">MitsubishiMcDriver.ReadInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadUInt32Async_System_String_">MitsubishiMcDriver.ReadUInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadInt64Async_System_String_">MitsubishiMcDriver.ReadInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadUInt64Async_System_String_">MitsubishiMcDriver.ReadUInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadFloatAsync_System_String_">MitsubishiMcDriver.ReadFloatAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadDoubleAsync_System_String_">MitsubishiMcDriver.ReadDoubleAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_ReadStringAsync_System_String_System_UInt16_System_Text_Encoding_">MitsubishiMcDriver.ReadStringAsync(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Boolean_">MitsubishiMcDriver.Write(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Int16_">MitsubishiMcDriver.Write(string, short)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_UInt16_">MitsubishiMcDriver.Write(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Int32_">MitsubishiMcDriver.Write(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_UInt32_">MitsubishiMcDriver.Write(string, uint)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Int64_">MitsubishiMcDriver.Write(string, long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_UInt64_">MitsubishiMcDriver.Write(string, ulong)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Single_">MitsubishiMcDriver.Write(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Double_">MitsubishiMcDriver.Write(string, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_String_System_Text_Encoding_">MitsubishiMcDriver.Write(string, string, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_String_">MitsubishiMcDriver.Write(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Object_">MitsubishiMcDriver.Write(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Boolean_">MitsubishiMcDriver.WriteAsync(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Int16_">MitsubishiMcDriver.WriteAsync(string, short)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_UInt16_">MitsubishiMcDriver.WriteAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Int32_">MitsubishiMcDriver.WriteAsync(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_UInt32_">MitsubishiMcDriver.WriteAsync(string, uint)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Int64_">MitsubishiMcDriver.WriteAsync(string, long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_UInt64_">MitsubishiMcDriver.WriteAsync(string, ulong)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Single_">MitsubishiMcDriver.WriteAsync(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Double_">MitsubishiMcDriver.WriteAsync(string, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_String_System_Text_Encoding_">MitsubishiMcDriver.WriteAsync(string, string, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Object_">MitsubishiMcDriver.WriteAsync(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Boolean___">MitsubishiMcDriver.WriteAsync(string, bool[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Int16___">MitsubishiMcDriver.WriteAsync(string, short[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_UInt16___">MitsubishiMcDriver.WriteAsync(string, ushort[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Int32___">MitsubishiMcDriver.WriteAsync(string, int[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_UInt32___">MitsubishiMcDriver.WriteAsync(string, uint[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Int64___">MitsubishiMcDriver.WriteAsync(string, long[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_UInt64___">MitsubishiMcDriver.WriteAsync(string, ulong[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Single___">MitsubishiMcDriver.WriteAsync(string, float[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Double___">MitsubishiMcDriver.WriteAsync(string, double[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_Byte_">MitsubishiMcDriver.WriteAsync(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_Byte_">MitsubishiMcDriver.Write(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteAsync_System_String_System_SByte_">MitsubishiMcDriver.WriteAsync(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Write_System_String_System_SByte_">MitsubishiMcDriver.Write(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_WriteBytesAsync_System_String_System_Byte___">MitsubishiMcDriver.WriteBytesAsync(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_Dispose">MitsubishiMcDriver.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Mitsubishi.html">Mitsubishi</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class MelsecMcAsciiDriver : MitsubishiMcDriver, IPlcDevice, IDisposable, IProtocolKey, IBitBatchReader, IAddressSemantics</code></pre>
+  </div>
+  <h5 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>【2026-10-28 去 sealed】允许 <a class="xref" href="ZL.IotDriver.Mitsubishi.MelsecMcAsciiUdpDriver.html">MelsecMcAsciiUdpDriver</a> 继承（UDP 传输变体，
+docs/499 T0-3；与 HSL <code>MelsecMcAsciiUdp : MelsecMcAsciiNet</code> 同款关系）。
+去 sealed 属<strong>零行为变化</strong>（494 FINS-UDP 先例同款前置改造）✓</p>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver__ctor_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.#ctor*"></a>
+  <h4 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver__ctor_System_String_System_Int32_System_Int32_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.#ctor(System.String,System.Int32,System.Int32)">MelsecMcAsciiDriver(string, int, int)</h4>
+  <div class="markdown level1 summary"><p>初始化 MC ASCII 驱动（固定 Qna_3E——ASCII 形态仅 3E 存在 ✓）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MelsecMcAsciiDriver(string ip, int port, int timeoutMs = 3000)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">ip</span></td>
+        <td><p>PLC 地址</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>端口（SLMP ASCII 与二进制模式端口<strong>不同</strong>，按现场参数配置）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">timeoutMs</span></td>
+        <td><p>超时（毫秒）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_BuildReadCommand_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.BuildReadCommand*"></a>
+  <h4 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_BuildReadCommand_ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_McAddress_System_UInt16_System_Boolean_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.BuildReadCommand(ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.McAddress,System.UInt16,System.Boolean)">BuildReadCommand(McAddress, ushort, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override byte[] BuildReadCommand(MitsubishiMcDriver.McAddress addr, ushort length, bool isBit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html">MitsubishiMcDriver</a>.<a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.McAddress.html">McAddress</a></td>
+        <td><span class="parametername">addr</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isBit</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_BuildReadCommand_ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_McAddress_System_UInt16_System_Boolean_">MitsubishiMcDriver.BuildReadCommand(MitsubishiMcDriver.McAddress, ushort, bool)</a></div>
+  <a id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_BuildWriteCommand_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.BuildWriteCommand*"></a>
+  <h4 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_BuildWriteCommand_ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_McAddress_System_Byte___System_Boolean_System_Int32_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.BuildWriteCommand(ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.McAddress,System.Byte[],System.Boolean,System.Int32)">BuildWriteCommand(McAddress, byte[], bool, int)</h4>
+  <div class="markdown level1 summary"><p>写命令（ASCII 帧；data=打包半字节/原始字节，由位/字区分转换）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override byte[] BuildWriteCommand(MitsubishiMcDriver.McAddress addr, byte[] data, bool isBit, int pointCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html">MitsubishiMcDriver</a>.<a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.McAddress.html">McAddress</a></td>
+        <td><span class="parametername">addr</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isBit</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">pointCount</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_BuildWriteCommand_ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_McAddress_System_Byte___System_Boolean_System_Int32_">MitsubishiMcDriver.BuildWriteCommand(MitsubishiMcDriver.McAddress, byte[], bool, int)</a></div>
+  <a id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_ReadRandom_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.ReadRandom*"></a>
+  <h4 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_ReadRandom_System_String___" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.ReadRandom(System.String[])">ReadRandom(string[])</h4>
+  <div class="markdown level1 summary"><p>随机读发的是<strong>二进制帧</strong> ⇒ ASCII 模式明确拒绝（不静默错值 ✗）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;byte[]&gt; ReadRandom(string[] addresses)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td><span class="parametername">addresses</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_ReadRandomAsync_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.ReadRandomAsync*"></a>
+  <h4 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_ReadRandomAsync_System_String___" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.ReadRandomAsync(System.String[])">ReadRandomAsync(string[])</h4>
+  <div class="markdown level1 summary"><p>同上（异步版本）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;byte[]&gt;&gt; ReadRandomAsync(string[] addresses)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td><span class="parametername">addresses</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_SendAndReceiveQna_" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.SendAndReceiveQna*"></a>
+  <h4 id="ZL_IotDriver_Mitsubishi_MelsecMcAsciiDriver_SendAndReceiveQna_System_Byte___" data-uid="ZL.IotDriver.Mitsubishi.MelsecMcAsciiDriver.SendAndReceiveQna(System.Byte[])">SendAndReceiveQna(byte[])</h4>
+  <div class="markdown level1 summary"><p>ASCII 收发：发 ASCII 帧 → 收 18 字符头 + (数据字符数+4) → 校验状态 →
+数据转二进制（字=hex 对；位='0'/'1' → 半字节打包，前点=0x10 ✓）→
+合成 D0 00 二进制等价响应（父类子头校验/结束码检查/长度守卫原样生效 ✓）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult&lt;byte[]&gt; SendAndReceiveQna(byte[] command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Mitsubishi.MitsubishiMcDriver.html#ZL_IotDriver_Mitsubishi_MitsubishiMcDriver_SendAndReceiveQna_System_Byte___">MitsubishiMcDriver.SendAndReceiveQna(byte[])</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IBitBatchReader.html">IBitBatchReader</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

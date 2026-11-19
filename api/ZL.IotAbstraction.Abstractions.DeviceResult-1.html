@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DeviceResult&lt;T&gt; | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DeviceResult&lt;T&gt; | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 通讯操作的泛型结果（用于读取有返回值的操作）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_DeviceResult_1" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1" class="text-break">Class DeviceResult&lt;T&gt;</h1>
+  <div class="markdown level0 summary"><p>PLC 通讯操作的泛型结果（用于读取有返回值的操作）。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">DeviceResult&lt;T&gt;</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DeviceResult&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>返回值类型。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Content_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Content*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Content" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Content">Content</h4>
+  <div class="markdown level1 summary"><p>操作成功时返回的实际数据。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Content { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_ErrorCode_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.ErrorCode*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_ErrorCode" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.ErrorCode">ErrorCode</h4>
+  <div class="markdown level1 summary"><p>错误码：0=成功/无错误；非0=具体错误（兼容原 PFLite DeviceResult.ErrorCode 语义）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ErrorCode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_FailureTag_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.FailureTag*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_FailureTag" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.FailureTag">FailureTag</h4>
+  <div class="markdown level1 summary"><p><strong>可扩展失败标签</strong>（语义同非泛型 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html#ZL_IotAbstraction_Abstractions_DeviceResult_FailureTag">FailureTag</a>）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string FailureTag { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_IsRetryable_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.IsRetryable*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_IsRetryable" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.IsRetryable">IsRetryable</h4>
+  <div class="markdown level1 summary"><p><strong>是否值得重试</strong>（语义同非泛型；<strong>必须把 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html#ZL_IotAbstraction_Abstractions_DeviceResult_1_ErrorCode">ErrorCode</a> 一起传</strong>，
+否则 Modbus 06 会误判为不可重试 ✗ 见 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html#ZL_IotAbstraction_Abstractions_DeviceResult_IsRetryable">IsRetryable</a> 注释）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsRetryable { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_IsSuccess_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.IsSuccess*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_IsSuccess" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.IsSuccess">IsSuccess</h4>
+  <div class="markdown level1 summary"><p>操作是否成功。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSuccess { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Kind_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Kind*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Kind" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Kind">Kind</h4>
+  <div class="markdown level1 summary"><p><strong>失败性质</strong>（语义同非泛型 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html#ZL_IotAbstraction_Abstractions_DeviceResult_Kind">Kind</a>）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceFailureKind Kind { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html">DeviceFailureKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Message_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Message*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Message" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Message">Message</h4>
+  <div class="markdown level1 summary"><p>失败时的错误消息；成功时为 null 或空字符串。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Message { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Owner_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Owner*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Owner" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Owner">Owner</h4>
+  <div class="markdown level1 summary"><p><strong>失败的责任方</strong>（语义同非泛型 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html#ZL_IotAbstraction_Abstractions_DeviceResult_Owner">Owner</a>）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FailureOwner Owner { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.FailureOwner.html">FailureOwner</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Fail_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Fail*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Fail_System_String_System_Int32_ZL_IotAbstraction_Abstractions_DeviceFailureKind_ZL_IotAbstraction_Abstractions_FailureOwner_System_String_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Fail(System.String,System.Int32,ZL.IotAbstraction.Abstractions.DeviceFailureKind,ZL.IotAbstraction.Abstractions.FailureOwner,System.String)">Fail(string, int, DeviceFailureKind, FailureOwner, string)</h4>
+  <div class="markdown level1 summary"><p>创建失败的结果（默认 ErrorCode=-1）。</p>
+<p>🔴 2026-11-03：新增**可选** <code class="paramref">kind</code> 参数 ⇒ 现有调用点零改动 ✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult&lt;T&gt; Fail(string message, int errorCode = -1, DeviceFailureKind kind = DeviceFailureKind.Unspecified, FailureOwner owner = FailureOwner.NotSpecified, string failureTag = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">errorCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKind.html">DeviceFailureKind</a></td>
+        <td><span class="parametername">kind</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.FailureOwner.html">FailureOwner</a></td>
+        <td><span class="parametername">owner</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">failureTag</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_From_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.From*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_From_ZL_IotAbstraction_Abstractions_DeviceResult_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.From(ZL.IotAbstraction.Abstractions.DeviceResult)">From(DeviceResult)</h4>
+  <div class="markdown level1 summary"><p>从非泛型失败结果转换（<strong>传播全部失败信息</strong>：ErrorCode / Message / Kind / Owner / FailureTag）。</p>
+<p>🔴 <b>2026-11-03 修正真实缺陷</b>：原实现只传播 `ErrorCode` + `Message`，
+**丢掉了 `Kind`** ✗ ⇒ 一个已分类的失败经本方法传播后变成 `Unspecified`
+⇒ 下游拿不到分类✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult&lt;T&gt; From(DeviceResult other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_FromBytes_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.FromBytes*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_FromBytes_ZL_IotAbstraction_Abstractions_DeviceResult_System_Byte____System_Func_System_Byte____0__" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.FromBytes(ZL.IotAbstraction.Abstractions.DeviceResult{System.Byte[]},System.Func{System.Byte[],`0})">FromBytes(DeviceResult&lt;byte[]&gt;, Func&lt;byte[], T&gt;)</h4>
+  <div class="markdown level1 summary"><p>从字节读取结果映射到目标类型——失败时传播错误，成功时应用 mapper 转换。
+消除 ReadBytesAsync → Read{Type}Async 中重复的 if(!success)return failure 模式。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult&lt;T&gt; FromBytes(DeviceResult&lt;byte[]&gt; bytesResult, Func&lt;byte[], T&gt; mapper)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td><span class="parametername">bytesResult</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[], T&gt;</td>
+        <td><span class="parametername">mapper</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_FromException_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.FromException*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_FromException_System_Exception_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.FromException(System.Exception)">FromException(Exception)</h4>
+  <div class="markdown level1 summary"><p>从异常创建失败结果。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult&lt;T&gt; FromException(Exception ex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></td>
+        <td><span class="parametername">ex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_From_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.From*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_From__1_ZL_IotAbstraction_Abstractions_DeviceResult___0__" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.From``1(ZL.IotAbstraction.Abstractions.DeviceResult{``0})">From&lt;TOther&gt;(DeviceResult&lt;TOther&gt;)</h4>
+  <div class="markdown level1 summary"><p>从另一个泛型失败结果转换（<strong>传播全部失败信息</strong>，含 <code>Kind</code>/<code>Owner</code>/<code>FailureTag</code>）。</p>
+<p>🔴 与 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html#ZL_IotAbstraction_Abstractions_DeviceResult_1_From_ZL_IotAbstraction_Abstractions_DeviceResult_">From(DeviceResult)</a> 同因修正（原实现丢 `Kind`）✓</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult&lt;T&gt; From&lt;TOther&gt;(DeviceResult&lt;TOther&gt; other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;TOther&gt;</td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Ok_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Ok*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceResult_1_Ok__0_" data-uid="ZL.IotAbstraction.Abstractions.DeviceResult`1.Ok(`0)">Ok(T)</h4>
+  <div class="markdown level1 summary"><p>创建成功的结果。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult&lt;T&gt; Ok(T content)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">content</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_Bind__2_ZL_IotAbstraction_Abstractions_DeviceResult___0__System_Func___0_ZL_IotAbstraction_Abstractions_DeviceResult___1___">DeviceResultExtensions.Bind&lt;T, U&gt;(DeviceResult&lt;T&gt;, Func&lt;T, DeviceResult&lt;U&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_GetValueOrDefault__1_ZL_IotAbstraction_Abstractions_DeviceResult___0____0_">DeviceResultExtensions.GetValueOrDefault&lt;T&gt;(DeviceResult&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_LogIfFailed__1_ZL_IotAbstraction_Abstractions_DeviceResult___0__System_Action_System_String__">DeviceResultExtensions.LogIfFailed&lt;T&gt;(DeviceResult&lt;T&gt;, Action&lt;string&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_Map__2_ZL_IotAbstraction_Abstractions_DeviceResult___0__System_Func___0___1__">DeviceResultExtensions.Map&lt;T, U&gt;(DeviceResult&lt;T&gt;, Func&lt;T, U&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_Match__1_ZL_IotAbstraction_Abstractions_DeviceResult___0__System_Action___0__System_Action_System_String__">DeviceResultExtensions.Match&lt;T&gt;(DeviceResult&lt;T&gt;, Action&lt;T&gt;, Action&lt;string&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_Match__2_ZL_IotAbstraction_Abstractions_DeviceResult___0__System_Func___0___1__System_Func_System_String___1__">DeviceResultExtensions.Match&lt;T, TResult&gt;(DeviceResult&lt;T&gt;, Func&lt;T, TResult&gt;, Func&lt;string, TResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_ThrowIfFailed__1_ZL_IotAbstraction_Abstractions_DeviceResult___0__">DeviceResultExtensions.ThrowIfFailed&lt;T&gt;(DeviceResult&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResultExtensions.html#ZL_IotAbstraction_Abstractions_DeviceResultExtensions_TryGetValue__1_ZL_IotAbstraction_Abstractions_DeviceResult___0____0__">DeviceResultExtensions.TryGetValue&lt;T&gt;(DeviceResult&lt;T&gt;, out T)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

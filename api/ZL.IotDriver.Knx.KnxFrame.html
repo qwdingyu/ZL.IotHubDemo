@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class KnxFrame | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class KnxFrame | ZL IoT SDK API ">
+    
+    <meta name="description" content="KNXnet/IP 帧编解码。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Knx.KnxFrame">
+
+
+
+  <h1 id="ZL_IotDriver_Knx_KnxFrame" data-uid="ZL.IotDriver.Knx.KnxFrame" class="text-break">Class KnxFrame</h1>
+  <div class="markdown level0 summary"><p>KNXnet/IP 帧编解码。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">KnxFrame</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Knx.html">Knx</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Knx_KnxFrame_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class KnxFrame</code></pre>
+  </div>
+  <h5 id="ZL_IotDriver_Knx_KnxFrame_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p><b>🟢 覆盖边界（严格按"有实测证据"划）</b>：本类只实现
+**header / NAT-HPAI / CONNECT_REQUEST / CONNECT_RESPONSE 解析 / TUNNELLING_REQUEST / TUNNELLING_ACK** ——
+这些在 `docs/588` §9 有**真实线上字节**；cEMI 的 **TPDU 构造**尚未按 KNX 03/03/07 标准核实，
+故本类**只接受调用方给定的 TPDU 字节**，不臆造 TPDU 语义 ✗</p>
+<p><b>帧头（实测）</b>：<code>06 10 | service(2) | totalLen(2，含头) | body…</code></p>
+<p><b>NAT HPAI（实测）</b>：<code>08 01 00 00 00 00 00 00</code> —— 协议码 1、地址/端口全 0，
+含义"请回送到源地址"（这正是透明中继方案能抓全流程的原因，见 `docs/588` §9.1）</p>
+</div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_HeaderLen" data-uid="ZL.IotDriver.Knx.KnxFrame.HeaderLen">HeaderLen</h4>
+  <div class="markdown level1 summary"><p>KNXnet/IP 头长度。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int HeaderLen = 6</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_Knx_KnxFrame_BuildCemiLDataReq_" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildCemiLDataReq*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_BuildCemiLDataReq_System_UInt16_System_Byte___" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildCemiLDataReq(System.UInt16,System.Byte[])">BuildCemiLDataReq(ushort, byte[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildCemiLDataReq(ushort groupRaw, byte[] tpdu)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">groupRaw</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">tpdu</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxFrame_BuildConnectRequest_" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildConnectRequest*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_BuildConnectRequest" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildConnectRequest">BuildConnectRequest()</h4>
+  <div class="markdown level1 summary"><p>CONNECT_REQUEST（隧道，NAT）。</p>
+<p>实测字节：<code>06100205001A 0801000000000000 0801000000000000 0404 0200</code>
+⇒ 两个 NAT HPAI + CRI <code>04 04 02 00</code>（结构长 4 / 隧道连接 / 链路层）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildConnectRequest()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxFrame_BuildTunnellingAck_" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildTunnellingAck*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_BuildTunnellingAck_System_Byte_System_Byte_" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildTunnellingAck(System.Byte,System.Byte)">BuildTunnellingAck(byte, byte)</h4>
+  <div class="markdown level1 summary"><p>TUNNELLING_ACK：<code>header | 04 | channel | seq | 00</code>（实测 <code>06100421000A 04 01 00 00</code>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildTunnellingAck(byte channel, byte sequence)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">channel</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">sequence</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxFrame_BuildTunnellingRequest_" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildTunnellingRequest*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_BuildTunnellingRequest_System_Byte_System_Byte_System_Byte___" data-uid="ZL.IotDriver.Knx.KnxFrame.BuildTunnellingRequest(System.Byte,System.Byte,System.Byte[])">BuildTunnellingRequest(byte, byte, byte[])</h4>
+  <div class="markdown level1 summary"><p>TUNNELLING_REQUEST：<code>header | 04 | channel | seq | 00 | cEMI…</code></p>
+<p>实测：<code>061004200015 04 01 00 00 | 1100 BCE0 0000 0A03 0100 81</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildTunnellingRequest(byte channel, byte sequence, byte[] cemi)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">channel</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">sequence</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">cemi</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxFrame_TryParseCemi_" data-uid="ZL.IotDriver.Knx.KnxFrame.TryParseCemi*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_TryParseCemi_System_Byte___System_Byte____System_UInt16__" data-uid="ZL.IotDriver.Knx.KnxFrame.TryParseCemi(System.Byte[],System.Byte[]@,System.UInt16@)">TryParseCemi(byte[], out byte[], out ushort)</h4>
+  <div class="markdown level1 summary"><p>解析 cEMI 头，取出组地址与 TPDU（不做 TPDU 语义解释）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseCemi(byte[] cemi, out byte[] tpdu, out ushort groupRaw)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">cemi</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">tpdu</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">groupRaw</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxFrame_TryParseConnectResponse_" data-uid="ZL.IotDriver.Knx.KnxFrame.TryParseConnectResponse*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_TryParseConnectResponse_System_Byte___System_Byte__System_Byte__System_Byte__" data-uid="ZL.IotDriver.Knx.KnxFrame.TryParseConnectResponse(System.Byte[],System.Byte@,System.Byte@,System.Byte@)">TryParseConnectResponse(byte[], out byte, out byte, out byte)</h4>
+  <div class="markdown level1 summary"><p>解析 CONNECT_RESPONSE。</p>
+<p>实测字节：<code>061002060014 01 00 0801000000000000 0404110A</code>
+⇒ body = <code>通道号(1)</code> + <code>状态(1)</code> + HPAI(8，[8..15]) + CRD(4，[16..19])，CRD 末字节为**顺序号**。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseConnectResponse(byte[] frame, out byte channel, out byte sequence, out byte status)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">frame</span></td>
+        <td><p>收到的帧。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">channel</span></td>
+        <td><p>隧道通道号。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">sequence</span></td>
+        <td><p>CRD 末字节 —— 按 KNXnet/IP Core（03_08_02）这是隧道分配的
+<strong>KNX Individual Address 低字节</strong>（如黄金帧 040411ff 的 ff = 11.255），<strong>不是顺序号</strong>；
+本驱动不使用该值（docs/589 K2 订正，原&quot;服务器侧起始顺序号&quot;解读有误）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>状态字节（0 = 成功）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxFrame_TryParseTunnellingRequest_" data-uid="ZL.IotDriver.Knx.KnxFrame.TryParseTunnellingRequest*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_TryParseTunnellingRequest_System_Byte___System_Byte__System_Byte__System_Byte____" data-uid="ZL.IotDriver.Knx.KnxFrame.TryParseTunnellingRequest(System.Byte[],System.Byte@,System.Byte@,System.Byte[]@)">TryParseTunnellingRequest(byte[], out byte, out byte, out byte[])</h4>
+  <div class="markdown level1 summary"><p>解析 TUNNELLING_REQUEST，返回通道号、顺序号与 cEMI 字节。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseTunnellingRequest(byte[] frame, out byte channel, out byte sequence, out byte[] cemi)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">frame</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">channel</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">sequence</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">cemi</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_Knx_KnxFrame_Wrap_" data-uid="ZL.IotDriver.Knx.KnxFrame.Wrap*"></a>
+  <h4 id="ZL_IotDriver_Knx_KnxFrame_Wrap_System_UInt16_System_Collections_Generic_IList_System_Byte__" data-uid="ZL.IotDriver.Knx.KnxFrame.Wrap(System.UInt16,System.Collections.Generic.IList{System.Byte})">Wrap(ushort, IList&lt;byte&gt;)</h4>
+  <div class="markdown level1 summary"><p>组装一个 KNXnet/IP 帧（自动写长度）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] Wrap(ushort service, IList&lt;byte&gt; body)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">service</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">IList</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</td>
+        <td><span class="parametername">body</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

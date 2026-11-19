@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PpiAddress.PpiDataCode | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PpiAddress.PpiDataCode | ZL IoT SDK API ">
+    
+    <meta name="description" content="⭐ PPI 区域代码全表（逐项对齐 HSL SiemensPPIHelper.AnalysisAddress）。  | 前缀 | DataCode | 说明 | 判定 | |---|---|---|---| | `SYS` | **3** | 系统存储区 | ✅ 对齐 HSL | | `AI`  | **6** | 模拟量输入 | ✅ 对齐 HSL | | `AQ`  | **7** | 模拟量输出 | ✅ 对齐 HSL | | `T`   | **31** | 定时器 | ✅ 对齐 HSL | | `C`   | **30** | 计数器 | ✅ 对齐 HSL | | `SM`  | **5** | 特殊存储器 | ✅ 对齐 HSL | | `S`   | **4** | 顺序控制继电器 | ✅ 对齐 HSL | | `I`   | **129** | 数字量输入 | ✅ 对齐 HSL | | `Q`   | **130** | 数字量输出 | ✅ 对齐 HSL | | `M`   | **131** | 位存储器 | ✅ 对齐 HSL | | `V`/`D`/`DB` | **132** | 变量存储区（V 区 = DB1）| ✅ 对齐 HSL（HSL 里 D/DB 两分支同值）| &#128308;&#128308;【2026-11-10 A-288 修复】本表原来第 4 列是「HSL 行号」，写 :31/:36/…:81 ⇒ 实测已整体漂移 11 行（真实位置是 :20/:25/…:70）✗✗ 这就是 AGENTS &#167;22.5 说的「行号一漂就无从恢复」—— 证据锚点失效后， 后人按表里的行号去查，会看到完全无关的代码 ⇒ 比没有证据更糟 ✗ ⇒ 改为「判定」列 ＋ 表尾【复核命令】：用 grep 直接列出所有 DataCode = N， 值对不对一眼可见，且永不过期 ✓ ✅ 2026-11-10 实测：11 个 DataCode 值与 HSL 逐条一致 ✓ （Sys=3 / Ai=6 / Aq=7 / T=31 / C=30 / Sm=5 / S=4 / I=129 / Q=130 / M=131 / V-D-DB=132） 【复核命令】（10 秒重跑，验上表与 HSL 仍一致） grep -nE &amp;quot;DataCode = [0-9]+;&amp;quot;  _vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.Siemens.Helper/SiemensPPIHelper.cs   &#128308; **判定**：✅ 对齐 HSL（逐项已核对行号） ⚠️ **与 S7 的差异**：S7 的 `I/Q/M` 是 **129/130/131**（巧合相同）， 但 S7 的 `S` 区是**我方扩展**、`DataCode=4` 在 S7 中**不存在** ✗">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode">
+
+
+
+  <h1 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode" class="text-break">Class PpiAddress.PpiDataCode</h1>
+  <div class="markdown level0 summary"><p>⭐ <strong>PPI 区域代码全表</strong>（逐项对齐 HSL <code>SiemensPPIHelper.AnalysisAddress</code>）。</p>
+<p>
+| 前缀 | DataCode | 说明 | 判定 |
+|---|---|---|---|
+| `SYS` | **3** | 系统存储区 | ✅ 对齐 HSL |
+| `AI`  | **6** | 模拟量输入 | ✅ 对齐 HSL |
+| `AQ`  | **7** | 模拟量输出 | ✅ 对齐 HSL |
+| `T`   | **31** | 定时器 | ✅ 对齐 HSL |
+| `C`   | **30** | 计数器 | ✅ 对齐 HSL |
+| `SM`  | **5** | 特殊存储器 | ✅ 对齐 HSL |
+| `S`   | **4** | 顺序控制继电器 | ✅ 对齐 HSL |
+| `I`   | **129** | 数字量输入 | ✅ 对齐 HSL |
+| `Q`   | **130** | 数字量输出 | ✅ 对齐 HSL |
+| `M`   | **131** | 位存储器 | ✅ 对齐 HSL |
+| `V`/`D`/`DB` | **132** | 变量存储区（V 区 = DB1）| ✅ 对齐 HSL（HSL 里 D/DB 两分支同值）|
+<p>🔴🔴【2026-11-10 <strong>A-288 修复</strong>】本表原来第 4 列是「<strong>HSL 行号</strong>」，写 <code>:31</code>/<code>:36</code>/…<code>:81</code>
+⇒ <strong>实测已整体漂移 11 行</strong>（真实位置是 <code>:20</code>/<code>:25</code>/…<code>:70</code>）✗✗
+这就是 AGENTS §22.5 说的「<strong>行号一漂就无从恢复</strong>」—— 证据锚点失效后，
+后人按表里的行号去查，会看到<strong>完全无关的代码</strong> ⇒ 比没有证据更糟 ✗
+<strong>⇒ 改为「判定」列 ＋ 表尾【复核命令】</strong>：用 <code>grep</code> 直接列出所有 <code>DataCode = N</code>，
+值对不对一眼可见，且<strong>永不过期</strong> ✓</p>
+<p>✅ <strong>2026-11-10 实测：11 个 DataCode 值与 HSL 逐条一致</strong> ✓
+（<code>Sys=3 / Ai=6 / Aq=7 / T=31 / C=30 / Sm=5 / S=4 / I=129 / Q=130 / M=131 / V-D-DB=132</code>）</p>
+<p>【复核命令】（10 秒重跑，验上表与 HSL 仍一致）
+grep -nE &quot;DataCode = [0-9]+;&quot; <br>
+_vendor/hsl-decompile-13.0.3/HslCommunication.Profinet.Siemens.Helper/SiemensPPIHelper.cs</p>
+
+<p>
+🔴 **判定**：✅ 对齐 HSL（逐项已核对行号）
+⚠️ **与 S7 的差异**：S7 的 `I/Q/M` 是 **129/130/131**（巧合相同），
+但 S7 的 `S` 区是**我方扩展**、`DataCode=4` 在 S7 中**不存在** ✗
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PpiAddress.PpiDataCode</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.Siemens.html">Siemens</a>.<a class="xref" href="ZL.IotDriver.Siemens.Ppi.html">Ppi</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PpiAddress.PpiDataCode</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_Ai" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.Ai">Ai</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte Ai = 6</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_Aq" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.Aq">Aq</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte Aq = 7</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_C" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.C">C</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte C = 30</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_I" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.I">I</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte I = 129</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_M" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.M">M</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte M = 131</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_Q" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.Q">Q</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte Q = 130</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_S" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.S">S</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte S = 4</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_Sm" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.Sm">Sm</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte Sm = 5</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_Sys" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.Sys">Sys</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte Sys = 3</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_T" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.T">T</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte T = 31</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_Siemens_Ppi_PpiAddress_PpiDataCode_V" data-uid="ZL.IotDriver.Siemens.Ppi.PpiAddress.PpiDataCode.V">V</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte V = 132</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

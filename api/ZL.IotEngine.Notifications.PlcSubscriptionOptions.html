@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcSubscriptionOptions | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcSubscriptionOptions | ZL IoT SDK API ">
+    
+    <meta name="description" content="订阅过滤与回放选项。  在工控场景中，不同的下游消费者通常只关心部分标签或部分设备的数据。 例如：MES 系统只关心产量计数标签，SCADA 画面只关心某台 PLC 的全部标签， WinForm UI 只关心当前选中设备的连接状态。 通过此对象可精确控制订阅者收到的事件范围，减少无效数据处理开销。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions">
+
+
+
+  <h1 id="ZL_IotEngine_Notifications_PlcSubscriptionOptions" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions" class="text-break">Class PlcSubscriptionOptions</h1>
+  <div class="markdown level0 summary"><p>订阅过滤与回放选项。</p>
+<p>
+在工控场景中，不同的下游消费者通常只关心部分标签或部分设备的数据。
+例如：MES 系统只关心产量计数标签，SCADA 画面只关心某台 PLC 的全部标签，
+WinForm UI 只关心当前选中设备的连接状态。
+通过此对象可精确控制订阅者收到的事件范围，减少无效数据处理开销。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcSubscriptionOptions</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Notifications.html">Notifications</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class PlcSubscriptionOptions</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_AuthorizedDeviceIds_" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.AuthorizedDeviceIds*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_AuthorizedDeviceIds" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.AuthorizedDeviceIds">AuthorizedDeviceIds</h4>
+  <div class="markdown level1 summary"><p><strong>授权范围</strong>（设备级 ACL）——<strong>恒为 AND，且与 <a class="xref" href="ZL.IotEngine.Notifications.PlcSubscriptionOptions.html#ZL_IotEngine_Notifications_PlcSubscriptionOptions_MatchAnyFilter">MatchAnyFilter</a> 无关</strong>
+（OR 也不能放宽它）；只由 ACL 侧填充，请求参数不得写入（docs/271/290）。</p>
+<p>非空时：事件的 DeviceId 必须命中，否则一律拒绝。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISet&lt;string&gt; AuthorizedDeviceIds { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ISet</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_DeviceIds_" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.DeviceIds*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_DeviceIds" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.DeviceIds">DeviceIds</h4>
+  <div class="markdown level1 summary"><p>只接收指定 DeviceId 的事件；为 null 或空集合表示不按设备过滤。</p>
+<p>
+典型用法：SCADA 的某台设备详情页只订阅该设备的事件。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISet&lt;string&gt; DeviceIds { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ISet</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_MatchAnyFilter_" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.MatchAnyFilter*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_MatchAnyFilter" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.MatchAnyFilter">MatchAnyFilter</h4>
+  <div class="markdown level1 summary"><p>过滤匹配模式：</p>
+<ul><li>true（默认）: OR 模式 —— TagIds 或 DeviceIds 任意命中即投递。</li><li>false: AND 模式 —— 同时配置了 TagIds 与 DeviceIds 时，需两者都命中才投递。</li></ul>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool MatchAnyFilter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_ReplayLastCount_" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.ReplayLastCount*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_ReplayLastCount" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.ReplayLastCount">ReplayLastCount</h4>
+  <div class="markdown level1 summary"><p>订阅建立时立即回放最近 N 条事件；0 表示不回放（默认）。</p>
+<p>
+回放机制的工业场景意义：
+UI 页面打开时，需要立即展示最近的数据状态，而不是等待下一次采集周期。
+例如：ReplayLastCount=10 表示订阅后立即收到最近 10 条事件，让 UI 快速渲染初始状态。
+</p>
+<p>
+注意：回放依赖中枢的有限缓存窗口（默认 5000 条），超出窗口的历史事件不在回放范围内。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ReplayLastCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_TagIds_" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.TagIds*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcSubscriptionOptions_TagIds" data-uid="ZL.IotEngine.Notifications.PlcSubscriptionOptions.TagIds">TagIds</h4>
+  <div class="markdown level1 summary"><p>只接收包含指定 TagId 的事件；为 null 或空集合表示不按标签过滤。</p>
+<p>
+典型用法：MES 只订阅 ["ProductCount", "RejectCount"] 两个关键产量标签。
+匹配逻辑：事件 Changes 列表中只要有任意一条 TagId 在此集合中即算命中。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISet&lt;string&gt; TagIds { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ISet</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

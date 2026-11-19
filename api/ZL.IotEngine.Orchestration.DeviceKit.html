@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DeviceKit | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DeviceKit | ZL IoT SDK API ">
+    
+    <meta name="description" content="设备操作工具箱：提供值类型转换、地址递增、结果类型适配等辅助方法。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Orchestration.DeviceKit">
+
+
+
+  <h1 id="ZL_IotEngine_Orchestration_DeviceKit" data-uid="ZL.IotEngine.Orchestration.DeviceKit" class="text-break">Class DeviceKit</h1>
+  <div class="markdown level0 summary"><p>设备操作工具箱：提供值类型转换、地址递增、结果类型适配等辅助方法。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">DeviceKit</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Orchestration.html">Orchestration</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Orchestration_DeviceKit_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class DeviceKit</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Orchestration_DeviceKit_ChgValueForWrite_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.ChgValueForWrite*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceKit_ChgValueForWrite_System_String_System_Object_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.ChgValueForWrite(System.String,System.Object)">ChgValueForWrite(string, object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;本方法转换失败时静默返回 default(T) ⇒ 会写入错误值。请改用 TryChgValueForWrite（返回 bool ＋ 错误消息）。&quot;, false)]
+public static dynamic ChgValueForWrite(string dataTypeCode, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataTypeCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">dynamic</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceKit_ConvertResult_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.ConvertResult*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceKit_ConvertResult__1_System_Object_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.ConvertResult``1(System.Object)">ConvertResult&lt;T&gt;(object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceResult&lt;T&gt; ConvertResult&lt;T&gt;(object sourceResult)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">sourceResult</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceKit_IncrementAfterDot_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.IncrementAfterDot*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceKit_IncrementAfterDot_System_String_System_Int32_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.IncrementAfterDot(System.String,System.Int32)">IncrementAfterDot(string, int)</h4>
+  <div class="markdown level1 summary"><p>将地址中&quot;.&quot;后面的数字递增指定步长。</p>
+<p>
+用途：在批量读取结果解析时，根据数据类型的字节宽度递增偏移量，
+定位下一个标签在字节数组中的起始位置。
+</p>
+<p>
+示例：DB652.152 + increment=2 → DB652.154（下一个 Int16 的偏移）
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string IncrementAfterDot(string address, int increment = 2)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>PLC 地址（如 &quot;DB652.152&quot;）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">increment</span></td>
+        <td><p>偏移增量（默认 2，即一个 Int16 的宽度）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>递增后的地址</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceKit_IsLossyFractionalToIntegral_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.IsLossyFractionalToIntegral*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceKit_IsLossyFractionalToIntegral_System_Object_System_String_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.IsLossyFractionalToIntegral(System.Object,System.String)">IsLossyFractionalToIntegral(object, string)</h4>
+  <div class="markdown level1 summary"><p>🔴【2026-11-10 全局审查，<strong>P0-4 改法③ 遗留半条</strong>】<strong>检测&quot;小数写整型&quot;的静默舍入</strong> ✗→✓</p>
+<p>
+**缺陷（实测，`docs/602` P0-4 遗留）**：往 16 位（`short`）点位写 `3.7`
+⇒ `Convert.ChangeType` **静默四舍五入为 4**，且 `IsSuccess = true` ✗✗
+⇒ 用户写的值与 PLC 实际存的值**不同**，**且报成功** ✗
+（与 A-235「写 70000 静默变 0」**完全同族**：越界/类型错已修，唯独舍入没修 ⚠️）
+</p>
+<p>
+**本方法只"检测"，不改行为**（选项乙式）：
+· **保留**现有舍入行为 ⇒ **零破坏**（现有用 `3.7` 的代码继续工作 ✓）
+· 由调用方**记一条告警** ⇒ 现场能发现"我给的值被改过" ✓
+· 若要"严格拒绝"，属**破坏性变更**（现有代码会开始失败）⇒ **保留待 Owner 决策** ⚠️
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsLossyFractionalToIntegral(object value, string dataTypeCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataTypeCode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>true = 本次写入会因&quot;小数→整型&quot;而<strong>丢失精度</strong>（值被舍入）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceKit_ToWireString_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.ToWireString*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceKit_ToWireString_System_Object_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.ToWireString(System.Object)">ToWireString(object)</h4>
+  <div class="markdown level1 summary"><p>根据数据类型编码将原始值转换为 PLC 写入所需的强类型值。</p>
+<p>
+2026-09-19 修复（docs/148 D-5/B2）：入口先经 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcDataTypeMap.html#ZL_IotAbstraction_Abstractions_PlcDataTypeMap_Normalize_System_String_">Normalize(string)</a>
+完成"别名→规范名 + 小写化"，别名点表（int16/real/single…）不再返回 null
+—— 历史表现为"读得到、写不进去"。未识别类型仍返回 null（由调用方兜底）。
+同时以 Normalize 的文化无关实现取代 ToLower()（土耳其语 I 隐患）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToWireString(object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>待转换的原始值</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>转换后的强类型值；未识别类型返回 null</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceKit_TryChgValueForWrite_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.TryChgValueForWrite*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceKit_TryChgValueForWrite_System_String_System_Object_System_Object__System_String__" data-uid="ZL.IotEngine.Orchestration.DeviceKit.TryChgValueForWrite(System.String,System.Object,System.Object@,System.String@)">TryChgValueForWrite(string, object, out object, out string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryChgValueForWrite(string dataTypeCode, object value, out object converted, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataTypeCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">converted</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DeviceKit_TryValidateByteArrayWriteLength_" data-uid="ZL.IotEngine.Orchestration.DeviceKit.TryValidateByteArrayWriteLength*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DeviceKit_TryValidateByteArrayWriteLength_ZL_IotAbstraction_Tag_TagItem_System_Object_System_String__" data-uid="ZL.IotEngine.Orchestration.DeviceKit.TryValidateByteArrayWriteLength(ZL.IotAbstraction.Tag.TagItem,System.Object,System.String@)">TryValidateByteArrayWriteLength(TagItem, object, out string)</h4>
+  <div class="markdown level1 summary"><p>字节数组写入的<strong>宽度校验</strong>（2026-11-09，docs/643 W-04）。</p>
+<p>
+`byte[]` 标签的 <code>Length</code> 就是该点位的字节宽度 ⇒ 传入数组必须**恰好等长**。
+原实现只做类型转换、不比较长度：实测把 <code>byte[100]</code> 写到 <code>Length=8</code> 的点位
+会返回成功并下发 100 字节，越界覆盖相邻地址 ✗。
+</p>
+<p>
+未声明 <code>Length</code>（≤0）时**无法校验** ⇒ 放行（不是本守卫的对象，避免误伤历史点表）。
+非 <code>byte[]</code> 标签/非字节数组值 ⇒ 放行（由类型转换负责报错）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryValidateByteArrayWriteLength(TagItem tag, object value, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.TagItem.html">TagItem</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcRealtimeEvent | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcRealtimeEvent | ZL IoT SDK API ">
+    
+    <meta name="description" content="PLC 实时事件载体。  由通知中枢（PlcNotificationHub）统一发布，下游消费者（SCADA/MES/WinForm UI）通过订阅接收。 每个事件携带全局递增序号（Sequence），用于消费位点跟踪和回放去重。 根据 Kind 不同，携带不同的载荷字段。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent">
+
+
+
+  <h1 id="ZL_IotEngine_Notifications_PlcRealtimeEvent" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent" class="text-break">Class PlcRealtimeEvent</h1>
+  <div class="markdown level0 summary"><p>PLC 实时事件载体。</p>
+<p>
+由通知中枢（PlcNotificationHub）统一发布，下游消费者（SCADA/MES/WinForm UI）通过订阅接收。
+每个事件携带全局递增序号（Sequence），用于消费位点跟踪和回放去重。
+根据 Kind 不同，携带不同的载荷字段。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcRealtimeEvent</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Notifications.html">Notifications</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class PlcRealtimeEvent</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Changes_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Changes*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Changes" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Changes">Changes</h4>
+  <div class="markdown level1 summary"><p>本次事件中包含的所有标签值变化列表。
+一个事件可携带多个标签变化（批量推送），减少事件数量、降低分发开销。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;TagValueChange&gt; Changes { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="ZL.IotEngine.Models.TagValueChange.html">TagValueChange</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Connected_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Connected*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Connected" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Connected">Connected</h4>
+  <div class="markdown level1 summary"><p>设备通讯连接是否建立。
+true=已连接，false=已断开。工业现场常用此字段驱动 UI 上的&quot;在线/离线&quot;指示灯。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? Connected { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_DeviceId_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.DeviceId*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_DeviceId" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.DeviceId">DeviceId</h4>
+  <div class="markdown level1 summary"><p>产生该事件的设备标识，用于按设备过滤订阅。
+在多设备采集场景中，同一中枢可能汇聚多个 PLC 设备的事件。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DeviceId { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Kind_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Kind*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Kind" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Kind">Kind</h4>
+  <div class="markdown level1 summary"><p>事件类型：TagChanges（标签值变化）或 Connection（连接状态变化）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlcRealtimeEventKind Kind { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Notifications.PlcRealtimeEventKind.html">PlcRealtimeEventKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Message_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Message*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Message" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Message">Message</h4>
+  <div class="markdown level1 summary"><p>状态变化原因/消息（仅 Kind=DeviceStateChanged 有值）。
+例如&quot;设备启动失败: XXX&quot;或&quot;设备已停止&quot;，供下游告警/UI 直接展示。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Message { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_PingOk_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.PingOk*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_PingOk" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.PingOk">PingOk</h4>
+  <div class="markdown level1 summary"><p>设备心跳是否正常（TCP Ping 探测结果）。
+null 表示该字段未携带（某些场景只报告 Connected 而不报告 PingOk）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? PingOk { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_RuntimeState_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.RuntimeState*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_RuntimeState" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.RuntimeState">RuntimeState</h4>
+  <div class="markdown level1 summary"><p>设备运行阶段标识（仅 Kind=DeviceStateChanged 有值）。
+约定取值：Running / Stopped / Error / Starting / Stopping。
+字段类型为 string 而非 enum，以便未来业务侧扩展新状态而无需修改核心枚举。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RuntimeState { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Sequence_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Sequence*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Sequence" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Sequence">Sequence</h4>
+  <div class="markdown level1 summary"><p>全局递增序号（由中枢分配），单调递增，用于：</p>
+<ol>
+<li>订阅去重：同一订阅内只投递比 LastDeliveredSequence 更大的事件；</li>
+<li>消费位点（Ack）：下游通过 Acknowledge(consumerId, sequence) 报告消费进度；</li>
+<li>回放定界：订阅建立时，回放不超过当前 LatestSequence 的历史事件。</li>
+</ol>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long Sequence { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Timestamp_" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Timestamp*"></a>
+  <h4 id="ZL_IotEngine_Notifications_PlcRealtimeEvent_Timestamp" data-uid="ZL.IotEngine.Notifications.PlcRealtimeEvent.Timestamp">Timestamp</h4>
+  <div class="markdown level1 summary"><p>事件产生时间（UTC），由 PlcNotificationHub 统一设置。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime Timestamp { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

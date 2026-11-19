@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcAddressHelper | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcAddressHelper | ZL IoT SDK API ">
+    
+    <meta name="description" content="多协议 PLC 地址解析器——本库的核心基础设施之一。 将不同厂商的文本地址（如 &amp;quot;DB1.DBX0.0&amp;quot;、&amp;quot;40001&amp;quot;、&amp;quot;D100.3&amp;quot;、&amp;quot;CIO100.03&amp;quot;） 统一归一化为 PlcAddress 对象（DataBlock + TypeCode + ByteOffset + BitOffset）， 使上层的批量读取引擎和值提取器可以跨协议工作，无需关心底层地址格式差异。 解析策略采用&amp;quot;正则匹配链&amp;quot;：按优先级依次尝试 12+ 种正则模式， 匹配成功则立即返回，全部失败则抛出 FormatException。 支持通过 PlcAddressParseOptions 指定协议画像和严格模式以消除歧义。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_PlcAddressHelper" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper" class="text-break">Class PlcAddressHelper</h1>
+  <div class="markdown level0 summary"><p>多协议 PLC 地址解析器——本库的核心基础设施之一。</p>
+<p>将不同厂商的文本地址（如 &quot;DB1.DBX0.0&quot;、&quot;40001&quot;、&quot;D100.3&quot;、&quot;CIO100.03&quot;）
+统一归一化为 PlcAddress 对象（DataBlock + TypeCode + ByteOffset + BitOffset），
+使上层的批量读取引擎和值提取器可以跨协议工作，无需关心底层地址格式差异。</p>
+<p>解析策略采用&quot;正则匹配链&quot;：按优先级依次尝试 12+ 种正则模式，
+匹配成功则立即返回，全部失败则抛出 FormatException。
+支持通过 PlcAddressParseOptions 指定协议画像和严格模式以消除歧义。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcAddressHelper</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PlcAddressHelper</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_Parse_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.Parse*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_Parse_System_String_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.Parse(System.String)">Parse(string)</h4>
+  <div class="markdown level1 summary"><p>解析 PLC 地址字符串为统一 PlcAddress 对象（使用默认选项）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PlcAddress Parse(string addressString)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">addressString</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcAddress.html">PlcAddress</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_Parse_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.Parse*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_Parse_System_String_ZL_IotAbstraction_Addressing_PlcAddressParseOptions_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.Parse(System.String,ZL.IotAbstraction.Addressing.PlcAddressParseOptions)">Parse(string, PlcAddressParseOptions)</h4>
+  <div class="markdown level1 summary"><p>解析 PLC 地址字符串为统一 PlcAddress 对象。</p>
+<p>解析流程：</p>
+<ol>
+<li>符号地址映射（如有）——将工艺名转为真实 PLC 地址</li>
+<li>预处理——去除空格、路由前缀、IEC % 前缀、大小写归一化</li>
+<li>按 Profile 优先匹配——优先使用指定协议的解析规则</li>
+<li>通用回退匹配——非严格模式下尝试所有协议规则</li>
+<li>全部失败则抛出 FormatException</li>
+</ol>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PlcAddress Parse(string addressString, PlcAddressParseOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">addressString</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressParseOptions.html">PlcAddressParseOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcAddress.html">PlcAddress</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_TryParse_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.TryParse*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_TryParse_System_String_ZL_IotAbstraction_Abstractions_PlcAddress__" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.TryParse(System.String,ZL.IotAbstraction.Abstractions.PlcAddress@)">TryParse(string, out PlcAddress)</h4>
+  <div class="markdown level1 summary"><p>安全解析 PLC 地址（不抛异常，失败返回 false）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(string addressString, out PlcAddress address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">addressString</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcAddress.html">PlcAddress</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_TryParse_" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.TryParse*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcAddressHelper_TryParse_System_String_ZL_IotAbstraction_Addressing_PlcAddressParseOptions_ZL_IotAbstraction_Abstractions_PlcAddress__" data-uid="ZL.IotAbstraction.Abstractions.PlcAddressHelper.TryParse(System.String,ZL.IotAbstraction.Addressing.PlcAddressParseOptions,ZL.IotAbstraction.Abstractions.PlcAddress@)">TryParse(string, PlcAddressParseOptions, out PlcAddress)</h4>
+  <div class="markdown level1 summary"><p>安全解析 PLC 地址（不抛异常，失败返回 false）。
+适合在标签配置校验等场景中使用，避免异常控制流。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(string addressString, PlcAddressParseOptions options, out PlcAddress address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">addressString</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Addressing.PlcAddressParseOptions.html">PlcAddressParseOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.PlcAddress.html">PlcAddress</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

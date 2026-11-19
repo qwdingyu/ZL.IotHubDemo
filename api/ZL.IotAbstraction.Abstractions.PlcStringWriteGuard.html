@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcStringWriteGuard | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcStringWriteGuard | ZL IoT SDK API ">
+    
+    <meta name="description" content="Raw 字符串写入的容量守卫。  【为什么单独成类】仓内共有 6 处带 maxLength 的 Raw 写入点： NativeDriverBase.WriteString/WriteStringAsync、 SiemensS7Driver.WriteString/WriteStringAsync（该类直接实现 IPlcDevice，不派生自 NativeDriverBase）、 PlcDeviceStringWriteExtensions.WriteStringFallback/WriteStringFallbackAsync （服务 AB / 三菱等“裸字驱动”，直接 device.Write(byte[]) ⇒ 绕开前两者）。 若逐点各写一遍判定，阈值与提示语迟早漂移、且新增第七个写入点时极易漏判 ⇒ 统一收口到这里，判定规则与提示语只有一处定义。   【缺陷背景】 的契约是 “不截断超长，由调用方决定 Fail 或截断”，而上述 6 处原先都没有判定； NormalWriteRequest.StringLength/SafetyWriteRequest.StringLength 对外文档是 “字符串最大长度（字节/字符）”，且 tag.Length 就是字段字节宽 （读侧 ReadString(addr,size) 走 ReadBytes(addr,size)；写侧短则补零到该长度） ⇒ 超长时按实际字节数写入会写穿点表 Length 界定的字段，静默覆盖其后相邻的 PLC 存储区。 兄弟路径 S7 STRING / WSTRING 一直是超长即 Fail ⇒ 本类把同一约定补齐到 Raw 路径。   【为什么不把判定做进 】该类是“平台无关的纯函数”集合， 不应反向依赖 ；故“纯函数只负责算、是否可写由本类判定”。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard" class="text-break">Class PlcStringWriteGuard</h1>
+  <div class="markdown level0 summary"><p>Raw 字符串写入的容量守卫。</p>
+<p>
+【为什么单独成类】仓内共有 <b>6 处</b>带 <code>maxLength</code> 的 Raw 写入点：
+<code>NativeDriverBase.WriteString/WriteStringAsync</code>、
+<code>SiemensS7Driver.WriteString/WriteStringAsync</code>（该类直接实现 IPlcDevice，不派生自 NativeDriverBase）、
+<code>PlcDeviceStringWriteExtensions.WriteStringFallback/WriteStringFallbackAsync</code>
+（服务 AB / 三菱等“裸字驱动”，直接 <code>device.Write(byte[])</code> ⇒ 绕开前两者）。
+若逐点各写一遍判定，阈值与提示语迟早漂移、且新增第七个写入点时极易漏判 ⇒
+统一收口到这里，判定规则与提示语只有一处定义。
+</p>
+<p>
+【缺陷背景】<a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html#ZL_IotAbstraction_Abstractions_PlcStringWriteHelper_BuildRawPayload_System_String_System_Text_Encoding_System_Int32_">BuildRawPayload(string, Encoding, int)</a> 的契约是
+“不截断超长，由调用方决定 Fail 或截断”，而上述 6 处原先都没有判定；
+<code>NormalWriteRequest.StringLength</code>/<code>SafetyWriteRequest.StringLength</code> 对外文档是
+“字符串<b>最大</b>长度（字节/字符）”，且 <code>tag.Length</code> 就是字段字节宽
+（读侧 <code>ReadString(addr,size)</code> 走 <code>ReadBytes(addr,size)</code>；写侧短则补零到该长度）
+⇒ 超长时按实际字节数写入会<b>写穿点表 Length 界定的字段</b>，静默覆盖其后相邻的 PLC 存储区。
+兄弟路径 S7 STRING / WSTRING 一直是超长即 Fail ⇒ 本类把同一约定补齐到 Raw 路径。
+</p>
+<p>
+【为什么不把判定做进 <a class="xref" href="ZL.IotAbstraction.Abstractions.PlcStringWriteHelper.html">PlcStringWriteHelper</a>】该类是“平台无关的纯函数”集合，
+不应反向依赖 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>；故“纯函数只负责算、是否可写由本类判定”。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcStringWriteGuard</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obfuscation(Exclude = true, ApplyToMembers = true)]
+public static class PlcStringWriteGuard</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard_TryBuildRawPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard.TryBuildRawPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard_TryBuildRawPayload_System_String_System_Text_Encoding_System_Int32_System_Byte____ZL_IotAbstraction_Abstractions_DeviceResult__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard.TryBuildRawPayload(System.String,System.Text.Encoding,System.Int32,System.Byte[]@,ZL.IotAbstraction.Abstractions.DeviceResult@)">TryBuildRawPayload(string, Encoding, int, out byte[], out DeviceResult)</h4>
+  <div class="markdown level1 summary"><p>构建 Raw 负载并判定是否可写：可写时 <code class="paramref">payload</code> 为负载、返回 <code>true</code>；
+超长/越界时 <code class="paramref">failure</code> 为可直接返回的失败结果、返回 <code>false</code>
+（<b>不得写入任何字节、也不得做越界分配</b>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryBuildRawPayload(string value, Encoding encoding, int maxLength, out byte[] payload, out DeviceResult failure)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">payload</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td><span class="parametername">failure</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard_TryBuildS7StringPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard.TryBuildS7StringPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard_TryBuildS7StringPayload_System_String_System_Text_Encoding_System_Int32_System_Byte____ZL_IotAbstraction_Abstractions_DeviceResult__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard.TryBuildS7StringPayload(System.String,System.Text.Encoding,System.Int32,System.Byte[]@,ZL.IotAbstraction.Abstractions.DeviceResult@)">TryBuildS7StringPayload(string, Encoding, int, out byte[], out DeviceResult)</h4>
+  <div class="markdown level1 summary"><p>构建西门子 S7 STRING 负载并判定是否可写（<strong>容量判定与构造共用同一个容量</strong>）。</p>
+<p>
+【为什么需要它】原实现把"超长判定"放在驱动里、用**调用方传入的 maxLength** ✗，
+而构造时 <code>ResolveS7Capacity</code> 会把容量**静默钳到 254** ⇒
+点表 <code>Length = 300</code>、内容 270 字节时：判定 (270 &gt; 300) 通过、
+构造却按 254 截断 ⇒ **静默丢 16 字节** ✗。现在判定与构造同源 ⇒ 不可能分叉 ✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryBuildS7StringPayload(string value, Encoding encoding, int maxLength, out byte[] payload, out DeviceResult failure)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">payload</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td><span class="parametername">failure</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard_TryBuildS7WStringPayload_" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard.TryBuildS7WStringPayload*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcStringWriteGuard_TryBuildS7WStringPayload_System_String_System_Int32_System_Byte____ZL_IotAbstraction_Abstractions_DeviceResult__" data-uid="ZL.IotAbstraction.Abstractions.PlcStringWriteGuard.TryBuildS7WStringPayload(System.String,System.Int32,System.Byte[]@,ZL.IotAbstraction.Abstractions.DeviceResult@)">TryBuildS7WStringPayload(string, int, out byte[], out DeviceResult)</h4>
+  <div class="markdown level1 summary"><p>构建西门子 S7 WSTRING 负载并判定是否可写。</p>
+<p>
+【为什么需要它】WSTRING 前导头的容量字段是 **16 位「字」** ⇒
+<code>maxChars &gt; 65535</code> 时头会**静默回绕** ✗（实测 65536 ⇒ 头声明 0 = WSTRING[0]），
+且 <code>payload</code> 被分配成 <code>maxChars*2+4</code> 字节 ⇒
+<code>maxChars = 100000</code> 时会往字段外写 **128KB+** ✗（灾难）。现在越界即明确失败 ✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryBuildS7WStringPayload(string value, int maxChars, out byte[] payload, out DeviceResult failure)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxChars</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">payload</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td><span class="parametername">failure</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

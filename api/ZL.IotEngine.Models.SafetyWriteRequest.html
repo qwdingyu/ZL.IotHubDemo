@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class SafetyWriteRequest | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class SafetyWriteRequest | ZL IoT SDK API ">
+    
+    <meta name="description" content="安全写入请求——不可合并、必须保证执行的高优先级写入操作。  与  的核心区别： - NormalWriteRequest 可被合并去重（同一地址只保留最新值），适用于 HMI 手动操作； - SafetyWriteRequest 走**高优先级安全写队列**（可插队普通写），适用于安全联锁、急停复位等关键操作。   ⚠️ **但&quot;不可丢弃&quot;目前不成立（2026-10-31 实测）**：安全写 Channel 容量 200、 `FullMode = DropOldest` ⇒ **队列满时会静默丢弃最旧的一条**， 且**没有告警**（`DevicePro` 注释声称有告警，代码中不存在）。 调用方不会挂死（有 `SafetyWriteTimeout`，默认 2000ms 兜底），但会收到 「写入超时或被取消」——**真实原因可能是&quot;队列满被丢弃&quot;** ✗   支持&quot;操作序列&quot;（Sequence）：在工控场景中，某些操作需要按严格顺序执行 （如先关闭阀门 → 再停止泵 → 最后打开排放阀）， ⚠️ **排序尚未实现（2026-10-31 实测，勿再误传）**：`SequenceId` / `SequenceOrder` 目前**只被赋值、从未被读取**；安全写 Channel 是 FIFO， 执行顺序**只取决于入队先后**，与 `SequenceOrder` 无关 ✗   ⇒ 需要&quot;先关阀 → 再停泵 → 最后开排放阀&quot;这类**严格顺序**时， **调用方必须串行入队并逐条等待结果**，不能靠并发入队 + `SequenceOrder` 排序。   复核命令（阳性对照：赋值应有 2 处；读取应为 0）： grep -rn &quot;SequenceOrder =\|SequenceId =&quot; ZL.IotEngine/ tests/ grep -rnE &quot;\.SequenceOrder|\.SequenceId&quot; ZL.IotEngine/ tests/ | grep -v &quot;SequenceOrder =\|SequenceId =&quot;   内置重试机制：通过  原子计数器跟踪执行次数， 最多重试 3 次（工控通讯偶发超时时需要自动重试以保证可靠性）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Models.SafetyWriteRequest">
+
+
+
+  <h1 id="ZL_IotEngine_Models_SafetyWriteRequest" data-uid="ZL.IotEngine.Models.SafetyWriteRequest" class="text-break">Class SafetyWriteRequest</h1>
+  <div class="markdown level0 summary"><p>安全写入请求——不可合并、必须保证执行的高优先级写入操作。</p>
+<p>
+与 <a class="xref" href="ZL.IotEngine.Models.NormalWriteRequest.html">NormalWriteRequest</a> 的核心区别：
+- NormalWriteRequest 可被合并去重（同一地址只保留最新值），适用于 HMI 手动操作；
+- SafetyWriteRequest 走**高优先级安全写队列**（可插队普通写），适用于安全联锁、急停复位等关键操作。
+</p>
+<p>
+⚠️ **但"不可丢弃"目前不成立（2026-10-31 实测）**：安全写 Channel 容量 200、
+`FullMode = DropOldest` ⇒ **队列满时会静默丢弃最旧的一条**，
+且**没有告警**（`DevicePro` 注释声称有告警，代码中不存在）。
+调用方不会挂死（有 `SafetyWriteTimeout`，默认 2000ms 兜底），但会收到
+「写入超时或被取消」——**真实原因可能是"队列满被丢弃"** ✗
+</p>
+<p>
+支持"操作序列"（Sequence）：在工控场景中，某些操作需要按严格顺序执行
+（如先关闭阀门 → 再停止泵 → 最后打开排放阀），
+⚠️ **排序尚未实现（2026-10-31 实测，勿再误传）**：`SequenceId` / `SequenceOrder`
+目前**只被赋值、从未被读取**；安全写 Channel 是 FIFO，
+执行顺序**只取决于入队先后**，与 `SequenceOrder` 无关 ✗
+</p>
+<p>
+⇒ 需要"先关阀 → 再停泵 → 最后开排放阀"这类**严格顺序**时，
+**调用方必须串行入队并逐条等待结果**，不能靠并发入队 + `SequenceOrder` 排序。
+</p>
+<p>
+复核命令（阳性对照：赋值应有 2 处；读取应为 0）：
+<code>grep -rn "SequenceOrder =\|SequenceId =" ZL.IotEngine/ tests/</code>
+<code>grep -rnE "\.SequenceOrder|\.SequenceId" ZL.IotEngine/ tests/ | grep -v "SequenceOrder =\|SequenceId ="</code>
+</p>
+<p>
+内置重试机制：通过 <a class="xref" href="ZL.IotEngine.Models.SafetyWriteRequest.html#ZL_IotEngine_Models_SafetyWriteRequest_executionAttempts">executionAttempts</a> 原子计数器跟踪执行次数，
+最多重试 3 次（工控通讯偶发超时时需要自动重试以保证可靠性）。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">SafetyWriteRequest</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Models_SafetyWriteRequest_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SafetyWriteRequest</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_executionAttempts" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.executionAttempts">executionAttempts</h4>
+  <div class="markdown level1 summary"><p>已执行次数（原子计数器）。
+使用 Interlocked 操作保证多线程安全，
+因为写入队列可能被多个消费者线程并行处理。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int executionAttempts</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_Address_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.Address*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_Address" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.Address">Address</h4>
+  <div class="markdown level1 summary"><p>目标 PLC 地址（经地址解析器归一化后的物理地址）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Address { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_CanRetry_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.CanRetry*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_CanRetry" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.CanRetry">CanRetry</h4>
+  <div class="markdown level1 summary"><p>是否还可以重试——最多允许 3 次执行（首次 + 2 次重试）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanRetry { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_CompletionSource_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.CompletionSource*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_CompletionSource" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.CompletionSource">CompletionSource</h4>
+  <div class="markdown level1 summary"><p>异步结果回调源——写入完成后通知调用方</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TaskCompletionSource&lt;DeviceResult&gt; CompletionSource { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TaskCompletionSource</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_IsCompleted_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.IsCompleted*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_IsCompleted" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.IsCompleted">IsCompleted</h4>
+  <div class="markdown level1 summary"><p>是否已完成执行（无论成功或失败）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCompleted { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_RequestId_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RequestId*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_RequestId" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RequestId">RequestId</h4>
+  <div class="markdown level1 summary"><p>请求唯一标识（自动生成），用于日志追踪和幂等性判断</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RequestId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_RequestTickMs_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RequestTickMs*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_RequestTickMs" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RequestTickMs">RequestTickMs</h4>
+  <div class="markdown level1 summary"><p><strong>单调时钟时间戳（<code>Stopwatch.GetTimestamp()</code> 原始刻度）</strong> —— 用于<strong>超时判定</strong>。</p>
+<p>
+🔴🔴【2026-11-11 **7×24 健壮性**】超时判定原用 `DateTime.UtcNow - RequestTime` ✗：
+**系统时钟被 NTP 回拨**时差会**变负** ⇒ `ageMs &gt; _safetyWriteTimeout` **恒假**
+⇒ **过期的安全写指令会被执行**（如 5 秒前的"急停复位"）✗✗ —— **安全事故级** ✗
+</p>
+<p>
+**为什么保留 `RequestTime`**：它是**公开 API**（对接方可能用于审计/展示），
+删或改类型会破坏兼容 ⇒ **追加**本单调字段，**只用于内部超时计算** ✓
+</p>
+<p>
+⚠️ **为什么用 `Stopwatch` 而不是 `Environment.TickCount64`**：
+后者**只在 net8.0+ 存在**，而 `ZL.IotEngine` 多目标含 `netstandard2.0` / `net48`
+⇒ 会 **CS0117**（我第一版就踩了这个坑 ✗，正是 AGENTS §21.5 记载的形态）✗→✓
+`Stopwatch.GetTimestamp()` **全 TFM 可用**且**单调**（不受系统时钟调整影响）✓
+差值换算：`(nowTicks - startTicks) * 1000.0 / Stopwatch.Frequency` 毫秒
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long RequestTickMs { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_RequestTime_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RequestTime*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_RequestTime" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RequestTime">RequestTime</h4>
+  <div class="markdown level1 summary"><p>请求创建时间（UTC），用于超时判断</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime RequestTime { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_Result_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.Result*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_Result" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.Result">Result</h4>
+  <div class="markdown level1 summary"><p>最终执行结果</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult Result { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_SafetyLevel_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.SafetyLevel*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_SafetyLevel" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.SafetyLevel">SafetyLevel</h4>
+  <div class="markdown level1 summary"><p>安全等级，默认为 ProcessControl。</p>
+<p>
+⚠️ **当前实际作用（2026-10-31 实测，勿再误传）**：**仅用于失败日志**
+（<code>DevicePro</code> 中 <code>if (SafetyLevel &lt;= SafetyInterlock) Log(...)</code>）✗
+<b>不参与</b>队列优先级排序，<b>也不参与</b>是否重试的判定
+—— 优先级只有"安全写 vs 普通写"两级；重试对所有等级一律最多 3 次。
+</p>
+<p>
+⚠️ 另：<code>DevicePro.WriteAsync(...)</code> **不透传本参数**（回落为 ProcessControl）⇒
+经该入口传入的等级**不会生效**。要保留等级语义请直接调
+<code>EnqueueSafetyWriteAsync(...)</code>。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SafetyLevel SafetyLevel { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Models.SafetyLevel.html">SafetyLevel</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_SequenceId_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.SequenceId*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_SequenceId" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.SequenceId">SequenceId</h4>
+  <div class="markdown level1 summary"><p>操作序列 ID。</p>
+<p>⚠️ **仅为保留字段，排序未实现**（见类注释）——当前只被赋值，无任何读取方。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SequenceId { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_SequenceOrder_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.SequenceOrder*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_SequenceOrder" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.SequenceOrder">SequenceOrder</h4>
+  <div class="markdown level1 summary"><p>序列内执行顺序号。</p>
+<p>⚠️ **仅为保留字段，排序未实现**（见类注释）——"值越小越先执行"**尚未生效**。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SequenceOrder { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_StringEncoding_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.StringEncoding*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_StringEncoding" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.StringEncoding">StringEncoding</h4>
+  <div class="markdown level1 summary"><p>字符串编码名称，如 &quot;ASCII&quot;、&quot;UTF-8&quot;、&quot;GB2312&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StringEncoding { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_StringKind_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.StringKind*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_StringKind" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.StringKind">StringKind</h4>
+  <div class="markdown level1 summary"><p>字符串写入格式，仅字符串类型写入有效</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StringKind StringKind { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.StringKind.html">StringKind</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_StringLength_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.StringLength*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_StringLength" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.StringLength">StringLength</h4>
+  <div class="markdown level1 summary"><p>字符串最大长度（字节/字符），-1 表示使用默认值</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int StringLength { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_TagId_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.TagId*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_TagId" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.TagId">TagId</h4>
+  <div class="markdown level1 summary"><p>目标点位标识（如 &quot;M0.0&quot;、&quot;DB1.DBX5.0&quot;）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TagId { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_Value_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.Value*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_Value" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.Value">Value</h4>
+  <div class="markdown level1 summary"><p>要写入的值</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Value { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_RecordAttempt_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RecordAttempt*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_RecordAttempt" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.RecordAttempt">RecordAttempt()</h4>
+  <div class="markdown level1 summary"><p>记录一次执行尝试（原子自增），线程安全</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RecordAttempt()</code></pre>
+  </div>
+  <a id="ZL_IotEngine_Models_SafetyWriteRequest_ResetAttempts_" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.ResetAttempts*"></a>
+  <h4 id="ZL_IotEngine_Models_SafetyWriteRequest_ResetAttempts" data-uid="ZL.IotEngine.Models.SafetyWriteRequest.ResetAttempts">ResetAttempts()</h4>
+  <div class="markdown level1 summary"><p>重置执行次数为 0（原子操作），用于请求被重新入队时清除历史计数</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetAttempts()</code></pre>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

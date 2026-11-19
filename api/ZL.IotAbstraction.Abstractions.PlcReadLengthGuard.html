@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PlcReadLengthGuard | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PlcReadLengthGuard | ZL IoT SDK API ">
+    
+    <meta name="description" content="读长度的窄化守卫。  【缺陷背景】点表 TagItem.Length 来自 XML（`TagItem.LoadByXmlElement` 只有 `int.Parse`， **没有任何范围校验**），而字符串读路径把它 `(ushort)` 窄化后交给驱动 （`ReadStringAsync(address, (ushort)readLength, …)`）⇒ 例如 `Length = 100000` **静默回绕成 34464** ⇒ **读错长度、返回错值，且不抛异常、不告警**。   【为什么&quot;响亮失败&quot;而不是&quot;钳位&quot;】钳位（截到 65535）仍然是**静默读错** ✗； 而越界 `Length` 的当前行为本就是**未定义的错误值** ✗ ⇒ 换成**明确失败**属于 “消除静默错误” ✓，不是改变一个被正确依赖的语义 ✓。   【为什么单独成类】字符串读路径有**多处**（`DevicePro`、`BatchMonitor`、 `DeviceBase`），逐处各写一遍判定必然漂移 ⇒ 统一收口到这里， 且它是**纯函数** ⇒ 可离线单测（`InternalsVisibleTo(&quot;ZL.IotHub.Tests&quot;)` ✓）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_PlcReadLengthGuard" data-uid="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard" class="text-break">Class PlcReadLengthGuard</h1>
+  <div class="markdown level0 summary"><p>读长度的<strong>窄化守卫</strong>。</p>
+<p>
+【缺陷背景】点表 <code>TagItem.Length</code> 来自 XML（`TagItem.LoadByXmlElement` 只有 `int.Parse`，
+**没有任何范围校验**），而字符串读路径把它 `(ushort)` 窄化后交给驱动
+（`ReadStringAsync(address, (ushort)readLength, …)`）⇒ 例如 `Length = 100000`
+**静默回绕成 34464** ⇒ **读错长度、返回错值，且不抛异常、不告警**。
+</p>
+<p>
+【为什么"响亮失败"而不是"钳位"】钳位（截到 65535）仍然是**静默读错** ✗；
+而越界 `Length` 的当前行为本就是**未定义的错误值** ✗ ⇒ 换成**明确失败**属于
+“消除静默错误” ✓，不是改变一个被正确依赖的语义 ✓。
+</p>
+<p>
+【为什么单独成类】字符串读路径有**多处**（`DevicePro`、`BatchMonitor`、
+`DeviceBase`），逐处各写一遍判定必然漂移 ⇒ 统一收口到这里，
+且它是**纯函数** ⇒ 可离线单测（`InternalsVisibleTo("ZL.IotHub.Tests")` ✓）。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlcReadLengthGuard</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_PlcReadLengthGuard_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PlcReadLengthGuard</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcReadLengthGuard_MaxReadLength" data-uid="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard.MaxReadLength">MaxReadLength</h4>
+  <div class="markdown level1 summary"><p>单次读取可表达的最大字节数（驱动接口的长度参数是 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MaxReadLength = 65535</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_PlcReadLengthGuard_ClampReadLength_" data-uid="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard.ClampReadLength*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcReadLengthGuard_ClampReadLength_System_Int32_System_Boolean__" data-uid="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard.ClampReadLength(System.Int32,System.Boolean@)">ClampReadLength(int, out bool)</h4>
+  <div class="markdown level1 summary"><p>供<strong>没有失败通道</strong>的调用点使用（如连接探测 <code>GetReadAddressLength</code>，其返回类型是 <code>ushort</code> 且上层只判 bool）：
+越界时钳到上限并置 <code class="paramref">clamped</code> = <code>true</code>，由调用方决定是否记日志。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ushort ClampReadLength(int configuredLength, out bool clamped)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">configuredLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">clamped</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_PlcReadLengthGuard_TryResolveReadLength_" data-uid="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard.TryResolveReadLength*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_PlcReadLengthGuard_TryResolveReadLength_System_Int32_System_UInt16__" data-uid="ZL.IotAbstraction.Abstractions.PlcReadLengthGuard.TryResolveReadLength(System.Int32,System.UInt16@)">TryResolveReadLength(int, out ushort)</h4>
+  <div class="markdown level1 summary"><p>把点表配置的字符串读长度（<strong>字节</strong>）解析为可用的 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a> 读长。</p>
+<p>
+语义：<code class="paramref">configuredLength</code> ≤ 0（未配置 / UI 传 -1）⇒ <code>1</code>（**既有语义，不变** ✓）；
+1..65535 ⇒ 原值 ✓；**&gt; 65535 ⇒ 返回 <code>false</code>**（调用方**必须响亮失败**，不得继续用回绕值 ✗）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryResolveReadLength(int configuredLength, out ushort readLength)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">configuredLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">readLength</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

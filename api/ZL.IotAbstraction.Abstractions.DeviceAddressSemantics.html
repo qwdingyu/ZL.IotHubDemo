@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Struct DeviceAddressSemantics | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Struct DeviceAddressSemantics | ZL IoT SDK API ">
+    
+    <meta name="description" content="地址的协议原生语义（驱动权威输出 ✓）。  ⚠️ 这里的编号是**协议原生编号**，**不做任何单位换算** ✓： MC 的 `X20` ⇒ 32（不是字节 4）；松下 `X100` ⇒ 160（packed）。 换算成字节布局是**建块层**的唯一职责 ✓（见 `PlcAddressSemanticsConverter`）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics" class="text-break">Struct DeviceAddressSemantics</h1>
+  <div class="markdown level0 summary"><p>地址的<strong>协议原生语义</strong>（驱动权威输出 ✓）。</p>
+<p>
+⚠️ 这里的编号是**协议原生编号**，**不做任何单位换算** ✓：
+MC 的 `X20` ⇒ 32（不是字节 4）；松下 `X100` ⇒ 160（packed）。
+换算成字节布局是**建块层**的唯一职责 ✓（见 `PlcAddressSemanticsConverter`）。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals">ValueType.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode">ValueType.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring">ValueType.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly struct DeviceAddressSemantics</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__ctor_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.#ctor*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__ctor_System_String_System_Int64_System_Boolean_System_Int32_System_Int32_System_String_System_Boolean_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.#ctor(System.String,System.Int64,System.Boolean,System.Int32,System.Int32,System.String,System.Boolean)">DeviceAddressSemantics(string, long, bool, int, int, string, bool)</h4>
+  <div class="markdown level1 summary"><p>构造语义 ✓（不可变值对象）。</p>
+<p>
+⚠️ 用**构造函数**而非 <code>init</code> 访问器 —— 本仓 TFM 含 `netstandard2.0` / `net48`，
+不支持 `init`（需 `IsExternalInit`）✗。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceAddressSemantics(string area, long address, bool isBit, int bitsPerUnit, int bitOffset = 0, string areaKey = null, bool bitOnly = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">area</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isBit</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">bitsPerUnit</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">bitOffset</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">areaKey</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">bitOnly</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Address_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.Address*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Address" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.Address">Address</h4>
+  <div class="markdown level1 summary"><p><strong>协议原生编号</strong> ✓（MC <code>X20</code> ⇒ 32；松下 <code>X100</code> ⇒ 160）。</p>
+<p>不做单位换算 ✗ —— 换算由建块层统一完成。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long Address { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Area_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.Area*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Area" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.Area">Area</h4>
+  <div class="markdown level1 summary"><p><strong>区域名</strong>（<code>X</code> / <code>M</code> / <code>TS</code> / <code>TC</code>）✓ —— 用作 <code>PlcReadBlock.DataBlock</code>。</p>
+<p>⚠️ 必须是**简洁名** ✗ 不能带码前缀（否则块分组键会变形）✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Area { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_AreaKey_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.AreaKey*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_AreaKey" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.AreaKey">AreaKey</h4>
+  <div class="markdown level1 summary"><p><strong>区域唯一标识</strong>（如 MC <code>156:X</code> = 软元件码 + 类型名）✓ —— 只用于&quot;能否放进同一次批量读&quot;的判据。</p>
+<p>
+【为什么与 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html#ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Area">Area</a> 分开 ✓】两者用途不同：
+<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html#ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Area">Area</a> 进 `DataBlock`（要简洁）；本值要**唯一区分软元件**
+（基恩士 `MR`(144) 与 `M`(144) 同码不同名 ⇒ 必须靠 TypeChar 区分）✓。
+若合成一个字段，要么块键变形 ✗、要么同码别名被误合并 ✗。
+</p>
+<p>未设置时由 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html#ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Area">Area</a> 兜底 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string AreaKey { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_AreaKeyOverride_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.AreaKeyOverride*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_AreaKeyOverride" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.AreaKeyOverride">AreaKeyOverride</h4>
+  <div class="markdown level1 summary"><p><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html#ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_AreaKey">AreaKey</a> 的显式值；为 <code>null</code> 时用 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html#ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_Area">Area</a> 兜底 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string AreaKeyOverride { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_BitOffset_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.BitOffset*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_BitOffset" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.BitOffset">BitOffset</h4>
+  <div class="markdown level1 summary"><p>位软元件内的位偏移（0..BitsPerUnit-1）✓；字软元件恒 0 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BitOffset { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_BitOnly_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.BitOnly*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_BitOnly" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.BitOnly">BitOnly</h4>
+  <div class="markdown level1 summary"><p><strong>该地址是否「只能作位访问」</strong>（位软元件专有区）✓ —— 仅供<strong>配置校验</strong>用，不是地址语义本身。</p>
+<p>
+【为什么要这个字段 ✗→✓ 2026-10-23 实测发现的缺陷】
+有些地址是「**位/字双用途**」，而 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html#ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_IsBit">IsBit</a> 只能表达"能做位访问"✗：
+· **Modbus 裸数字** `800`：`ReadBool("800")` 读**线圈 800**、
+  `ReadInt16("800")` 读**寄存器 800** —— 同一串是两个完全不同的区域 ✗
+  ⇒ 它是双用途，**不能**因为"能当位"就禁止用户配成 `int16` ✗
+· **MC `X20`**：只能是位，配 `int16` 必然在运行期失败 ⇒ 应**建块期就排除并报警** ✓
+</p>
+<p>
+⚠️ **不要用它替代 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html#ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_IsBit">IsBit</a>** ✗：
+`IsBit` 是"能否走位通道"（`TryGetBitDevice` 依赖它）；
+本字段是"是否**只能**当位"（配置校验依赖它）。二者对 Modbus 裸数字**不同** ✓。
+</p>
+<p>默认 <code>false</code>（不限制）—— 保守取值：宁可让运行期报错，也不误排除合法点表 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool BitOnly { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_BitsPerUnit_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.BitsPerUnit*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_BitsPerUnit" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.BitsPerUnit">BitsPerUnit</h4>
+  <div class="markdown level1 summary"><p>一个编号占多少<strong>位</strong> ✓：位软元件 = 1；字软元件 = 16。</p>
+<p>
+【为什么只需这两种 ✓】全仓 <code>GetAddressUnitBytes()</code> 是探针式
+（<code>GetReadAddressLength(2)==1 ? 2 : 1</code>），实测**无驱动覆写**，
+取值只有 1 或 2 ⇒ 位宽只有 8 位/16 位两种，不存在"32 位寄存器编号" ✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BitsPerUnit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_IsBit_" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.IsBit*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DeviceAddressSemantics_IsBit" data-uid="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.IsBit">IsBit</h4>
+  <div class="markdown level1 summary"><p>该软元件是<strong>位</strong>还是<strong>字</strong> ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

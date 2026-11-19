@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotAbstraction.Orchestration | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotAbstraction.Orchestration | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Orchestration">
+
+  <h1 id="ZL_IotAbstraction_Orchestration" data-uid="ZL.IotAbstraction.Orchestration" class="text-break">Namespace ZL.IotAbstraction.Orchestration</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotAbstraction.Orchestration.IotHubFreeTierPolicy.html">IotHubFreeTierPolicy</a></h4>
+      <section><p>ZL.IotHub 免费版策略。</p>
+<p>
+业务意图：在 LicenseManager 通用授权检查之上，增加产品级免费版限制。
+免费版规则：
+1. 设备数上限 10 台—— 属于<b>准入</b>语义：只在"创建第 N+1 台"时经
+   <span class="xref">ZL.License.LicenseManager.IncrementDeviceCount()</span> 判一次
+   （超限抛"试用态设备数已达上限"并原子回滚）；
+   <b>绝不</b>放在每报文/每构造的通信门禁通路上 ——
+   历史缺陷：计数在设备已存在时就 +1，`&gt;=` 判定放在通信通路上的语义变成
+「已有设备数 ≥ 上限 ⇒ 连已有设备也不许通信」；
+2. 不限协议；
+3. 允许读写（ 定型放开写入；原"仅允许读取"由 L3 AllowWrite 收口，未来如需恢复禁写
+   只需在 LicenseGate.AllowWrite 加回 Trial 守卫）；
+4. 必须具有 BasicRead 功能位。
+</p>
+<p>
+生效前提：本策略<b>仅在试用（Trial）态</b>由 <a class="xref" href="ZL.IotAbstraction.Orchestration.LicenseGate.html">LicenseGate</a> 叠加；
+正式授权（Authorized）的设备额度与功能位由授权文件承担，不再被免费版策略误伤。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Orchestration.LicenseGate.html">LicenseGate</a></h4>
+      <section><p>IotHub 侧授权门禁（唯一推荐入口）。</p>
+<p>
+布尔逻辑在 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">AllowOperation(string)</a>；本类补充 DeviceResult / 异常文案，
+避免各驱动复制 <code>!CommercialCheck()</code> 判断与失败消息。
+</p>
+<p>
+分层约定：
+- 连接 L1：<code>Allow(null)</code> 仅状态通行；
+- 通信 L2：<code>Allow(protocolKey)</code> 带功能掩码；免费版策略<b>仅在试用（Trial）态</b>叠加；
+- 写入 L3：<code>AllowWrite(protocolKey)</code> 在 L2 之上收口（ 后免费版写入放行，
+  保留统一收口便于未来恢复禁写或按协议差异化授权）。
+</p>
+<p>
+2026-09-19 修复：
+① 设备数判定已从免费版策略的每报文通路移除（准入统一在
+   <span class="xref">ZL.License.LicenseManager.IncrementDeviceCount()</span> 创建时原子判定）；
+② 免费版策略增加 Trial 状态前提 —— 正式授权（Authorized）不再被
+   「设备数 ≥ 1 即拒」误伤。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Orchestration.SemaphoreDrainHelper.html">SemaphoreDrainHelper</a></h4>
+      <section></section>
+      <h4><a class="xref" href="ZL.IotAbstraction.Orchestration.TimeoutDefaults.html">TimeoutDefaults</a></h4>
+      <section><p>超时值归一化。</p>
+<p>
+【缺陷背景】同一个配置项 <code>TimeoutMs</code> 被各驱动**各自处理** ✗ ——
+6 处把 <code>&lt;= 0</code> 钳到默认值 ✓，而 5~6 处**直接存原值** ✗。
+不钳位者会把 0 交给 <code>Socket.SendTimeout/ReceiveTimeout</code> 与 <code>SerialPort.ReadTimeout</code>，
+而 **.NET 中这些属性的 0 = 无限等待** ✗（**不是"立即超时"** ✗，后果更重 ✓）
+⇒ 设备掉线时**永久挂死**（网关最常见的"卡死"形态 ✓）。
+</p>
+<p>
+【为什么必须回退默认值（作者意图，非口味）】✓ <code>S7NativeDriver</code> 的注释写明：
+"**<code>TimeoutMs</code> 后果最严重**：timeoutMs=0 ⇒ **每次操作立即超时**（表现为"连上却全部失败"）"
+—— 即作者把"0 破坏超时"视为**必须避免**的情形 ✓；多数派（6 处）也正是回退默认 ✓。
+</p>
+<p>
+【为什么单独成类】✓ 该判定原先**散落在 11 个构造函数里** ✗ ⇒ 极易漂移 ✓（本次缺陷正源于此 ✓）；
+且它是**纯函数** ⇒ 可离线单测（<code>InternalsVisibleTo("ZL.IotHub.Tests")</code> ✓）。
+</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

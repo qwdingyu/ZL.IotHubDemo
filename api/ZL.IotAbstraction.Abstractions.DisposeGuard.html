@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DisposeGuard | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DisposeGuard | ZL IoT SDK API ">
+    
+    <meta name="description" content="「是否已释放」的唯一判定入口 ✓。  【为什么需要它 ✗→✓】本仓的驱动存在**三种并行范式** ✓： 继承 NativeDriverBase（5 个驱动）✓ —— 基类只提供     EnsureNotDisposed()（**抛异常** ✗），**没有**&quot;只判释放&quot;的属性 ✗继承 SerialDriverBase（5 个驱动）✓ —— 另一套平行实现 ✗独立实现 IPlcDevice, IDisposable（9 个驱动）✗ ——     **各自**声明 `_disposedFlag` 并**各自**写判定 ✗ ⇒ 同一个问题「已释放之后该返回失败还是抛异常」在仓里曾有三套答案 ✗✓， 于是必然出现&amp;quot;改了 A 漏了 B、修了 7 个还剩 2 个&amp;quot; ✗（本项目真实发生过 ✓）。   【本类的职责很窄 ✓】只回答&quot;**这个标志位是否已置位**&quot; ✓， **不碰 socket、不碰锁、不抛异常、无状态** ✓ ⇒ 可以直接用在**任何**范式里 ✓。 ⚠️ 它**不是**新的抽象层 ✗：没有接口、没有继承关系、没有依赖注入 ✓。   【⭐ 关键纪律 ✗】**&quot;已释放&quot;和&quot;未连接&quot;是两件事，不可混淆** ✗✓ —— 本项目曾因用 `IsConnected`（同时含&quot;未连接&quot;与&quot;已释放&quot;两个条件 ✓） 去判定&quot;是否已释放&quot; ✗，把 `ConnectServer()` 的**正常连接流程也挡掉了** ✗， 导致 3 条 S7 用例变红 ✓。 ⇒ 需要&quot;能否收发包&quot;的判定用 `IsConnected` ✓；   **需要&quot;是否已释放&quot;的判定一律用本类** ✓。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard">
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_DisposeGuard" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard" class="text-break">Class DisposeGuard</h1>
+  <div class="markdown level0 summary"><p>「<strong>是否已释放</strong>」的<strong>唯一判定入口</strong> ✓。</p>
+<p>
+【为什么需要它 ✗→✓】本仓的驱动存在**三种并行范式** ✓：
+<ol><li><b>继承 <code>NativeDriverBase</code></b>（5 个驱动）✓ —— 基类只提供
+    <code>EnsureNotDisposed()</code>（**抛异常** ✗），**没有**"只判释放"的属性 ✗</li><li><b>继承 <code>SerialDriverBase</code></b>（5 个驱动）✓ —— 另一套平行实现 ✗</li><li><b>独立实现 <code>IPlcDevice, IDisposable</code></b>（9 个驱动）✗ ——
+    **各自**声明 `_disposedFlag` 并**各自**写判定 ✗</li></ol>
+<p>⇒ 同一个问题「<strong>已释放之后该返回失败还是抛异常</strong>」在仓里曾有<strong>三套答案</strong> ✗✓，
+于是必然出现&quot;改了 A 漏了 B、修了 7 个还剩 2 个&quot; ✗（本项目真实发生过 ✓）。</p>
+
+<p>
+【本类的职责很窄 ✓】只回答"**这个标志位是否已置位**" ✓，
+**不碰 socket、不碰锁、不抛异常、无状态** ✓ ⇒ 可以直接用在**任何**范式里 ✓。
+⚠️ 它**不是**新的抽象层 ✗：没有接口、没有继承关系、没有依赖注入 ✓。
+</p>
+<p>
+【⭐ 关键纪律 ✗】**"已释放"和"未连接"是两件事，不可混淆** ✗✓ ——
+本项目曾因用 `IsConnected`（同时含"未连接"与"已释放"两个条件 ✓）
+去判定"是否已释放" ✗，把 `ConnectServer()` 的**正常连接流程也挡掉了** ✗，
+导致 3 条 S7 用例变红 ✓。
+⇒ 需要"能否收发包"的判定用 `IsConnected` ✓；
+  **需要"是否已释放"的判定一律用本类** ✓。
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">DisposeGuard</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_DisposeGuard_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class DisposeGuard</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotAbstraction_Abstractions_DisposeGuard_Disposed" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard.Disposed">Disposed</h4>
+  <div class="markdown level1 summary"><p>释放标志的<strong>已释放</strong>值 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int Disposed = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotAbstraction_Abstractions_DisposeGuard_NotDisposed" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard.NotDisposed">NotDisposed</h4>
+  <div class="markdown level1 summary"><p>释放标志的<strong>未释放</strong>值 ✓（可读性用，避免调用方写裸 0 ✗）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int NotDisposed = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotAbstraction_Abstractions_DisposeGuard_IsDisposed_" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard.IsDisposed*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DisposeGuard_IsDisposed_System_Int32__" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard.IsDisposed(System.Int32@)">IsDisposed(ref int)</h4>
+  <div class="markdown level1 summary"><p>判断释放标志是否<strong>已置位</strong> ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsDisposed(ref int disposedFlag)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">disposedFlag</span></td>
+        <td><p>驱动的释放标志 ✓（约定：<code>0</code>=未释放、非 0=已释放 ✓）。</p>
+<p>
+⚠️ 必须**按引用**传入实际情况下的那个字段 ✓（`ref`）——
+因为该字段会被其它线程在 `Dispose()` 里并发写入 ✓，
+传值会读到**过期副本** ✗（编译器警告 CS0420 即针对此 ✓）。
+</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code>=已释放 ✓（调用方应<strong>返回失败</strong> ✗，别抛异常 ✗）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotAbstraction_Abstractions_DisposeGuard_IsDisposed_System_Int32___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>【为何用 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Read(ref int)</a> ✓】
+释放标志由 <code>Interlocked.Exchange</code> 写入 ✓（见 <code>NativeDriverBase.TryBeginDispose</code> ✓），
+读取端必须同为<strong>获取语义</strong> ✓，否则可能读到过期的 0 ✗ ⇒ 已释放却被判为未释放 ✓。</p>
+</div>
+  <a id="ZL_IotAbstraction_Abstractions_DisposeGuard_ThrowIfDisposed_" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard.ThrowIfDisposed*"></a>
+  <h4 id="ZL_IotAbstraction_Abstractions_DisposeGuard_ThrowIfDisposed_System_Int32__System_String_" data-uid="ZL.IotAbstraction.Abstractions.DisposeGuard.ThrowIfDisposed(System.Int32@,System.String)">ThrowIfDisposed(ref int, string)</h4>
+  <div class="markdown level1 summary"><p>若<strong>已释放</strong>则抛 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a> ✓；否则什么都不做 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ThrowIfDisposed(ref int disposedFlag, string driverName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">disposedFlag</span></td>
+        <td><p>释放标志 ✓（同 <a class="xref" href="ZL.IotAbstraction.Abstractions.DisposeGuard.html#ZL_IotAbstraction_Abstractions_DisposeGuard_IsDisposed_System_Int32__">IsDisposed(ref int)</a> ✓）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">driverName</span></td>
+        <td><p>驱动名 ✓（用 <code>nameof(本类)</code> 传入 ✓，便于在异常信息里<strong>直接看出是哪个驱动</strong> ✓）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotAbstraction_Abstractions_DisposeGuard_ThrowIfDisposed_System_Int32__System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>【为什么还要&quot;抛&quot; ✗】本仓驱动的方法有<strong>两种契约</strong> ✓，必须分开看 ✗：</p>
+<ul><li><b>对外 IO 方法</b>（`ReadBytes`/`Write` 等 ✓）——
+    契约是「**已释放后返回失败，不得抛异常**」✓ ⇒ 这些地方**必须**用
+    <a class="xref" href="ZL.IotAbstraction.Abstractions.DisposeGuard.html#ZL_IotAbstraction_Abstractions_DisposeGuard_IsDisposed_System_Int32__">IsDisposed(ref int)</a> 判断后**返回 `DeviceResult.Fail`** ✗（不能用本方法 ✗）</li><li><b>内部断言</b>（如各驱动私有的 `EnsureNotDisposed()` ✓）——
+    只是"不该走到这里"的防御 ✓ ⇒ 抛出是合理的 ✓</li></ul>
+<p>⚠️ <strong>判断依据不是&quot;我觉得&quot;，而是自动枚举契约测试</strong> ✓（<code>AutoDisposeContractTests</code> ✓）：
+它对全部 30 个驱动验证&quot;已释放后读/写必须返回失败&quot; ✓ ——
+只要它们全绿 ✓，就证明这些 <code>EnsureNotDisposed</code> <strong>已不在对外可达路径上</strong> ✓。</p>
+<p>
+🔎 **实测状态（2026-10-22 ✓，避免下次重新争议 ✗）**：
+本方法**全仓零调用点** ✓（`grep -rn "ThrowIfDisposed" --include=*.cs ZL.IotEngine/`
+⇒ 仅本文件定义处 1 条 ✓）⇒ 它属**为内部断言预留**的能力 ✓，**不是**对外 IO 的契约 ✗。
+</p>
+<p>
+📌 **历史包袱（已澄清 ✓）**：`NativeDriverProtocolTests` 里曾有 2 条用例断言
+「Dispose 后**抛** `ObjectDisposedException`」✗（引入于 **2026-10-16** ✓）；
+而现行契约测试建立于 **2026-10-19**（`a83f53d` ✓、**晚 3 天** ✓）⇒ 那 2 条**已过时** ✗，
+已于 **2026-10-22** 更正为「**返回失败、不抛**」✓。
+⇒ **结论**：对外 IO **不抛** ✓；仅**内部断言**可抛 ✓。**不要再改回去** ✗。
+</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.objectdisposedexception">ObjectDisposedException</a></td>
+        <td><p>已释放时抛出 ✓</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

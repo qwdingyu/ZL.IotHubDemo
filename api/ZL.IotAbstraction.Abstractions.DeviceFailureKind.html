@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Enum DeviceFailureKind | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Enum DeviceFailureKind | ZL IoT SDK API ">
+    
+    <meta name="description" content="失败性质（跨协议统一）。用于下游做程序化分支（重试 / 告警 / 弃用点位）。 &#128308; 设计原则：粒度只到&quot;下游做决策所需&quot;，不追求穷尽所有技术细节 ✗ —— 过细的分类会让驱动实现者无从判断，反而降低可靠性。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotAbstraction.Abstractions.DeviceFailureKind">
+
+
+
+
+  <h1 id="ZL_IotAbstraction_Abstractions_DeviceFailureKind" data-uid="ZL.IotAbstraction.Abstractions.DeviceFailureKind" class="text-break">Enum DeviceFailureKind</h1>
+  <div class="markdown level0 summary"><p><strong>失败性质</strong>（跨协议统一）。用于下游做<strong>程序化分支</strong>（重试 / 告警 / 弃用点位）。</p>
+<p>🔴 设计原则：<b>粒度只到"下游做决策所需"</b>，不追求穷尽所有技术细节 ✗ ——
+过细的分类会让驱动实现者无从判断，反而降低可靠性。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotAbstraction</span>.<a class="xref" href="ZL.IotAbstraction.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotAbstraction.dll</h6>
+  <h5 id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum DeviceFailureKind</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    </thead></thead><tbody>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_AddressError">AddressError</td>
+        <td><p><strong>地址错误</strong>：地址格式不被识别、区不支持、越界、解析失败。</p>
+<p>⇒ **重试无意义** ✗ 应**修正地址** ✓（最常见的一类现场问题）</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_ArgumentError">ArgumentError</td>
+        <td><p><strong>参数/配置错误</strong>（调用方问题）：地址为空、写入值为 null、数组为空、长度非法等。</p>
+<p>⇒ **重试无意义**（同样参数必然同样失败）✗ 应**修正点表/调用** ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_DataError">DataError</td>
+        <td><p><strong>数据异常</strong>：响应长度不足 / 帧校验失败 / 数据不完整。</p>
+<p>⇒ **可重试一次**（可能是干扰），持续失败则说明配置或设备有问题 ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_DeviceRejected">DeviceRejected</td>
+        <td><p><strong>协议/设备拒绝</strong>：收到了响应，但内容表示失败（如 Modbus 异常码、设备返回错误码）。</p>
+<p>⇒ **重试通常无意义**（设备明确拒绝）✗ 但可能是瞬时状态 ⇒ 视 `ErrorCode` 而定 ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_Disposed">Disposed</td>
+        <td><p><strong>对象已释放</strong>：<code>Dispose()</code> 后继续使用。</p>
+<p>⇒ **重试无意义** ✗ 应**重新创建实例** ✓（多为下游对象生命周期管理问题）</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_NotConnected">NotConnected</td>
+        <td><p><strong>未连接</strong>：尚未 <code>ConnectServer</code>、连接已断开、对端关闭。</p>
+<p>⇒ **应重试**（先重连）✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_Other">Other</td>
+        <td><p><strong>其它/未知</strong>：有明确错误但无法归入上述任何一类（如底层 IO 异常）。</p>
+<p>⇒ 下游应按"保守策略"处理（可重试但需限次）✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_Timeout">Timeout</td>
+        <td><p><strong>超时</strong>：请求发出但未在时限内收到响应。</p>
+<p>⇒ **可重试**，但需防雪崩（连续超时应降级设备）✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_Unspecified">Unspecified</td>
+        <td><p><strong>未分类</strong>（默认值）。</p>
+<p>⚠️ 含义是「**驱动没显式归类**」，不是"无错" ✓
+⇒ 下游**不得**把它当作"可忽略"；建议按 <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html#ZL_IotAbstraction_Abstractions_DeviceResult_IsRetryable">IsRetryable</a> 决定 ✓</p>
+</td>
+      </tr>
+      <tr>
+        <td id="ZL_IotAbstraction_Abstractions_DeviceFailureKind_Unsupported">Unsupported</td>
+        <td><p><strong>不支持</strong>：该驱动/协议<strong>未实现</strong>此操作（如只读设备的写、未实现的厂商功能码）。</p>
+<p>⇒ **重试无意义** ✗ 属**功能边界**，不是故障 ✓</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKindExtensions.html#ZL_IotAbstraction_Abstractions_DeviceFailureKindExtensions_IsRetryable_ZL_IotAbstraction_Abstractions_DeviceFailureKind_System_Int32_">DeviceFailureKindExtensions.IsRetryable(DeviceFailureKind, int)</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceFailureKindExtensions.html#ZL_IotAbstraction_Abstractions_DeviceFailureKindExtensions_ToOwner_ZL_IotAbstraction_Abstractions_DeviceFailureKind_">DeviceFailureKindExtensions.ToOwner(DeviceFailureKind)</a>
+  </div>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

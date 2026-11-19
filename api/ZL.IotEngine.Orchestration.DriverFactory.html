@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DriverFactory | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DriverFactory | ZL IoT SDK API ">
+    
+    <meta name="description" content="统一驱动工厂 —— 对外的唯一推荐入口。 路由策略：      默认走 Native：无前缀（如 &quot;siemens-s7&quot;）或带 &quot;native-&quot; 前缀均走自研驱动。     Native 是零商业依赖的默认选择。        显式走 HSL：Protocol 以 &quot;hsl-&quot; 开头，或传入 DriverBackend.Hsl。     仅在需要 HSL 独有能力时使用（需先调 XInit.EnsureInitialized()）。    典型用法： // 最简：走 Native（推荐，无前缀即 Native） config.SetParam(&quot;Protocol&quot;, &quot;siemens-s7&quot;); var driver = DriverFactory.Create(config);  // 订阅标签变化事件（必须通过 ITriggerableDriver 接口，不要通过具体类型判断） // ✓ 正确：通过接口，新增驱动类型自动生效，无遗漏 if (driver is ITriggerableDriver triggerable)     triggerable.TriggerDataChanged += (id, value, tag) =&amp;gt; { ... };  // ✗ 错误：通过具体类型 switch，将来新增驱动时静默丢失事件 // if (driver is HslUnifiedDriver hsl)  hsl.TriggerDataChanged += ... // if (driver is NativeUnifiedDriver nat) nat.TriggerDataChanged += ...  // 显式走 HSL（唯一走 HSL 的方式） config.SetParam(&quot;Protocol&quot;, &quot;hsl-siemens-s7&quot;); var driver = DriverFactory.Create(config);  // 后续用法与 IPlcDriver 一致，无需感知底层 await driver.ConnectAsync(ct); driver.DataCollected += record =&amp;gt; ...;">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotEngine.Orchestration.DriverFactory">
+
+
+
+  <h1 id="ZL_IotEngine_Orchestration_DriverFactory" data-uid="ZL.IotEngine.Orchestration.DriverFactory" class="text-break">Class DriverFactory</h1>
+  <div class="markdown level0 summary"><p>统一驱动工厂 —— 对外的唯一推荐入口。</p>
+<p><b>路由策略：</b></p>
+<ul><li>
+    <b>默认走 Native</b>：无前缀（如 <code>"siemens-s7"</code>）或带 <code>"native-"</code> 前缀均走自研驱动。
+    Native 是零商业依赖的默认选择。
+  </li><li>
+    <b>显式走 HSL</b>：Protocol 以 <code>"hsl-"</code> 开头，或传入 <code>DriverBackend.Hsl</code>。
+    仅在需要 HSL 独有能力时使用（需先调 <code>XInit.EnsureInitialized()</code>）。
+  </li></ul>
+<p><b>典型用法：</b></p>
+<pre><code class="lang-csharp">// 最简：走 Native（推荐，无前缀即 Native）
+config.SetParam("Protocol", "siemens-s7");
+var driver = DriverFactory.Create(config);
+
+// 订阅标签变化事件（必须通过 ITriggerableDriver 接口，不要通过具体类型判断）
+// ✓ 正确：通过接口，新增驱动类型自动生效，无遗漏
+if (driver is ITriggerableDriver triggerable)
+    triggerable.TriggerDataChanged += (id, value, tag) =&gt; { ... };
+
+// ✗ 错误：通过具体类型 switch，将来新增驱动时静默丢失事件
+// if (driver is HslUnifiedDriver hsl)  hsl.TriggerDataChanged += ...
+// if (driver is NativeUnifiedDriver nat) nat.TriggerDataChanged += ...
+
+// 显式走 HSL（唯一走 HSL 的方式）
+config.SetParam("Protocol", "hsl-siemens-s7");
+var driver = DriverFactory.Create(config);
+
+// 后续用法与 IPlcDriver 一致，无需感知底层
+await driver.ConnectAsync(ct);
+driver.DataCollected += record =&gt; ...;</code></pre>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">DriverFactory</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<span class="xref">IotEngine</span>.<a class="xref" href="ZL.IotEngine.Orchestration.html">Orchestration</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotEngine.dll</h6>
+  <h5 id="ZL_IotEngine_Orchestration_DriverFactory_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class DriverFactory</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotEngine_Orchestration_DriverFactory_HslBackendFactory_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.HslBackendFactory*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DriverFactory_HslBackendFactory" data-uid="ZL.IotEngine.Orchestration.DriverFactory.HslBackendFactory">HslBackendFactory</h4>
+  <div class="markdown level1 summary"><p>HSL 后端工厂（由 <code>ZL.IotHub.X</code> 注册）。</p>
+<p>
+首次读取且未注册时，会尝试<b>反射自动发现</b> <code>ZL.IotHub.X</code> 并触发其注册
+（只尝试一次，结果缓存）。这样消费方<b>只需引用 X 包</b>即可，无需改代码。
+</p>
+<p>
+之所以用委托而非接口：避免 Core 对 X 的任何编译期依赖，保持"X → Core"单向引用。
+</p>
+<p>显式注册方式：<code>ZL.IotHub.X.Hsl.HslBackendRegistration.Register()</code>。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Func&lt;DeviceConfig, DeviceBase&gt;? HslBackendFactory { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a>, <a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html">DeviceBase</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DriverFactory_LogCallback_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.LogCallback*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DriverFactory_LogCallback" data-uid="ZL.IotEngine.Orchestration.DriverFactory.LogCallback">LogCallback</h4>
+  <div class="markdown level1 summary"><p>日志回调。设置后，DriverFactory 的警告通过此回调输出。
+与 PlcFleetManager / PlcEventDispatcher 一致的轻量日志注入模式，
+避免 Core 层硬依赖具体日志库。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Action&lt;string&gt;? LogCallback { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotEngine_Orchestration_DriverFactory_Create_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.Create*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DriverFactory_Create_ZL_IotAbstraction_Tag_DeviceConfig_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.Create(ZL.IotAbstraction.Tag.DeviceConfig)">Create(DeviceConfig)</h4>
+  <div class="markdown level1 summary"><p>根据设备配置创建最优驱动实例。</p>
+<p>
+自动路由策略：Native 优先 → HSL 降级。调用方不需要关心底层实现。
+若需强制指定，使用 <a class="xref" href="ZL.IotEngine.Orchestration.DriverFactory.html#ZL_IotEngine_Orchestration_DriverFactory_Create_ZL_IotAbstraction_Tag_DeviceConfig_ZL_IotEngine_Orchestration_DriverBackend_">Create(DeviceConfig, DriverBackend)</a> 重载。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceBase Create(DeviceConfig config)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>设备配置（含 IP、端口、Protocol 或 DeviceType 等）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html">DeviceBase</a></td>
+        <td><p><a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html">DeviceBase</a> 实例，实现 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDriver.html">IPlcDriver</a>，
+具体运行时类型为 <code>NativeUnifiedDriver</code>（默认）或 <code>HslUnifiedDriver</code>
+（后者由 <code>ZL.IotHub.X</code> 提供，需引用该包）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>config 为 null</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
+        <td><p>协议类型两侧注册表均不支持</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DriverFactory_Create_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.Create*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DriverFactory_Create_ZL_IotAbstraction_Tag_DeviceConfig_ZL_IotEngine_Orchestration_DriverBackend_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.Create(ZL.IotAbstraction.Tag.DeviceConfig,ZL.IotEngine.Orchestration.DriverBackend)">Create(DeviceConfig, DriverBackend)</h4>
+  <div class="markdown level1 summary"><p>根据设备配置创建驱动实例，显式指定底层实现。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceBase Create(DeviceConfig config, DriverBackend prefer)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Tag.DeviceConfig.html">DeviceConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>设备配置</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Orchestration.DriverBackend.html">DriverBackend</a></td>
+        <td><span class="parametername">prefer</span></td>
+        <td><p>指定的底层驱动类型</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html">DeviceBase</a></td>
+        <td><p><a class="xref" href="ZL.IotEngine.Orchestration.DeviceBase.html">DeviceBase</a> 实例</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotEngine_Orchestration_DriverFactory_Unregister_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.Unregister*"></a>
+  <h4 id="ZL_IotEngine_Orchestration_DriverFactory_Unregister_System_String_" data-uid="ZL.IotEngine.Orchestration.DriverFactory.Unregister(System.String)">Unregister(string)</h4>
+  <div class="markdown level1 summary"><p>注销设备 ID（<code>Dispose</code> 时调用，-1；计数归 0 才移除键，供后续重建同名设备 ✓）。</p>
+<p>CAS 循环：并发 Dispose 同 ID 的多台实例时不丢更新（`TryRemove` 集合语义会互相覆盖）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Unregister(string deviceId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">deviceId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

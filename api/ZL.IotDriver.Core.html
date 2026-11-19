@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace ZL.IotDriver.Core | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace ZL.IotDriver.Core | ZL IoT SDK API ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.Core">
+
+  <h1 id="ZL_IotDriver_Core" data-uid="ZL.IotDriver.Core" class="text-break">Namespace ZL.IotDriver.Core</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Core.DriverBase.html">DriverBase</a></h4>
+      <section><p>驱动基类的公共父类：<strong>只承载与传输方式无关</strong>的能力。</p>
+<p>【分层】<code>DriverBase</code> → <code>NativeDriverBase</code>（TCP 套接字）/ <code>SerialDriverBase</code>（串口）
+⇒ 传输是**变化点**，放在子类；协议无关逻辑只写一份 [OK]</p>
+<p>【为什么本类**不**实现 <code>IPlcDevice</code>】若在这里实现接口，就必须一次搬完所有接口成员
+（含传输相关的 `ReadBytesCore` 等）⇒ 变成"大爆炸重写" [X]
+故本类只声明它自己用到的抽象成员，由两个子类各自履行接口 [OK]</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.ModbusErrorHelper.html">ModbusErrorHelper</a></h4>
+      <section><p>Modbus 异常码到中文描述的映射（<strong>唯一实现</strong>）。</p>
+<p>
+【为什么要它（docs/293）】同一张表此前在 <code>ModbusRtuDriver</code> 与
+<code>ModbusRtuOverTcpDriver</code> 各有一份 <code>private static</code> 副本（逐字相同），
+而这两个类**分属不同继承体系**（一个直接实现 <code>IPlcDevice</code>、一个继承
+<code>NativeDriverBase</code>）⇒ 无法上提到基类，只能收敛为共享静态件。
+一张表两处实现 ⇒ 将来改一处必漏另一处（本仓反复出现的根因，
+docs/271/284/287/288/291/292）。
+</p>
+<p>
+【口径】按 Modbus 规范（MODBUS Application Protocol V1.1b3）的公开异常码；
+未登记码返回"未知异常码 N"（保留原行为，便于现场定位）。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html">NativeDriverBase</a></h4>
+      <section><p>原生 TCP 驱动基类。
+提供共享的 Socket 连接管理（<code>ConnectClose</code>/<code>Send</code>/<code>Receive</code>/<code>SocketRead</code>）与写入门禁（docs/431）。</p>
+<p>[!!]【2026-11-18 P1 重构】**标量读写、数组写、ReadString 已上移到 `DriverBase`**（两基类的共同父类），
+本类不再声明它们；`Write(object)` 派发仍在本类（依赖 `this` 为 IPlcDevice 级类型）[OK]</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.PartialWrite.html">PartialWrite</a></h4>
+      <section><p>[<em>][</em>][*] <strong>分片写的&quot;部分写入&quot;披露</strong>（2026-11-16 建立，解决&quot;多帧写非原子&quot;这一结构性问题）。</p>
+<p>【问题的本质（不是 bug，是协议限制）】多数 PLC 协议（Modbus FC16/FC15、S7、FEnet、
+EasyNet、Memobus、FX-Links、Keyence、Cimon、HostLink …）**单帧有长度上限且没有事务语义**。
+因此"一次逻辑写超过单帧上限"**物理上不可能原子**：
+第 k 帧失败时，前 k-1 帧已在 PLC 生效且**无法回滚**。</p>
+<p>⇒ 既然**不可能**让它原子，唯一的彻底做法是让**"部分写入"结构上不可能被忽略**：
+<ol><li>**可预知的失败全部前置**到第 1 帧之前（长度、地址范围、片边界校验）；</li><li>**任何**中途失败都必须由本类生成**显式披露**的文案（含"已写 X/Y 字节、N 帧"）；</li><li>`IPlcDevice.WriteBytesAsync` 的契约写明这一点（见该接口 XML 注释）。</li></ol>
+<p>【为什么用一个共享类，而不是每个驱动各写一句话】文案必须**格式统一**，
+否则调用方无法可靠识别"这是部分写入"。单点定义也保证**新增分片驱动时不会漏写**。</p>
+<p>【复核命令】
+<pre><code class="lang-csharp">grep -rn "PartialWrite.Fail" ZL.IotDriver --include=*.cs | wc -l   # 应等于分片驱动数</code></pre>
+
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.SerialFixedWidthGuard.html">SerialFixedWidthGuard</a></h4>
+      <section><p>单值仪表类驱动的固定宽度长度契约守卫（纯函数）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.SocketCloseHelper.html">SocketCloseHelper</a></h4>
+      <section><p>Socket 安全关闭的<strong>唯一实现</strong>。</p>
+<p>
+【为什么要它（docs/291）】"安全关闭 socket"这条规则此前在本仓有 **8 份实现**：
+<a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SafeCloseSocket">SafeCloseSocket()</a> 一份，另有 **7 个直接实现
+<code>IPlcDevice</code> 的驱动各自私有的一份**。逐份比对发现它们**互不相同**，
+其中最危险的分歧是：**5 份不会把 <code>_socket</code> 置空** ⇒ "安全关闭"之后仍留着
+一个**已关闭的 socket 引用** ⇒ <code>IsConnected</code> 与后续连接复用都会看到不一致状态。
+另有版本省略了 <code>Connected</code> 检查（对未连接 socket 调 <code>Shutdown</code> 会抛）。
+</p>
+<p>
+【本实现取"最防御"的语义】（即原 <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SafeCloseSocket">SafeCloseSocket()</a> 的语义）：
+<ol><li>仅当引用非空才处理；</li><li>仅在 <code>Connected</code> 为真时才 <code>Shutdown</code>（避免对未连接 socket 抛异常）；</li><li><code>Shutdown</code> 与 <code>Close</code> **各自独立 try** ⇒ 前者失败不影响后者；</li><li>最后把引用**置空** ⇒ 杜绝"已关闭引用"被复用。</li></ol>
+
+<p>
+【调用方职责】<code>_connected</code> 之类的**状态位**由调用方按各自语义处理
+（本仓既有实现一律先置 <code>false</code>，故调用方应在调用前完成），本方法只负责 socket 本身。
+</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.TcpConnectHelper.html">TcpConnectHelper</a></h4>
+      <section><p>带超时的 TCP 连接（&quot;异步 BeginConnect + 超时 + 失败即安全关闭&quot;）的<strong>唯一实现</strong>。</p>
+<p>
+【为什么要它（docs/292）】该模式此前有 **3 份**几乎逐字相同的实现：
+<a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html">NativeDriverBase</a> 一份，另有两个**直接实现 <code>IPlcDevice</code>、不继承基类**
+的驱动（MitsubishiMcDriver / OmronFinsDriver）各自复制一份。
+三者都把 <code>EndConnect</code> 的异常**整个吞掉**（<code>catch { }</code>）⇒
+失败时调用方只看到"连接失败"这一句，**真实的失败原因（如 connection refused）被丢弃** ✗
+—— 与本仓反复治理的"**静默**"族缺陷同源（docs/148 D-5、docs/283 §2）。
+</p>
+<p>
+【本实现的行为】**与原来逐条等价**，只多做一件事：**保留异常文本用于诊断** ✓
+<ol><li>IP 解析失败 ⇒ <code>Fail("无法解析 IP: …")</code>（原语义）；</li><li>超时 ⇒ 安全关闭 socket 后 <code>Fail("连接超时(…ms)")</code>（原语义）；</li><li>未连上 ⇒ 安全关闭 socket 后 <code>Fail("连接失败: &lt;真实原因&gt;")</code>（**新增原因** ✓）；</li><li>成功 ⇒ <code>Ok</code>（状态位由调用方自行置位）。</li></ol>
+
+<p>失败路径统一复用 <a class="xref" href="ZL.IotDriver.Core.SocketCloseHelper.html#ZL_IotDriver_Core_SocketCloseHelper_CloseSafely_System_Net_Sockets_Socket__">CloseSafely(ref Socket)</a> ⇒ 与"安全关闭"同一条规则 ✓。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.ValueBytes.html">ValueBytes</a></h4>
+      <section><p>把协议读到的值字节<strong>对齐/裁剪</strong>到调用方请求的字节数（AGENTS §21.1 契约的落地工具）。</p>
+</section>
+      <h4><a class="xref" href="ZL.IotDriver.Core.WriteGate.html">WriteGate</a></h4>
+      <section><p>L3 <strong>写入授权</strong>门禁的统一入口 ✓。</p>
+<p>
+【为什么要它 ✗→✓】本仓 10 个驱动文件里，**19 处**逐字重复着同一段判断 ✓：
+<pre><code class="lang-csharp">if (!LicenseGate.AllowWrite(_protocolKey))
+    return LicenseGate.WriteDenied();</code></pre>
+<p>—— 只有注释里的驱动名不同 ✗，<strong>判定逻辑完全一致</strong> ✓。
+⇒ 收口后：改口径只需改<strong>一处</strong> ✓；新增驱动也不容易漏 ✓。</p>
+
+<p>
+【⚠️ 与"有意分层"的区别 ✗】本项目此前曾把"许可门禁"整体判为"有意分层、不做收口"✗ ——
+那个判断对 **L2（`EnsureLicensed`，抛 `LicenseException`）** 成立 ✓：
+L2 是"**根本不该运行**"✗、L3 是"**单次操作被拒**"✓，两者语义确实不同 ✓，不该合并。
+但**本类只收口 L3 内部的重复写法** ✓ ——
+**不改变 L2/L3 的分层** ✗，**只把"L3 长什么样"收敛成一处** ✓。
+两件事必须分清 ✗：**分层是语义 ✓，重复是写法 ✗**。
+</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="ZL.IotDriver.Core.TypedAccessSupport.html">TypedAccessSupport</a></h4>
+      <section><p>驱动对<strong>类型化访问</strong>（<code>ReadInt16</code> / <code>ReadFloat</code> / <code>ReadString</code> / <code>Write(address, 数值)</code> / <code>ReadBool</code>）
+的支持声明。由 <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedAccess">TypedAccess</a> 声明，一处决定读/写/位读三面。</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

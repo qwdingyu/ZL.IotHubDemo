@@ -1,0 +1,3170 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ModbusTcpDriver | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ModbusTcpDriver | ZL IoT SDK API ">
+    
+    <meta name="description" content="的异步写分派修正。 [!!] 问题本质：基类 NativeDriverBase.WriteAsync(string,T) 对**标量** 一律把值降级成 byte[] 再走 WriteAsync(string, byte[]) ⇒ 落到 **FC16（写多寄存器）**。 而本驱动对同步路径有**协议正确的专用实现**：位写走 **FC5（写单线圈）**、 单寄存器写走 **FC6（可被  切到 FC16）**。 ⇒ 引擎的业务写**全部走异步**（DevicePro.WriteValueAsync → Device.WriteAsync(...)） ⇒ 现场表现是「直接调驱动能写、走引擎写不了」。 [!] 为什么只覆写这 3 个类型：判据是「**基类同步不委托异步**」的标量类型 （基类 Write(string,short/ushort/bool) 直接构造 byte[]，不转异步）。 数组/对象类型走 Write(string,object) → DeviceWriteDispatch → 异步，**本就不分叉**； int/float/double 等多寄存器类型同步异步**都**是 FC16，也不分叉。 抓包实证（同一驱动、同一地址，本地不应答的 TcpListener，2026-11-13）： Write(&quot;M100&quot;, true)              ⇒ FC=5   （解析通过，走到网络 IO） WriteAsync(&quot;M100&quot;, true)         ⇒ 修复前：地址解析失败（FC16 对位地址无映射）→ 修复后 FC=5 Write(&quot;D100&quot;, (short)1)          ⇒ FC=6 WriteAsync(&quot;D100&quot;, (short)1)     ⇒ 修复前：FC=16 → 修复后 FC=6 DisableFunctionCode06=true 时：同步/异步**同时**变 FC=16 [OK] 完整根因、基线对照与修复验证见 docs/691。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver">
+
+
+
+  <h1 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver" class="text-break">Class ModbusTcpDriver</h1>
+  <div class="markdown level0 summary"><p><a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html">ModbusTcpDriver</a> 的<strong>异步写分派修正</strong>。</p>
+<p>[!!] <b>问题本质</b>：基类 <code>NativeDriverBase.WriteAsync(string,T)</code> 对**标量**
+一律把值降级成 <code>byte[]</code> 再走 <code>WriteAsync(string, byte[])</code> ⇒ 落到 **FC16（写多寄存器）**。
+而本驱动对同步路径有**协议正确的专用实现**：位写走 **FC5（写单线圈）**、
+单寄存器写走 **FC6（可被 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DisableFunctionCode06">DisableFunctionCode06</a> 切到 FC16）**。
+⇒ 引擎的业务写**全部走异步**（<code>DevicePro.WriteValueAsync</code> → <code>Device.WriteAsync(...)</code>）
+⇒ 现场表现是「直接调驱动能写、走引擎写不了」。</p>
+<p>[!] <b>为什么只覆写这 3 个类型</b>：判据是「**基类同步不委托异步**」的标量类型
+（基类 <code>Write(string,short/ushort/bool)</code> 直接构造 byte[]，不转异步）。
+数组/对象类型走 <code>Write(string,object)</code> → <code>DeviceWriteDispatch</code> → 异步，**本就不分叉**；
+<code>int/float/double</code> 等多寄存器类型同步异步**都**是 FC16，也不分叉。</p>
+<p><b>抓包实证</b>（同一驱动、同一地址，本地不应答的 TcpListener，2026-11-13）：
+<pre><code class="lang-csharp">Write("M100", true)              ⇒ FC=5   （解析通过，走到网络 IO）
+WriteAsync("M100", true)         ⇒ 修复前：地址解析失败（FC16 对位地址无映射）→ 修复后 FC=5
+Write("D100", (short)1)          ⇒ FC=6
+WriteAsync("D100", (short)1)     ⇒ 修复前：FC=16 → 修复后 FC=6
+DisableFunctionCode06=true 时：同步/异步**同时**变 FC=16 [OK]</code></pre>
+<p>完整根因、基线对照与修复验证见 <code>docs/691</code>。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="ZL.IotDriver.Core.DriverBase.html">DriverBase</a></div>
+    <div class="level2"><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html">NativeDriverBase</a></div>
+    <div class="level3"><span class="xref">ModbusTcpDriver</span></div>
+      <div class="level4"><a class="xref" href="ZL.IotDriver.ModbusTcp.Delta.DeltaTcpDriver.html">DeltaTcpDriver</a></div>
+      <div class="level4"><a class="xref" href="ZL.IotDriver.ModbusTcp.EstunTcpDriver.html">EstunTcpDriver</a></div>
+      <div class="level4"><a class="xref" href="ZL.IotDriver.ModbusTcp.FreedomTcpDriver.html">FreedomTcpDriver</a></div>
+      <div class="level4"><a class="xref" href="ZL.IotDriver.ModbusTcp.Inovance.InovanceTcpDriver.html">InovanceTcpDriver</a></div>
+      <div class="level4"><a class="xref" href="ZL.IotDriver.ModbusTcp.MegMeetTcpDriver.html">MegMeetTcpDriver</a></div>
+      <div class="level4"><a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusUdpDriver.html">ModbusUdpDriver</a></div>
+      <div class="level4"><a class="xref" href="ZL.IotDriver.ModbusTcp.XinJeTcpDriver.html">XinJeTcpDriver</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IFormattedStringWriter.html">IFormattedStringWriter</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IBitBatchReader.html">IBitBatchReader</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IAreaAwareReader.html">IAreaAwareReader</a></div>
+    <div><a class="xref" href="ZL.IotAbstraction.Abstractions.IRawAddressingProvider.html">IRawAddressingProvider</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_GetEndianConverter">NativeDriverBase.GetEndianConverter()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBytesGateAsync_System_String_System_UInt16_">NativeDriverBase.ReadBytesGateAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteBytesGate_System_String_System_Byte___">NativeDriverBase.WriteBytesGate(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteBytesGateAsync_System_String_System_Byte___">NativeDriverBase.WriteBytesGateAsync(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__socket">NativeDriverBase._socket</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__disposed">NativeDriverBase._disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_TryBeginDispose">NativeDriverBase.TryBeginDispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__connected">NativeDriverBase._connected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__ip">NativeDriverBase._ip</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__port">NativeDriverBase._port</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__timeoutMs">NativeDriverBase._timeoutMs</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__ioLock">NativeDriverBase._ioLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__stateLock">NativeDriverBase._stateLock</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ProtocolKey">NativeDriverBase.ProtocolKey</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IsConnected">NativeDriverBase.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IpAddress">NativeDriverBase.IpAddress</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_Port">NativeDriverBase.Port</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SetProtocolKey_System_String_">NativeDriverBase.SetProtocolKey(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ConnectClose">NativeDriverBase.ConnectClose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_TcpConnect">NativeDriverBase.TcpConnect()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBytes_System_String_System_UInt16_">NativeDriverBase.ReadBytes(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ExpectedReadBytes_System_Int32_">NativeDriverBase.ExpectedReadBytes(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBytesAsync_System_String_System_UInt16_">NativeDriverBase.ReadBytesAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteBytesAsync_System_String_System_Byte___">NativeDriverBase.WriteBytesAsync(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteBytes_System_String_System_Byte___">NativeDriverBase.WriteBytes(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_Write_System_String_System_Byte___">NativeDriverBase.Write(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteAsync_System_String_System_Byte___">NativeDriverBase.WriteAsync(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_EnsureLicensed">NativeDriverBase.EnsureLicensed()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IsLicensed">NativeDriverBase.IsLicensed()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IsCommerciallyAllowed">NativeDriverBase.IsCommerciallyAllowed()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IsWriteCommerciallyAllowed">NativeDriverBase.IsWriteCommerciallyAllowed()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SafeCloseSocket">NativeDriverBase.SafeCloseSocket()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IsDisposed">NativeDriverBase.IsDisposed</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_EnsureConnected">NativeDriverBase.EnsureConnected()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IsReadyToOperate__1_ZL_IotAbstraction_Abstractions_DeviceResult___0___">NativeDriverBase.IsReadyToOperate&lt;T&gt;(out DeviceResult&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_IsReadyToOperate_ZL_IotAbstraction_Abstractions_DeviceResult__">NativeDriverBase.IsReadyToOperate(out DeviceResult)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_Send_System_Byte___">NativeDriverBase.Send(byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SendCore_System_Byte___">NativeDriverBase.SendCore(byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_Receive_System_Byte___System_Int32_System_Int32_">NativeDriverBase.Receive(byte[], int, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReceiveCore_System_Byte___System_Int32_System_Int32_">NativeDriverBase.ReceiveCore(byte[], int, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_SocketRead_System_Int32_">NativeDriverBase.SocketRead(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBoolAsync_System_String_">NativeDriverBase.ReadBoolAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBool_System_String_">NativeDriverBase.ReadBool(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteAsync_System_String_System_Object_">NativeDriverBase.WriteAsync(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteString_System_String_System_String_ZL_IotAbstraction_Tag_StringKind_System_Int32_System_Text_Encoding_">NativeDriverBase.WriteString(string, string, StringKind, int, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteStringAsync_System_String_System_String_ZL_IotAbstraction_Tag_StringKind_System_Int32_System_Text_Encoding_">NativeDriverBase.WriteStringAsync(string, string, StringKind, int, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_Write_System_String_System_Object_">NativeDriverBase.Write(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_Dispose">NativeDriverBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBytesGate_System_String_System_UInt16_">NativeDriverBase.ReadBytesGate(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedAccess">DriverBase.TypedAccess</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadTypedBytesAsync_System_String_System_UInt16_">DriverBase.ReadTypedBytesAsync(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadTypedBytes_System_String_System_UInt16_">DriverBase.ReadTypedBytes(string, ushort)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedReadUnsupportedHint">DriverBase.TypedReadUnsupportedHint</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteTypedBytesAsync_System_String_System_Byte___">DriverBase.WriteTypedBytesAsync(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteTypedBytes_System_String_System_Byte___">DriverBase.WriteTypedBytes(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedWriteUnsupportedHint">DriverBase.TypedWriteUnsupportedHint</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_TypedBitReadUnsupportedHint">DriverBase.TypedBitReadUnsupportedHint</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadByteAsync_System_String_">DriverBase.ReadByteAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadInt16Async_System_String_">DriverBase.ReadInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadUInt16Async_System_String_">DriverBase.ReadUInt16Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadInt32Async_System_String_">DriverBase.ReadInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadUInt32Async_System_String_">DriverBase.ReadUInt32Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadInt64Async_System_String_">DriverBase.ReadInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadUInt64Async_System_String_">DriverBase.ReadUInt64Async(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadFloatAsync_System_String_">DriverBase.ReadFloatAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadDoubleAsync_System_String_">DriverBase.ReadDoubleAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadByte_System_String_">DriverBase.ReadByte(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadInt16_System_String_">DriverBase.ReadInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadUInt16_System_String_">DriverBase.ReadUInt16(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadInt32_System_String_">DriverBase.ReadInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadUInt32_System_String_">DriverBase.ReadUInt32(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadInt64_System_String_">DriverBase.ReadInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadUInt64_System_String_">DriverBase.ReadUInt64(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadFloat_System_String_">DriverBase.ReadFloat(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadDouble_System_String_">DriverBase.ReadDouble(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_Byte_">DriverBase.Write(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_SByte_">DriverBase.Write(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_UInt32_">DriverBase.Write(string, uint)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_Int32_">DriverBase.Write(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_UInt64_">DriverBase.Write(string, ulong)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_Int64_">DriverBase.Write(string, long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_Single_">DriverBase.Write(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_Double_">DriverBase.Write(string, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_String_">DriverBase.Write(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Byte_">DriverBase.WriteAsync(string, byte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_SByte_">DriverBase.WriteAsync(string, sbyte)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt32_">DriverBase.WriteAsync(string, uint)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int32_">DriverBase.WriteAsync(string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt64_">DriverBase.WriteAsync(string, ulong)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int64_">DriverBase.WriteAsync(string, long)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Single_">DriverBase.WriteAsync(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Double_">DriverBase.WriteAsync(string, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ValidateWriteArray__1___0___">DriverBase.ValidateWriteArray&lt;T&gt;(T[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadString_System_String_System_UInt16_System_Text_Encoding_">DriverBase.ReadString(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_ReadStringAsync_System_String_System_UInt16_System_Text_Encoding_">DriverBase.ReadStringAsync(string, ushort, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_String_System_Text_Encoding_">DriverBase.WriteAsync(string, string, Encoding)</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int16___">DriverBase.WriteAsync(string, short[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt16___">DriverBase.WriteAsync(string, ushort[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int32___">DriverBase.WriteAsync(string, int[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt32___">DriverBase.WriteAsync(string, uint[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int64___">DriverBase.WriteAsync(string, long[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt64___">DriverBase.WriteAsync(string, ulong[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Single___">DriverBase.WriteAsync(string, float[])</a>
+    </div>
+    <div>
+      <a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Double___">DriverBase.WriteAsync(string, double[])</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.ModbusTcp.html">ModbusTcp</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ModbusTcpDriver : NativeDriverBase, IPlcDevice, IDisposable, IFormattedStringWriter, IProtocolKey, IBitBatchReader, IAddressSemantics, IAreaAwareReader, IRawAddressingProvider</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver__ctor_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.#ctor*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver__ctor_System_String_System_Int32_System_Byte_System_Int32_ZL_IotDriver_ModbusTcp_ModbusAddressingMode_System_String_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.#ctor(System.String,System.Int32,System.Byte,System.Int32,ZL.IotDriver.ModbusTcp.ModbusAddressingMode,System.String)">ModbusTcpDriver(string, int, byte, int, ModbusAddressingMode, string)</h4>
+  <div class="markdown level1 summary"><p>构造 Modbus TCP 驱动。</p>
+<p>[!!] <b>2026-11-04（docs/567 P1）新增两个**可选**参数</b>：
+放在参数表**末尾** ⇒ 6 个品牌子类（未传这两项）**零改动** [OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModbusTcpDriver(string ip, int port = 502, byte stationNumber = 1, int timeoutMs = 3000, ModbusAddressingMode addressing = ModbusAddressingMode.Modicon, string defaultArea = &quot;HR&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">ip</span></td>
+        <td><p>设备 IP。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>端口（默认 502）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">stationNumber</span></td>
+        <td><p>站号（默认 1）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">timeoutMs</span></td>
+        <td><p>超时毫秒（默认 3000）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusAddressingMode.html">ModbusAddressingMode</a></td>
+        <td><span class="parametername">addressing</span></td>
+        <td><p><strong>地址解释模式</strong>（默认 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusAddressingMode.html#ZL_IotDriver_ModbusTcp_ModbusAddressingMode_Modicon">Modicon</a> = 现行行为）。
+详见 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusAddressingMode.html">ModbusAddressingMode</a>。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">defaultArea</span></td>
+        <td><p><strong>raw 模式下裸数字的默认区</strong>：仅接受 <code>&quot;HR&quot;</code>（保持寄存器，默认）或 <code>&quot;IR&quot;</code>（输入寄存器）。</p>
+<p>[!] 不接受 <code>C</code>/<code>DI</code>（位区涉及位/字节偏移换算，`docs/567` C4 已排除）；
+非法值 ⇒ 构造期**抛 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a>**（fail-fast，不猜）[OK]</p>
+<p>[!] `modicon` 模式下本参数**被忽略**（不影响任何行为）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
+        <td><p><code class="paramref">defaultArea</code> 不是 <code>HR</code>/<code>IR</code>。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DefaultPortConst" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.DefaultPortConst">DefaultPortConst</h4>
+  <div class="markdown level1 summary"><p>默认端口 502。子类（如 XinJeTcpDriver）可通过此常量作为参数默认值。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected const int DefaultPortConst = 502</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_AddressMapper_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.AddressMapper*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_AddressMapper" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.AddressMapper">AddressMapper</h4>
+  <div class="markdown level1 summary"><p>品牌地址映射器。默认为 <a class="xref" href="ZL.IotDriver.ModbusTcp.StandardModbusAddressMapper.html">StandardModbusAddressMapper</a>（纯数字地址）。
+品牌子类在构造函数中替换为品牌专用的映射器。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IModbusAddressMapper AddressMapper { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.IModbusAddressMapper.html">IModbusAddressMapper</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Addressing_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Addressing*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Addressing" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Addressing">Addressing</h4>
+  <div class="markdown level1 summary"><p><strong>地址解释模式</strong>（<code>docs/567</code> P1）。</p>
+<p>默认 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusAddressingMode.html#ZL_IotDriver_ModbusTcp_ModbusAddressingMode_Modicon">Modicon</a> ⇒ **与历史行为逐字节一致** [OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModbusAddressingMode Addressing { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusAddressingMode.html">ModbusAddressingMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BitReadDenyCode_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BitReadDenyCode*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BitReadDenyCode" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BitReadDenyCode">BitReadDenyCode</h4>
+  <div class="markdown level1 summary"><p>位读被拒的错误码（与 ModbusRtuOverTcp 共用同一码，便于宿主分流）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string BitReadDenyCode { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_BitReadDenyCode">NativeDriverBase.BitReadDenyCode</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DefaultArea_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.DefaultArea*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DefaultArea" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.DefaultArea">DefaultArea</h4>
+  <div class="markdown level1 summary"><p><strong>raw 模式下裸数字的默认区</strong>（已规整为大写）：<code>&quot;HR&quot;</code> 或 <code>&quot;IR&quot;</code>。</p>
+<p>[!] <code>modicon</code> 模式下**该值不参与任何判定**（保持默认 `"HR"`）[OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DefaultArea { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DisableFunctionCode06_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.DisableFunctionCode06*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DisableFunctionCode06" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.DisableFunctionCode06">DisableFunctionCode06</h4>
+  <div class="markdown level1 summary"><p>禁用 FC06（写单个寄存器），单寄存器写改用 FC16。</p>
+<p>
+对齐 HSL <code>ModbusTcpNet.DisableFunctionCode06</code>：部分网关/设备对 FC06
+支持不完整，但接受 FC16 写 1 个寄存器。默认 <code>false</code>（保持历史行为，
+仍走更高效的 FC06）。
+</p>
+<p>
+[!] 只影响 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Write_System_String_System_UInt16_">Write(string, ushort)</a> 这一条单寄存器标量写路径；
+<code>byte[]</code> 写本来就固定 FC16，不受影响。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisableFunctionCode06 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_EndianConverter_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.EndianConverter*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_EndianConverter" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.EndianConverter">EndianConverter</h4>
+  <div class="markdown level1 summary"><p>字节序转换器 — Modbus TCP 使用大端序</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override IEndianConverter EndianConverter { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.IEndianConverter.html">IEndianConverter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_EndianConverter">NativeDriverBase.EndianConverter</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_IsRawAddressing_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.IsRawAddressing*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_IsRawAddressing" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.IsRawAddressing">IsRawAddressing</h4>
+  <div class="markdown level1 summary"><p>true = raw（原始寄存器号）；false = modicon（一基区号）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsRawAddressing { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_StationCheckMatch_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.StationCheckMatch*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_StationCheckMatch" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.StationCheckMatch">StationCheckMatch</h4>
+  <div class="markdown level1 summary"><p>是否校验响应站号（默认 <code>true</code>）。</p>
+<p>
+对齐 HSL <code>ModbusTcpNet.StationCheckMatch</code>（默认 <code>true</code>）。
+多台从站共用网关、网关回源站号不规范时可置 <code>false</code>；
+关闭后仍校验 Transaction ID，只跳过 MBAP 第 7 字节（Unit Id）比对。
+</p>
+<p>
+[!] 关闭站号校验会降低“迟到响应/串站响应”的检出能力，只在确知网关行为时使用。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool StationCheckMatch { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_StationNumber_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.StationNumber*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_StationNumber" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.StationNumber">StationNumber</h4>
+  <div class="markdown level1 summary"><p>站号</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte StationNumber { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WordReadBatchLength_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WordReadBatchLength*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WordReadBatchLength" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WordReadBatchLength">WordReadBatchLength</h4>
+  <div class="markdown level1 summary"><p>单帧读寄存器的最大字数（默认 <code>120</code>，上限 125）。</p>
+<p>
+对齐 HSL <code>ModbusTcpNet.WordReadBatchLength</code>（默认 120）。部分设备/网关
+对 125 字的满帧支持不好，可调小；超过 125 会被钳制到规范上限。
+只影响 FC03/FC04 的**分片大小**，不改变返回内容。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int WordReadBatchLength { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_AdjustReadFunctionCode_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.AdjustReadFunctionCode*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_AdjustReadFunctionCode_System_String_System_Byte_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.AdjustReadFunctionCode(System.String,System.Byte)">AdjustReadFunctionCode(string, byte)</h4>
+  <div class="markdown level1 summary"><p><strong>读功能码改写钩子</strong>（2026-10-24 新增，docs/472 §二）—— 品牌区可用<strong>非 FC1</strong> 的标准功能码读位。</p>
+<p>
+【为什么需要 [OK]】HSL 对部分品牌位区强制**标准**功能码 2（读离散输入）：
+汇川 `I`/`IX` 恒带 <code>"x=2;"</code>（HSL `InovanceHelper.cs:149`/`:153`（`PraseInovanceAMAddress` 的 IX/I 分支）；原引 `:121-126` 实为系列分发 switch、不含 `x=2`，2026-11-15 订正）。
+本驱动位读通道此前**恒发 FC1（线圈）** ⇒ 对 `I` 区读到**线圈**而非**离散输入**——
+真机上两个物理区域，静默错值 [X]。
+</p>
+<p>
+【为什么安全 [OK]】① FC1/FC2 的**请求帧与响应帧格式完全相同**
+（Modbus 规范：两者都是 bit-packed、LSB-first，仅功能码字节不同；
+本类响应解析取 <code>dataOffset=9</code> 起、不校验 FC 回显 [OK]，分片逻辑本就按
+<code>functionCode is 1 or 2</code> 走位语义 [OK]）；② 默认实现**恒等** ⇒ 对其它品牌
+**零行为变更** [OK]；③ 只改**读**路径（`ReadBytesInternal` 唯一入口，
+`ReadBool`/`ReadBitsAsync`/位块批读全部经此汇聚 [OK]），**写路径不动** [X]
+（离散输入只读，写 I 区本就该被设备拒绝，无需代劳 [X]）。
+</p>
+<p>
+【边界 [X]】只处理**标准**功能码改写（FC1⇒FC2）；**厂商自定义功能码**
+（汇川 `SM/SMX/SD/SDW` 的 <code>x=FC+48</code>、MegMeet `X` 的 FC2 强制等）**不在本钩子**——
+其响应帧格式未经证实（AGENTS §22.4：无确凿证据不动手），仍登记 todolist 待 FC 机制设计 [X]。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual byte AdjustReadFunctionCode(string address, byte functionCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p><strong>原始</strong>地址串（含品牌前缀；映射后的裸数字无法判定前缀 [X]）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">functionCode</span></td>
+        <td><p>调用方请求的功能码（位读=1）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><p>实际使用的功能码；默认原样返回（恒等）[OK]</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildMaskWriteCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildMaskWriteCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildMaskWriteCommand_System_UInt16_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildMaskWriteCommand(System.UInt16,System.UInt16,System.UInt16)">BuildMaskWriteCommand(ushort, ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>构建位掩码写命令帧（FC22）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildMaskWriteCommand(ushort address, ushort andMask, ushort orMask)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">andMask</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">orMask</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildMbap_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildMbap*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildMbap_System_Byte_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildMbap(System.Byte,System.UInt16)">BuildMbap(byte, ushort)</h4>
+  <div class="markdown level1 summary"><p>构建 MBAP 头</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildMbap(byte unitId, ushort pduLen)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">unitId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">pduLen</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildReadCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildReadCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildReadCommand_System_UInt16_System_UInt16_System_Byte_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildReadCommand(System.UInt16,System.UInt16,System.Byte)">BuildReadCommand(ushort, ushort, byte)</h4>
+  <div class="markdown level1 summary"><p>构建读命令帧（通用）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildReadCommand(ushort address, ushort count, byte functionCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">functionCode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteCoilCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteCoilCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteCoilCommand_System_UInt16_System_Boolean_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteCoilCommand(System.UInt16,System.Boolean)">BuildWriteCoilCommand(ushort, bool)</h4>
+  <div class="markdown level1 summary"><p>构建写线圈命令帧（FC5）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildWriteCoilCommand(ushort address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteMultiCoilCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteMultiCoilCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteMultiCoilCommand_System_UInt16_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteMultiCoilCommand(System.UInt16,System.Byte[])">BuildWriteMultiCoilCommand(ushort, byte[])</h4>
+  <div class="markdown level1 summary"><p>兼容旧调用：按整字节推算线圈数（仅当 data 已按满 8 位填充时正确）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildWriteMultiCoilCommand(ushort address, byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteMultiCoilCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteMultiCoilCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteMultiCoilCommand_System_UInt16_System_Byte___System_Int32_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteMultiCoilCommand(System.UInt16,System.Byte[],System.Int32)">BuildWriteMultiCoilCommand(ushort, byte[], int)</h4>
+  <div class="markdown level1 summary"><p>构建写多线圈命令帧（FC15）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildWriteMultiCoilCommand(ushort address, byte[] data, int coilCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">coilCount</span></td>
+        <td><p>实际线圈数量（不得用 data.Length*8 代替，非整字节时会越写）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteMultiRegisterCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteMultiRegisterCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteMultiRegisterCommand_System_UInt16_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteMultiRegisterCommand(System.UInt16,System.Byte[])">BuildWriteMultiRegisterCommand(ushort, byte[])</h4>
+  <div class="markdown level1 summary"><p>构建写多寄存器命令帧（FC16）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildWriteMultiRegisterCommand(ushort address, byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteRegisterCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteRegisterCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_BuildWriteRegisterCommand_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.BuildWriteRegisterCommand(System.UInt16,System.UInt16)">BuildWriteRegisterCommand(ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>构建写单寄存器命令帧（FC6）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte[] BuildWriteRegisterCommand(ushort address, ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ConnectServer_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ConnectServer*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ConnectServer" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ConnectServer">ConnectServer()</h4>
+  <div class="markdown level1 summary"><p>连接 PLC 并执行协议特有握手。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DeviceResult ConnectServer()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ConnectServer">NativeDriverBase.ConnectServer()</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_IsBitArea_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.IsBitArea*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_IsBitArea_System_String_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.IsBitArea(System.String)">IsBitArea(string)</h4>
+  <div class="markdown level1 summary"><p>该地址是否属于<strong>线圈位区</strong>（供 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_TryGetBitDevice_System_String_System_String__System_Int64__">TryGetBitDevice(string, out string, out long)</a> 判定）[OK]。</p>
+<p>
+默认：仅标准 Modbus 的纯数字地址（与 ReadBool 的 FC1 口径一致）[OK]。
+品牌子类必须覆写（它们的 `MapAddress` 对 M/X/Y 与 D 可能都返回非 null，
+**不能**仅凭 `<a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ResolveAddress_System_String_System_Byte_">ResolveAddress(string, byte)</a>` 是否成功来区分位/字 [X]）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool IsBitArea(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_IsDualUseArea_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.IsDualUseArea*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_IsDualUseArea_System_String_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.IsDualUseArea(System.String)">IsDualUseArea(string)</h4>
+  <div class="markdown level1 summary"><p>[*] <strong>位/字「双用途」区域判定</strong>（默认 <code>false</code> ⇒ 对既有品牌<strong>零行为变更</strong> [OK]）。</p>
+<p>
+【为什么需要这个钩子 [X]→[OK]】`IsBitArea` 只有 1 个参数，**无法表达**"同一前缀
+既能位访问又能字访问" [X]。例如麦格米特的 `T`/`C`：
+  位映射 `T⇒+8000`、`C⇒+9200`；字映射 `T⇒+9000`、`C⇒+9500`（`MegMeetAddressMapper` [OK]，2026-10-23 逐值核对）
+⇒ 必须**按调用方要位还是要字**（`wantBit`）决定，而不是按前缀一刀切 [X]。
+</p>
+<p>
+【与 `IsBitArea` 的区别】
+· `IsBitArea == true` ⇒ 该区**只能**位访问（字访问会 `return false` 交回）[OK]
+· `IsDualUseArea == true` ⇒ 该区**两者都支持** ⇒ 本方法会按 `wantBit` 分支 [OK]
+</p>
+<p>[!] 本钩子**只在 3 参重载**（带 `dataTypeCode`）里生效；2 参重载无法判断类型 ⇒ 不用它 [OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool IsDualUseArea(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_PostProcessResponse_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.PostProcessResponse*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_PostProcessResponse_ZL_IotAbstraction_Abstractions_DeviceResult_System_Byte____" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.PostProcessResponse(ZL.IotAbstraction.Abstractions.DeviceResult{System.Byte[]})">PostProcessResponse(DeviceResult&lt;byte[]&gt;)</h4>
+  <div class="markdown level1 summary"><p>接收后处理响应帧。</p>
+<p>
+子类可覆写此方法实现解密、校验、解粘包等后处理逻辑。
+默认实现直接返回原响应。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult&lt;byte[]&gt; PostProcessResponse(DeviceResult&lt;byte[]&gt; response)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td><span class="parametername">response</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_PreProcessCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.PreProcessCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_PreProcessCommand_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.PreProcessCommand(System.Byte[])">PreProcessCommand(byte[])</h4>
+  <div class="markdown level1 summary"><p>发送前预处理命令帧。</p>
+<p>
+子类可覆写此方法实现加密、日志、校验等预处理逻辑。
+默认实现直接返回原命令。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual byte[] PreProcessCommand(byte[] command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_PreProcessWriteCommand_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.PreProcessWriteCommand*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_PreProcessWriteCommand_System_String_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.PreProcessWriteCommand(System.String,System.Byte[])">PreProcessWriteCommand(string, byte[])</h4>
+  <div class="markdown level1 summary"><p>写命令预处理（带地址）—— <strong>所有写路径</strong>（5 处）统一经此。</p>
+<pre><code>&lt;p&gt;[!] 为什么必须有：写 FC 原**硬编码**在各 `BuildWrite*Command`（`pdu[0]=5/6/15/16/22`）。
+**曾试过在 `ResolveWriteAddress`（地址解析层）加钩子返回改写后的 FC —— 实测无效**：
+那只是该方法内的**局部参数**，下游构造器各自写死 `pdu[0]` ⇒ **传不到命令字节**
+（实测：钩子返回 0x35，真实出帧仍 0x05）⇒ 必须在&quot;命令已构造、尚未发送&quot;时点
+同时拿到**地址**（判区）与**命令字节**（改 FC）。&lt;/p&gt;
+&lt;p&gt;[!] 默认只转调 `PreProcessCommand`（零行为变更）。覆写时须自行按官方表改 FC，
+再调 `PreProcessCommand`（保证既有预处理不被跳过）。&lt;/p&gt;
+</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual byte[] PreProcessWriteCommand(string address, byte[] command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBitsAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBitsAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBitsAsync_System_String_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBitsAsync(System.String,System.UInt16)">ReadBitsAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>从 <code class="paramref">address</code> 起，<strong>一次</strong>读取 <code class="paramref">count</code> 个连续位 ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;bool[]&gt;&gt; ReadBitsAsync(string address, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>起始位地址（如 MC 的 <code>X20</code> ✓）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p><strong>点数</strong>（不是字节 ✗）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]&gt;&gt;</td>
+        <td><p>长度<strong>恰好等于</strong> <code class="paramref">count</code> 的布尔数组，顺序与地址递增一致 ✓。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBoolAsyncCore_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBoolAsyncCore*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBoolAsyncCore_System_String_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBoolAsyncCore(System.String)">ReadBoolAsyncCore(string)</h4>
+  <div class="markdown level1 summary"><p>位读的<strong>实际实现</strong>（子类覆写点）。默认：按字节读 1 字节再判非零。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task&lt;DeviceResult&lt;bool&gt;&gt; ReadBoolAsyncCore(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBoolAsyncCore_System_String_">NativeDriverBase.ReadBoolAsyncCore(string)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBoolCore_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBoolCore*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBoolCore_System_String_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBoolCore(System.String)">ReadBoolCore(string)</h4>
+  <div class="markdown level1 summary"><p>位读同步实现的<strong>子类覆写点</strong>。默认委托到 <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBoolAsync_System_String_">ReadBoolAsync(string)</a>（含校验，重复一次无副作用）[OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult&lt;bool&gt; ReadBoolCore(string address)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBoolCore_System_String_">NativeDriverBase.ReadBoolCore(string)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBytesCore_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBytesCore*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBytesCore_System_String_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBytesCore(System.String,System.UInt16)">ReadBytesCore(string, ushort)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult&lt;byte[]&gt; ReadBytesCore(string address, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ReadBytesCore_System_String_System_UInt16_">NativeDriverBase.ReadBytesCore(string, ushort)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBytesInArea_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBytesInArea*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBytesInArea_System_String_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBytesInArea(System.String,System.UInt16,System.UInt16)">ReadBytesInArea(string, ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p><strong>在指定数据区读</strong>（<code>IAreaAwareReader</code> 实现）。</p>
+<p>核心差异：**用区决定功能码**，而不是恒用 FC3。</p>
+<p>[!] 契约与 <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html#ZL_IotAbstraction_Abstractions_IPlcDevice_ReadBytes_System_String_System_UInt16_">ReadBytes(string, ushort)</a> 完全一致：<code class="paramref">length</code> 恒为**字节数** [OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;byte[]&gt; ReadBytesInArea(string area, ushort start, ushort length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">area</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBytesInternal_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBytesInternal*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadBytesInternal_System_String_System_UInt16_System_Byte_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadBytesInternal(System.String,System.UInt16,System.Byte)">ReadBytesInternal(string, ushort, byte)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult&lt;byte[]&gt; ReadBytesInternal(string address, ushort length, byte functionCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">length</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">functionCode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadDiscrete_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadDiscrete*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadDiscrete_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadDiscrete(System.UInt16,System.UInt16)">ReadDiscrete(ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>FC2 读离散输入</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;bool[]&gt; ReadDiscrete(ushort address, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>起始地址</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>读取数量（1-1968）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadDiscrete_System_UInt16_System_UInt16__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>[!!]【2026-11-14 补出处】Modbus V1.1b：FC1/FC2 quantity = <strong>1~2000</strong>，<code>byteCount</code> 1 字节 ⇒ 上限 2040 位；<strong>1968 = 246 字节</strong>在规范内且偏保守 ⇒ 合法，非缺陷。</p>
+</div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadDiscreteAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadDiscreteAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadDiscreteAsync_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadDiscreteAsync(System.UInt16,System.UInt16)">ReadDiscreteAsync(ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>异步 FC2 读离散输入</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;bool[]&gt;&gt; ReadDiscreteAsync(ushort address, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadInputRegister_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadInputRegister*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadInputRegister_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadInputRegister(System.UInt16,System.UInt16)">ReadInputRegister(ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>FC4 读输入寄存器</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult&lt;ushort[]&gt; ReadInputRegister(ushort address, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>起始地址</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>读取数量（1-125，每个 2 字节）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadInputRegisterAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadInputRegisterAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ReadInputRegisterAsync_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ReadInputRegisterAsync(System.UInt16,System.UInt16)">ReadInputRegisterAsync(ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>异步 FC4 读输入寄存器</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&lt;ushort[]&gt;&gt; ReadInputRegisterAsync(ushort address, ushort count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">count</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>[]&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ResolveAddress_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ResolveAddress*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ResolveAddress_System_String_System_Byte_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ResolveAddress(System.String,System.Byte)">ResolveAddress(string, byte)</h4>
+  <div class="markdown level1 summary"><p>解析地址字符串，通过 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_AddressMapper">AddressMapper</a> 转换为 Modbus 寄存器地址。</p>
+<p>
+子类可覆写此方法实现额外地址格式支持。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual ushort? ResolveAddress(string address, byte functionCode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">functionCode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SelfCheck_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.SelfCheck*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SelfCheck" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.SelfCheck">SelfCheck()</h4>
+  <div class="markdown level1 summary"><p>运行时自检 — 验证 AddressMapper 已设置、字节序已初始化。</p>
+<p>在构造函数末尾自动调用。品牌子类在构造函数中先注入 Mapper，
+基类构造函数最后调用此方法进行校验。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SelfCheck()</code></pre>
+  </div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SendAndReceive_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.SendAndReceive*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SendAndReceive_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.SendAndReceive(System.Byte[])">SendAndReceive(byte[])</h4>
+  <div class="markdown level1 summary"><p>发送命令并接收响应。</p>
+<p>
+子类可覆写此方法以实现协议级扩展（如日志、超时调整、粘包处理）。
+</p>
+<p>
+【并发保护】本方法用 <a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase__ioLock">_ioLock</a> 保证「发 + 收」是一个原子区间。
+原因：本方法用 <code>new</code> 隐藏了基类同名方法，且内部直接操作 <code>_socket</code>
+（而非调用基类带锁的 <code>Send()</code>/<code>Receive()</code>），两条加锁路径都被绕开。
+若两个线程同时进入，双方的 MBAP 帧会在同一 socket 上交错，
+收到的响应将无法与请求对应 —— 这类故障在现场表现为随机错值，极难排查。
+</p>
+<p>
+上层 <code>DeviceRoot.deviceLock</code> 已保证每设备实例串行访问（见 `DeviceRoot` 的 `deviceLock` 声明、
+ExecuteWithDeviceLockAsync），因此正常采集路径不会并发。但本方法是 <code>protected virtual</code>，
+6 个品牌派生驱动与测试子类均可直接调用，故在驱动层保留这道纵深防御。
+</p>
+<p>
+【无重入】体内 <code>EnsureLicensed()</code>、<code>_socket.Send/Receive</code>、<code>SafeCloseSocket()</code>
+均不获取 <code>_ioLock</code>；<code>SendReliable</code> 重试时调用的 <code>ConnectServer()</code>→<code>TcpConnect()</code>
+也不获取该锁（只有 <code>ConnectClose()</code> 会，不在本路径上）。
+同模式已在 <code>ModbusRtuOverTcpDriver.SendReliable</code> 长期运行验证。
+锁的获取方式（<code>Wait()</code> + <code>finally Release()</code>）与基类 4 处用法保持一致，不引入新的超时语义。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult&lt;byte[]&gt; SendAndReceive(byte[] command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SendReliable_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.SendReliable*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SendReliable_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.SendReliable(System.Byte[])">SendReliable(byte[])</h4>
+  <div class="markdown level1 summary"><p>可靠发送：失败时自动重连并重试一次。</p>
+<p>
+子类可覆写此方法以改变重试策略。
+</p>
+<p>
+【锁边界说明】本方法**不获取** <code>_ioLock</code>，锁由其调用的 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SendAndReceive_System_Byte___">SendAndReceive(byte[])</a> 各自持有。
+这是刻意设计：<code>SemaphoreSlim</code> 不可重入，若本方法也 <code>Wait()</code>，
+则内层 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SendAndReceive_System_Byte___">SendAndReceive(byte[])</a> 会在同一线程上永久阻塞（自死锁）。
+</p>
+<p>
+由此带来的语义边界：**单次「发+收」是原子的，但「首发 → 重连 → 重试」整体不是**。
+这足以保证协议正确性 —— 每个请求-响应对不会与他人的报文在 socket 上交错；
+并发场景下只是多个请求可能交替进行，不会产生错帧。
+若将来需要让整个重试序列原子化，不可简单在此加 <code>Wait()</code>，
+必须先把 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_SendAndReceive_System_Byte___">SendAndReceive(byte[])</a> 拆成「持锁的公开版 + 不持锁的内部版」两个入口。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult&lt;byte[]&gt; SendReliable(byte[] command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult-1.html">DeviceResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ShouldDenyBitRead_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ShouldDenyBitRead*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_ShouldDenyBitRead_System_String_System_String__" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.ShouldDenyBitRead(System.String,System.String@)">ShouldDenyBitRead(string, out string)</h4>
+  <div class="markdown level1 summary"><p><strong>位读前的统一校验（覆写基类钩子）</strong> —— 标准 Modbus <code>3xxxx</code>/<code>4xxxx</code> 寄存器区拒绝位读。</p>
+<p>【为什么是覆写钩子而不是在入口里写 if】基类已把 <code>ReadBool</code>/<code>ReadBoolAsync</code>
+改成**非虚模板**（2026-11-18），子类只能覆写 <code>XXXCore</code> 与本钩子
+=&gt; 校验**物理上无法绕过**，且本类无需在每个入口重复写同样的话 [OK]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool ShouldDenyBitRead(string address, out string message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_ShouldDenyBitRead_System_String_System_String__">NativeDriverBase.ShouldDenyBitRead(string, out string)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_TryGetAddressSemantics_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.TryGetAddressSemantics*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_TryGetAddressSemantics_System_String_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.TryGetAddressSemantics(System.String,System.String,ZL.IotAbstraction.Abstractions.DeviceAddressSemantics@)">TryGetAddressSemantics(string, string, out DeviceAddressSemantics)</h4>
+  <div class="markdown level1 summary"><p>【2026-10-23 新增】<strong>协议原生地址语义</strong> [OK]（<code>IAddressSemantics</code> 实现，docs/468 §五）。</p>
+<p>【为什么由驱动回答】"地址是线圈还是寄存器、映射到第几号"是**协议语义** [X]，
+通用解析器（`PlcAddressHelper`）只能猜；品牌 mapper 对 `M/X/Y`（线圈）与 `D/HR`（字区）
+的判定**只有驱动知道** [OK]。</p>
+<p>【实现】复用两件权威事实：<code>IsBitArea</code>（区域语义，子类可覆写）+ 
+<code>ResolveAddress(addr,1)</code>（FC1 线圈映射值）；二者同时成立才算"位" [OK]，防字区误当位区 [X]。
+非位地址/映射失败 ⇒ 返回 <code>false</code>（调用方回退通用解析器）[OK]。</p>
+<p>【带类型提示的重载 —— 为什么必须要】Modbus **裸数字**同一串是两个区域 [X]：
+<code>ReadBool("800")</code> ⇒ 线圈 800（FC1）；<code>ReadInt16("800")</code> ⇒ 寄存器 800（FC3）
+⇒ 只看地址串无法决定语义，必须由**标签数据类型**决定 [OK]。</p>
+<p>【实测后果（未修时）】`800+int16` 建块得 `StartByte=50`（按位号 `800/8/2`），
+而正确应是 `StartByte=800`（寄存器 800）⇒ 读错位置 [X]。</p>
+<p>【判据】`DataTypeCode=="bool"` ⇒ 位（FC1）；其它 ⇒ 字（FC3）/寄存器 [OK]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetAddressSemantics(string address, string dataTypeCode, out DeviceAddressSemantics semantics)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataTypeCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html">DeviceAddressSemantics</a></td>
+        <td><span class="parametername">semantics</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_TryGetAddressSemantics_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.TryGetAddressSemantics*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_TryGetAddressSemantics_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.TryGetAddressSemantics(System.String,ZL.IotAbstraction.Abstractions.DeviceAddressSemantics@)">TryGetAddressSemantics(string, out DeviceAddressSemantics)</h4>
+  <div class="markdown level1 summary"><p>解析地址的<strong>协议原生语义</strong> ✓。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetAddressSemantics(string address, out DeviceAddressSemantics semantics)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>原始地址串（原样传入，不做预处理 ✓）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceAddressSemantics.html">DeviceAddressSemantics</a></td>
+        <td><span class="parametername">semantics</span></td>
+        <td><p>成功时输出语义；失败为 <code>null</code>。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code>  = 驱动<strong>确定</strong>该地址的语义 ✓；
+<code>false</code> = 驱动<strong>不支持或不确定</strong> ⇒ 调用方<strong>必须回退</strong>，不得猜 ✗。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_TryGetBitDevice_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.TryGetBitDevice*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_TryGetBitDevice_System_String_System_String__System_Int64__" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.TryGetBitDevice(System.String,System.String@,System.Int64@)">TryGetBitDevice(string, out string, out long)</h4>
+  <div class="markdown level1 summary"><p>解析位地址 ⇒ <strong>驱动口径</strong>的「软元件区域 + 位号」✓。</p>
+<p>
+【权威性 ✓】位号必须是**协议原生编号**（MC 的 `X20` = 0x20 = 32 ✓；
+松下 `X100` = 160 ✓）；**不得**用通用地址解析器代算 ✗（进制/位字属性可能不同 ✗）。
+</p>
+<p>
+【区域一致性 ✓】<code class="paramref">areaKey</code> 必须能区分**不同软元件** ✓
+（如 `X`/`Y`/`M`；松下 `R`/`SM`）—— 一条读命令只能指定一个软元件码 ✗。
+同一软元件的不同别名可以返回同一个 key ✓。
+</p>
+<p>⚠️ 非位地址、解析失败、不支持 ⇒ 返回 <code>false</code> ✓（**不抛异常** ✓）。</p>
+<p>
+【实现方式 ✓】各驱动**不必**单独实现本方法 —— 用
+<a class="xref" href="ZL.IotAbstraction.Abstractions.AddressSemanticsAdapter.html#ZL_IotAbstraction_Abstractions_AddressSemanticsAdapter_TryGetBitDevice_ZL_IotAbstraction_Abstractions_IAddressSemantics_System_String_System_String__System_Int64__">TryGetBitDevice(IAddressSemantics, string, out string, out long)</a>
+从 <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html#ZL_IotAbstraction_Abstractions_IAddressSemantics_TryGetAddressSemantics_System_String_ZL_IotAbstraction_Abstractions_DeviceAddressSemantics__">TryGetAddressSemantics(string, out DeviceAddressSemantics)</a> 派生 ✓（单一实现点 ✓）。
+本签名保留是为了**不破坏既有调用方**（`BitBatchPlan`、`DeviceRoot` 探测等）✓。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetBitDevice(string address, out string areaKey, out long deviceNumber)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>待解析的地址串（原样 ✓）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">areaKey</span></td>
+        <td><p>区域标识（同一软元件必须稳定相同 ✓）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">deviceNumber</span></td>
+        <td><p>该软元件内的<strong>位号</strong>（协议原生编号 ✓）。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Write_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Write_System_String_System_Boolean_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Write(System.String,System.Boolean)">Write(string, bool)</h4>
+  <div class="markdown level1 summary"><p>写单个线圈（FC5）。
+如果地址包含 '.'（如 &quot;100.3&quot;），使用 FC22 位掩码写入寄存器指定位。
+品牌子类可覆写此方法以实现特殊逻辑（如台达的 bool 写入需 FC6+0xFF00/0x0000）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DeviceResult Write(string address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_Boolean_">DriverBase.Write(string, bool)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Write_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Write_System_String_System_Int16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Write(System.String,System.Int16)">Write(string, short)</h4>
+  <div class="markdown level1 summary"><p>写单个寄存器（FC6），比基类的 FC16 效率更高</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DeviceResult Write(string address, short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_Int16_">DriverBase.Write(string, short)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Write_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Write*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_Write_System_String_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.Write(System.String,System.UInt16)">Write(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>写单个寄存器（FC6）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DeviceResult Write(string address, ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_Write_System_String_System_UInt16_">DriverBase.Write(string, ushort)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_System_String_System_Boolean_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync(System.String,System.Boolean)">WriteAsync(string, bool)</h4>
+  <div class="markdown level1 summary"><p>写单个位（FC5）—— 与同步 <code>Write(string,bool)</code> 同路径。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;DeviceResult&gt; WriteAsync(string address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Boolean_">DriverBase.WriteAsync(string, bool)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_System_String_System_Boolean___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync(System.String,System.Boolean[])">WriteAsync(string, bool[])</h4>
+  <div class="markdown level1 summary"><p>写多个线圈（FC15），bool[] 需要此专用命令</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;DeviceResult&gt; WriteAsync(string address, bool[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Boolean___">DriverBase.WriteAsync(string, bool[])</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_System_String_System_Int16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync(System.String,System.Int16)">WriteAsync(string, short)</h4>
+  <div class="markdown level1 summary"><p>写单个寄存器（FC6，受 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DisableFunctionCode06">DisableFunctionCode06</a> 控制）—— 与同步同路径。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;DeviceResult&gt; WriteAsync(string address, short value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_Int16_">DriverBase.WriteAsync(string, short)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteAsync_System_String_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteAsync(System.String,System.UInt16)">WriteAsync(string, ushort)</h4>
+  <div class="markdown level1 summary"><p>写单个寄存器（FC6，受 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_DisableFunctionCode06">DisableFunctionCode06</a> 控制）—— 与同步同路径。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;DeviceResult&gt; WriteAsync(string address, ushort value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.DriverBase.html#ZL_IotDriver_Core_DriverBase_WriteAsync_System_String_System_UInt16_">DriverBase.WriteAsync(string, ushort)</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBit_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBit*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBit_System_String_System_Byte_System_Boolean_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBit(System.String,System.Byte,System.Boolean)">WriteBit(string, byte, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult WriteBit(string address, byte bitIndex, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">bitIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBitAsync_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBitAsync*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBitAsync_System_String_System_Byte_System_Boolean_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBitAsync(System.String,System.Byte,System.Boolean)">WriteBitAsync(string, byte, bool)</h4>
+  <div class="markdown level1 summary"><p>异步版本：显式写入寄存器的指定位（0-15），内部使用 FC22 掩码写入。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DeviceResult&gt; WriteBitAsync(string address, byte bitIndex, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>寄存器地址（如 &quot;100&quot; 表示寄存器 100）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">bitIndex</span></td>
+        <td><p>位索引 0-15</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>true=置位, false=复位</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBytesCore_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBytesCore*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBytesCore_System_String_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBytesCore(System.String,System.Byte[])">WriteBytesCore(string, byte[])</h4>
+  <div class="markdown level1 summary"><p>子类实现<strong>具体写入逻辑</strong> [OK]（基类已做释放检查与 L3 门禁 [OK]）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DeviceResult WriteBytesCore(string address, byte[] value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="ZL.IotDriver.Core.NativeDriverBase.html#ZL_IotDriver_Core_NativeDriverBase_WriteBytesCore_System_String_System_Byte___">NativeDriverBase.WriteBytesCore(string, byte[])</a></div>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBytesInternal_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBytesInternal*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBytesInternal_System_String_System_Byte___" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteBytesInternal(System.String,System.Byte[])">WriteBytesInternal(string, byte[])</h4>
+  <div class="markdown level1 summary"><p>写入原始字节内部方法（线程安全，含地址映射）。</p>
+<p>
+子类可覆写以改变写入行为。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DeviceResult WriteBytesInternal(string address, byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteMask_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteMask*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteMask_System_String_System_Boolean_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteMask(System.String,System.Boolean)">WriteMask(string, bool)</h4>
+  <div class="markdown level1 summary"><p>FC22 位掩码写（设置/清除寄存器中的指定位）。</p>
+<p>[!] 注意：FC22 是 Read-Modify-Write 操作，PLC 内部会先读取寄存器当前值，然后应用掩码。</p>
+<p>推荐使用 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBit_System_String_System_Byte_System_Boolean_">WriteBit(string, byte, bool)</a> 替代此方法，语义更清晰。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;此方法已被 WriteBit(string address, byte bitIndex, bool value) 取代，请使用 WriteBit&quot;)]
+public DeviceResult WriteMask(string address, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>地址格式 &quot;100.3&quot; 表示寄存器 100 的第 3 位（0-15）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>true=置位, false=复位</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteMask_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteMask*"></a>
+  <h4 id="ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteMask_System_String_System_UInt16_System_UInt16_" data-uid="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.WriteMask(System.String,System.UInt16,System.UInt16)">WriteMask(string, ushort, ushort)</h4>
+  <div class="markdown level1 summary"><p>FC22 自定义掩码写 —— 直接指定 andMask 和 orMask。</p>
+<p>
+与 <a class="xref" href="ZL.IotDriver.ModbusTcp.ModbusTcpDriver.html#ZL_IotDriver_ModbusTcp_ModbusTcpDriver_WriteBit_System_String_System_Byte_System_Boolean_">WriteBit(string, byte, bool)</a> 的关系：
+WriteBit(address, bit, true) 等价于 WriteMask(address, andMask: ~(1&lt;&lt;bit), orMask: (1&lt;&lt;bit))
+</p>
+<p>
+适用场景：需要同时修改同一寄存器的多个位时使用。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DeviceResult WriteMask(string address, ushort andMask, ushort orMask)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p>寄存器地址</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">andMask</span></td>
+        <td><p>与掩码（要保留的位设为1，要清除的位设为0）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">orMask</span></td>
+        <td><p>或掩码（要置1的位设为1）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="ZL.IotAbstraction.Abstractions.DeviceResult.html">DeviceResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IPlcDevice.html">IPlcDevice</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IFormattedStringWriter.html">IFormattedStringWriter</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IProtocolKey.html">IProtocolKey</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IBitBatchReader.html">IBitBatchReader</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IAddressSemantics.html">IAddressSemantics</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IAreaAwareReader.html">IAreaAwareReader</a>
+  </div>
+  <div>
+      <a class="xref" href="ZL.IotAbstraction.Abstractions.IRawAddressingProvider.html">IRawAddressingProvider</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

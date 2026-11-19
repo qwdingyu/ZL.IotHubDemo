@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class LSisFEnetFrame | ZL IoT SDK API </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class LSisFEnetFrame | ZL IoT SDK API ">
+    
+    <meta name="description" content="FEnet 帧的构造与解析 [OK]（纯函数 [OK]，不碰 socket [X] ⇒ 可在 CI 门禁内离线单测 [OK]）。  【为什么单独成层】把&quot;帧长什么样&quot;与&quot;怎么收发&quot;分开 [OK]： 纯函数部分可在门禁内被测死 [OK]，驱动只剩薄薄的 IO 包装 [OK]。   [!!] **【协议基准在此】完整协议详录见 `docs/429_LSis_FEnet协议详录_源码与实测全量对照`** [OK] —— 其中 &#167;一 是帧结构、&#167;三 是 `dt` 与 `length` 口径、&#167;四 是字节序 [OK]。 [!] **改动前必读** [X]：本项目在 LSis 上反复推翻多次，根因都是&quot;把源码当成对端行为&quot;[X]， 现在固定的判据顺序是 **① 先抓包 → ② 再看数据落点 → ③ 最后才看源码** [OK]（见 `docs/429` &#167;七 [OK]）。   【唯一权威来源 [OK]】每条布局均逐条核对自 **vendor 的 HSL 12.9.2** （`_vendor/.../LSIS/LSFastEnet.cs` [OK]），并与仿真器侧的**抓包实测**互相印证 [OK]： PackCommandWithHeader —— 20 字节头（含长度与校验和 [OK]）BuildReadByteCommand / BuildWriteByteCommand —— 批量读写 [OK]BuildReadIndividualCommand —— 位读（**结构不同** [X]）ExtractActualData —— 响应解析 [OK] [!] 不得据 NuGet DLL 的运行时行为反推 [X]（两者在 MX 上不同 [X]，见 docs/425 &#167;4 坑 C [OK]）。">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame">
+
+
+
+  <h1 id="ZL_IotDriver_LSis_LSisFEnetFrame" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame" class="text-break">Class LSisFEnetFrame</h1>
+  <div class="markdown level0 summary"><p>FEnet 帧的<strong>构造</strong>与<strong>解析</strong> [OK]（纯函数 [OK]，不碰 socket [X] ⇒ 可在 CI 门禁内离线单测 [OK]）。</p>
+<p>
+【为什么单独成层】把"帧长什么样"与"怎么收发"分开 [OK]：
+纯函数部分可在门禁内被测死 [OK]，驱动只剩薄薄的 IO 包装 [OK]。
+</p>
+<p>
+[!!] **【协议基准在此】完整协议详录见 `docs/429_LSis_FEnet协议详录_源码与实测全量对照`** [OK] ——
+其中 §一 是帧结构、§三 是 `dt` 与 `length` 口径、§四 是字节序 [OK]。
+[!] **改动前必读** [X]：本项目在 LSis 上反复推翻多次，根因都是"把源码当成对端行为"[X]，
+现在固定的判据顺序是 **① 先抓包 → ② 再看数据落点 → ③ 最后才看源码** [OK]（见 `docs/429` §七 [OK]）。
+</p>
+<p>
+【唯一权威来源 [OK]】每条布局均逐条核对自 **vendor 的 HSL 12.9.2**
+（`_vendor/.../LSIS/LSFastEnet.cs` [OK]），并与仿真器侧的**抓包实测**互相印证 [OK]：
+<ul><li><code>PackCommandWithHeader</code> —— 20 字节头（含长度与校验和 [OK]）</li><li><code>BuildReadByteCommand</code> / <code>BuildWriteByteCommand</code> —— 批量读写 [OK]</li><li><code>BuildReadIndividualCommand</code> —— 位读（**结构不同** [X]）</li><li><code>ExtractActualData</code> —— 响应解析 [OK]</li></ul>
+<p>[!] <strong>不得</strong>据 NuGet DLL 的运行时行为反推 [X]（两者在 <code>MX</code> 上不同 [X]，见 <code>docs/425</code> §4 坑 C [OK]）。</p>
+
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">LSisFEnetFrame</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <span class="xref">ZL</span>.<a class="xref" href="ZL.IotDriver.html">IotDriver</a>.<a class="xref" href="ZL.IotDriver.LSis.html">LSis</a></h6>
+  <h6><strong>Assembly</strong>: ZL.IotDriver.dll</h6>
+  <h5 id="ZL_IotDriver_LSis_LSisFEnetFrame_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class LSisFEnetFrame</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_BatchParamOffset" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BatchParamOffset">BatchParamOffset</h4>
+  <div class="markdown level1 summary"><p>批量命令中「地址串之后的 2 字节」的位置关系 [OK]：
+绝对偏移 = <a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.html#ZL_IotDriver_LSis_LSisFEnetFrame_HeaderLength">HeaderLength</a> + 10 + addrLen = <strong>30 + addrLen</strong> [OK]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int BatchParamOffset = 30</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_CompanyId" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.CompanyId">CompanyId</h4>
+  <div class="markdown level1 summary"><p>帧头固定前缀 [OK]（<code>CompanyID</code> [OK]，8 字节）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string CompanyId = &quot;LSIS-XGT&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_FunctionRead" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.FunctionRead">FunctionRead</h4>
+  <div class="markdown level1 summary"><p>读功能码 [OK]（<code>'T'</code>=0x54 [OK]）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte FunctionRead = 84</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_FunctionWrite" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.FunctionWrite">FunctionWrite</h4>
+  <div class="markdown level1 summary"><p>写功能码 [OK]（<code>'X'</code>=0x58 [OK]）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const byte FunctionWrite = 88</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_HeaderLength" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.HeaderLength">HeaderLength</h4>
+  <div class="markdown level1 summary"><p>20 字节头的长度 [OK]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int HeaderLength = 20</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildBitReadRequest_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildBitReadRequest*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildBitReadRequest_System_String_ZL_IotDriver_LSis_LSisFEnetFrame_LSisCpuType_System_Byte_System_Byte_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildBitReadRequest(System.String,ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType,System.Byte,System.Byte)">BuildBitReadRequest(string, LSisCpuType, byte, byte)</h4>
+  <div class="markdown level1 summary"><p>构造<strong>位读</strong>请求（整帧 [OK]）—— 对应 <code>BuildReadIndividualCommand</code> [OK]。</p>
+<p>
+[!!] **结构与批量命令不同** [X]（`docs/425` §4 坑 A [OK]）：
+它在 `[26]` 放**地址个数** [OK]，且**末尾没有那 2 字节** [X]。
+⇒ 若错用批量命令去读位 [X]，服务器会**永久等待**那 2 字节 ⇒ 死锁超时 [X][OK]（仿真器侧实测过 [OK]）。
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildBitReadRequest(string address, LSisFEnetFrame.LSisCpuType cpuType = LSisCpuType.XgbMk, byte baseNo = 0, byte slotNo = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p><strong>已归一化</strong>的地址 [OK]</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.html">LSisFEnetFrame</a>.<a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType.html">LSisCpuType</a></td>
+        <td><span class="parametername">cpuType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">baseNo</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">slotNo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildHeader_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildHeader*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildHeader_System_Int32_ZL_IotDriver_LSis_LSisFEnetFrame_LSisCpuType_System_Byte_System_Byte_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildHeader(System.Int32,ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType,System.Byte,System.Byte)">BuildHeader(int, LSisCpuType, byte, byte)</h4>
+  <div class="markdown level1 summary"><p>构造 <strong>20 字节帧头</strong> [OK] —— <strong>必须逐字段构造</strong> [X]，<strong>不可</strong>当作固定字节拷贝 [X]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildHeader(int commandLength, LSisFEnetFrame.LSisCpuType cpuType = LSisCpuType.XgbMk, byte baseNo = 0, byte slotNo = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">commandLength</span></td>
+        <td><p><strong><code>command</code> 段</strong>的长度 [OK]（即头之后那部分的字节数 [OK]，<strong>不是整帧长</strong> [X]）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.html">LSisFEnetFrame</a>.<a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType.html">LSisCpuType</a></td>
+        <td><span class="parametername">cpuType</span></td>
+        <td><p>CPU 类型 [OK]（写入 <code>[12]</code> [OK]）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">baseNo</span></td>
+        <td><p>基号 [OK]（写入 <code>[18]</code> 的高 4 位 [OK]）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">slotNo</span></td>
+        <td><p>槽号 [OK]（写入 <code>[18]</code> 的低 4 位 [OK]）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><p>20 字节头 [OK]</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildHeader_System_Int32_ZL_IotDriver_LSis_LSisFEnetFrame_LSisCpuType_System_Byte_System_Byte__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>布局（逐字段 [OK]）：</p>
+<pre><code class="lang-csharp">[0..7]   "LSIS-XGT" [OK]
+[8..11]  0 [OK]
+[12]     CPU 类型 [OK]
+[13]     51 [OK]（固定 [OK]）
+[14..15] 0 [OK]
+[16..17] commandLength（**小端 short** [OK]）
+[18]     BaseNo * 16 + SlotNo [OK]
+[19]     **[0..18] 之和的低字节** [OK]（校验和 [OK]，**不含** command 段 [X]）</code></pre>
+<p>[!] 校验和只覆盖 <strong>前 19 字节</strong> [OK] —— 这一点<strong>极易写错</strong> [X]（若误覆盖 command 段 [X]，
+服务器会判帧非法 [OK]）。</p>
+</div>
+  <a id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildReadRequest_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildReadRequest*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildReadRequest_System_String_System_Byte_System_UInt16_ZL_IotDriver_LSis_LSisFEnetFrame_LSisCpuType_System_Byte_System_Byte_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildReadRequest(System.String,System.Byte,System.UInt16,ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType,System.Byte,System.Byte)">BuildReadRequest(string, byte, ushort, LSisCpuType, byte, byte)</h4>
+  <div class="markdown level1 summary"><p>构造<strong>批量读</strong>请求（整帧 [OK]）—— 对应 <code>BuildReadByteCommand</code> [OK]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildReadRequest(string address, byte dataType, ushort byteCount, LSisFEnetFrame.LSisCpuType cpuType = LSisCpuType.XgbMk, byte baseNo = 0, byte slotNo = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p><strong>已归一化</strong>的地址 [OK]（由 <a class="xref" href="ZL.IotDriver.LSis.LSisFEnetAddress.html">LSisFEnetAddress</a> 产出 [OK]）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">dataType</span></td>
+        <td><p>数据类型码 [OK]（<code>[22]</code> [OK]）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></td>
+        <td><span class="parametername">byteCount</span></td>
+        <td><p><strong>要读的字节数</strong> [OK]（写入 command 末尾 2 字节、<strong>小端</strong> [OK]）。</p>
+<p>[!] **不是元素个数** [X] —— HSL 直接把该值 `GetBytes` 写入、**无任何乘除** [OK]
+（详见 `docs/425` §4 坑 B [OK]）。</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.html">LSisFEnetFrame</a>.<a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType.html">LSisCpuType</a></td>
+        <td><span class="parametername">cpuType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">baseNo</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">slotNo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildWriteRequest_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildWriteRequest*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_BuildWriteRequest_System_String_System_Byte_System_Byte___ZL_IotDriver_LSis_LSisFEnetFrame_LSisCpuType_System_Byte_System_Byte_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.BuildWriteRequest(System.String,System.Byte,System.Byte[],ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType,System.Byte,System.Byte)">BuildWriteRequest(string, byte, byte[], LSisCpuType, byte, byte)</h4>
+  <div class="markdown level1 summary"><p>构造<strong>批量写</strong>请求（整帧 [OK]）—— 对应 <code>BuildWriteByteCommand</code> [OK]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] BuildWriteRequest(string address, byte dataType, byte[] data, LSisFEnetFrame.LSisCpuType cpuType = LSisCpuType.XgbMk, byte baseNo = 0, byte slotNo = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">address</span></td>
+        <td><p><strong>已归一化</strong>的地址 [OK]</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">dataType</span></td>
+        <td><p>数据类型码 [OK]</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>要写入的数据 [OK]（<strong>字节数</strong>即长度字段的值 [OK]）</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.html">LSisFEnetFrame</a>.<a class="xref" href="ZL.IotDriver.LSis.LSisFEnetFrame.LSisCpuType.html">LSisCpuType</a></td>
+        <td><span class="parametername">cpuType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">baseNo</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">slotNo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetFrame_ToHex_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.ToHex*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_ToHex_System_Byte___" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.ToHex(System.Byte[])">ToHex(byte[])</h4>
+  <div class="markdown level1 summary"><p>便于日志 [OK]。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToHex(byte[] bytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">bytes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="ZL_IotDriver_LSis_LSisFEnetFrame_TryParseResponse_" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.TryParseResponse*"></a>
+  <h4 id="ZL_IotDriver_LSis_LSisFEnetFrame_TryParseResponse_System_Byte___System_Byte____System_String__" data-uid="ZL.IotDriver.LSis.LSisFEnetFrame.TryParseResponse(System.Byte[],System.Byte[]@,System.String@)">TryParseResponse(byte[], out byte[], out string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseResponse(byte[] response, out byte[] data, out string error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">response</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
