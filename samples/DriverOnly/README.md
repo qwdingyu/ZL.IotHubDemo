@@ -177,8 +177,8 @@ var text = plc.ReadString("D10", 8, Encoding.ASCII);
 > 字段宽度必须由调用方保证：`WriteBytes` 只写你给的字节数，不会自动补零到字段末尾。
 > 想让剩余字节为 0，就像上面一样先 `new byte[8]`（默认全 0）再拷内容。
 
-字符串布局与编码的完整对照见：[`docs/728`](https://github.com/qwdingyu/ZL.PlcBase/blob/main/docs/728_字符串编码与StringKind布局对照_20261119.md)
-（`Raw` / `S7String` / `S7WString` / `AbCipString` / SMART 两种布局，以及 net8 与 net48 的编码差异）。
+字符串布局与编码的完整对照见：[`STRING.md`](./STRING.md)
+（`Raw` / `S7String` / `S7WString` / SMART 两种布局，以及 net8 与 net48 的编码差异）。
 
 ---
 
@@ -268,7 +268,7 @@ plc.Write(address, byte[]);
 
 - 想直接用完整采集引擎（自动重连/缓存/批量/事件） → [`../QuickStart`](../QuickStart)
 - 想看地址合并 300 → 6 → [`../BatchRead`](../BatchRead)
-- 想看字符串布局与编码 → [`../../docs/728`](https://github.com/qwdingyu/ZL.PlcBase/blob/main/docs/728_字符串编码与StringKind布局对照_20261119.md)
+- 想看字符串布局与编码 → [`STRING.md`](./STRING.md)
 - 想看 OPC UA 双向 → [`../OpcUaClient`](../OpcUaClient) / [`../OpcUaServer`](../OpcUaServer)
 - 回到 [仓库首页](../../README.md) 按推荐顺序看
 

@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- 只装驱动包：不引用 ZL.IotEngine，不依赖引擎编排 -->
+    <!-- 只装驱动包：不引用 ZL.IotEngine，不依赖引擎编排。
+         版本号由仓库根 Directory.Build.props 的 IotEngineVersion 提供（单一真源）。
+         把本文件抄到自己项目时，请改成固定版本（如 2.3.0），
+         或直接执行：dotnet add package ZL.IotDriver -->
     <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
   </ItemGroup>
 
