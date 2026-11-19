@@ -3,6 +3,30 @@
 > **一句话：不引入引擎，不学编排，只装一个驱动包，直接连 PLC 读写。**
 > 已实测：S7 / Modbus TCP / Omron FINS / 三菱 MC 四种协议，读写回读全部一致。
 
+## 60 秒最短路径（复制粘贴即可）
+
+> 以下命令均在**仓库根目录**执行；项目同时编译 net8.0 / net48 ⇒ **必须带 `-f net8.0`**
+> （不带会报 `Your project targets multiple frameworks`）。
+
+```bash
+# 0) 装仿真器（只做一次）
+dotnet tool install -g PlcSimulator.Cli --version 2.2.14
+
+# 1) 窗口 1：起 S7 仿真器
+plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
+
+# 2) 窗口 2：跑示例
+git clone https://github.com/qwdingyu/ZL.IotHubDemo.git
+cd ZL.IotHubDemo
+dotnet run --project samples/DriverOnly -f net8.0 -- --protocol s7
+```
+
+看到这一行就成功了：
+
+```text
+  ✅ S7 读/写/回读一致
+```
+
 适合这些场景：
 
 - 你已经有自己的调度器、线程池、数据库、日志、重连逻辑；
@@ -10,6 +34,7 @@
 - 你不想引入 `ZL.IotEngine` 的 `DriverFactory` / `DeviceManager` / 生命周期管理。
 
 ```bash
+# 在你自己的项目目录里执行
 dotnet add package ZL.IotDriver --version 2.3.0
 ```
 
@@ -32,6 +57,15 @@ dotnet tool install -g PlcSimulator.Cli --version 2.2.14
 plcsim --help
 ```
 
+> 若提示 `plcsim: command not found`，把工具目录加进 PATH 后重开终端：
+>
+> ```bash
+> # macOS / Linux（zsh/bash）
+> export PATH="$PATH:$HOME/.dotnet/tools"
+> # Windows PowerShell
+> $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
+> ```
+>
 > 已有真机可以跳过这步，直接看第三节「真机怎么改」。
 
 ---
@@ -282,6 +316,9 @@ plc.Write(address, byte[]);
 
 | 现象 | 原因 | 处理 |
 |---|---|---|
+| `Your project targets multiple frameworks` | 项目同时编译 `net8.0` / `net48`，`dotnet run` 没指定框架 | 命令加 `-f net8.0` |
+| `plcsim: command not found` | dotnet tool 目录不在 `PATH` | `export PATH="$PATH:$HOME/.dotnet/tools"` 后重开终端 |
+| `port already in use`（plcsim 启动时） | 端口被上次残留的仿真器占用 | 换端口（如 `s7=31102`）并同步改示例 `--port 31102`；或用 `lsof -nP -iTCP:31002 -sTCP:LISTEN` 找到并结束占用进程 |
 | `连接失败：Connection refused` | 仿真器没起 / 端口不对 | 先确认 `plcsim` 那一行还在跑 |
 | S7 一直超时 | rack/slot 不对，或 PLC 未允许外部访问 | 试 `slot: 0`；在 TIA 里确认槽位并允许 PUT/GET |
 | `S7 WSTRING 容量…` | `Length` 按**字符数**，不是字节数 | WSTRING 的 `Length` 填字符数（见 docs/728） |
