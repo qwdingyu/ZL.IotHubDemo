@@ -96,7 +96,11 @@ Console.WriteLine();
 
 // ── 写入 + 回读（坑③ maxLength、坑④ 跳过 2 字节头）────────────────────────
 Console.WriteLine("【4】写入 → 回读 → 比对");
-// 🔴 关键 API 事实：`WriteStringAsync` / `ReadString` 定义在 **IPlcDevice** 上 ✓
+// 🔴 关键 API 事实：
+//   · `ReadString` 在 **IPlcDevice** 上（实例子成员）；
+//   · `WriteStringAsync` 是 **ZL.IotEngine.Orchestration** 的扩展方法
+//     ⇒ 必须 `using ZL.IotEngine.Orchestration;` 且引用 **ZL.IotEngine**
+//       （只引用 ZL.IotDriver/Abstraction 会报 CS1061“未包含 WriteStringAsync 的定义”）。
 //   而 `DeviceBase`（driver）只提供按标签读写 ⇒ 字符串要拿底层设备：
 //   `driver.Device`（`DeviceRoot.Device` 是 public IPlcDevice 字段 ✓）
 IPlcDevice dev = driver.Device;
