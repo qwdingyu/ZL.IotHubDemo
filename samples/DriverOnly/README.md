@@ -239,6 +239,10 @@ var text = plc.ReadString("D10", 8, Encoding.ASCII);
 > 授权链路是 `ZL.IotDriver → ZL.IotAbstraction → ZL.License`。IO 通道有 L2 检查、写操作有 L3 门禁；
 > **Trial 态无时长限制、不限协议、可读写**（产品策略），正常试用不会被拦。
 > 正式授权按 `ZL.License` 的 license 文件配置。
+>
+> **多线程可以共享一个实例**：驱动内部有 IO 锁，并发调用会**串行执行**
+> （实测：4 线程 × 200 次读写，800 次操作 0 错误）。
+> 但串行意味着吞吐 = 单请求耗时 × 次数 ⇒ 要并发提吞吐请上 `ZL.IotEngine` 的批量/多设备编排。
 
 ---
 
@@ -324,6 +328,7 @@ plc.Write(address, byte[]);
 | `plcsim: command not found` | dotnet tool 目录不在 `PATH` | `export PATH="$PATH:$HOME/.dotnet/tools"` 后重开终端 |
 | `port already in use`（plcsim 启动时） | 端口被上次残留的仿真器占用 | 换端口（如 `s7=31102`）并同步改示例 `--port 31102`；或用 `lsof -nP -iTCP:31002 -sTCP:LISTEN` 找到并结束占用进程 |
 | `连接失败：Connection refused` | 仿真器没起 / 端口不对 | 先确认 `plcsim` 那一行还在跑 |
+| `地址解析失败: HR0` | 用了 Raw 前缀，但驱动是默认的 Modicon 模式 | 构造时传 `addressing: ModbusAddressingMode.Raw, defaultArea: "HR"`；或改用 `40001` |
 | S7 一直超时 | rack/slot 不对，或 PLC 未允许外部访问 | 试 `slot: 0`；在 TIA 里确认槽位并允许 PUT/GET |
 | `S7 WSTRING 容量…` | `Length` 按**字符数**，不是字节数 | WSTRING 的 `Length` 填字符数（见 docs/728） |
 | `授权失效：通信被拒绝` | 授权/免费版策略不允许该协议 | 配好授权文件；或先确认协议在免费白名单内 |
