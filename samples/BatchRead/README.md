@@ -16,6 +16,8 @@ cd samples/BatchRead && dotnet run -f net8.0
 ## 你会看到
 
 ```
+  设备 127.0.0.1:31002  点位数 300（内置生成）
+
 【3】采集计划（核心）
       点位总数    : 300
       合并后块数  : 6
@@ -25,17 +27,30 @@ cd samples/BatchRead && dotnet run -f net8.0
       TAG_0000 (DB1.DBD0) 写 1.5 → 实时读回 1.5  ✅
 ```
 
-## 换成你自己的点表
+## 换成你自己的设备/点表（不用重新编译）
 
-改 `tags` 的地址即可（S7：`DB1.DBD0` 起，float 每 4 字节一个）：
+设备 IP/端口在 [`batchread.xml`](./batchread.xml)：
 
-```csharp
-Address = $"DB1.DBD{i * 4}",
-DataTypeCode = "float",
-AccessMode = AccessMode.ReadWrite,   // 要写必须显式授权（默认只读）
+```xml
+<Device DeviceId="BATCH-DEMO" Protocol="siemens-s7"
+        DeviceIp="127.0.0.1" Port="31002" Rack="0" Slot="1">
+  <!-- 想用自己的点表，就在这里写 <TagItem> -->
+</Device>
 ```
 
-点位数也可以调：
+- 默认不写 `<TagItem>`：示例生成 300 个连续 float（`DB1.DBD0` 起）演示地址合并；
+- 写上 `<TagItem>`（由 `TagKit` 解析，与生产点表同一套）后，示例改用你的点表：
+
+```xml
+<TagItem Id="TEMP"  Address="DB1.DBD0" DataTypeCode="float" TagType="M" AccessMode="ReadWrite" />
+<TagItem Id="COUNT" Address="DB1.DBW4" DataTypeCode="short" TagType="M" />
+```
+
+```bash
+dotnet run -f net8.0 -- --config ./我的点表.xml
+```
+
+点位数也可以调（仅在未提供 `<TagItem>` 时生效）：
 
 ```bash
 dotnet run -f net8.0 -- --tags 1000

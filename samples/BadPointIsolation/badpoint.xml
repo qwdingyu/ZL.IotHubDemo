@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BadPointIsolation 示例的设备与点表配置
+
+  ★ 改 IP / 端口 / 点位只改这个文件，不用重新编译。
+  ★ BROKEN 是**故意写坏的地址**（T1：地址合法，但 S7 读取失败），用于演示坏点隔离。
+    真机验证时可把它改成 PLC 里真实不存在的 DB 号。
+-->
+<Device
+    DeviceId="ISOLATION-DEMO"
+    Protocol="siemens-s7"
+    DeviceIp="127.0.0.1"
+    Port="31002"
+    Rack="0"
+    Slot="1"
+    ReadInterval="300">
+
+  <TagItem Id="TEMP"   Description="温度"     Address="DB1.DBD4"   DataTypeCode="float" TagType="M" />
+  <TagItem Id="COUNT"  Description="计数"     Address="DB1.DBW2"   DataTypeCode="short" TagType="M" />
+  <TagItem Id="RUN"    Description="运行信号" Address="DB1.DBX0.0" DataTypeCode="bool"  TagType="M" />
+  <TagItem Id="FAULT"  Description="故障信号" Address="DB1.DBX0.1" DataTypeCode="bool"  TagType="M" />
+  <TagItem Id="BROKEN" Description="故意写坏的地址（T1）" Address="T1" DataTypeCode="short" TagType="M" />
+
+</Device>

@@ -10,26 +10,32 @@
 ```bash
 dotnet tool install -g PlcSimulator.Cli     # 一次性
 plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start   # 另开一个窗口
-cd samples/BadPointIsolation && dotnet run
+cd samples/BadPointIsolation && dotnet run -f net8.0
 ```
+
+> 🔴 设备/点表在 [`badpoint.xml`](./badpoint.xml) 里：`DeviceIp` / `Port` / 所有 `<TagItem>`
+> 都改这个文件；由 `TagKit` 解析，改配置不用重新编译。
 
 ## 你会看到
 
 ```
+【1】已连接（NativeUnifiedDriver），点表 5 个（其中 1 个是坏点）
 【3】隔离结果
       被隔离的点位数: 1
-      🔴 BROKEN（地址 XYZ123）已被隔离，不再拖慢采集
+      🔴 BROKEN（地址 T1）已被隔离，不再拖慢采集
 
 【4】好点照常采集（这就是隔离机制的意义）
-      TEMP  = 205885
-      COUNT = 32767
-      RUN   = True
+      ✅ TEMP   = 12     质量=Good
+      ✅ COUNT  = 1333   质量=Good
+      ✅ RUN    = True   质量=Good
 ```
 
 ## 说明
 
-- 示例点表里**故意放了一个坏地址**（`XYZ123`）来触发隔离。
-- **真实场景里**的触发条件是「读失败」（超时、协议错误、设备不认这个地址）；
-  本地仿真器很宽容，所以示例用「格式非法的地址」来触发。
+- 示例点表里**故意放了一个坏地址**（`T1`）来触发隔离：
+  - `XYZ123` 这类**解析期非法**地址会在建计划时就被过滤掉，**不会**触发隔离；
+  - `T1`（定时器）地址合法，但 S7 读响应长度与期望不符 ⇒ **稳定失败** ⇒ 进入隔离。
+- **真实场景里**的触发条件是「读失败」（超时、协议错误、设备不认这个地址）。
 - 隔离的点位会进入 `driver.QuarantineTags`，框架会持续重试，**恢复了会自动放回**。
-- 想自己验证：把 `BROKEN` 的地址改成 `DB1.DBD4`，再跑一次，隔离数就会变成 0。
+- 本地仿真器对越界/不存在的地址也照常返回数据 ⇒ 可能看不到隔离，**这是预期行为**，
+  不是缺陷；真机验证请把 `BROKEN` 改成 PLC 里真实不存在的 DB 号。

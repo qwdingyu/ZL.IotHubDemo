@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BatchRead 的设备配置
+
+  ★ 改 IP / 端口只改这里，不用重新编译。
+  ★ 默认不写点位：示例在内存生成 300 个连续 float（DB1.DBD0 起）演示地址合并。
+  ★ 想用你自己的点表：把 <TagItem> 写在本节点下面，运行加 config 参数指向该文件。
+-->
+<Device
+    DeviceId="BATCH-DEMO"
+    Protocol="siemens-s7"
+    DeviceIp="127.0.0.1"
+    Port="31002"
+    Rack="0"
+    Slot="1" />

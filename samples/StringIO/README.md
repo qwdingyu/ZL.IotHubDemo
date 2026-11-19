@@ -5,8 +5,8 @@
 
 | # | 坑 | 正解 |
 |---|---|---|
-| ① | `Encoding.Default` 跨 TFM 不一致（net8=UTF-8，net48=系统 ANSI） | **显式传编码**（中文现场常用 GB2312/936） |
-| ② | `Encoding.GetEncoding(936)` 抛异常 | 先触碰 `PlcStringWriteHelper.ResolveEncoding(null)` 触发代码页注册 |
+| ① | `Encoding.Default` 跨 TFM 不一致（net8=UTF-8，net48=系统 ANSI） | **显式传编码**：跨 TFM 用 UTF-8；PLC 固定 GB2312 时显式用 936 |
+| ② | `Encoding.GetEncoding(936)` 在 .NET 8 **默认不可用** | 本示例改用 UTF-8；要用 GB2312 需宿主注册 `CodePagesEncodingProvider` |
 | ③ | `maxLength` 传 `-1` | S7 会读 PLC 头字段真实容量；容量不足会明确报错（这是保护） |
 | ④ | `ReadString` 返回值含 S7 的 2 字节头 | 回读校验跳过前 2 字节（max/actual） |
 
@@ -16,6 +16,9 @@
 plcsim --protocols siemens-s7 --ports s7=31002 --headless --stay-alive --auto-start
 dotnet run --project samples/StringIO/StringIO.csproj -f net8.0
 ```
+
+> 🔴 设备/点表在 [`stringio.xml`](./stringio.xml) 里：`TEXT` 的 `Address` / `Length`（容量）
+> 和 `DeviceIp` / `Port` 都改这个文件；由 `TagKit` 解析，改配置不用重新编译。
 
 ## 关键点
 

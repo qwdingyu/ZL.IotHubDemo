@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  TryStart 失败快速验证用的"坏配置"：点表文件故意不存在 + RequireTags=true。
+  （Port=1 是特权端口，普通进程无权监听；本段不连接，只验证启动门禁。）
+-->
+<Device
+    DeviceId="ADV-BAD"
+    Protocol="siemens-s7"
+    DeviceIp="127.0.0.1"
+    Port="1"
+    TagFilePath="no-such-tags.xml"
+    RequireTags="true" />

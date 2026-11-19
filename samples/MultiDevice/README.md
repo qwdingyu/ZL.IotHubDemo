@@ -14,11 +14,23 @@
 
 ```bash
 # 另开窗口：fleet.json 会起 3 台仿真 PLC（端口 31101/31102/31103）
+cd samples/MultiDevice
 plcsim --batch fleet.json --headless --stay-alive --auto-start
 
-# 仓库根目录
+# 回到仓库根目录
+cd ../..
 dotnet run --project samples/MultiDevice/MultiDevice.csproj -f net8.0
 ```
+
+## 设备/点表配置（改配置不用重新编译）
+
+- [`devices.json`](./devices.json)：4 台设备的 `DeviceId` / `DeviceIp` / `Port` / `TagFilePath`；
+  `TagFilePath` 相对该文件所在目录解析；
+- [`tags.json`](./tags.json)：点表（`TEMP` / `COUNT`），由 **`TagKit`** 解析；
+- [`fleet.json`](./fleet.json)：**只给仿真器**用（`plcsim --batch fleet.json`），与本程序配置分开。
+
+> 端口改一处即可：`fleet.json` 和 `devices.json` 里的端口要保持一致（3 台在线设备的端口）。
+> 想换一套设备/点表：`dotnet run -f net8.0 -- --config 我的舰队.json`。
 
 ## 关键输出
 

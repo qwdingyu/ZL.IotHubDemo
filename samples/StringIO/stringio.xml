@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  StringIO 示例的设备与点表配置
+
+  ★ 改 IP / 端口 / 字符串地址 / 容量只改这个文件，不用重新编译。
+  ★ TEXT 的 Length 是 S7 STRING 字段容量（S7 的 STRING[20] ⇒ Length="20"）。
+-->
+<Device
+    DeviceId="STR-DEVICE"
+    Protocol="siemens-s7"
+    DeviceIp="127.0.0.1"
+    Port="31002"
+    Rack="0"
+    Slot="1">
+
+  <TagItem Id="TEXT" Description="S7 STRING[20]" Address="DB1.DBB10" DataTypeCode="string" Length="20" TagType="M" AccessMode="ReadWrite" />
+
+</Device>

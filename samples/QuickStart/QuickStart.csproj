@@ -13,4 +13,9 @@
     <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
   </ItemGroup>
 
+  <!-- 设备/点表配置：复制到输出目录，dotnet run 时不依赖当前工作目录 -->
+  <ItemGroup>
+    <Content Include="quickstart.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

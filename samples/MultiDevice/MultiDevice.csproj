@@ -17,4 +17,10 @@
     <None Update="fleet.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!-- 程序自己的设备/点表配置（与 fleet.json 分开：一个给仿真器，一个给程序） -->
+  <ItemGroup>
+    <Content Include="devices.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="tags.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

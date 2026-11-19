@@ -30,6 +30,9 @@ cd samples/Modbus && dotnet run
 | 地址写法 | `DB1.DBD4` / `DB1.DBW2` / `DB1.DBX0.0` | **纯数字偏移量**：`0` / `1` / `2` |
 | 额外参数 | `Rack` / `Slot` | `Station`（站号）/ `AddressStartWithZero` |
 
+> 🔴 设备/点表都在 [`modbus.xml`](./modbus.xml) 里（`DeviceIp` / `Port` / `Station` / `<TagItem>`），
+> 由 `TagKit` 解析；改配置不用重新编译。想用另一份点表：`dotnet run -f net8.0 -- --config 我的.xml`。
+
 ## ⚠️ 地址写法（实测结论，最容易踩的三个坑）
 
 1. **地址是纯数字偏移量**，不是 `40001` 这类 5 位传统编号。

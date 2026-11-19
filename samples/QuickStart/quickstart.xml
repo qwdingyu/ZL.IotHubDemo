@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  QuickStart 的设备与点表配置
+
+  ★ 改这个文件就能换设备/换点位，不需要重新编译。
+  ★ 根节点 <Device> 的属性会原样传给 DeviceConfig。
+  ★ 子节点 <TagItem> 由 ZL.IotAbstraction.Tag.TagKit 解析（与生产点表同一套）。
+  ★ 要写入的点必须显式写 AccessMode="ReadWrite"（默认只读，fail-safe）。
+-->
+<Device
+    DeviceId="MY-DEVICE"
+    Protocol="siemens-s7"
+    DeviceIp="127.0.0.1"
+    Port="31002"
+    Rack="0"
+    Slot="1">
+
+  <TagItem Id="RUN"   Description="运行信号" Address="DB1.DBX0.0" DataTypeCode="bool"  TagType="M" />
+  <TagItem Id="COUNT" Description="计数（可写）" Address="DB1.DBW2" DataTypeCode="short" TagType="M" AccessMode="ReadWrite" />
+  <TagItem Id="TEMP"  Description="温度" Address="DB1.DBD4" DataTypeCode="float" TagType="M" />
+
+</Device>

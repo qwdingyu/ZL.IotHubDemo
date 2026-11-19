@@ -10,35 +10,54 @@
 //  运行：另开窗口起一台 S7 仿真器（没有真机也能练）
 //        plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
 //        然后：dotnet run
+//
+//  🔴 设备 IP / 端口 / 点表都在 quickstart.xml 里：改文件即可，不用重新编译。
+//     想用另一份配置：dotnet run -f net8.0 -- --config 我的设备.xml
 // ═══════════════════════════════════════════════════════════════════════
 
+using System.Xml.Linq;
 using ZL.IotEngine.Orchestration;
 using ZL.IotAbstraction.Tag;
 
-// 连接参数：命令行可覆盖（dotnet run -- --ip 192.168.1.10 --port 102）
-var host = GetArg(args, "--ip", "127.0.0.1");
-var port = int.TryParse(GetArg(args, "--port", "31002"), out var parsedPort) ? parsedPort : 31002;
-const string DeviceId = "MY-DEVICE";
-
-// ── 1. 点表：把这里换成你自己的地址 ──────────────────────────────────────
-//    S7 地址写法：DB1.DBX0.0(位) / DB1.DBW2(字) / DB1.DBD4(双字·float)
-var tags = new List<TagItem>
+// ── 1. 从 XML 读设备与点表（TagKit 是生产环境同一套解析器）──────────────
+var configPath = ResolveConfigPath(args, "quickstart.xml");
+if (!File.Exists(configPath))
 {
-    new() { Id = "RUN",   Address = "DB1.DBX0.0", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    // ⚠️ 要写入的点**必须显式**配 AccessMode（默认只读 ✗，这是刻意的安全设计 ✓）
-    new() { Id = "COUNT", Address = "DB1.DBW2",   DataTypeCode = "short", TagType = "M", StationNo = DeviceId,
-            AccessMode = AccessMode.ReadWrite },
-    new() { Id = "TEMP",  Address = "DB1.DBD4",   DataTypeCode = "float", TagType = "M", StationNo = DeviceId },
-};
+    Console.WriteLine($"找不到配置文件：{configPath}");
+    Console.WriteLine("默认读同目录的 quickstart.xml；也可以：dotnet run -f net8.0 -- --config 我的设备.xml");
+    return 1;
+}
+
+var root = XElement.Load(configPath);
+if (root.Name != "Device")
+{
+    Console.WriteLine($"配置文件根节点应为 <Device>，实际是 <{root.Name}>：{configPath}");
+    return 1;
+}
 
 var cfg = new DeviceConfig();
-cfg.Add("Protocol", "siemens-s7");   // 走自研原生驱动
-cfg.Add("DeviceId", DeviceId);
-cfg.Add("DeviceIp", host);
-cfg.Add("Port", port);
-cfg.Add("Rack", 0);
-cfg.Add("Slot", 1);
+foreach (var attr in root.Attributes())
+{
+    cfg.Add(attr.Name.LocalName, attr.Value);
+}
+
+var tags = TagKit.LoadTags(configPath, out var tagDiag);
+if (tags.Count == 0)
+{
+    Console.WriteLine($"点表没有加载出任何点位：{configPath}");
+    Console.WriteLine($"{tagDiag.Outcome}：{tagDiag.Message}");
+    return 1;
+}
+
+var deviceId = cfg.Get<string>("DeviceId", "MY-DEVICE");
+foreach (var tag in tags.Values)
+{
+    if (string.IsNullOrWhiteSpace(tag.StationNo)) tag.StationNo = deviceId;
+}
 cfg.Add("Tags", tags);
+
+var host = cfg.Get<string>("DeviceIp", "127.0.0.1");
+var port = cfg.Get<int>("Port", 31002);
 
 // ── 2. 创建驱动并连接 ────────────────────────────────────────────────────
 using var driver = DriverFactory.Create(cfg);
@@ -46,9 +65,10 @@ if (!driver.Connect())
 {
     Console.WriteLine($"连接失败 {host}:{port}。忘了起仿真器？");
     Console.WriteLine($"  plcsim --protocols siemens-s7 --ports s7={port} --headless --auto-start");
+    Console.WriteLine($"  （端口要一致：改 quickstart.xml 里的 Port，或改仿真器 --ports）");
     return 1;
 }
-Console.WriteLine($"已连接（{driver.GetType().Name}）");
+Console.WriteLine($"已连接（{driver.GetType().Name}）  点表 {tags.Count} 个点位");
 
 // ── 3. 读 ────────────────────────────────────────────────────────────────
 Console.WriteLine($"RUN={driver.Read<bool>("RUN")}  COUNT={driver.Read<short>("COUNT")}  TEMP={driver.Read<float>("TEMP")}");
@@ -66,6 +86,18 @@ if (actual != expected)
 }
 Console.WriteLine($"✅ 写入=读回（{actual}），地址与类型正确。");
 return 0;
+
+// 未传 --config 时：优先用输出目录里的默认配置，找不到再按当前目录回退。
+static string ResolveConfigPath(string[] args, string defaultFileName)
+{
+    var explicitPath = GetArg(args, "--config", string.Empty);
+    if (!string.IsNullOrWhiteSpace(explicitPath)) return Path.GetFullPath(explicitPath);
+
+    var besideExe = Path.Combine(AppContext.BaseDirectory, defaultFileName);
+    if (File.Exists(besideExe)) return besideExe;
+
+    return Path.GetFullPath(defaultFileName);
+}
 
 // 取命令行参数：--name value（找不到就用默认值）
 static string GetArg(string[] args, string name, string fallback)

@@ -8,45 +8,65 @@
 //  准备（另开一个窗口）：
 //      plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
 //  运行：
-//      dotnet run
+//      cd samples/BadPointIsolation && dotnet run -f net8.0
+//
+//  🔴 设备 IP/端口/点表在 badpoint.xml 里：改文件不用重新编译。
 // ═══════════════════════════════════════════════════════════════════════
 
+using System.Xml.Linq;
 using ZL.IotEngine.Models;
 using ZL.IotEngine.Orchestration;
 using ZL.IotAbstraction.Tag;
 
-var host = GetArg(args, "--ip", "127.0.0.1");
-var port = int.TryParse(GetArg(args, "--port", "31002"), out var p) ? p : 31002;
-const string DeviceId = "ISOLATION-DEMO";
+// ── 1. 从 XML 读设备与点表（TagKit 是生产环境同一套解析器）──────────────
+var configPath = ResolveConfigPath(args, "badpoint.xml");
+if (!File.Exists(configPath))
+{
+    Console.WriteLine($"找不到配置文件：{configPath}");
+    Console.WriteLine("默认读同目录的 badpoint.xml；也可以：dotnet run -f net8.0 -- --config 我的设备.xml");
+    return 1;
+}
+
+var root = XElement.Load(configPath);
+if (root.Name != "Device")
+{
+    Console.WriteLine($"配置文件根节点应为 <Device>，实际是 <{root.Name}>：{configPath}");
+    return 1;
+}
+
+var cfg = new DeviceConfig();
+foreach (var attr in root.Attributes())
+{
+    cfg.Add(attr.Name.LocalName, attr.Value);
+}
+
+var tags = TagKit.LoadTags(configPath, out var tagDiag);
+if (tags.Count == 0)
+{
+    Console.WriteLine($"点表没有加载出任何点位：{configPath}");
+    Console.WriteLine($"{tagDiag.Outcome}：{tagDiag.Message}");
+    return 1;
+}
+
+var deviceId = cfg.Get<string>("DeviceId", "ISOLATION-DEMO");
+foreach (var tag in tags.Values)
+{
+    if (string.IsNullOrWhiteSpace(tag.StationNo)) tag.StationNo = deviceId;
+}
+cfg.Add("Tags", tags);
+
+var host = cfg.Get<string>("DeviceIp", "127.0.0.1");
+var port = cfg.Get<int>("Port", 31002);
 
 Console.WriteLine();
 Console.WriteLine("══════ ZL.IotEngine 示例：坏点隔离与恢复 ══════");
 
 // 4 个好点 + 1 个坏点（地址合法但 PLC 读取失败 ⇒ 会被隔离 ✓）
-var tags = new List<TagItem>
-{
-    new() { Id = "TEMP",   Address = "DB1.DBD4",  DataTypeCode = "float", TagType = "M", StationNo = DeviceId },
-    new() { Id = "COUNT",  Address = "DB1.DBW2",  DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
-    new() { Id = "RUN",    Address = "DB1.DBX0.0",DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    new() { Id = "FAULT",  Address = "DB1.DBX0.1",DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    // ↓ 故意写一个坏地址：真实场景里是"地址写错 / 设备不支持"
-    //   ⚠️ 必须选【地址能被解析、但 PLC 侧读取会失败】的写法 ✓
-    //      · "XYZ123" 这类**解析期非法**地址会在建计划时就被过滤掉 ✗
-    //        ⇒ 永远进不了逐点探测 ⇒ **不会触发隔离** ✗（本示例曾因此"看不到隔离" ✓）
-    //      · "T1"/"C1"（定时器/计数器）地址合法，但 S7 读响应长度与期望不符 ⇒ **稳定失败** ✓
-    //        ⇒ 逐点探测 3 次全败 ⇒ 确定性进入隔离区 ✓（实测 ✓）
-    new() { Id = "BROKEN", Address = "T1",        DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
-};
-
-var cfg = new DeviceConfig();
-cfg.Add("Protocol", "siemens-s7");
-cfg.Add("DeviceId", DeviceId);
-cfg.Add("DeviceIp", host);
-cfg.Add("Port", port);
-cfg.Add("Rack", 0);
-cfg.Add("Slot", 1);
-cfg.Add("ReadInterval", 300);   // 后台每 300ms 采一轮，坏点会被反复尝试 → 触发隔离
-cfg.Add("Tags", tags);
+//   ⚠️ 必须选【地址能被解析、但 PLC 侧读取会失败】的写法 ✓
+//      · "XYZ123" 这类**解析期非法**地址会在建计划时就被过滤掉 ✗
+//        ⇒ 永远进不了逐点探测 ⇒ **不会触发隔离** ✗（本示例曾因此"看不到隔离" ✓）
+//      · "T1"/"C1"（定时器/计数器）地址合法，但 S7 读响应长度与期望不符 ⇒ **稳定失败** ✓
+//        ⇒ 逐点探测 3 次全败 ⇒ 确定性进入隔离区 ✓（实测 ✓）
 
 using var driver = DriverFactory.Create(cfg);
 if (!driver.Connect())
@@ -82,7 +102,7 @@ Console.WriteLine("【3】隔离结果");
 Console.WriteLine($"      被隔离的点位数: {driver.QuarantineTags.Count}");
 foreach (var id in driver.QuarantineTags.Keys)
 {
-    var t = tags.FirstOrDefault(x => x.Id == id);
+    tags.TryGetValue(id, out var t);
     Console.WriteLine($"      🔴 {id}（地址 {t?.Address}）已被隔离，不再拖慢采集");
 }
 
@@ -131,6 +151,17 @@ else
 }
 Console.WriteLine();
 return 0;
+
+static string ResolveConfigPath(string[] args, string defaultFileName)
+{
+    var explicitPath = GetArg(args, "--config", string.Empty);
+    if (!string.IsNullOrWhiteSpace(explicitPath)) return Path.GetFullPath(explicitPath);
+
+    var besideExe = Path.Combine(AppContext.BaseDirectory, defaultFileName);
+    if (File.Exists(besideExe)) return besideExe;
+
+    return Path.GetFullPath(defaultFileName);
+}
 
 static string GetArg(string[] args, string name, string fallback)
 {

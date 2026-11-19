@@ -9,32 +9,36 @@
 //  准备（另开一个窗口；fleet.json 会起 3 台仿真 PLC）：
 //      plcsim --batch fleet.json --headless --auto-start
 //  运行：
-//      dotnet run
+//      cd samples/MultiDevice && dotnet run -f net8.0
+//
+//  🔴 设备与点表在 devices.json + tags.json 里：改配置不用重新编译。
+//     fleet.json 只给仿真器用（plcsim --batch）；devices.json 给本程序用。
 // ═══════════════════════════════════════════════════════════════════════
 
 using ZL.IotEngine.Orchestration;
-using ZL.IotAbstraction.Tag;
 
 Console.WriteLine();
 Console.WriteLine("══════ ZL.IotHub 示例：多 PLC 统一管控 ══════");
 
-// ── 1. 描述这支"设备舰队" ──────────────────────────────────────────────
-//  前 3 台的端口与 fleet.json 一致；第 4 台**故意指向没人监听的端口**。
-var fleet = new List<DeviceConfig>
+// ── 1. 从配置文件加载"设备舰队" ─────────────────────────────────────────
+//  devices.json 里前 3 台的端口与 fleet.json 一致；第 4 台**故意指向没人监听的端口**。
+//  TagFilePath 相对 devices.json 所在目录解析，点表由 TagKit 解析。
+var configPath = ResolveConfigPath(args, "devices.json");
+if (!File.Exists(configPath))
 {
-    Build("PLC-01", 31101),
-    Build("PLC-02", 31102),
-    Build("PLC-03", 31103),
-    Build("PLC-OFFLINE", 31199),   // ← 故意配错：演示"一台坏了不影响其他"
-};
+    Console.WriteLine($"找不到配置文件：{configPath}");
+    Console.WriteLine("默认读同目录的 devices.json；也可以：dotnet run -f net8.0 -- --config 我的舰队.json");
+    return 1;
+}
 
-Console.WriteLine($"【1】舰队规模：{fleet.Count} 台（其中 PLC-OFFLINE 故意配错，用于演示健康可见）");
+using var orchestrator = new MultiDeviceOrchestrator(configPath);
+MultiDeviceOrchestrator.LogCallback = msg => Console.WriteLine($"      [编排] {msg}");
+
+var fleetSize = orchestrator.DeviceCount;
+Console.WriteLine($"【1】舰队规模：{fleetSize} 台（来自 {Path.GetFileName(configPath)}；其中 PLC-OFFLINE 故意配错，用于演示健康可见）");
 Console.WriteLine();
 
 // ── 2. 编排器统一启动 ──────────────────────────────────────────────────
-using var orchestrator = new MultiDeviceOrchestrator(fleet);
-MultiDeviceOrchestrator.LogCallback = msg => Console.WriteLine($"      [编排] {msg}");
-
 Console.WriteLine("【2】统一启动（StartAsync）");
 var started = await orchestrator.StartAsync(CancellationToken.None);
 foreach (var r in started)
@@ -52,15 +56,20 @@ foreach (var h in orchestrator.GetHealthStatus())
 }
 
 // ── 4. 逐台读数（坏的那台读不到，但**不影响**其他）───────────────────────
+// 等一轮后台采集，让缓存有值（首次连接 + 建计划 + 首轮读需要一点时间）
+await Task.Delay(1500);
 Console.WriteLine();
 Console.WriteLine("【4】逐台读同一个点位（DB1.DBD4）");
 foreach (var id in orchestrator.GetDeviceIds())
 {
     try
     {
-        // 按「设备 + 点位」寻址读取（编排器管的设备走这个入口）
-        var v = DeviceManager.ReadByDeviceId<float>(id, "TEMP");
-        Console.WriteLine($"      {id,-14} TEMP = {v}");
+        // 按「设备 + 点位」寻址读取（编排器管的设备走这个入口）。
+        // 2.3.0 起同步版返回 DeviceResult<T>（不是裸 T）——必须看 IsSuccess。
+        var result = DeviceManager.ReadByDeviceId<float>(id, "TEMP");
+        Console.WriteLine(result.IsSuccess
+            ? $"      {id,-14} TEMP = {result.Content}"
+            : $"      {id,-14} 读取失败：{result.Message}");
     }
     catch (Exception ex)
     {
@@ -81,7 +90,7 @@ foreach (var r in stopped)
 
 Console.WriteLine();
 Console.WriteLine("══════ 完成 ══════");
-Console.WriteLine($"  舰队 {fleet.Count} 台：启动成功 {started.Count(r => r.IsSuccess)} 台，" +
+Console.WriteLine($"  舰队 {fleetSize} 台：启动成功 {started.Count(r => r.IsSuccess)} 台，" +
                   $"启动时健康 {healthyAtStart} 台。");
 Console.WriteLine("  注意：配错端口的那台**没有拖垮其他设备**，而且从健康表一眼就能看出是哪台。");
 Console.WriteLine();
@@ -90,23 +99,20 @@ Console.WriteLine();
 //   语义：**故意配错的那台不算失败**（本示例就是演示"一台坏了不影响其他"）
 //   ⇒ 只要有 ≥1 台成功即返回 0 ✓；**全部**失败才返回 1 ✓
 var successCount = started.Count(r => r.IsSuccess);
-var expectedMin = fleet.Count - 1;   // 最后一台是故意配错的
+var expectedMin = fleetSize - 1;   // 最后一台是故意配错的
 return successCount >= expectedMin ? 0 : 1;
 
-static DeviceConfig Build(string deviceId, int port)
+// 未传 --config 时：优先用输出目录里的默认配置，找不到再按当前目录回退。
+static string ResolveConfigPath(string[] args, string defaultFileName)
 {
-    var cfg = new DeviceConfig();
-    cfg.Add("Protocol", "siemens-s7");
-    cfg.Add("DeviceId", deviceId);
-    cfg.Add("DeviceIp", "127.0.0.1");
-    cfg.Add("Port", port);
-    cfg.Add("Rack", 0);
-    cfg.Add("Slot", 1);
-    cfg.Add("ReadInterval", 1000);
-    cfg.Add("Tags", new List<TagItem>
+    for (var i = 0; i < args.Length - 1; i++)
     {
-        new() { Id = "TEMP",  Address = "DB1.DBD4", DataTypeCode = "float", TagType = "M", StationNo = deviceId },
-        new() { Id = "COUNT", Address = "DB1.DBW2", DataTypeCode = "short", TagType = "M", StationNo = deviceId },
-    });
-    return cfg;
+        if (args[i].Equals("--config", StringComparison.OrdinalIgnoreCase))
+            return Path.GetFullPath(args[i + 1]);
+    }
+
+    var besideExe = Path.Combine(AppContext.BaseDirectory, defaultFileName);
+    if (File.Exists(besideExe)) return besideExe;
+
+    return Path.GetFullPath(defaultFileName);
 }

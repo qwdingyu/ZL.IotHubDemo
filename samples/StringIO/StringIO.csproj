@@ -11,4 +11,8 @@
     <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="stringio.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

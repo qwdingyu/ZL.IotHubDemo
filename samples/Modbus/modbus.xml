@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Modbus 示例的设备与点表配置
+
+  ★ 改 IP / 端口 / 点位只改这个文件，不用重新编译。
+  ★ 地址是**纯数字偏移量**（0 / 1 / 2 …），不要写 40001 这种传统编号。
+  ★ 区域由数据类型决定：bool ⇒ 线圈；short/int/float ⇒ 保持寄存器。
+-->
+<Device
+    DeviceId="MODBUS-DEMO"
+    Protocol="modbus-tcp"
+    DeviceIp="127.0.0.1"
+    Port="31502"
+    Station="1"
+    AddressStartWithZero="true">
+
+  <TagItem Id="COIL_0" Description="线圈 0（只读示例）" Address="0" DataTypeCode="bool"  TagType="M" />
+  <TagItem Id="COIL_1" Description="线圈 1（可写）"     Address="1" DataTypeCode="bool"  TagType="M" AccessMode="ReadWrite" />
+  <TagItem Id="REG_0"  Description="寄存器 0（只读）"   Address="0" DataTypeCode="short" TagType="M" />
+  <TagItem Id="REG_1"  Description="寄存器 1（可写）"   Address="1" DataTypeCode="short" TagType="M" AccessMode="ReadWrite" />
+
+</Device>

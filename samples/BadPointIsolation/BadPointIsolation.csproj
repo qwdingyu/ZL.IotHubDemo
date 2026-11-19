@@ -12,4 +12,8 @@
     <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="badpoint.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

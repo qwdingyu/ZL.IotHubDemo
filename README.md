@@ -7,6 +7,30 @@
 
 ---
 
+## 改设备 / 点表：只改配置文件，不重新编译
+
+每个示例的 **IP、端口、点表** 都在同目录的配置文件里（XML 或 JSON），
+`<TagItem>` 由 **`ZL.IotAbstraction.Tag.TagKit`** 解析（与生产环境同一套）：
+
+| 示例 | 配置文件 |
+|---|---|
+| QuickStart | `quickstart.xml` |
+| BatchRead | `batchread.xml`（也可写 `<TagItem>` 用自己的点表） |
+| Events | `events.xml` |
+| Modbus | `modbus.xml` |
+| MultiDevice | `devices.json` + `tags.json`（`fleet.json` 只给仿真器） |
+| ArrayIO | `arrayio.xml` |
+| StringIO | `stringio.xml` |
+| BadPointIsolation | `badpoint.xml` |
+| Advanced | `devices.json` + `tags.json`（`fleet.json` 只给仿真器） |
+
+```bash
+# 换一套配置运行（不用改代码、不用重新编译）
+dotnet run -f net8.0 -- --config 我的设备.xml
+```
+
+---
+
 ## 核心功能 → 看哪个示例
 
 | 核心功能 | 一句话说明 | 示例 |
@@ -16,9 +40,10 @@
 | **变化上报** | 值变了才回调你，不用自己轮询比对 | [Events](./samples/Events) |
 | **采集最小闭环** | 连上 → 读到值 → 写进去 → 读回一致 | [QuickStart](./samples/QuickStart) |
 | **多协议接入** | 换 Modbus 只改三样东西 | [Modbus](./samples/Modbus) |
-| **字符串读写** | 中文 PLC 最容易踩的 4 个坑（编码/S7 头/容量/注册）| **[StringIO](./samples/StringIO)** ⭐ |
+| **字符串读写** | 中文 PLC 最容易踩的 4 个坑（编码/S7 头/容量/代码页）| **[StringIO](./samples/StringIO)** ⭐ |
 | **数组批量** | 一次搬一批；数组读的跨 TFM 差异 | [ArrayIO](./samples/ArrayIO) |
 | **多设备编排** | 一台坏了不拖垮其他 | [MultiDevice](./samples/MultiDevice) |
+| **高级编排** | 业务壳 / 可判别读 / 诊断 / 运行时增删设备 | **[Advanced](./samples/Advanced)** ⭐ |
 
 ---
 
@@ -35,7 +60,7 @@ dotnet add package ZL.IotDriver    # 64 个协议驱动（独立插件包）
 | --- | --- |
 | `using ZL.IotHub;` + `using ZL.IotHub.Core;` | `using ZL.IotEngine.Orchestration;` |
 | `using ZL.IotHub.Notifications;` | `using ZL.IotEngine.Notifications;` |
-| `using ZL.Tag;` | **不变** ✓ |
+| `using ZL.Tag;` | `using ZL.IotAbstraction.Tag;` |
 
 > 🔴 **只装 `ZL.IotEngine` 会报** `不支持的协议类型 'siemens-s7'。可选：（空）`
 > —— 因为没有驱动包时注册表为空（**这是设计，不是缺陷**）。
@@ -45,7 +70,7 @@ dotnet add package ZL.IotDriver    # 64 个协议驱动（独立插件包）
 | 项 | 说明 |
 | --- | --- |
 | **写入需显式授权** | 点表要写入必须配 `AccessMode = AccessMode.ReadWrite`（默认只读 ✗）|
-| **GB2312 编码** | 需先触碰一次引擎入口触发注册：`_ = PlcStringWriteHelper.ResolveEncoding(null);` 之后 `Encoding.GetEncoding(936)` 才可用 ✓ |
+| **GB2312 编码** | .NET 8 默认**不带**代码页；宿主需注册 `CodePagesEncodingProvider` 后 `Encoding.GetEncoding(936)` 才可用。示例默认用 UTF-8（跨 TFM 确定） |
 
 ---
 
@@ -59,7 +84,7 @@ dotnet add package ZL.IotDriver    # 64 个协议驱动（独立插件包）
 | .NET 8 / 10 | `net8.0` / `net10.0` | ✅ 推荐；串口走 `System.IO.Ports` NuGet 包 |
 | 老框架 / 库项目 | `netstandard2.0` | ✅ 最低公约数 |
 
-> ✅ **本仓示例已改为多目标 `net8.0;net48`** ✓ —— 6 个示例源码在 net48 下**编译 0 error** ✓
+> ✅ **本仓示例已改为多目标 `net8.0;net48`** ✓ —— 全部示例源码在 net48 下**编译 0 error** ✓
 > ⚠️ `net48` 只能在 **Windows** 上运行（Linux/macOS 无 .NET Framework 运行时 ✗）
 > ```bash
 > # Windows 上跑 net48 版本（WinForm 同款运行时）
@@ -88,7 +113,7 @@ new TagItem {
 
 > ✅ **版本边界（2026-11-08）**：本节描述的"断网后 `IsConnected` 恒 `true`"缺陷
 > **已在 2.2.20 修复**（断网 ⇒ 隔离清空计划 ⇒ 明确标记断开；重连后自动恢复）。
-> **示例已升 2.2.20** ⇒ 用本仓构建的直接受益 ✓；仍 pin 2.2.19 的项目请升级。
+> **示例当前版本：2.3.0** ⇒ 用本仓构建的直接受益 ✓；仍 pin 2.2.19 的项目请升级。
 > 以下实测记录保留，作为「为什么 2.2.19 上必须用质量码」的依据 ✓。
 
 实测（2026-11-07，杀仿真器进程模拟断网，观察 60 秒）：
@@ -133,16 +158,20 @@ var online = driver.localCache.TryGetValue(key, out var tv)
 ## 字符串写入：编码必须显式指定
 
 ```csharp
-// ⚠️ 中文 PLC 现场必须用 GB2312（=936），不能用 Encoding.Default
-_ = PlcStringWriteHelper.ResolveEncoding(null);   // 先触发引擎注册代码页
-var enc = Encoding.GetEncoding(936);
-await driver.WriteStringAsync("DB1.DBB10", "中文", StringKind.S7String, 20, enc);
+// 跨 TFM 确定：用 UTF-8（S7 STRING 按字节写；中文 12 字节，容量 20 足够）
+var enc = Encoding.UTF8;
+IPlcDevice dev = driver.Device;   // 字符串读写定义在 IPlcDevice 上
+await dev.WriteStringAsync("DB1.DBB10", "中文", StringKind.S7String, 20, enc);
+
+// 若 PLC 侧固定 GB2312：宿主先注册代码页，再 GetEncoding(936)
+// Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+// var enc936 = Encoding.GetEncoding(936);
 ```
 
 | 坑 | 说明 |
 | --- | --- |
 | **`Encoding.Default` 随「运行时 + 系统区域」变化** | 它不是常量 ✗：<br>· **.NET 8/10** ⇒ **始终 UTF-8**（65001）✓【本机实测 ✓】<br>· **.NET Framework（真 Windows）** ⇒ **系统 ANSI 代码页**（中文 Windows = **936**；英文 = **1252**）⚠️【本机无真 Framework，**未实测** ✗，按 .NET 文档说明 ✓】<br>· **mono（本机实测）** ⇒ **UTF-8**（65001）✗ —— 与真 Framework **不同** ✓<br>⇒ **同一份源码在不同客户环境写出不同字节** ✗ ⇒ 必须**显式传编码** ✓ |
-| **`Encoding.GetEncoding(936)` 会抛异常** | 必须先触碰一次引擎的编码入口（`ResolveEncoding`）才会注册代码页 ✓ |
+| **`Encoding.GetEncoding(936)` 在 .NET 8 默认不可用** | .NET 8 不再内置代码页；宿主需 `Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)`（中文现场按需）✓ |
 | **`maxLength` 不能传 -1** | S7 会去读 PLC 头字段的真实容量；容量不足会明确报错（**这是正确保护**）✓ |
 | **`ReadString` 返回值含 S7 的 2 字节头** | 回读校验时必须跳过前 2 字节（`Byte0=最大长度, Byte1=实际长度`）✓ |
 

@@ -1,0 +1,44 @@
+{
+  "fleet": [
+    {
+      "DeviceId": "PLC-01",
+      "Protocol": "siemens-s7",
+      "DeviceIp": "127.0.0.1",
+      "Port": 31101,
+      "Rack": 0,
+      "Slot": 1,
+      "ReadInterval": 1000,
+      "TagFilePath": "tags.json"
+    },
+    {
+      "DeviceId": "PLC-02",
+      "Protocol": "siemens-s7",
+      "DeviceIp": "127.0.0.1",
+      "Port": 31102,
+      "Rack": 0,
+      "Slot": 1,
+      "ReadInterval": 1000,
+      "TagFilePath": "tags.json"
+    },
+    {
+      "DeviceId": "PLC-03",
+      "Protocol": "siemens-s7",
+      "DeviceIp": "127.0.0.1",
+      "Port": 31103,
+      "Rack": 0,
+      "Slot": 1,
+      "ReadInterval": 1000,
+      "TagFilePath": "tags.json"
+    },
+    {
+      "DeviceId": "PLC-OFFLINE",
+      "Protocol": "siemens-s7",
+      "DeviceIp": "127.0.0.1",
+      "Port": 31199,
+      "Rack": 0,
+      "Slot": 1,
+      "ReadInterval": 1000,
+      "TagFilePath": "tags.json"
+    }
+  ]
+}

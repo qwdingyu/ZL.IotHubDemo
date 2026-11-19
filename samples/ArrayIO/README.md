@@ -21,6 +21,9 @@ plcsim --protocols siemens-s7 --ports s7=31002 --headless --stay-alive --auto-st
 dotnet run --project samples/ArrayIO/ArrayIO.csproj -f net8.0
 ```
 
+> 🔴 设备/点表在 [`arrayio.xml`](./arrayio.xml) 里：`ARR` 的 `Address` / `Length`（字节数）
+> 与 `DeviceIp` / `Port` 都改这个文件；由 `TagKit` 解析，改配置不用重新编译。
+
 ## 关键输出
 
 ```

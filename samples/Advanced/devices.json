@@ -1,0 +1,15 @@
+{
+  "fleet": [
+    {
+      "DeviceId": "ADV-01",
+      "DeviceType": "ZL.IotHub.Sample.Advanced.AdvancedDevice",
+      "Protocol": "siemens-s7",
+      "DeviceIp": "127.0.0.1",
+      "Port": 31002,
+      "Rack": 0,
+      "Slot": 1,
+      "ReadInterval": 300,
+      "TagFilePath": "tags.json"
+    }
+  ]
+}

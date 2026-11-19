@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>ZL.IotHub.Sample.Advanced</AssemblyName>
+    <RootNamespace>ZL.IotHub.Sample.Advanced</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 引擎 + 驱动：业务壳/编排/诊断/可判别读都在 ZL.IotEngine -->
+    <PackageReference Include="ZL.IotEngine" Version="$(IotEngineVersion)" />
+    <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
+  </ItemGroup>
+
+  <!-- 程序配置 + 仿真器批量配置 -->
+  <ItemGroup>
+    <Content Include="devices.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="tags.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="runtime-add.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="bad-device.xml" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="fleet.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

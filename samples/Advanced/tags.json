@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "TEMP",
+    "Description": "温度（float，示例会写入 12.5）",
+    "Address": "DB1.DBD4",
+    "DataTypeCode": "float",
+    "TagType": "M",
+    "AccessMode": "ReadWrite"
+  },
+  {
+    "Id": "COUNT",
+    "Description": "计数（short，可写）",
+    "Address": "DB1.DBW2",
+    "DataTypeCode": "short",
+    "TagType": "M",
+    "AccessMode": "ReadWrite"
+  }
+]

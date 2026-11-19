@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ArrayIO 示例的设备与点表配置
+
+  ★ 改 IP / 端口 / 数组地址 / 长度只改这个文件，不用重新编译。
+  ★ ARR 的 Length 是**字节数**：8 个 short ⇒ 16。
+-->
+<Device
+    DeviceId="ARR-DEVICE"
+    Protocol="siemens-s7"
+    DeviceIp="127.0.0.1"
+    Port="31002"
+    Rack="0"
+    Slot="1">
+
+  <TagItem Id="ARR" Description="8 个连续 short（16 字节）" Address="DB2.DBW0" DataTypeCode="short" Length="16" TagType="M" AccessMode="ReadWrite" />
+
+</Device>

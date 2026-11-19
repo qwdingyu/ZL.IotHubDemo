@@ -8,4 +8,7 @@
     <PackageReference Include="ZL.IotEngine" Version="$(IotEngineVersion)" />
     <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="arrayio.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

@@ -12,4 +12,9 @@
     <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
   </ItemGroup>
 
+  <!-- 设备配置：复制到输出目录 -->
+  <ItemGroup>
+    <Content Include="batchread.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

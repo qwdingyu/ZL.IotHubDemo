@@ -1,0 +1,6 @@
+{
+  "devices": [
+    { "name": "ADV-01", "protocol": "s7", "port": 31002, "options": { "model": "S7_1200", "station": 0 } },
+    { "name": "ADV-02", "protocol": "s7", "port": 31003, "options": { "model": "S7_1200", "station": 0 } }
+  ]
+}

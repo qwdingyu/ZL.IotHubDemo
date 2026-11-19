@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  运行时新增设备（AddDeviceAsync）的配置
+
+  ★ 改 IP / 端口 / 点表只改这个文件，不用重新编译。
+  ★ TagFilePath 相对本文件所在目录解析（由编排器负责）。
+-->
+<Device
+    DeviceId="ADV-02"
+    Protocol="siemens-s7"
+    DeviceIp="127.0.0.1"
+    Port="31003"
+    Rack="0"
+    Slot="1"
+    ReadInterval="300"
+    TagFilePath="tags.json" />

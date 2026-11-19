@@ -9,15 +9,54 @@
 //  准备（另开一个窗口）：
 //      plcsim --protocols modbus-tcp --ports modbus=31502 --headless --auto-start
 //  运行：
-//      dotnet run
+//      cd samples/Modbus && dotnet run -f net8.0
+//
+//  🔴 设备 IP/端口/点表在 modbus.xml 里：改文件不用重新编译。
 // ═══════════════════════════════════════════════════════════════════════
 
+using System.Xml.Linq;
 using ZL.IotEngine.Orchestration;
 using ZL.IotAbstraction.Tag;
 
-var host = GetArg(args, "--ip", "127.0.0.1");
-var port = int.TryParse(GetArg(args, "--port", "31502"), out var p) ? p : 31502;
-const string DeviceId = "MODBUS-DEMO";
+// ── 1. 从 XML 读设备与点表（TagKit 是生产环境同一套解析器）──────────────
+var configPath = ResolveConfigPath(args, "modbus.xml");
+if (!File.Exists(configPath))
+{
+    Console.WriteLine($"找不到配置文件：{configPath}");
+    Console.WriteLine("默认读同目录的 modbus.xml；也可以：dotnet run -f net8.0 -- --config 我的设备.xml");
+    return 1;
+}
+
+var root = XElement.Load(configPath);
+if (root.Name != "Device")
+{
+    Console.WriteLine($"配置文件根节点应为 <Device>，实际是 <{root.Name}>：{configPath}");
+    return 1;
+}
+
+var cfg = new DeviceConfig();
+foreach (var attr in root.Attributes())
+{
+    cfg.Add(attr.Name.LocalName, attr.Value);
+}
+
+var tags = TagKit.LoadTags(configPath, out var tagDiag);
+if (tags.Count == 0)
+{
+    Console.WriteLine($"点表没有加载出任何点位：{configPath}");
+    Console.WriteLine($"{tagDiag.Outcome}：{tagDiag.Message}");
+    return 1;
+}
+
+var deviceId = cfg.Get<string>("DeviceId", "MODBUS-DEMO");
+foreach (var tag in tags.Values)
+{
+    if (string.IsNullOrWhiteSpace(tag.StationNo)) tag.StationNo = deviceId;
+}
+cfg.Add("Tags", tags);
+
+var host = cfg.Get<string>("DeviceIp", "127.0.0.1");
+var port = cfg.Get<int>("Port", 31502);
 
 Console.WriteLine();
 Console.WriteLine("══════ ZL.IotHub 示例：Modbus TCP ══════");
@@ -29,22 +68,6 @@ Console.WriteLine("══════ ZL.IotHub 示例：Modbus TCP ════
 //    · **不要写 COIL1 / HR100 这种前缀写法**，原生驱动不识别。
 //    · **区域由数据类型决定**：bool ⇒ 线圈；short/int/float ⇒ 保持寄存器。
 //      所以下面 COIL_1 与 REG_1 用的是同一个数字地址 1，但互不干扰。
-var tags = new List<TagItem>
-{
-    new() { Id = "COIL_0", Address = "0", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId },
-    new() { Id = "COIL_1", Address = "1", DataTypeCode = "bool",  TagType = "M", StationNo = DeviceId, AccessMode = AccessMode.ReadWrite },
-    new() { Id = "REG_0",  Address = "0", DataTypeCode = "short", TagType = "M", StationNo = DeviceId },
-    new() { Id = "REG_1",  Address = "1", DataTypeCode = "short", TagType = "M", StationNo = DeviceId, AccessMode = AccessMode.ReadWrite },
-};
-
-var cfg = new DeviceConfig();
-cfg.Add("Protocol", "modbus-tcp");
-cfg.Add("DeviceId", DeviceId);
-cfg.Add("DeviceIp", host);
-cfg.Add("Port", port);
-cfg.Add("Station", (byte)1);              // 站号
-cfg.Add("AddressStartWithZero", true);    // 地址从 0 开始（true=PLC 惯例的 0 基）
-cfg.Add("Tags", tags);
 
 using var driver = DriverFactory.Create(cfg);
 if (!driver.Connect())
@@ -53,7 +76,7 @@ if (!driver.Connect())
     Console.WriteLine($"      plcsim --protocols modbus-tcp --ports modbus={port} --headless --auto-start");
     return 1;
 }
-Console.WriteLine($"【1】已连接（{driver.GetType().Name}）");
+Console.WriteLine($"【1】已连接（{driver.GetType().Name}）  点表 {tags.Count} 个点位");
 Console.WriteLine();
 
 // ── 2. 写 → 读回（线圈与寄存器各一组）──────────────────────────────────
@@ -80,6 +103,18 @@ Console.WriteLine();
 Console.WriteLine(okAll ? "══════ 完成：Modbus 接入正常 ══════" : "══════ 有步骤失败 ══════");
 Console.WriteLine();
 return okAll ? 0 : 1;
+
+// 未传 --config 时：优先用输出目录里的默认配置，找不到再按当前目录回退。
+static string ResolveConfigPath(string[] args, string defaultFileName)
+{
+    var explicitPath = GetArg(args, "--config", string.Empty);
+    if (!string.IsNullOrWhiteSpace(explicitPath)) return Path.GetFullPath(explicitPath);
+
+    var besideExe = Path.Combine(AppContext.BaseDirectory, defaultFileName);
+    if (File.Exists(besideExe)) return besideExe;
+
+    return Path.GetFullPath(defaultFileName);
+}
 
 static string GetArg(string[] args, string name, string fallback)
 {

@@ -28,6 +28,9 @@ cd samples/Events && dotnet run
 
 示例会**主动改值**来触发回调（真实场景里是设备自己变）。
 
+> 🔴 设备/点表在 [`events.xml`](./events.xml) 里（`DeviceIp` / `Port` / `<TagItem>`），
+> 由 `TagKit` 解析；改配置不用重新编译。`COUNT` 显式 `AccessMode="ReadWrite"`，否则示例写不进去。
+
 ## 关键代码
 
 ```csharp

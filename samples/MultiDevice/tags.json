@@ -1,0 +1,16 @@
+[
+  {
+    "Id": "TEMP",
+    "Description": "温度（float）",
+    "Address": "DB1.DBD4",
+    "DataTypeCode": "float",
+    "TagType": "M"
+  },
+  {
+    "Id": "COUNT",
+    "Description": "计数（short）",
+    "Address": "DB1.DBW2",
+    "DataTypeCode": "short",
+    "TagType": "M"
+  }
+]
