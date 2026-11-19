@@ -265,7 +265,32 @@ plc.Write(address, byte[]);
 
 ---
 
-## 九、下一步
+## 九、其它协议怎么办
+
+本示例端到端实测了四种。`ZL.IotDriver` 覆盖 **64 个协议描述符**，常见族包括：
+
+| 类别 | 协议 |
+|---|---|
+| 西门子 | S7、PPI、Fetch/Write |
+| 三菱 | MC（3E/A-1E）、FX Links |
+| 欧姆龙 | FINS（TCP/UDP）、HostLink |
+| 罗克韦尔 | CIP、PCCC |
+| Modbus | TCP / UDP / RTU / ASCII / RTU-over-TCP |
+| 楼宇/仪表 | BACnet、KNX、M-Bus、DLMS、DALI、MTConnect、DNP3 |
+| 其它 | Keyence、LS、Fuji、Panasonic、Inovance、Xinje、Beckhoff ADS 等 |
+
+驱动类的**命名空间和构造参数各不相同**，但都实现 `IPlcDevice`，用法同构：
+
+```text
+new 驱动 → ConnectServer() → ReadXxx() / Write() → ConnectClose()
+```
+
+> 本示例只对四种协议做了端到端实测；其它协议的地址格式与构造参数
+> 以对应驱动类的 XML 注释为准，不要直接套用本示例的地址。
+
+---
+
+## 十、下一步
 
 - 想直接用完整采集引擎（自动重连/缓存/批量/事件） → [`../QuickStart`](../QuickStart)
 - 想看地址合并 300 → 6 → [`../BatchRead`](../BatchRead)
@@ -275,7 +300,7 @@ plc.Write(address, byte[]);
 
 ---
 
-## 十、口径
+## 十一、口径
 
 - 本文所有“实测”均指 **macOS + PlcSimulator 2.2.14 + ZL.IotDriver 2.3.0**；
 - 真机行为可能与仿真器不同，**以真机为准**；
