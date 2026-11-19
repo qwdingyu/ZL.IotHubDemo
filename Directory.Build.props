@@ -21,5 +21,7 @@
          （IsConnected 恒 true，见 README「质量码」节与主仓 docs/600 A-91~94）；
          升级后 8 个示例全部跑在可信版本上 ✓ -->
     <IotEngineVersion>2.3.0</IotEngineVersion>
+    <!-- SCADA/OPC UA 网关包版本（OpcUaServer 示例使用；它内部依赖 Engine/Driver 2.3.0） -->
+    <IotServerVersion>2.3.0</IotServerVersion>
   </PropertyGroup>
 </Project>

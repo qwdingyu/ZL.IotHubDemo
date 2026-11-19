@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>ZL.IotHub.Sample.OpcUaClient</AssemblyName>
+    <RootNamespace>ZL.IotHub.Sample.OpcUaClient</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 只用官方 NuGet 包：GitHub 上 clone 下来即可 restore，不依赖本仓源码 -->
+    <PackageReference Include="ZL.IotEngine" Version="$(IotEngineVersion)" />
+    <PackageReference Include="ZL.IotDriver" Version="$(IotEngineVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="opcua-sim.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="opcua-server.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="points.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

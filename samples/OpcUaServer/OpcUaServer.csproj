@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- ZL.IotHub.Server 只提供 net8.0 / net10.0，因此本示例单目标 net8.0 -->
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>ZL.IotHub.Sample.OpcUaServer</AssemblyName>
+    <RootNamespace>ZL.IotHub.Sample.OpcUaServer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 官方 NuGet 包：SignalR + REST + OPC UA 对外暴露桥全在这个包里 -->
+    <PackageReference Include="ZL.IotHub.Server" Version="$(IotServerVersion)" />
+  </ItemGroup>
+
+</Project>

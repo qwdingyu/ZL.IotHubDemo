@@ -5,6 +5,10 @@
 
 本仓库是官方示例，每个示例都能独立编译运行，可以直接拷进你的项目。
 
+> ✅ **只依赖 NuGet 2.3.0**：全部示例使用 `PackageReference`（`ZL.IotEngine` / `ZL.IotDriver` / `ZL.IotHub.Server`），
+> **没有任何 `ProjectReference`** ⇒ 在 GitHub clone 后 `dotnet restore` 即可，不需要主仓源码。
+> 版本单一真源：根目录 [`Directory.Build.props`](./Directory.Build.props) 的 `IotEngineVersion` / `IotServerVersion`。
+
 ---
 
 ## 推荐阅读顺序（不要从目录名猜）
@@ -18,10 +22,21 @@
 | 3 | [Events](./samples/Events) / [Modbus](./samples/Modbus) / [ArrayIO](./samples/ArrayIO) / [StringIO](./samples/StringIO) / [BadPointIsolation](./samples/BadPointIsolation) | **按现场问题查**：变化上报、Modbus 地址、数组、字符串编码、坏点隔离 |
 | 4 | **[MultiDevice](./samples/MultiDevice)** | **多设备故障隔离**：统一启动/健康可见/一台坏了不拖垮其他 |
 | 5 | **[Advanced](./samples/Advanced)** | **交付/运维阶段**：业务壳、可判别读、诊断快照、运行时增删设备 |
+| 6 | **[OpcUaClient](./samples/OpcUaClient)** / **[OpcUaServer](./samples/OpcUaServer)** | **OPC UA 两个方向**：PLC 是 OPC UA Server 时怎么采；普通协议采集后怎么以 OPC UA 发放 |
 
 > 只想先看“它凭什么快”？直接跳到第 2 步 [BatchRead](./samples/BatchRead)——**不需要 PLC** 就能看到 300 → 6 的合并结果。
 >
 > 每一步的 README 末尾都有“下一步”链接，可以一路点下去。
+
+### OPC UA 专题（两个方向，都覆盖）
+
+| 方向 | 场景 | 示例 |
+|---|---|---|
+| **我们做客户端** | PLC / 仿真器本身是 OPC UA Server，我们按 `ns=2;s=...` 采集 | [OpcUaClient](./samples/OpcUaClient) |
+| **我们做服务端** | 普通协议（S7/Modbus/…）采集 → `ZL.IotHub.Server` 自动包装为 OPC UA，供 SCADA/MES 读取 | [OpcUaServer](./samples/OpcUaServer) |
+
+> `OpcUaServer` 还同时暴露 REST 与 SignalR，三个出口共用同一份采集结果；
+> 包含初值播种、逐设备故障隔离、质量码/时间戳保留等 Server 侧优化。
 
 ---
 
@@ -41,6 +56,8 @@
 | StringIO | `stringio.xml` |
 | BadPointIsolation | `badpoint.xml` |
 | Advanced | `devices.json` + `tags.json`（`fleet.json` 只给仿真器） |
+| OpcUaClient | `opcua-sim.xml` / `opcua-server.xml` + `points.json` |
+| OpcUaServer | `appsettings.json`（`Scada:Devices` + `OpcUa`） |
 
 ```bash
 # 换一套配置运行（不用改代码、不用重新编译）
@@ -62,6 +79,8 @@ dotnet run -f net8.0 -- --config 我的设备.xml
 | **数组批量** | 一次搬一批；数组读的跨 TFM 差异 | [ArrayIO](./samples/ArrayIO) |
 | **多设备编排** | 一台坏了不拖垮其他 | [MultiDevice](./samples/MultiDevice) |
 | **高级编排** | 业务壳 / 可判别读 / 诊断 / 运行时增删设备 | **[Advanced](./samples/Advanced)** ⭐ |
+| **OPC UA 客户端** | PLC/仿真器是 OPC UA Server 时，按 NodeId 采集 | **[OpcUaClient](./samples/OpcUaClient)** ⭐ |
+| **OPC UA 网关** | 普通协议采集后，统一以 OPC UA 对外发放（ZL.IotHub.Server） | **[OpcUaServer](./samples/OpcUaServer)** ⭐ |
 
 ---
 
@@ -197,40 +216,57 @@ await dev.WriteStringAsync("DB1.DBB10", "中文", StringKind.S7String, 20, enc);
 
 ## 5 分钟跑通
 
-**① 起一台仿真器**（没有真机也能练）：
-
-```bash
-dotnet tool install -g PlcSimulator.Cli     # 一次性
-plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
-```
-
-**② 跑示例**（另开一个窗口，进对应目录）：
+### ① 先看核心价值（**不需要 PLC / 仿真器**）
 
 ```bash
 cd samples/BatchRead
 dotnet run -f net8.0
 ```
 
-> ⚠️ **必须带 `-f`**：本仓示例是**多目标**（`net8.0;net48`）✓
-> 不写会报 `Your project targets multiple frameworks` ✗
-> （Windows 上想看 WinForm 同款运行时：`dotnet run -f net48`）
-
-**③ 你会看到**：
+你会看到：
 
 ```
-【3】采集计划（核心）
+【2】采集计划（核心）
       点位总数    : 300
       合并后块数  : 6
       请求数减少  : 98.00%
       ⇒ 原来要 300 次请求，现在约 6 次
 ```
 
+### ② 再跑最小闭环（需要仿真器）
+
+```bash
+dotnet tool install -g PlcSimulator.Cli     # 一次性
+plcsim --protocols siemens-s7 --ports s7=31002 --headless --auto-start
+```
+
+另开一个窗口：
+
+```bash
+cd samples/QuickStart
+dotnet run -f net8.0
+```
+
+> ⚠️ **多目标示例必须带 `-f`**（本仓示例是 `net8.0;net48`）✓
+> 不写会报 `Your project targets multiple frameworks` ✗
+> （Windows 上想看 WinForm 同款运行时：`dotnet run -f net48`）
+
 ---
 
 ## 换个端口 / 换个设备
 
+设备 IP / 端口 / 点表都在示例目录的 XML（或 JSON）里，**改文件后重跑即可**：
+
 ```bash
-dotnet run -f net8.0 -- --ip 192.168.1.10 --port 102
+# 例如 QuickStart
+edit samples/QuickStart/quickstart.xml     # 改 DeviceIp / Port / <TagItem>
+cd samples/QuickStart && dotnet run -f net8.0
+```
+
+想用另一份配置：
+
+```bash
+dotnet run -f net8.0 -- --config ./我的设备.xml
 ```
 
 ---

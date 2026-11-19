@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  OPC UA Client 示例：连接「仿真器作为 OPC UA Server」并读写节点。
+
+  ★ 改 IP / 端口 / NodeId 只改这个文件，不用重新编译。
+  ★ 仿真器启动（plcsim 参数：protocols=opcua、ports opcua=4899、
+       points-file=points.json、headless、stay-alive、auto-start）。
+  ★ NodeId 是**字符串**：ns=2;s=opcua.temp（不是 ns=2;i=...）
+-->
+<Device
+    DeviceId="OPCUA-SIM"
+    Protocol="opcua"
+    DeviceIp="127.0.0.1"
+    Port="4899">
+
+  <TagItem Id="temp" Description="温度（可写）" Address="ns=2;s=opcua.temp" DataTypeCode="float" AccessMode="ReadWrite" />
+  <TagItem Id="count" Description="计数（只读）" Address="ns=2;s=opcua.count" DataTypeCode="ushort" />
+
+</Device>

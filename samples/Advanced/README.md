@@ -104,4 +104,5 @@ dotnet run --project samples/Advanced -f net8.0
 
 - 回到 [仓库首页](../../README.md) 按推荐顺序重看；
 - 想补基础 → [`QuickStart`](../QuickStart) / [`BatchRead`](../BatchRead)；
-- 想看多设备故障隔离 → [`MultiDevice`](../MultiDevice)。
+- 想看多设备故障隔离 → [`MultiDevice`](../MultiDevice)；
+- 想看 OPC UA 两个方向 → [`OpcUaClient`](../OpcUaClient) / [`OpcUaServer`](../OpcUaServer)。

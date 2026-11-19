@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  OPC UA Client 示例：连接「本仓 OpcUaServer 示例」暴露出来的地址空间。
+
+  ★ 先启动 samples/OpcUaServer（它用 ZL.IotHub.Server 自动把 S7 采集数据暴露为 OPC UA）。
+  ★ 节点规则：ns=2;s=tag.<设备>.<点位>（见 Server 启动日志）。
+-->
+<Device
+    DeviceId="OPCUA-SERVER"
+    Protocol="opcua"
+    DeviceIp="127.0.0.1"
+    Port="4840">
+
+  <TagItem Id="Temperature" Description="温度" Address="ns=2;s=tag.PLC001.Temperature" DataTypeCode="float" />
+  <TagItem Id="Pressure" Description="压力" Address="ns=2;s=tag.PLC001.Pressure" DataTypeCode="float" />
+  <TagItem Id="Count" Description="计数" Address="ns=2;s=tag.PLC001.Count" DataTypeCode="short" />
+  <TagItem Id="Run" Description="运行状态" Address="ns=2;s=tag.PLC001.Run" DataTypeCode="bool" />
+  <TagItem Id="Setpoint" Description="设定值（OPC UA 侧只读；写入走 REST batch-write）" Address="ns=2;s=tag.PLC001.Setpoint" DataTypeCode="float" />
+
+</Device>
